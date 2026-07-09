@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import Login from './Login.jsx'
+import Login from './pages/Login.jsx'
 import{BrowserRouter , Routes , Route} from "react-router-dom";
-import Signup from "./Signup.jsx";
+import Signup from "./pages/Signup.jsx";
 
 function App() {
   const[darkMode , setdarkMode]= useState(false);
