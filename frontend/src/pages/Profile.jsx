@@ -13,8 +13,8 @@ const stamps = [
 
 const journeys = [
     {
-        title: "Jaipur",
-        image: "https://images.unsplash.com/photo-1603262110263-fb0112e7cc33?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        title: "Agra",
+        image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
         title: "Goa",
@@ -38,8 +38,8 @@ function Profile() {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        const rotateX = (rect.height / 2 - y) / 20;
-        const rotateY = (x - rect.width / 2) / 20;
+        const rotateX = (rect.height / 2 - y) / 40;
+        const rotateY = (x - rect.width / 2) / 40;
         card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     }
 
@@ -70,15 +70,18 @@ function Profile() {
                         </section>
 
                         <div className='grid grid-cols-2 gap-4'>
-                            <StatCard value="7" label="Stats" />
+                            <StatCard value="7" label="States" />
                             <StatCard value="69" label="Cites" />
                         </div>
 
-                        <div className="bg-tertiary p-8 rounded-[2.5rem] text-white shadow-2xl flex items-center gap-6">
-                            <div className="w-24 h-24 shrink-0 rounded-full bg-primary-container flex items-center justify-center">
-                                <span className="material-symbols-outlined text-5xl">military_tech</span>
+                        <div className="group relative overflow-hidden bg-gradient-to-br from-tertiary to-tertiary-dark p-8 rounded-[2.5rem] text-white flex items-center gap-6 shadow-warm-lg transition-all duration-500">
+
+                            <div className='absolute inset-0 bg-gradient-to-r from-transparent via-amber-300/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out' />
+
+                            <div className="w-32 h-32 shrink-0 rounded-full bg-primary-container flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-amber-300 group-hover:to-amber-500 group-hover:shadow-[0_0_25px_rgba(251,191,36,0.6)] transition-all duration-1000">
+                                <span className="material-symbols-outlined text-9xl">military_tech</span>
                             </div>
-                            <div>
+                            <div className='relative'>
                                 <h3 className="font-display text-xl font-bold mb-1">Voyager Zenith</h3>
                                 <p className="text-sm opacity-80">
                                     You've reached the highest tier of Indian exploration. Enjoy
@@ -95,7 +98,7 @@ function Profile() {
                             ref={passportRef}
                             onMouseMove={handlePassportMouseMove}
                             onMouseLeave={handlePassportMouseLeave}
-                            className='relative w-full max-w-[500px] aspect-3/4 bg-tertiary rounded-4xl shadow-2xl overflow-hidden p-10 flex flex-col justify-between text-white'
+                            className='relative w-full max-w-[500px] aspect-3/4 bg-gradient-to-br from-tertiary to-tertiary-dark rounded-4xl shadow-warm-lg overflow-hidden p-10 flex flex-col justify-between text-white'
                             style={{ transition: 'transform 0.4s ease-out'}}
                         >
 
@@ -132,6 +135,26 @@ function Profile() {
                 </div>
 
                 {/* Journeys grid */}
+                <section className='mt-section-gap'>
+                    <h2 className='font-display text-3xl font-bold mb-8'>Curated Journeys</h2>
+                    <div className='grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-gutter h-auto md:h-[600px]'>
+                            
+                            <JourneyCard 
+                                title="The Jaipur Retrospect"
+                                badge="Featured Trip"
+                                subtitle="3 Days · Heritage, Royal Cuisine & Culture"
+                                image="https://images.unsplash.com/photo-1603262110263-fb0112e7cc33?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                className='md:col-span-2 md:row-span-2'
+                            />
+                            <JourneyCard 
+                                title={journeys[0].title}
+                                image={journeys[0].image}
+                                className='md:col-span-2'
+                            />
+                            <JourneyCard title={journeys[1].title} image={journeys[1].image} />
+                            <JourneyCard title={journeys[2].title} image={journeys[2].image} />
+                    </div>
+                </section>
             </main>
         </div>
     );

@@ -15,6 +15,7 @@
   --color-secondary: #4e6447;
   --color-secondary-container: #d0eac4;
   --color-tertiary: #276868;
+  --color-tertiary-dark: #163f3f;
   --color-tertiary-container: #629f9f;
  
   --font-display: "Playfair Display", serif;
@@ -24,4 +25,6 @@
   --spacing-margin-mobile: 20px;
   --spacing-gutter: 24px;
   --spacing-section-gap: 80px;
+
+  --shadow-warm-lg: 8px 20px 40px -8px rgba(43, 38, 32, 0.4);
 }
