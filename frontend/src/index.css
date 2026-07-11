@@ -5,9 +5,11 @@
   --color-surface: #fff8f4;
   --color-surface-container: #f7ece2;
   --color-surface-container-high: #f1e6dd;
+  --color-surface-container-highest: #ebe1d7;
   --color-on-surface: #1f1b15;
   --color-on-surface-variant: #57423b;
   --color-outline: #8a726a;
+  --color-outline-variant: #dec0b7;
   --color-primary: #a23f1a;
   --color-on-primary: #ffffff;
   --color-primary-container: #e8734a;
@@ -20,9 +22,39 @@
  
   --font-display: "Playfair Display", serif;
   --font-body: Inter, sans-serif;
+
+  --text-display-lg: 64px;
+  --text-display-lg--line-height: 72px;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-lg--font-weight: 700;
+
+  --text-display-md: 48px;
+  --text-display-md--line-height: 56px;
+  --text-display-md--letter-spacing: -0.01em;
+  --text-display-md--font-weight: 700;
+
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 32px;
+  --text-headline-md--font-weight: 600;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 24px;
+
+  --text-label-lg: 14px;
+  --text-label-lg--line-height: 20px;
+  --text-label-lg--letter-spacing: 0.05em;
+  --text-label-lg--font-weight: 600;
+
+  --text-label-md: 12px;
+  --text-label-md--line-height: 16px;
+  --text-label-md--font-weight: 500;
  
   --spacing-margin-desktop: 64px;
   --spacing-margin-mobile: 20px;
+  --spacing-container-max: 1280px;
   --spacing-gutter: 24px;
   --spacing-section-gap: 80px;
 
