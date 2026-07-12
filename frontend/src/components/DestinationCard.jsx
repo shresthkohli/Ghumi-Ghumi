@@ -18,12 +18,12 @@ function DestinationCard({ destination, featured=false }) {
 
         return (
 
-            <div className="lg:col-span-2 group relative h-[500px] rounded-[2.5rem] overflow-hidden shadow-2xl">
+            <div className="lg:col-span-2 group relative h-125 rounded-[2.5rem] overflow-hidden shadow-2xl">
                 <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                     style={{ backgroundImage: `url('${imageUrl}')` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-on-surface/90 via-on-surface/20 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-on-surface/90 via-on-surface/20 to-transparent" />
 
                 <div className="absolute bottom-0 left-0 p-10 w-full flex flex-col md:flex-row justify-between items-end gap-6">
                     <div className="max-w-xl">

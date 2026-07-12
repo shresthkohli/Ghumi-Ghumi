@@ -85,8 +85,8 @@ function Destinations() {
 
                 <section className="grow">
                     <div className="flex justify-between items-center mb-8">
-                        <span className="font-body text-body-md text-on-surface-variant">
-                            <span className="font-bold text-on-surface">
+                        <span className="font-body text-body-md text-primary-container z-10">
+                            <span className="font-bold text-on-primary">
                                 {filteredDestinations.length}
                             </span>{" "}
                             results found
