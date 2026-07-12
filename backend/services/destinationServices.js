@@ -1,9 +1,10 @@
 import destinationRepositories from "../repositories/destinationRepositories.js";
 
-async function getAllDestinationsService() {
-    const destinations = await destinationRepositories.getAllDestinationsRepository();
+async function getAllDestinationsService(query) {
 
-    return destinations;
+    return await destinationRepositories
+        .getAllDestinationsRepository(query);
+
 }
 
 export default {
