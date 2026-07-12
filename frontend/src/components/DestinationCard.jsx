@@ -7,11 +7,11 @@ function DestinationCard({ destination, featured=false }) {
         city,
         country,
         description,
-        image_url,
+        imageUrl,
         category,
-        best_time_to_visit,
-        avg_rating,
-        budget_category,
+        bestTimeToVisit,
+        avgRating,
+        budgetCategory,
     } = destination;
 
     if (featured) {
@@ -21,7 +21,7 @@ function DestinationCard({ destination, featured=false }) {
             <div className="lg:col-span-2 group relative h-[500px] rounded-[2.5rem] overflow-hidden shadow-2xl">
                 <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: `url(${image_url})` }}
+                    style={{ backgroundImage: `url('${imageUrl}')` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-on-surface/90 via-on-surface/20 to-transparent" />
 
@@ -54,13 +54,16 @@ function DestinationCard({ destination, featured=false }) {
                             >
                                 star
                             </span>
-                            {avg_rating}
+                            {avgRating}
                         </span>
                         <span className="text-white/60 text-sm">
-                            {budget_category}
+                            {budgetCategory}
+                        </span>
+                        <span className="text-white/60 text-sm mr-12">
+                            Best time:
                         </span>
                         <span className="text-white/60 text-sm">
-                            Best time: {best_time_to_visit}
+                            {bestTimeToVisit}
                         </span>
                         <button className="mt-4 bg-white text-on-surface px-8 py-3 rounded-full font-body text-label-lg hover:bg-primary-fixed transition-colors">
                             Explore Destination
@@ -77,7 +80,7 @@ function DestinationCard({ destination, featured=false }) {
         <div className="group relative h-105 rounded-4xl overflow-hidden shadow-xl transition-all duration-500 hover:shadow-2xl">
             <div 
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                style={{ backgroundImage: `url(${image_url})` }}
+                style={{ backgroundImage: `url('${imageUrl}')` }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-on-surface/90 via-transparent to-transparent" />
 
@@ -97,7 +100,7 @@ function DestinationCard({ destination, featured=false }) {
                 </p>
                 <div className="flex justify-between items-center">
                     <span className="text-white text-sm">
-                        {budget_category}
+                        {budgetCategory}
                     </span>
                     <span className="flex items-center gap-1 text-white text-sm">
                         <span
@@ -106,7 +109,7 @@ function DestinationCard({ destination, featured=false }) {
                         >
                             star
                         </span>
-                        {avg_rating}
+                        {avgRating}
                     </span>
                 </div>
             </div>
