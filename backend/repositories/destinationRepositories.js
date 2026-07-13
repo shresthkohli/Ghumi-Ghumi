@@ -22,26 +22,114 @@ function mapDestination(row) {
     };
 }
 
-async function getAllDestinationsRepository() {
-    const result = await pool.query(
-        `
-        SELECT
-            id,
-            name,
-            city,
-            country,
-            image_url,
-            category,
-            average_rating,
-            best_time_to_visit,
-            weather,
-            budget_category
+async function getAllDestinationsRepository(query) {
+
+    let sql = `
+        SELECT *
         FROM destinations
+    `;
+
+    const conditions = [];
+
+    const values = [];
+
+    if (query.search) {
+
+        const placeholder = `$${values.length + 1}`;
+
+        conditions.push(`
+            (
+                LOWER(name) LIKE LOWER(${placeholder})
+                OR LOWER(city) LIKE LOWER(${placeholder})
+                OR LOWER(country) LIKE LOWER(${placeholder})
+                OR LOWER(category) LIKE LOWER(${placeholder})
+            )
+        `);
+
+        values.push(`%${query.search}%`);
+
+    }
+
+    if (query.name) {
+
+        conditions.push(
+            `LOWER(name) = LOWER($${values.length + 1})`
+        );
+
+        values.push(query.name);
+
+    }
+
+    if (query.city) {
+
+        conditions.push(
+            `LOWER(city) = LOWER($${values.length + 1})`
+        );
+
+        values.push(query.city);
+
+    }
+
+    if (query.country) {
+
+        conditions.push(
+            `LOWER(country) = LOWER($${values.length + 1})`
+        );
+
+        values.push(query.country);
+
+    }
+
+    if (query.category) {
+
+        conditions.push(
+            `LOWER(category) = LOWER($${values.length + 1})`
+        );
+
+        values.push(query.category);
+
+    }
+
+    if (query.budget) {
+
+        conditions.push(
+            `LOWER(budget_category) = LOWER($${values.length + 1})`
+        );
+
+        values.push(query.budget);
+
+    }
+
+    if (query.weather) {
+
+        conditions.push(
+            `LOWER(weather) LIKE LOWER($${values.length + 1})`
+        );
+
+        values.push(`%${query.weather}%`);
+
+    }
+
+    if (conditions.length > 0) {
+
+        sql += `
+            WHERE
+            ${conditions.join("\nAND\n")}
+        `;
+
+    }
+
+    sql += `
         ORDER BY average_rating DESC;
-        `
+    `;
+
+    const result = await pool.query(
+        sql,
+        values
     );
 
     return result.rows.map(mapDestination);
+
 }
 
 export default {
