@@ -5,6 +5,9 @@
   --color-surface: #fff8f4;
   --color-surface-container: #f7ece2;
   --color-surface-container-high: #f1e6dd;
+  --color-on-surface: #1f1b15;
+  --color-on-surface-variant: #57423b;
+  --color-outline: #8a726a;
   --color-surface-container-highest: #ebe1d7;
   --color-on-surface: #1f1b15;
   --color-on-surface-variant: #57423b;
@@ -22,6 +25,11 @@
  
   --font-display: "Playfair Display", serif;
   --font-body: Inter, sans-serif;
+ 
+  --spacing-margin-desktop: 64px;
+  --spacing-margin-mobile: 20px;
+  --spacing-gutter: 24px;
+  --spacing-section-gap: 80px;
 
   --text-display-lg: 64px;
   --text-display-lg--line-height: 72px;
