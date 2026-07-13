@@ -1,4 +1,4 @@
-import JourneyCard from "./JourneyCard.jsx";
+import JourneyCard from "./JourneyCard-discover.jsx";
 import {ArrowRight} from "lucide-react";
 
 function FeaturedJourneys() {
