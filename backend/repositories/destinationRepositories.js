@@ -6,6 +6,7 @@ function mapDestination(row) {
     }
 
     return {
+        id: row.id,
         name: row.name,
         city: row.city,
         country: row.country,

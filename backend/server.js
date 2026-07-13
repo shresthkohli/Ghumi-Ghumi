@@ -8,6 +8,7 @@ import pool from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import destinationRoutes from "./routes/destinationRoutes.js"
+import itineraryRoutes from "./routes/itineraryRoutes.js";
 import errorHandler from "./middlewares/errorHandler.js";
 
 dotenv.config();
@@ -33,6 +34,7 @@ app.use(express.static("public"));
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/destinations", destinationRoutes);
+app.use("/api/itineraries", itineraryRoutes);
 
 //Basic GET request
 app.get("/", (req, res) => {
