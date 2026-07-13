@@ -1,40 +1,59 @@
-import { NavLink } from "react-router-dom";
-import { FiSearch } from "react-icons/fi";
+import {useState} from "react";
+import {Search} from "lucide-react";
+import {NavLink} from "react-router-dom";
 
 function Navbar()
 {
+    const links = [
+  { name: "Discover", path: "/discover" },
+  { name: "Itineraries", path: "/itineraries" },
+  { name: "Destinations", path: "/destinations" },
+  { name: "Guides", path: "/guides" },
+];
+     const [active, setActive] = useState(0);
     return(<>
-    <nav className="bg-amber-100">
-        <div className=" py-4 flex items-center justify-between gap-8 px-6 md:px-10 ">
-            <h1 className="text-5xl ml-12 mt-4 font-serif text-amber-800 font-bold tracking-tighter ">Wanderly</h1>
-            <ul className="flex gap-6 md:gap-8 lg:gap-12 bg-amber-50 rounded-b-lg">
-                <li className="hover:font-bold">
-                <NavLink to="/discover" className={({isActive}) => isActive ? 
-                "text-orange-500 underline underline-offset-8 decoration-2 font-bold" : "text-black"}>
-                Discover</NavLink></li>
-
-                <li className="hover:font-bold">
-                <NavLink to="/itineraries" className={({isActive}) => isActive ? 
-                "text-orange-500 underline underline-offset-8 decoration-2 font-bold" : "text-black"}
-                >Itineraries</NavLink></li>
-
-                <li className="hover:font-bold">
-                <NavLink to="/destinations" className={({isActive}) => isActive ? 
-                "text-orange-500 underline underline-offset-8 decoration-2 font-bold" : "text-black"}>
-                Destinations</NavLink></li>
-
-                <li className="hover:font-bold">
-                <NavLink to="/guides" className={({isActive}) => isActive ? 
-                "text-orange-500 underline underline-offset-8 decoration-2 font-bold" : "text-black"}>
-                Guides</NavLink></li>
-            </ul>
-            <div className="flex items-center gap-2">
-        <FiSearch className="text-gray-600 text-xl"/>
-        <input type="text" placeholder="Search destinations..." 
-        className=" w-60 border-2 border-amber-700 rounded-2xl outline-amber-700 placeholder:text-blue-700 text-center caret"></input>
-        </div>
-        </div>
-        </nav>
+   <header
+      className="flex items-center justify-between px-6 py-4 md:px-10 bg-background"
+    >
+      <span
+        className="text-3xl font-bold font-display text-primary pr-3 -ml-2 lg:mr-0 lg:text-5xl lg:ml-6"
+      >
+        Wanderly
+      </span>
+           
+           <nav className="flex items-center gap-8">
+        {links.map((link) => (
+          <NavLink
+            key={link.name}
+            to={link.path}
+             className={({ isActive }) =>
+                `font-body text-sm lg:text-xl pb-1 ${
+            isActive
+                ? "text-primary border-b-2 border-primary font-bold"
+                : "text-on-surface-variant"
+            }`
+        }
+          >
+            {link.name}
+          </NavLink>
+        ))}
+      </nav>
+              <div className="flex items-center gap-4 lg:mr-5">
+                    <Search className="text-on-surface-variant w-[18px] h-[18px] lg:w-6 lg:h-6 " />
+                    <button
+                      className=" bg-primary font-body rounded-full px-5 lg:px-16 py-2 text-sm font-semibold text-on-primary"
+                    >
+                      Plan a Trip
+                    </button>
+                    <div
+                      className="h-9 w-9 rounded-full bg-cover bg-center"
+                      style={{
+                        backgroundImage:
+                          "url(https://picsum.photos/seed/wanderly-avatar/80/80)",
+                      }}
+                    />
+                  </div>
+                </header>
     </>
     );
 }
