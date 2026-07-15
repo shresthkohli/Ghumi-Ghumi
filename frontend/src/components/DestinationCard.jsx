@@ -1,4 +1,5 @@
 // Card that shows destination, pass featured if card needed to be a hero card
+import { Link } from "react-router-dom";
 
 function DestinationCard({ destination, featured=false }) {
 
@@ -77,6 +78,8 @@ function DestinationCard({ destination, featured=false }) {
 
     return (
 
+        <Link to={`/destinations/${destination.id}`}>
+
         <div className="group relative h-105 rounded-4xl overflow-hidden shadow-xl transition-all duration-500 hover:shadow-2xl">
             <div 
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
@@ -114,6 +117,8 @@ function DestinationCard({ destination, featured=false }) {
                 </div>
             </div>
         </div>
+
+        </Link>
     )
 }
 
