@@ -28,6 +28,31 @@ const createItineraryValidation = [
 
 ];
 
+const updateItineraryValidation = [
+
+    body("destinationId")
+        .optional()
+        .isUUID()
+        .withMessage("Invalid destination id."),
+
+    body("title")
+        .optional()
+        .trim()
+        .notEmpty()
+        .withMessage("Title cannot be empty.")
+        .isLength({ max: 100 })
+        .withMessage("Title cannot exceed 100 characters."),
+
+    body("description")
+        .optional()
+        .trim()
+        .isLength({ max: 1000 })
+        .withMessage("Description cannot exceed 1000 characters.")
+
+];
+
+
 export default {
-    createItineraryValidation
+    createItineraryValidation,
+    updateItineraryValidation
 };
