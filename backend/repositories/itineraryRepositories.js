@@ -1,5 +1,6 @@
 import pool from "../config/db.js";
 
+
 function mapItinerary(row) {
 
     if (!row) {

@@ -3,6 +3,8 @@ import authMiddleware from "../middlewares/authMiddleware.js";
 import validateRequest from "../middlewares/validateRequest.js";
 import itineraryValidators from "../validators/itineraryValidators.js";
 import itineraryControllers from "../controllers/itineraryControllers.js"
+import activityController from "../controllers/activityController.js";
+import activityValidators from "../validators/activityValidators.js";
 
 
 const router = express.Router();
@@ -36,6 +38,16 @@ router.patch(
 router.delete(
     "/:id",
     itineraryControllers.deleteItineraryController
+);
+
+
+// ACTIVITIES SECTION
+
+router.post(
+    "/:id/activities",
+    activityValidators.createActivityValidation,
+    validateRequest,
+    activityController.createActivityController
 );
 
 
