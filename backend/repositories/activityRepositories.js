@@ -59,6 +59,51 @@ async function createActivityRepository(activity) {
 
 }
 
+async function getActivityByIdRepository(activityId) {
+    const result = await pool.query(
+        `
+        SELECT *
+        FROM activities
+        WHERE id = $1;
+        `,
+        [activityId]
+    );
+
+    return mapActivity(result.rows[0]);
+}
+
+async function updateActivityRepository(activity) {
+    const result = await pool.query(
+        `
+        UPDATE activities
+        SET
+            day_number = $1,
+            position = $2,
+            title = $3,
+            description = $4,
+            start_time = $5,
+            end_time = $6,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = $7
+        RETURNING *;
+        `,
+        [
+            activity.dayNumber,
+            activity.position,
+            activity.title,
+            activity.description,
+            activity.startTime,
+            activity.endTime,
+            activity.id
+        ]
+    );
+
+    return mapActivity(result.rows[0]);
+}
+
+
 export default {
-    createActivityRepository
+    createActivityRepository,
+    getActivityByIdRepository,
+    updateActivityRepository
 };

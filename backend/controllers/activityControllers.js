@@ -24,7 +24,30 @@ const createActivityController = asyncHandler(
     }
 );
 
+const updateActivityController = asyncHandler(
+
+    async function (req, res) {
+        const activity =
+            await activityServices
+                .updateActivityService(
+                    req.user.id,
+                    req.params.id,
+                    req.body
+                );
+
+        return res
+            .status(200)
+            .json(
+                ApiResponse.success(
+                    "Activity updated successfully.",
+                    activity
+                )
+            );
+    }
+);
+
 
 export default {
-    createActivityController
+    createActivityController,
+    updateActivityController
 };

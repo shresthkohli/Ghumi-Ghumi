@@ -3,7 +3,7 @@ import authMiddleware from "../middlewares/authMiddleware.js";
 import validateRequest from "../middlewares/validateRequest.js";
 import itineraryValidators from "../validators/itineraryValidators.js";
 import itineraryControllers from "../controllers/itineraryControllers.js"
-import activityController from "../controllers/activityController.js";
+import activityControllers from "../controllers/activityControllers.js";
 import activityValidators from "../validators/activityValidators.js";
 
 
@@ -47,7 +47,14 @@ router.post(
     "/:id/activities",
     activityValidators.createActivityValidation,
     validateRequest,
-    activityController.createActivityController
+    activityControllers.createActivityController
+);
+
+router.patch(
+    "/activities/:id",
+    activityValidators.updateActivityValidation,
+    validateRequest,
+    activityControllers.updateActivityController
 );
 
 
