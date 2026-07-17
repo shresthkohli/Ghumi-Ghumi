@@ -47,7 +47,7 @@ async function createActivityService(
                 itineraryId,
                 ...activity
             });
-    } 
+    }
     catch (error) {
         if (error.code === "23505") {
             throw new AppError(
@@ -100,10 +100,10 @@ async function updateActivityService(
         itineraryId: activity.itineraryId,
 
         dayNumber:
-            updates.dayNumber ?? activity.dayNumber,
+            activity.dayNumber,
 
         position:
-            updates.position ?? activity.position,
+            activity.position,
 
         title:
             updates.title ?? activity.title,
@@ -130,24 +130,51 @@ async function updateActivityService(
         );
     }
 
-    try {
-        return await activityRepositories
-            .updateActivityRepository(updatedActivity);
+    return await activityRepositories.updateActivityRepository(updatedActivity);
+
+}
+
+async function deleteActivityService(
+    userId,
+    activityId
+) {
+
+    const activity =
+        await activityRepositories
+            .getActivityByIdRepository(activityId);
+
+    if (!activity) {
+
+        throw new AppError(
+            "Activity not found.",
+            404,
+            "ACTIVITY_NOT_FOUND"
+        );
+
     }
-    catch (error) {
-        if (error.code === "23505") {
-            throw new AppError(
-                "Another activity already exists at this position.",
-                409,
-                "POSITION_ALREADY_EXISTS"
-            );
-        }
-        throw error;
+
+    const itinerary =
+        await itineraryRepositories
+            .getItineraryByIdRepository(activity.itineraryId);
+
+    if (itinerary.userId !== userId) {
+
+        throw new AppError(
+            "Activity not found.",
+            404,
+            "ACTIVITY_NOT_FOUND"
+        );
+
     }
+
+    await activityRepositories
+        .deleteActivityRepository(activityId);
+
 }
 
 
 export default {
     createActivityService,
-    updateActivityService
+    updateActivityService,
+    deleteActivityService
 };

@@ -101,9 +101,23 @@ async function updateActivityRepository(activity) {
     return mapActivity(result.rows[0]);
 }
 
+async function deleteActivityRepository(activityId) {
+
+    await pool.query(
+        `
+        DELETE
+        FROM activities
+        WHERE id = $1;
+        `,
+        [activityId]
+    );
+
+}
+
 
 export default {
     createActivityRepository,
     getActivityByIdRepository,
-    updateActivityRepository
+    updateActivityRepository,
+    deleteActivityRepository
 };

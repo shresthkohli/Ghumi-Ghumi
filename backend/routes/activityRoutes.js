@@ -15,4 +15,9 @@ router.patch(
     activityControllers.updateActivityController
 );
 
+router.delete(
+    "/:id",
+    activityControllers.deleteActivityController
+);
+
 export default router;

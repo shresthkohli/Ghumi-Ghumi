@@ -38,16 +38,6 @@ const createActivityValidation = [
 
 const updateActivityValidation = [
 
-    body("dayNumber")
-        .optional()
-        .isInt({ min: 1 })
-        .withMessage("Day number must be at least 1."),
-
-    body("position")
-        .optional()
-        .isInt({ min: 1 })
-        .withMessage("Position must be at least 1."),
-
     body("title")
         .optional()
         .trim()

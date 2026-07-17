@@ -46,8 +46,37 @@ const updateActivityController = asyncHandler(
     }
 );
 
+const deleteActivityController = asyncHandler(
+
+    async function (req, res) {
+
+        await activityServices
+            .deleteActivityService(
+
+                req.user.id,
+
+                req.params.id
+
+            );
+
+        return res
+            .status(200)
+            .json(
+
+                ApiResponse.success(
+                    "Activity deleted successfully.",
+                    null
+                )
+
+            );
+
+    }
+
+);
+
 
 export default {
     createActivityController,
-    updateActivityController
+    updateActivityController,
+    deleteActivityController
 };
