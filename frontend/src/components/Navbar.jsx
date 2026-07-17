@@ -1,60 +1,64 @@
-import {useState} from "react";
-import {Search} from "lucide-react";
-import {NavLink} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext.jsx";
 
-function Navbar()
-{
-    const links = [
-  { name: "Discover", path: "/discover" },
-  { name: "Itineraries", path: "/itineraries" },
-  { name: "Destinations", path: "/destinations" },
-  { name: "Guides", path: "/guides" },
-];
-     const [active, setActive] = useState(0);
-    return(<>
-   <header
-      className="flex items-center justify-between px-6 py-4 md:px-10 bg-background"
-    >
-      <span
-        className="text-3xl font-bold font-display text-primary pr-3 -ml-2 lg:mr-0 lg:text-5xl lg:ml-6"
-      >
-        Wanderly
-      </span>
-           
-           <nav className="flex items-center gap-8">
-        {links.map((link) => (
-          <NavLink
-            key={link.name}
-            to={link.path}
-             className={({ isActive }) =>
-                `font-body text-sm lg:text-xl pb-1 ${
-            isActive
-                ? "text-primary border-b-2 border-primary font-bold"
-                : "text-on-surface-variant"
-            }`
-        }
-          >
-            {link.name}
-          </NavLink>
-        ))}
-      </nav>
-              <div className="flex items-center gap-4 lg:mr-5">
-                    <Search className="text-on-surface-variant w-[18px] h-[18px] lg:w-6 lg:h-6 " />
-                    <button
-                      className=" bg-primary font-body rounded-full px-5 lg:px-16 py-2 text-sm font-semibold text-on-primary"
-                    >
-                      Plan a Trip
+function Navbar() {
+
+    const { user, loading } = useAuth();
+
+    return (
+
+        <header className="bg-surface/80 backdrop-blur-md sticky top-0 z-50 shadow-[0_20px_50px_rgba(43,38,32,0.08)]">
+            <nav className="flex justify-between items-center px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+                <Link to="/" className="font-display text-4xl font-bold text-primary tracking-tight">
+                    Wanderly
+                </Link>
+
+                <div className="hidden md:flex items-center gap-gutter font-body text-body-md">
+                    <Link className="text-on-surface-variant hover:text-primary transition-colors" to="/discover">
+                        Discover
+                    </Link>
+                    <Link className="text-on-surface-variant hover:text-primary transition-colors" to="/itineraries">
+                        Itineraries
+                    </Link>
+                    <Link className="text-on-surface-variant hover:text-primary transition-colors" to="/destinations">
+                        Destinations
+                    </Link>
+                    <Link className="text-on-surface-variant hover:text-primary transition-colors" to="/guides">
+                        Guides
+                    </Link>
+                </div>
+
+                <div className="flex items-center gap-6">
+                    <button className="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-all duration-300">
+                        search
                     </button>
-                    <div
-                      className="h-9 w-9 rounded-full bg-cover bg-center"
-                      style={{
-                        backgroundImage:
-                          "url(https://picsum.photos/seed/wanderly-avatar/80/80)",
-                      }}
-                    />
-                  </div>
-                </header>
-    </>
+
+                    {loading ? (
+                        // Session check still in flight - show a neutral placeholder instead of flashing "Log in"
+                        <div className="w-10 h-10 rounded-full bg-surface-container-high animate-pulse" />
+                    ) : user ? (
+                        <Link
+                            to="/profile"
+                            className="w-10 h-10 rounded-full border-2 border-primary overflow-hidden ring-4 ring-primary-fixed"
+                        >
+                            <img
+                                src={`https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(user.name)}`}
+                                alt={user.name}
+                                className="w-full h-full object-cover"
+                            />
+                        </Link>
+                    ) : (
+                        <Link
+                            to="/login"
+                            className="px-5 py-2 rounded-full bg-primary text-on-primary font-body text-label-lg uppercase hover:bg-primary-container transition-colors"
+                        >
+                            Log in
+                        </Link>
+                    )}
+                </div>
+            </nav>
+        </header>
     );
 }
-export default Navbar
+
+export default Navbar;

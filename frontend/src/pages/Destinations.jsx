@@ -4,8 +4,9 @@ import DestinationCard from "../components/DestinationCard";
 import FilterSidebar from "../components/FilterSidebar";
 import Pagination from "../components/Pagination";
 import { FaUnsplash } from "react-icons/fa6";
+import destinationApi from "../api/destinationApi";
 
-const RESULTS_PER_PAGE = 7;
+const RESULTS_PER_PAGE = 5;
 
 function Destinations() {
 
@@ -15,9 +16,16 @@ function Destinations() {
     const [currentPage, setCurrentPage] = useState(1);
     
     useEffect(() => {
-        const data = getDestinations();
-        setDestinations(data);
-        setIsLoading(false);
+        
+        async function get() {
+            const response = await destinationApi.getAllDestinations();
+            console.log(response);
+            console.log(Array.isArray(response));
+            setDestinations(response);
+            setIsLoading(false);
+        }
+
+        get();
     }, []);
 
     // when category button is pressed
@@ -44,15 +52,15 @@ function Destinations() {
         startIndex + RESULTS_PER_PAGE
     );
 
-    const featuredId = getFeaturedId(destinations);
+    const featuredId = "Jaipur";
 
     const featuredDestination = 
         currentPage === 1
-            ?   visibleDestinations.find((d) => d.id === featuredId)
+            ?   visibleDestinations.find((d) => d.name === featuredId)
             :   undefined;
 
     const regularDestinations = visibleDestinations.filter(
-        (d) => d.id !== featuredDestination?.id
+        (d) => d.name !== featuredDestination?.name
     );
 
     return (

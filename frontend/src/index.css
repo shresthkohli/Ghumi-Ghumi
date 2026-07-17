@@ -22,6 +22,8 @@
   --color-tertiary: #276868;
   --color-tertiary-dark: #163f3f;
   --color-tertiary-container: #629f9f;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
  
   --font-display: "Playfair Display", serif;
   --font-body: Inter, sans-serif;

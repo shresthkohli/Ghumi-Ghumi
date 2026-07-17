@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import{BrowserRouter , Routes , Route} from "react-router-dom";
+import { AuthProvider } from './context/AuthContext.jsx';
 
 // Pages
 import Login from './pages/Login.jsx'
@@ -16,18 +17,21 @@ import Navbar from './components/Navbar.jsx'
 function App() {
   const[darkMode , setdarkMode]= useState(false);
   return(<>
-  <BrowserRouter>
-   <Navbar/>
-  <Routes>
-    <Route path="/" element={<Login darkMode={darkMode} setdarkMode={setdarkMode}/>}></Route>
-    <Route path="/signup" element={<Signup darkMode={darkMode} setdarkMode={setdarkMode} />}></Route>
-    <Route path="/discover" element={<Discover />} />
-    <Route path="/itineraries" element={<Itineraries />} />
-    <Route path="/destinations" element={<Destinations />} />
-    <Route path="/guides" element={<Guides />} />
-    <Route path="/profile" element={<Profile />} />
-  </Routes>
-  </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+            <Navbar/>
+            <Routes>
+              <Route path="/" element={<Discover />} />
+              <Route path="/login" element={<Login darkMode={darkMode} setdarkMode={setdarkMode}/>}></Route>
+              <Route path="/signup" element={<Signup darkMode={darkMode} setdarkMode={setdarkMode} />}></Route>
+              <Route path="/discover" element={<Discover />} />
+              <Route path="/itineraries" element={<Itineraries />} />
+              <Route path="/destinations" element={<Destinations />} />
+              <Route path="/guides" element={<Guides />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+        </BrowserRouter>
+      </AuthProvider>
   </>);
 }
 
