@@ -1,20 +1,38 @@
-import {useState } from "react";
+import {useEffect, useState } from "react";
 import {MapPin , Calendar} from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-const warmShadow = "0 24px 48px -12px rgba(43, 38, 32, 0.15)";
 import FeaturedJourney from "../components/FeaturedJourneys";
 import Footer from "../components/Footer.jsx"
+import destinationsApi from "../api/destinationsApi.js";
+import {useGSAP} from "@gsap/react";
+import {gsap} from "gsap";
+
+const warmShadow = "0 24px 48px -12px rgba(43, 38, 32, 0.15)";
 
 function Discover()
 {
+    useGSAP(
+      () => {
+        const tl = gsap.timeline({ repeatDelay : 1 , stagger:0.08});
+        tl.from(".hero-eyebrow", { y: 16, opacity: 0, duration: 0.7 , ease: "bounce.inOut" ,} )
+          .from(".hero-heading", { y: 24, opacity: 0, duration: 0.7 }, "-=0.3")
+          .from(".hero-search", { y: 20, opacity: 0, duration: 0.6 }, "-=0.3");
+      },
+      {}
+    );
   const [dateRange , setDateRange] = useState([null , null]);
   const [startDate , endDate] = dateRange;
-
+  const [ladakh, setLadakh] = useState(null);
+  useEffect( () => {
+     const data=destinationsApi.getDestinationByName("ladakh");
+     setLadakh(data);
+    console.log(ladakh);
+  }, []);
     return(<>
     <section>
         <div className="relative inset-0 overflow-hidden md:h-[620px] h-[520px]">
-            <img src="https://images.unsplash.com/photo-1635255506105-b74adbd94026?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3MjAxN3wwfDF8c2VhcmNofDEyfHxsYWRha2h8ZW58MHx8fHwxNzgzNzg3NDg2fDA&ixlib=rb-4.1.0&q=85&q=85&fmt=jpg&crop=entropy&cs=tinysrgb&w=450" alt="mountains" className="w-full h-full object-cover">
+            <img src={ladakh?.data?.rows?.[0]?.imageUrl} alt="mountains" className="w-full h-full object-cover">
             </img>
     <div className="absolute inset-0 bg-black/30"></div>
 
@@ -26,15 +44,15 @@ function Discover()
     ></div>
 
     <div className="absolute inset-0 z-10 flex h-full flex-col items-center justify-center px-6 text-center ">
-        <h1 className="text-white mb-6 text-xl font-body font-bold">THE WORLD AWAITS</h1>
+        <h1 className=" hero-eyebrow text-white mb-6 text-xl font-body font-bold">THE WORLD AWAITS</h1>
 
-      <h1 className="text-5xl font-bold font-display leading-tight text-surface md:text-6xl lg:text-7xl ">
+      <h1 className=" hero-heading text-5xl font-bold font-display leading-tight text-surface md:text-6xl lg:text-7xl ">
         Curated Expeditions for <br></br>
         the Discerning Explorer
       </h1>
 
       <div
-          className="mt-8 flex w-full max-w-xl items-center gap-3 rounded-full bg-white/50 px-6 py-6 backdrop-blur-sm "
+          className=" hero-search mt-8 flex w-full max-w-xl items-center gap-3 rounded-full bg-white/50 px-6 py-6 backdrop-blur-sm "
           style={{ boxShadow: warmShadow }}
         >
         <div className=" ml-15 flex flex-1 items-center gap-2 px-3">

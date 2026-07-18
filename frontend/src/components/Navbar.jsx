@@ -1,9 +1,22 @@
-import {useState} from "react";
+import {useState , useRef} from "react";
 import {Search} from "lucide-react";
 import {NavLink} from "react-router-dom";
+import {useGSAP} from "@gsap/react";
+import {gsap} from "gsap";
 
 function Navbar()
 {
+  const navRef = useRef(null);
+    useGSAP(
+        () => {
+          gsap.from(navRef.current, {
+            y: -20,
+            opacity: 0,
+            duration: 1,
+            ease: "power1.inOut",
+          });
+        },
+      );
     const links = [
   { name: "Discover", path: "/discover" },
   { name: "Itineraries", path: "/itineraries" },
@@ -11,8 +24,11 @@ function Navbar()
   { name: "Guides", path: "/guides" },
 ];
      const [active, setActive] = useState(0);
+     const[search , setSearch]=useState("");
+     const[destinations,setDestinations]=useState([]);
     return(<>
    <header
+      ref={navRef}
       className="flex items-center justify-between px-6 py-4 md:px-10 bg-background"
     >
       <span
@@ -41,9 +57,9 @@ function Navbar()
               <div className="flex items-center gap-4 lg:mr-5">
                     <Search className="text-on-surface-variant w-[18px] h-[18px] lg:w-6 lg:h-6 " />
                     <button
-                      className=" bg-primary font-body rounded-full px-5 lg:px-16 py-2 text-sm font-semibold text-on-primary"
+                      className=" bg-primary font-body rounded-full px-2 lg:px-5 py-2 placeholder:text-sm font-semibold text-on-primary text-center"
                     >
-                      Plan a Trip
+                      Search for the trip
                     </button>
                     <div
                       className="h-9 w-9 rounded-full bg-cover bg-center"
