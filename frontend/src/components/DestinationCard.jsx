@@ -1,3 +1,5 @@
+const API_URL = import.meta.env.VITE_API_URL ?? "";
+
 // Card that shows destination, pass featured if card needed to be a hero card
 
 function DestinationCard({ destination, featured=false }) {
@@ -21,7 +23,7 @@ function DestinationCard({ destination, featured=false }) {
             <div className="lg:col-span-2 group relative h-125 rounded-[2.5rem] overflow-hidden shadow-2xl">
                 <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: `url(${imageUrl})` }}
+                    style={{ backgroundImage: `url(${API_URL}${imageUrl})` }}
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-on-surface/90 via-on-surface/20 to-transparent" />
 
@@ -80,7 +82,7 @@ function DestinationCard({ destination, featured=false }) {
         <div className="group relative h-105 rounded-4xl overflow-hidden shadow-xl transition-all duration-500 hover:shadow-2xl">
             <div 
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                style={{ backgroundImage: `url(${imageUrl})` }}
+                style={{ backgroundImage: `url(${API_URL}${imageUrl})` }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-on-surface/90 via-transparent to-transparent" />
 
