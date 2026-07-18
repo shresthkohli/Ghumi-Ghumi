@@ -9,7 +9,7 @@ async function me() {
 
 async function logout(credentials) {
     return apiFetch(
-        "/api/user/login",
+        "/api/user/logout",
         {
             method: "POST"
         }
@@ -17,6 +17,6 @@ async function logout(credentials) {
 }
 
 
-export default {
-    logout
+export {
+    me, logout
 };

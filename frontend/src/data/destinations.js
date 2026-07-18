@@ -122,7 +122,7 @@ const destinations = [
 
 export function getFeaturedId(list) {
     if (list.length === 0) return undefined;
-    return list.reduce((best, d) => (d.avg_rating > best.avg_rating ? d : best))
+    return list.reduce((best, d) => (d.averageRating > best.averageRating ? d : best))
     .id;
 }
 
