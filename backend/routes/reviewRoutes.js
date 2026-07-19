@@ -6,7 +6,7 @@ import reviewControllers from "../controllers/reviewControllers.js";
 
 const router = express.Router();
 
-router.use(authMiddleware);
+router.use(authMiddleware.requireLogin);
 
 router.patch(
     "/:id",

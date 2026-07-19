@@ -1,7 +1,7 @@
 import jwtUtils from "../utils/jwtUtils.js";
 import AppError from "../errors/AppError.js";
 
-function authMiddleware(req, res, next) {
+function requireLogin(req, res, next) {
 
     const token = req.cookies.token;
 
@@ -16,17 +16,14 @@ function authMiddleware(req, res, next) {
     }
 
     try {
-
         const payload =
             jwtUtils.verifyToken(token);
 
         req.user = payload;
-
         next();
-
     }
-    catch {
 
+    catch {
         next(
             new AppError(
                 "Invalid or expired token.",
@@ -34,9 +31,33 @@ function authMiddleware(req, res, next) {
                 "INVALID_TOKEN"
             )
         );
-
     }
-
 }
 
-export default authMiddleware;
+function optionalLogin(req, res, next) {
+
+    const token = req.cookies.token;
+
+    if (!token) {
+        req.user = undefined;
+        return next();
+    }
+
+    try {
+        const payload =
+            jwtUtils.verifyToken(token);
+        req.user = payload;
+        next();
+    }
+
+    catch {
+        req.user = undefined;
+        next();
+    }
+}
+
+
+export default {
+    requireLogin,
+    optionalLogin
+};

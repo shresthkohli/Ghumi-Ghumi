@@ -23,6 +23,28 @@ const getAllDestinationsController = asyncHandler(
 
 );
 
+const getDestinationByIdController = asyncHandler(
+
+    async function (req, res) {
+        const destination =
+            await destinationServices
+                .getDestinationByIdService(
+                    req.params.id,
+                    req.user?.id
+                );
+
+        return res
+            .status(200)
+            .json(
+                ApiResponse.success(
+                    "Destination fetched successfully.",
+                    destination
+                )
+            );
+    }
+);
+
 export default {
-    getAllDestinationsController
+    getAllDestinationsController,
+    getDestinationByIdController
 };

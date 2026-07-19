@@ -7,6 +7,7 @@ import authMiddleware from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
+
 router.get(
     "/",
     destinationControllers.getAllDestinationsController
@@ -14,10 +15,17 @@ router.get(
 
 router.post(
     "/:id/reviews",
-    authMiddleware,
+    authMiddleware.requireLogin,
     reviewValidators.createReviewValidation,
     validateRequest,
     reviewControllers.createReviewController
 );
+
+router.get(
+    "/:id",
+    authMiddleware.optionalLogin,
+    destinationControllers.getDestinationByIdController
+);
+
 
 export default router;

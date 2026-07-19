@@ -18,6 +18,25 @@ function mapReview(row) {
 
 }
 
+function mapDestinationReview(row) {
+
+    if (!row) {
+        return null;
+    }
+
+    return {
+        id: row.id,
+        userId: row.user_id,
+        userName: row.user_name,
+        destinationId: row.destination_id,
+        rating: row.rating,
+        review: row.review,
+        createdAt: row.created_at,
+        updatedAt: row.updated_at
+    };
+
+}
+
 async function createReviewRepository(review) {
 
     const result = await pool.query(
@@ -117,6 +136,25 @@ async function deleteReviewRepository(reviewId) {
 
 }
 
+async function getReviewsForDestinationRepository(destinationId) {
+
+    const result = await pool.query(
+        `
+        SELECT
+            reviews.*,
+            users.name AS user_name
+        FROM reviews
+        JOIN users
+            ON users.id = reviews.user_id
+        WHERE reviews.destination_id = $1
+        ORDER BY reviews.created_at DESC;
+        `,
+        [destinationId]
+    );
+
+    return result.rows.map(mapDestinationReview);
+
+}
 
 
 export default {
@@ -124,5 +162,6 @@ export default {
     updateDestinationAverageRatingRepository,
     getReviewByIdRepository,
     updateReviewRepository,
-    deleteReviewRepository
+    deleteReviewRepository,
+    getReviewsForDestinationRepository
 };

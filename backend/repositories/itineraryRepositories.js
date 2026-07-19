@@ -177,11 +177,42 @@ async function deleteItineraryRepository(itineraryId) {
 
 }
 
+async function getUserItinerariesForDestinationRepository(
+    userId,
+    destinationId
+) {
+
+    const result = await pool.query(
+        `
+        SELECT
+            id,
+            destination_id,
+            title,
+            description,
+            created_at,
+            updated_at
+        FROM itineraries
+        WHERE
+            user_id = $1
+        AND
+            destination_id = $2
+        ORDER BY created_at DESC;
+        `,
+        [
+            userId,
+            destinationId
+        ]
+    );
+
+    return result.rows.map(mapItinerary);
+}
+
 
 export default {
     createItineraryRepository,
     getAllItinerariesRepository,
     getItineraryByIdRepository,
     updateItineraryRepository,
-    deleteItineraryRepository
+    deleteItineraryRepository,
+    getUserItinerariesForDestinationRepository
 };
