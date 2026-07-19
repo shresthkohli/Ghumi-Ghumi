@@ -133,6 +133,22 @@ async function getAllDestinationsRepository(query) {
 
 }
 
+async function getDestinationByIdRepository(destinationId) {
+
+    const result = await pool.query(
+        `
+        SELECT *
+        FROM destinations
+        WHERE id = $1;
+        `,
+        [destinationId]
+    );
+
+    return mapDestination(result.rows[0]);
+}
+
+
 export default {
-    getAllDestinationsRepository
+    getAllDestinationsRepository,
+    getDestinationByIdRepository,
 };
