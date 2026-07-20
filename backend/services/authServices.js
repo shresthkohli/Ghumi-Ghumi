@@ -43,8 +43,6 @@ async function loginService(credentials) {
         );
     }
 
-    console.log(user);
-
     const passwordMatch =
         await bcrypt.compare(
             credentials.password,
@@ -59,6 +57,11 @@ async function loginService(credentials) {
         );
     }
 
+    return createLoginResponse(user);
+}
+
+function createLoginResponse(user) {
+
     const token = jwtUtils.generateToken({
         id: user.id
     });
@@ -67,9 +70,88 @@ async function loginService(credentials) {
         user,
         token
     };
+
 }
+
+async function googleLoginService(credential) {
+
+    const payload =
+        await googleAuth.verifyGoogleToken(
+            credential.trim()
+        );
+
+    if (!payload.email_verified) {
+        throw new AppError(
+            "Google email is not verified.",
+            401,
+            "EMAIL_NOT_VERIFIED"
+        );
+    }
+
+    const googleId = payload.sub;
+    const email = payload.email;
+    const name = payload.name;
+    const avatarUrl = payload.picture ?? null;
+
+    let user =
+        await authRepositories
+            .findByGoogleIdRepository(
+                googleId
+            );
+
+    if (user) {
+        return createLoginResponse(user);
+    }
+
+    user =
+        await authRepositories
+            .findByEmailRepository(
+                email
+            );
+
+    if (user) {
+
+        if (
+            user.googleId &&
+            user.googleId !== googleId
+        ) {
+
+            throw new AppError(
+                "This account is already linked to another Google account.",
+                409,
+                "GOOGLE_ACCOUNT_ALREADY_LINKED"
+            );
+
+        }
+
+        user =
+            await authRepositories
+                .linkGoogleAccountRepository(
+                    user.id,
+                    googleId,
+                    avatarUrl
+                );
+
+        return createLoginResponse(user);
+
+    }
+
+    user =
+        await authRepositories
+            .createGoogleUserRepository({
+                name,
+                email,
+                googleId,
+                avatarUrl
+            });
+
+    return createLoginResponse(user);
+
+}
+
 
 export default {
     signupService,
-    loginService
+    loginService,
+    googleLoginService
 }

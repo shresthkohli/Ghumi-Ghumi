@@ -35,7 +35,18 @@ const loginValidation = [
         .withMessage("Password is required.")
 ];
 
+const googleLoginValidation = [
+
+    body("credential")
+        .trim()
+        .notEmpty()
+        .withMessage("Google credential is required.")
+
+];
+
+
 export default {
     signupValidation,
-    loginValidation
+    loginValidation,
+    googleLoginValidation
 };

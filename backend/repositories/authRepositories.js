@@ -11,6 +11,8 @@ function mapUser(row) {
         name: row.name,
         email: row.email,
         passwordHash: row.password_hash,
+        googleId: row.google_id,
+        avatarUrl: row.avatar_url,
         createdAt: row.created_at,
         updatedAt: row.updated_at
     };
@@ -67,7 +69,82 @@ async function createUserRepository(userData) {
     return mapUser(result.rows[0]);
 }
 
+async function findByGoogleIdRepository(googleId) {
+
+    const result = await pool.query(
+        `
+        SELECT *
+        FROM users
+        WHERE google_id = $1;
+        `,
+        [googleId]
+    );
+
+    return mapUser(result.rows[0]);
+
+}
+
+async function createGoogleUserRepository(user) {
+
+    const result = await pool.query(
+        `
+        INSERT INTO users (
+            name,
+            email,
+            google_id,
+            avatar_url
+        )
+        VALUES (
+            $1,
+            $2,
+            $3,
+            $4
+        )
+        RETURNING *;
+        `,
+        [
+            user.name,
+            user.email,
+            user.googleId,
+            user.avatarUrl
+        ]
+    );
+
+    return mapUser(result.rows[0]);
+
+}
+
+async function linkGoogleAccountRepository(
+    userId,
+    googleId,
+    avatarUrl
+) {
+
+    const result = await pool.query(
+        `
+        UPDATE users
+        SET
+            google_id = $1,
+            avatar_url = $2,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = $3
+        RETURNING *;
+        `,
+        [
+            googleId,
+            avatarUrl,
+            userId
+        ]
+    );
+
+    return mapUser(result.rows[0]);
+
+}
+
+
 export default {
     findByEmailRepository,
     createUserRepository,
+    findByGoogleIdRepository,
+    createGoogleUserRepository
 };

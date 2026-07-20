@@ -37,9 +37,40 @@ const loginController = asyncHandler(
                 )
             );
     }
-)
+);
+
+const googleLoginController = asyncHandler(
+
+    async function (req, res) {
+
+        const {
+            user,
+            token
+        } = await authServices
+            .googleLoginService(
+                req.body.credential
+            );
+
+        res.cookie(
+            "token",
+            token,
+            cookieOptions
+        );
+
+        return res
+            .status(200)
+            .json(
+                ApiResponse.success(
+                    "Logged in successfully.",
+                    user
+                )
+            );
+    }
+);
+
 
 export default {
     signupController,
-    loginController
+    loginController,
+    googleLoginController
 };

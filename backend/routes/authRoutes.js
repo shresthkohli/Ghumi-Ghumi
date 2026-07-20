@@ -5,6 +5,7 @@ import validateRequest from "../middlewares/validateRequest.js";
 
 const router = express.Router();
 
+
 router.post(
     "/signup",
     authValidators.signupValidation,
@@ -18,5 +19,13 @@ router.post(
     validateRequest,
     authControllers.loginController
 );
+
+router.post(
+    "/googleLogin",
+    authValidators.googleLoginValidation,
+    validateRequest,
+    authControllers.googleLoginController
+);
+
 
 export default router;
