@@ -77,7 +77,7 @@ function Login({ darkMode, setdarkMode }) {
             ? "bg-gray-900 text-white-400 h-screen"
             : "bg-surface-container-high text-black h-screen"}`}>
             <form onSubmit={handleSubmit}
-                className={`p-10 rounded-lg ${darkMode
+                className={`p-10 rounded-2xl ${darkMode
                     ? "bg-gray-800 text-white"
                     : "bg-white text-black"
                     }`}>
@@ -98,7 +98,7 @@ function Login({ darkMode, setdarkMode }) {
                 <button
                     type="submit"
                     disabled={loading}
-                    className=" text-white px-24 my-4 py-2 text-2xl font-bold bg-gradient-to-r from-primary-container to-primary
+                    className=" text-white px-24 my-4 py-2 text-2xl font-bold rounded bg-gradient-to-r from-primary-container to-primary
             hover:from-primary hover:to-primary-container hover:scale-105 transition duration-600" onClick={handleSubmit}>
                     {loading ? "Logging in..." : "Login"}
                 </button>
@@ -110,7 +110,7 @@ function Login({ darkMode, setdarkMode }) {
                     }}
                 />
 
-                <h3 className={` font-semibold ml-5 ${darkMode ? "text-white" : "text-black"}`}>Don't have an account?
+                <h3 className={` font-semibold ml-5 pt-5 ${darkMode ? "text-white" : "text-black"}`}>Don't have an account?
                     <Link to="/signup" className={`font-semibold text-md ml-1
          hover:font-bold hover:underline ${darkMode ? "text-fuchsia-300" : "text-on-surface-variant"}`}>
                         Sign up</Link></h3>

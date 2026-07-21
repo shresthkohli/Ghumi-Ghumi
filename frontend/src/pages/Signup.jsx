@@ -85,7 +85,7 @@ function Signup({ darkMode, setdarkMode }) {
             }`}>
             <form
                 onSubmit={handleSubmit}
-                className={`p-10 rounded-lg ${darkMode
+                className={`p-10 rounded-2xl ${darkMode
                     ? "bg-gray-800 text-white"
                     : "bg-white text-black"
                     }`}>
@@ -112,7 +112,7 @@ function Signup({ darkMode, setdarkMode }) {
                 <button
                     type="submit"
                     disabled={loading}
-                    className=" text-white px-24 my-4 py-2 text-2xl font-bold bg-gradient-to-r from-primary-container to-primary
+                    className=" rounded text-white px-24 my-4 py-2 text-2xl font-bold bg-gradient-to-r from-primary-container to-primary
                 hover:from-primary hover:to-primary-container hover:scale-105 transition duration-600">
                     {loading ? "Creating account..." : "Signup"}
                 </button>
