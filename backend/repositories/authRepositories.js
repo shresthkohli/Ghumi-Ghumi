@@ -146,5 +146,6 @@ export default {
     findByEmailRepository,
     createUserRepository,
     findByGoogleIdRepository,
-    createGoogleUserRepository
+    createGoogleUserRepository,
+    linkGoogleAccountRepository
 };

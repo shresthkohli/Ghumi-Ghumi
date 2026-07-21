@@ -1,9 +1,11 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import DarkMode from "../components/DarkMode.jsx";
-import { signup } from "../api/authApi.js";
+import { signup, googleLogin } from "../api/authApi.js";
 import Toast from "../components/Toast.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
+import { GoogleLogin } from "@react-oauth/google";
+
 
 function Signup({ darkMode, setdarkMode }) {
 
@@ -16,7 +18,7 @@ function Signup({ darkMode, setdarkMode }) {
 
     const navigate = useNavigate();
 
-    const {login: setLoggedInUser} = useAuth();
+    const { login: setLoggedInUser } = useAuth();
 
     async function handleSubmit(e) {
 
@@ -48,19 +50,45 @@ function Signup({ darkMode, setdarkMode }) {
         }
     }
 
+    async function handleGoogleSuccess(
+        response
+    ) {
+
+        setError("");
+        setLoading(true);
+
+        try {
+            const response =
+                await googleLogin(
+                    response.credential
+                );
+            setLoggedInUser(response.data);
+            console.log(response);
+            navigate("/");
+        }
+        catch (error) {
+            console.log(error);
+            setError(error.message || "Something went wrong. Please try again.")
+        }
+        finally {
+            setLoading(false);
+        }
+
+    }
+
     return (<>
         <DarkMode darkMode={darkMode} setdarkMode={setdarkMode} />
         <Toast message={error} onClose={() => setError("")} />
         <div className={`flex justify-center items-center h-screen ${darkMode
-                ? "bg-gray-900 text-white"
-                : "bg-surface-container-high text-black"
+            ? "bg-gray-900 text-white"
+            : "bg-surface-container-high text-black"
             }`}>
             <form
-                onSubmit={handleSubmit} 
+                onSubmit={handleSubmit}
                 className={`p-10 rounded-lg ${darkMode
                     ? "bg-gray-800 text-white"
                     : "bg-white text-black"
-                }`}>
+                    }`}>
 
                 <h1 className={`text-4xl text-center font-bold mb-6 ${darkMode ? "text-white" : "text-on-surface-variant"}`}>Signup</h1>
 
@@ -81,15 +109,22 @@ function Signup({ darkMode, setdarkMode }) {
                     className={`mb-6 border-2  border-on-surface rounded px-11 ${darkMode ?
                         "text-white placeholder:text-gray-400" : "text-black placeholder:text-gray-600 placeholder:text-right"}`} onChange={(e) => setconfirmPassword(e.target.value)}></input> <br></br>
 
-                <button 
-                type="submit"
-                disabled={loading}
-                className=" text-white px-24 my-4 py-2 text-2xl font-bold bg-gradient-to-r from-primary-container to-primary
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className=" text-white px-24 my-4 py-2 text-2xl font-bold bg-gradient-to-r from-primary-container to-primary
                 hover:from-primary hover:to-primary-container hover:scale-105 transition duration-600">
-                    {loading ? "Creating account..." : "Signup" }
+                    {loading ? "Creating account..." : "Signup"}
                 </button>
 
-                <h3 className={` font-semibold ml-5 ${darkMode ? "text-white" : "text-black"}`}>Already have an account?
+                <GoogleLogin
+                    onSuccess={handleGoogleSuccess}
+                    onError={() => {
+                        console.log("Google Login Failed");
+                    }}
+                />
+
+                <h3 className={` font-semibold ml-5 pt-5 ${darkMode ? "text-white" : "text-black"}`}>Already have an account?
                     <Link to="/" className={`font-semibold text-md ml-1
          hover:font-bold hover:underline ${darkMode ? "text-fuchsia-300" : "text-on-surface-variant"}`}>
                         Login</Link></h3>

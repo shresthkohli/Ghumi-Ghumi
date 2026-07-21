@@ -2,6 +2,8 @@ import authRepositories from "../repositories/authRepositories.js";
 import bcrypt from "bcrypt";
 import AppError from "../errors/AppError.js";
 import jwtUtils from "../utils/jwtUtils.js"
+import { GoogleAuth } from "google-auth-library";
+import googleAuth from "../utils/googleAuth.js";
 
 const SALT_ROUNDS = 10
 

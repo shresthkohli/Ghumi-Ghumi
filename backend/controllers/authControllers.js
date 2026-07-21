@@ -54,7 +54,7 @@ const googleLoginController = asyncHandler(
         res.cookie(
             "token",
             token,
-            cookieOptions
+            COOKIE_OPTIONS
         );
 
         return res

@@ -20,7 +20,24 @@ async function signup(userData) {
     );
 }
 
+async function googleLogin(
+    credential
+) {
+
+    return apiFetch(
+        "/api/auth/googleLogin",
+        {
+            method: "POST",
+            body: JSON.stringify({
+                credential
+            })
+        }
+    );
+}
+
+
 export {
     login,
-    signup
+    signup,
+    googleLogin
 };
