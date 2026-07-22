@@ -8,7 +8,7 @@ const getAllDestinationsController = asyncHandler(
 
         const destinations =
             await destinationServices
-                .getAllDestinationsService(req.query);
+                .getAllDestinationsService(req.query, req.user?.id);
 
         return res
             .status(200)

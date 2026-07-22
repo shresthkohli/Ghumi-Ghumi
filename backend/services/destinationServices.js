@@ -2,10 +2,10 @@ import destinationRepositories from "../repositories/destinationRepositories.js"
 import reviewRepositories from "../repositories/reviewRepositories.js";
 import itineraryRepositories from "../repositories/itineraryRepositories.js";
 
-async function getAllDestinationsService(query) {
+async function getAllDestinationsService(query, userId) {
 
     return await destinationRepositories
-        .getAllDestinationsRepository(query);
+        .getAllDestinationsRepository(query, userId);
 
 }
 
@@ -16,7 +16,7 @@ async function getDestinationByIdService(
 
     const destination =
         await destinationRepositories
-            .getDestinationByIdRepository(destinationId);
+            .getDestinationByIdRepository(destinationId, userId);
 
     if (!destination) {
         throw new AppError(

@@ -10,6 +10,7 @@ const router = express.Router();
 
 router.get(
     "/",
+    authMiddleware.optionalLogin,
     destinationControllers.getAllDestinationsController
 );
 

@@ -18,21 +18,41 @@ function mapDestination(row) {
         entryRequirements: row.entry_requirements,
         averageRating: Number(row.average_rating),
         budgetCategory: row.budget_category,
+        isFavorite: row.is_favorite ?? false,
+        isVisited: row.is_visited ?? false,
         createdAt: row.created_at,
         updatedAt: row.updated_at
     };
 }
 
-async function getAllDestinationsRepository(query) {
+async function getAllDestinationsRepository(query, userId = null) {
 
     let sql = `
-        SELECT *
+        SELECT
+            destinations.*,
+
+            EXISTS(
+                SELECT 1
+                FROM favorite_destinations
+                WHERE
+                    favorite_destinations.user_id = $1
+                    AND destination_id = destinations.id
+            ) AS is_favorite,
+
+            EXISTS(
+                SELECT 1
+                FROM visited_destinations
+                WHERE
+                    visited_destinations.user_id = $1
+                    AND destination_id = destinations.id
+            ) AS is_visited
+
         FROM destinations
     `;
 
     const conditions = [];
 
-    const values = [];
+    const values = [userId];
 
     if (query.search) {
 
@@ -133,18 +153,45 @@ async function getAllDestinationsRepository(query) {
 
 }
 
-async function getDestinationByIdRepository(destinationId) {
+async function getDestinationByIdRepository(
+    destinationId,
+    userId = null
+) {
 
     const result = await pool.query(
         `
-        SELECT *
+        SELECT
+            destinations.*,
+
+            EXISTS(
+                SELECT 1
+                FROM favorite_destinations
+                WHERE
+                    favorite_destinations.user_id = $2
+                    AND favorite_destinations.destination_id = destinations.id
+            ) AS is_favorite,
+
+            EXISTS(
+                SELECT 1
+                FROM visited_destinations
+                WHERE
+                    visited_destinations.user_id = $2
+                    AND visited_destinations.destination_id = destinations.id
+            ) AS is_visited
+
         FROM destinations
-        WHERE id = $1;
+
+        WHERE
+            destinations.id = $1;
         `,
-        [destinationId]
+        [
+            destinationId,
+            userId
+        ]
     );
 
     return mapDestination(result.rows[0]);
+
 }
 
 
