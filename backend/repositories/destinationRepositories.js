@@ -149,6 +149,7 @@ async function getDestinationByIdRepository(destinationId) {
 
 
 export default {
+    mapDestination,
     getAllDestinationsRepository,
     getDestinationByIdRepository,
 };

@@ -11,6 +11,8 @@ import destinationRoutes from "./routes/destinationRoutes.js"
 import itineraryRoutes from "./routes/itineraryRoutes.js";
 import activityRoutes from "./routes/activityRoutes.js"
 import reviewRoutes from "./routes/reviewRoutes.js"
+import favoriteRoutes from "./routes/favoriteRoutes.js"
+import visitedRoutes from "./routes/visitedRoutes.js"
 import errorHandler from "./middlewares/errorHandler.js";
 
 dotenv.config();
@@ -39,6 +41,8 @@ app.use("/api/destinations", destinationRoutes);
 app.use("/api/itineraries", itineraryRoutes);
 app.use("/api/activities", activityRoutes);
 app.use("/api/reviews", reviewRoutes);
+app.use("/api/favorites", favoriteRoutes);
+app.use("/api/visited", visitedRoutes);
 
 //Basic GET request
 app.get("/", (req, res) => {
