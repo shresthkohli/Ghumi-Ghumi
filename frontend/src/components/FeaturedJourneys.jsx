@@ -1,55 +1,146 @@
 import JourneyCard from "./JourneyCard-discover.jsx";
 import {ArrowRight} from "lucide-react";
+import {useEffect,useState,useRef,useMemo} from "react";
+import destinationApi from "../api/destinationApi.js";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+const API_URL = import.meta.env.VITE_API_URL ?? "";
+gsap.registerPlugin(ScrollTrigger);
 
 function FeaturedJourneys() {
-  const journeys = [
-    {
-      image: "https://plus.unsplash.com/premium_photo-1661963054563-ce928e477ff3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3MjAxN3wwfDF8c2VhcmNofDF8fGphaXB1cnxlbnwwfHx8fDE3ODM5MTg0NDV8MA&ixlib=rb-4.1.0&q=85&q=85&fmt=jpg&crop=entropy&cs=tinysrgb&w=450",
-      tag: "Cultural Immersion",
-      title: "Jaipur",
-      days: 8,
-    },
-    {
-      image: "https://images.unsplash.com/photo-1579376254079-3a86c6cd6869?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3MjAxN3wwfDF8c2VhcmNofDh8fGFuZGFtYW4lMjBhbmQlMjBuaWNvYmFyfGVufDB8fHx8MTc4MzkxODUzM3ww&ixlib=rb-4.1.0&q=85&q=85&fmt=jpg&crop=entropy&cs=tinysrgb&w=450",
-      tag: "Coastal Retreat",
-      title: "Andaman & Nicobar",
-      days: 7,
-    },
-    {
-      image: "https://images.unsplash.com/photo-1669021820358-317111184ede?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3MjAxN3wwfDF8c2VhcmNofDd8fGppbSUyMGNvcmJldHR8ZW58MHx8fHwxNzgzOTE4NjYwfDA&ixlib=rb-4.1.0&q=85&q=85&fmt=jpg&crop=entropy&cs=tinysrgb&w=450",
-      tag: "Wildlife Adventure",
-      title: "Jim Corbett",
-      days: 5,
-    },
-  ];
+  const [destinations, setDestinations] = useState([]);
+const [isLoading, setIsLoading] = useState(true);
+const sectionRef = useRef(null);
+  useEffect(() => {
+          
+          async function get() {
+              const response = await destinationApi.getAllDestinations();
+              console.log(response);
+              console.log(Array.isArray(response));
+              setDestinations(response);
+              setIsLoading(false);
+          }
+  
+          get();
+      }, []);
 
+      const featuredJourneyNames = [
+      "Jaipur",
+      "Andaman and Nicobar Islands",
+      "Jim Corbett National Park",
+      "Munnar",
+      "Varanasi",
+      "Agra",
+      "Ladakh",
+      "Goa",
+      ];
+
+        const journeyExtras = {
+        Jaipur: {
+          days: 8,
+        },
+        "Andaman and Nicobar Islands": {
+          days: 7,
+        },
+        "Jim Corbett National Park": {
+          days: 5,
+        },
+         "Munnar":{
+          days : 9,
+         },
+         "Varanasi":{
+          days:4,
+         },
+         "Agra": {
+          days : 3,
+         },
+         "Ladakh" : {
+          days : 7,
+         },
+         "Goa" : {
+          days : 5,
+         },
+      };
+
+       const featuredDestinations = useMemo(
+          () => destinations.filter((d) => featuredJourneyNames.includes(d.name)),
+          [destinations]
+        );
+      const row1 = featuredDestinations.slice(0, 4);
+      const row2 = featuredDestinations.slice(4 ,8 );
+      const loopRow1 = [...row1, ...row1,...row1];
+      const loopRow2 = [...row2, ...row2, ...row2];
+
+      useGSAP(() => {
+      const row1Element = document.querySelector(".row1");
+      const row2Element = document.querySelector(".row2");
+      const row1Distance = row1Element.scrollWidth / 3;
+      const row2Distance = row2Element.scrollWidth / 3;
+      gsap.set(row2Element, { x: -row2Distance });
+        gsap.to(row1Element, 
+        {
+          x: -row1Distance,
+          duration: 40,
+           repeat: -1,
+            ease: "none",
+        },0);
+        gsap.to(row2Element,
+          {
+            x: 0,
+            duration: 40,
+             repeat: -1,
+              ease: "none",
+          },0);
+        return () => gsap.killTweensOf(".row1");
+gsap.killTweensOf(".row2"); 
+            }, { dependencies: [featuredDestinations], scope: sectionRef
+        });
+        
   return (
-    <section className="bg-background px-6 py-section-gap md:px-margin-desktop">
+    <section 
+     ref={sectionRef}
+    className="bg-background px-6 py-section-gap md:px-margin-desktop">
       <div className=" mt-2 mb-8 flex items-end justify-between">
         <div >
-          <h2 className="font-display text-2xl font-semibold text-on-surface md:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-on-surface md:text-7xl">
             Featured Journeys
           </h2>
-          <p className="mt-1 max-w-md font-body text-sm text-on-surface-variant">
-            Handpicked itineraries blending luxury accommodations with
-            authentic, untamed experiences.
-          </p>
         </div>
         <a
           href="/destinations"
-          className=" items-center gap-1 font-body text-sm font-medium text-primary md:flex hover:underline underline-offset-1"
+          className=" items-center gap-1 font-body text-md font-medium text-primary md:flex hover:underline underline-offset-1"
         >
           View All Destinations <ArrowRight size={14} />
         </a>
       </div>
 
-      <div className=" mt-15 grid grid-cols-1 gap-gutter sm:grid-cols-2 lg:grid-cols-3 ">
-        {journeys.map((j,i) => (
-            <div key={j.title} className={`w-full  ${i === 1 ? "sm:translate-y-4" : "sm:-translate-y-4"}`}>
-          <JourneyCard {...j} />
-          </div>
-        ))}
+          <div className="py-28 space-y-8 overflow-hidden w-full">
+  <div className="row1 flex gap-12 w-max">
+    {loopRow1.map((journey) => (
+      <div key={journey.id} className="w-[480px] flex-shrink-0">
+        <JourneyCard
+          image={`${API_URL}${journey.imageUrl}`}
+          tag={journey.category}
+          title={journey.name}
+          days={journeyExtras[journey.name].days}
+        />
       </div>
+    ))}
+  </div>
+  <div className="row2 flex gap-12 w-max">
+    {loopRow2.map((journey) => (
+      <div key={journey.id} className="w-[480px] flex-shrink-0">
+        <JourneyCard
+          image={`${API_URL}${journey.imageUrl}`}
+          tag={journey.category}
+          title={journey.name}
+          days={journeyExtras[journey.name].days}
+        />
+      </div>
+    ))}
+  </div>
+</div>
     </section>
   );
 }
