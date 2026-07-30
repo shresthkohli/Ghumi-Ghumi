@@ -24,10 +24,10 @@
   --color-tertiary-container: #629f9f;
   --color-error: #ba1a1a;
   --color-on-error: #ffffff;
- 
+
   --font-display: "Playfair Display", serif;
   --font-body: Inter, sans-serif;
- 
+
   --spacing-margin-desktop: 64px;
   --spacing-margin-mobile: 20px;
   --spacing-gutter: 24px;
@@ -61,7 +61,7 @@
   --text-label-md: 12px;
   --text-label-md--line-height: 16px;
   --text-label-md--font-weight: 500;
- 
+
   --spacing-margin-desktop: 64px;
   --spacing-margin-mobile: 20px;
   --spacing-container-max: 1280px;
