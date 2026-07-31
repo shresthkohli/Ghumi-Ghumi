@@ -1,10 +1,14 @@
 const API_URL = import.meta.env.VITE_API_URL ?? "";
 
+import favoritesApi from "../api/favoritesApi";
+import apiFetch from "../api/apiClient";
+
 // Card that shows destination, pass featured if card needed to be a hero card
 
 function DestinationCard({ destination, featured=false }) {
 
     const {
+        id,
         name,
         city,
         country,
@@ -14,7 +18,31 @@ function DestinationCard({ destination, featured=false }) {
         bestTimeToVisit,
         avgRating,
         budgetCategory,
+        isFavotite,
     } = destination;
+
+    async function handleLike(e) {
+
+        const id = destination.id;
+
+        // async function addFavorite(credentials) {
+
+        //     return apiFetch(
+        //         `/api/favorites/${id}`,
+        //         {
+        //             method: "POST"
+        //         }
+        //     );
+        // }
+        
+        // addFavorite();
+
+        await favoritesApi.addFavorite({
+                destinationId: id
+        });
+
+        console.log(await favoritesApi.getAllFavDestinations());
+    }
 
     if (featured) {
 
@@ -86,8 +114,20 @@ function DestinationCard({ destination, featured=false }) {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-on-surface/90 via-transparent to-transparent" />
 
-            <div className="absolute top-4 right-4 h-10 w-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-primary transition-colors">
-                <span className="material-symbols-outlined">favorite</span>
+            <div 
+                className="absolute top-4 right-4 h-10 w-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-primary transition-colors"
+                onClick={handleLike}
+            >
+                
+                <span 
+                    className="material-symbols-outlined"
+                    style={{
+                        fontVariationSettings: destination.isFavorite ? "'FILL' 1" : "'FILL' 0",
+                    }}
+                >
+                    favorite
+                </span>
+                
             </div>
 
             <div className="absolute bottom-0 p-8 w-full">

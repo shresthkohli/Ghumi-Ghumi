@@ -1,5 +1,35 @@
+import { useRef, useState, useEffect } from "react";
+import PassportCard from "../components/PassportCard";
+import destinationApi from "../api/destinationApi";
+import favoritesApi from "../api/favoritesApi";
+
 function Itineraries() {
-  return <h1>Itineraries Page</h1>;
+
+    const [favorite, setFavorite] = useState([]);
+    const [visited, setVisited] = useState([]);
+
+    useEffect(() => {
+        async function getData() {
+
+            const res1 = await favoritesApi.getAllFavDestinations();
+            setFavorite(res1);
+
+        }
+        getData();
+    }, [])
+
+    return(
+
+        <>
+            <ul>
+            {
+                favorite.map((des) => (
+                <li key={des.id}>{des.name}</li>
+                ))
+            }
+            </ul>
+        </>
+    )
 }
 
 export default Itineraries;

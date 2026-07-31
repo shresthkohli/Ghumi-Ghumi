@@ -28,7 +28,6 @@ async function getDestinationsByQuery(queryString) {
     }
 }
 
-
 export default {
     getAllDestinations,
     getDestinationsByQuery
