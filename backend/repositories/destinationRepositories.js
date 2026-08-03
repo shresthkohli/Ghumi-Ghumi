@@ -9,6 +9,7 @@ function mapDestination(row) {
         id: row.id,
         name: row.name,
         city: row.city,
+        state: row.state,
         country: row.country,
         description: row.description,
         imageUrl: row.image_url,
@@ -62,6 +63,7 @@ async function getAllDestinationsRepository(query, userId = null) {
             (
                 LOWER(name) LIKE LOWER(${placeholder})
                 OR LOWER(city) LIKE LOWER(${placeholder})
+                OR LOWER(state) LIKE LOWER(${placeholder})
                 OR LOWER(country) LIKE LOWER(${placeholder})
                 OR LOWER(category) LIKE LOWER(${placeholder})
             )
@@ -88,6 +90,16 @@ async function getAllDestinationsRepository(query, userId = null) {
         );
 
         values.push(query.city);
+
+    }
+
+    if (query.state) {
+
+        conditions.push(
+            `LOWER(state) = LOWER($${values.length + 1})`
+        );
+
+        values.push(query.state);
 
     }
 
