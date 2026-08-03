@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from "react";
-import PassportCard from "../components/PassportCard";
 import destinationApi from "../api/destinationApi";
 import favoritesApi from "../api/favoritesApi";
 
