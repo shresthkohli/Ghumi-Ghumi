@@ -206,9 +206,42 @@ async function getDestinationByIdRepository(
 
 }
 
+async function getPassportStampsRepository(userId) {
+
+    const result = await pool.query(
+        `
+        SELECT
+            destinations.id,
+            destinations.name,
+            'location_on' AS icon
+
+        FROM visited_destinations
+
+        INNER JOIN destinations
+        ON destinations.id =
+        visited_destinations.destination_id
+
+        WHERE visited_destinations.user_id = $1
+
+        ORDER BY destinations.name
+
+        LIMIT 6;
+        `,
+        [userId]
+    );
+
+    return result.rows.map((row) => ({
+        id: row.id,
+        name: row.name,
+        icon: row.icon
+    }));
+
+}
+
 
 export default {
     mapDestination,
     getAllDestinationsRepository,
     getDestinationByIdRepository,
+    getPassportStampsRepository
 };

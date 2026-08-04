@@ -8,6 +8,7 @@ import Signup from "./pages/Signup.jsx";
 import Discover from "./pages/Discover.jsx";
 import Itineraries from "./pages/Itineraries.jsx";
 import Destinations from "./pages/Destinations.jsx";
+import DestinationDetailPage from './pages/DestinationDetails.jsx';
 import Guides from "./pages/Guides.jsx";
 import Profile from './pages/Profile.jsx';
 
@@ -27,6 +28,7 @@ function App() {
               <Route path="/discover" element={<Discover />} />
               <Route path="/itineraries" element={<Itineraries />} />
               <Route path="/destinations" element={<Destinations />} />
+              <Route path="/destinations/:id" element={<DestinationDetailPage />}/>
               <Route path="/guides" element={<Guides />} />
               <Route path="/profile" element={<Profile />} />
             </Routes>
