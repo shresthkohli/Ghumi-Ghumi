@@ -1,11 +1,15 @@
 const API_URL = import.meta.env.VITE_API_URL ?? "";
 import { Link } from "react-router-dom";
 
+import favoritesApi from "../api/favoritesApi";
+import apiFetch from "../api/apiClient";
+
 // Card that shows destination, pass featured if card needed to be a hero card
 
 function DestinationCard({ destination, featured = false }) {
 
     const {
+        id,
         name,
         city,
         country,
@@ -15,7 +19,31 @@ function DestinationCard({ destination, featured = false }) {
         bestTimeToVisit,
         avgRating,
         budgetCategory,
+        isFavotite,
     } = destination;
+
+    async function handleLike(e) {
+
+        const id = destination.id;
+
+        // async function addFavorite(credentials) {
+
+        //     return apiFetch(
+        //         `/api/favorites/${id}`,
+        //         {
+        //             method: "POST"
+        //         }
+        //     );
+        // }
+        
+        // addFavorite();
+
+        await favoritesApi.addFavorite({
+                destinationId: id
+        });
+
+        console.log(await favoritesApi.getAllFavDestinations());
+    }
 
     if (featured) {
 
