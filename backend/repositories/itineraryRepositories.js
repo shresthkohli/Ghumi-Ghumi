@@ -207,6 +207,23 @@ async function getUserItinerariesForDestinationRepository(
     return result.rows.map(mapItinerary);
 }
 
+async function getFeaturedItinerariesRepository(userId) {
+
+    const result = await pool.query(
+        `
+        SELECT *
+        FROM itineraries
+        WHERE user_id = $1
+        ORDER BY updated_at DESC
+        LIMIT 3;
+        `,
+        [userId]
+    );
+
+    return result.rows.map(mapItinerary);
+
+}
+
 
 export default {
     createItineraryRepository,
@@ -214,5 +231,6 @@ export default {
     getItineraryByIdRepository,
     updateItineraryRepository,
     deleteItineraryRepository,
-    getUserItinerariesForDestinationRepository
+    getUserItinerariesForDestinationRepository,
+    getFeaturedItinerariesRepository
 };
