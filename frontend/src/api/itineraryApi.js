@@ -1,9 +1,10 @@
 import apiFetch from "./apiClient";
+const API_URL = import.meta.env.VITE_API_URL ?? "";
 
 async function getAllItineraries(credentials) {
 
     const response = await apiFetch(
-        "api/itineraries"
+        "/api/itineraries"
     )
 
     if (response.success) {
@@ -17,9 +18,10 @@ async function getAllItineraries(credentials) {
 async function createItinerary(credentials) {
 
     return await apiFetch(
-        "api/itineraries",
+        "/api/itineraries",
         {
-            method: "POST"
+            method: "POST",
+            body: JSON.stringify(credentials)
         }
     );
 }
@@ -27,7 +29,7 @@ async function createItinerary(credentials) {
 async function deleteItinerary(credentials) {
     
     return await apiFetch(
-        `api/itineraries/:${credentials.id}`,
+        `/api/itineraries/${credentials.id}`,
         {
             method: "DELETE"
         }

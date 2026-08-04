@@ -31,7 +31,7 @@ async function getDestinationsByQuery(queryString) {
 async function getDestinationById(id) {
     
     const response = await apiFetch(
-        `/api/destinations/:${id}`
+        `/api/destinations/${id}`
     );
     if (response.success) {
         return response.data;

@@ -12,7 +12,7 @@ function CreateItineraryModal({ onClose, onCreate }) {
 
     useEffect(() => {
         async function loadDestinations() {
-        const data = await 
+        const data = await destinationApi.getAllDestinations();
         setDestinations(data);
         }
         loadDestinations();
@@ -30,7 +30,7 @@ function CreateItineraryModal({ onClose, onCreate }) {
         setError("");
 
         try {
-        await onCreate({ destination_id: destinationId, title, description });
+        await onCreate({ destinationId: destinationId,title: title,description: description });
         onClose();
         } catch (err) {
         setError("Something went wrong creating your itinerary. Try again.");
