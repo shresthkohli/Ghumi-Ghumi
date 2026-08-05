@@ -120,6 +120,7 @@ gsap.killTweensOf(".row2");
     {loopRow1.map((journey) => (
       <div key={journey.id} className="w-[480px] flex-shrink-0">
         <JourneyCard
+          id = {journey.id}
           image={`${API_URL}${journey.imageUrl}`}
           tag={journey.category}
           title={journey.name}

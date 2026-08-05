@@ -1,19 +1,25 @@
-import {Clock} from "lucide-react";
-export default function JourneyCard({ image, tag, title, days,}) {
+import { Clock } from "lucide-react";
+import { Link } from "react-router-dom";
+
+
+export default function JourneyCard({ id, image, tag, title, days, }) {
   return (
+    <Link to={`/destinations/${id}`}>
     <div className="relative ">
       <div className="relative h-[320px] rounded-2xl overflow-hidden group transition-all duration-300 hover:-translate-y-2">
-      <img
-        className=" block w-full object-cover h-full transition-transform duration-500 ease-out group-hover:scale-105"
-        src={image}
-      />
-       <div
-        className="absolute inset-0 "
-        style={{
-          background:
-            "linear-gradient(to top, rgba(0,0,0,0.55) 20%, transparent 45%)",
-        }}
-      />
+        <img
+          className=" block w-full object-cover h-full transition-transform duration-500 ease-out group-hover:scale-105"
+          src={image}
+        />
+
+        <div
+          className="absolute inset-0 "
+          style={{
+            background:
+              "linear-gradient(to top, rgba(0,0,0,0.55) 20%, transparent 45%)",
+          }}
+        />
+
       </div>
 
       <div className="absolute bottom-4 left-4 right-4">
@@ -30,6 +36,7 @@ export default function JourneyCard({ image, tag, title, days,}) {
           {days} Days
         </div>
       </div>
-    </div>
+    </div >
+    </Link>
   );
 }
