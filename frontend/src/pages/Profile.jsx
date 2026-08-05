@@ -62,7 +62,7 @@ function Profile() {
                             <span className='px-4 py-1.5 rounded-full bg-primary-container text-on-primary text-xs font-bold inline-block mb-4'>
                                 ★ ELITE MEMBER
                             </span>
-                            <h1 className='font-display text-5xl font-bold mb-2'>Mr Amaan Ram</h1>
+                            <h1 className='font-display text-5xl font-bold mb-2'>Mr XYZ</h1>
                             <p className='font-body text-lg text-on-surface-variant max-w-md'>
                                 Indian Food Explorer & Cultural Storyteller. Chasing unforgettable sunsets from the Himalayas to Kanyakumari, one destination at a time.
                             </p>
