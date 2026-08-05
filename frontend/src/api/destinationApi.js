@@ -28,8 +28,21 @@ async function getDestinationsByQuery(queryString) {
     }
 }
 
+async function getDestinationById(DestinationId) {
+    const response = await apiFetch(
+        `/api/destinations/${DestinationId}`
+    );
+    if (response.success) {
+        return response.data;
+    }
+    else {
+        console.error(response.error);
+    }
+}
+
 
 export default {
     getAllDestinations,
-    getDestinationsByQuery
+    getDestinationsByQuery,
+    getDestinationById
 };

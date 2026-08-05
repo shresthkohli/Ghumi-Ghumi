@@ -1,11 +1,12 @@
 import { useParams, Link } from "react-router-dom";
-import { getDestinationById } from "../data/destinationDetails";
+import destinationApi from "../api/destinationApi";
 import HighlightCard from "../components/HighlightCard";
 import BookingWidget from "../components/BookingWidget";
+const API_URL = import.meta.env.VITE_API_URL ?? "";
 
 export default function DestinationDetailPage() {
     const { id } = useParams();
-    const destination = getDestinationById(id);
+    const destination = destinationApi.getDestinationById(id);
 
     if (!destination) {
         return (
@@ -26,23 +27,24 @@ export default function DestinationDetailPage() {
         country,
         tagline,
         description,
-        image_url,
+        imageUrl,
         category,
-        avg_rating,
-        review_count,
+        avgRating,
+        reviewCount,
         highlights,
-        story_title,
-        story_text,
-        story_image,
-        story_image_caption,
+        storyTitle,
+        storyText,
+        storyImage,
+        storyImageCaption,
     } = destination;
+    
 
     return (
         <main>
         {/* Hero */}
         <section className="hero-mask relative h-[870px] overflow-hidden">
             <div className="absolute inset-0 z-0">
-                <img className="h-full w-full object-cover" src={image_url} alt={name} />
+                <img className="h-full w-full object-cover" src={`${API_URL}${imageUrl}`} alt={name} />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
             </div>
             <div className="max-w-container-max px-margin-desktop relative z-10 mx-auto flex h-full flex-col justify-end pb-32">
@@ -55,7 +57,7 @@ export default function DestinationDetailPage() {
                             <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>
                             star
                             </span>
-                            {avg_rating} ({(review_count / 1000).toFixed(1)}k Reviews)
+                            {avgRating} ({(reviewCount / 1000).toFixed(1)}k Reviews)
                         </span>
                     </div>
                     <h1 className="font-display text-display-lg mb-6 text-white">{name} : {tagline ?? name}</h1>
@@ -70,7 +72,7 @@ export default function DestinationDetailPage() {
                 <div className="space-y-16 lg:col-span-7">
                     <div>
                         <h2 className="font-display text-headline-lg text-tertiary-fixed mb-10">Curated Highlights</h2>
-                        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                        {/*<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                             {highlights.map((highlight) => (
                             <HighlightCard
                                 key={highlight.title}
@@ -79,26 +81,26 @@ export default function DestinationDetailPage() {
                                 description={highlight.description}
                             />
                             ))}
-                        </div>
+                        </div>*/}
                     </div>
 
                     <div>
-                    <h2 className="font-display text-headline-lg text-tertiary-fixed mb-6">{story_title}</h2>
+                    <h2 className="font-display text-headline-lg text-tertiary-fixed mb-6">{storyTitle}</h2>
                     <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-2">
-                        <p className="font-body text-body-lg leading-loose text-white/80">{story_text}</p>
+                        <p className="font-body text-body-lg leading-loose text-white/80">{storyText}</p>
                         <div className="relative overflow-hidden rounded-2xl shadow-2xl">
-                        <img className="h-auto w-full" src={story_image} alt={story_image_caption} />
+                        <img className="h-auto w-full" src={storyImage} alt={storyImageCaption} />
                             <div className="font-body text-label-md absolute bottom-4 right-4 rounded bg-white/20 px-3 py-1 text-white backdrop-blur-md">
-                                {story_image_caption}
+                                {storyImageCaption}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="lg:col-span-5 lg:pl-12">
+            {/*<div className="lg:col-span-5 lg:pl-12">
                 <BookingWidget destination={destination} />
-            </div>
+            </div>*/}
             </div>
         </section>
         </main>
