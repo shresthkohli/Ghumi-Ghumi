@@ -8,6 +8,13 @@ const router = express.Router();
 
 router.use(authMiddleware.requireLogin);
 
+router.post(
+    "/",
+    reviewValidators.createReviewValidation,
+    validateRequest,
+    reviewControllers.createReviewController
+);
+
 router.patch(
     "/:id",
     reviewValidators.updateReviewValidation,
