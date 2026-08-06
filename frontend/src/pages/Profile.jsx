@@ -138,7 +138,7 @@
 //                 <section className='mt-section-gap'>
 //                     <h2 className='font-display text-3xl font-bold mb-8'>Curated Journeys</h2>
 //                     <div className='grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-gutter h-auto md:h-[600px]'>
-                            
+
 //                             <JourneyCard 
 //                                 title="The Jaipur Retrospect"
 //                                 badge="Featured Trip"

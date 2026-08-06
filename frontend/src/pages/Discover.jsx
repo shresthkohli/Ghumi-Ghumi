@@ -1,136 +1,217 @@
-import {useEffect, useState,useRef } from "react";
-import {MapPin , Calendar} from "lucide-react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { useEffect, useState, useRef, useCallback } from "react";
+import { Link } from "react-router-dom";
+import { MapPin, ArrowRight } from "lucide-react";
 import FeaturedJourney from "../components/FeaturedJourneys";
-import Footer from "../components/Footer.jsx"
+import Footer from "../components/Footer.jsx";
 import destinationsApi from "../api/destinationApi.js";
-import {useGSAP} from "@gsap/react";
-import {gsap} from "gsap";
+import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+import { SplitText } from "gsap/SplitText";
+import Globe from "../components/Globe.jsx";
 
-const API_URL = import.meta.env.VITE_API_URL ?? "";
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const warmShadow = "0 24px 48px -12px rgba(43, 38, 32, 0.15)";
-
-function Discover()
-{
-     const wrapRef = useRef(null);
-    const heroRef = useRef(null);  
-    const bgRef = useRef(null);
+function Discover() {
+    const wrapRef = useRef(null);
+    const heroRef = useRef(null);
     const headlineRef = useRef(null);
     const eyebrowRef = useRef(null);
     const searchBarRef = useRef(null);
+    const globeContainerRef = useRef(null);
+    const globeObjectsRef = useRef(null);
+
+    /** Called by <Globe /> once the Three.js scene is ready */
+    const handleGlobeReady = useCallback(({ scene, camera, renderer, globeGroup }) => {
+        globeObjectsRef.current = { scene, camera, renderer, globeGroup };
+    }, []);
 
     useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: wrapRef.current,
-          start: "top top",
-          end: "+=100%",     
-          pin: heroRef.current,
-          scrub: true,           
-        },
-      });
+        let split;
 
-      tl.to(bgRef.current, { scale: 1.35, ease: "none" }, 0)
-        .to(headlineRef.current, { opacity: 0, y: -60, scale: 0.9, ease: "none" }, 0)
-        .to(eyebrowRef.current, { opacity: 0, ease: "none" }, 0)
-        .to(searchBarRef.current,{opacity:0 , ease:"none" , y:-60} ,0);
+        const ctx = gsap.context(() => {
+            const introTl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      gsap.to(".compass-needle", {
-          rotate: 180,              
-          ease: "none",            
-          scrollTrigger: {
-            trigger: document.body, 
-            start: "top top",       
-            end: "bottom bottom",  
-            scrub: 0.6               
-          }
+            // 1. Fade in eyebrow
+            introTl.from(eyebrowRef.current, {
+                opacity: 0,
+                y: -20,
+                duration: 0.6,
+            });
+
+            // 2. SplitText character entrance
+            if (headlineRef.current) {
+                split = new SplitText(headlineRef.current, { type: "words, chars" });
+
+                introTl.from(
+                    split.chars,
+                    {
+                        opacity: 0,
+                        y: 40,
+                        rotateX: -80,
+                        stagger: 0.02,
+                        duration: 1.1,
+                        ease: "back.out(1.4)",
+                    },
+                    "-=0.1"
+                );
+            }
+
+            // 3. Search bar entrance
+            introTl.from(
+                searchBarRef.current,
+                {
+                    opacity: 0,
+                    y: 25,
+                    scale: 0.95,
+                    duration: 0.6,
+                    ease: "back.out(1.4)",
+                },
+                "-=0.6"
+            );
+
+            // 4. Cinematic Scroll-Driven Exit Timeline
+            const scrollTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: wrapRef.current,
+                    start: "top top",
+                    end: "+=100%",
+                    pin: heroRef.current,
+                    scrub: 1,
+                },
+            });
+
+            // 3D Character Scatter & Blur Fly-Through on Scroll
+            if (split && split.chars) {
+                scrollTl.to(
+                    split.chars,
+                    {
+                        opacity: 0,
+                        y: -100,
+                        scale: 1.3,
+                        rotateX: 45,
+                        filter: "blur(12px)",
+                        stagger: {
+                            amount: 0.35,
+                            from: "center",
+                        },
+                        ease: "power2.inOut",
+                    },
+                    0
+                );
+            } else {
+                scrollTl.to(headlineRef.current, { opacity: 0, y: -100, filter: "blur(10px)", ease: "none" }, 0);
+            }
+
+            scrollTl
+                .to(eyebrowRef.current, { opacity: 0, y: -50, filter: "blur(6px)", ease: "none" }, 0)
+                .to(searchBarRef.current, { opacity: 0, y: 70, scale: 0.85, filter: "blur(8px)", ease: "none" }, 0);
+
+            /* ── Globe scroll animation: zoom up into camera ── */
+            if (globeContainerRef.current) {
+                scrollTl.to(
+                    globeContainerRef.current,
+                    {
+                        scale: 2.3,
+                        y: -50,
+                        opacity: 0,
+                        ease: "none",
+                    },
+                    0
+                );
+            }
+        }, wrapRef);
+
+        return () => {
+            ctx.revert();
+            if (split) split.revert();
+        };
+    }, []);
+
+    /* Scroll‑driven globe rotation via GSAP */
+    useEffect(() => {
+        const st = ScrollTrigger.create({
+            trigger: wrapRef.current,
+            start: "top top",
+            end: "+=100%",
+            scrub: 1,
+            onUpdate: (self) => {
+                if (!globeObjectsRef.current) return;
+                const { globeGroup } = globeObjectsRef.current;
+                globeGroup.rotation.y += self.getVelocity() * 0.00003;
+            },
         });
-    }, wrapRef);
+        return () => st.kill();
+    }, []);
 
-        return () => ctx.revert();
-        }, []);
-    const [dateRange , setDateRange] = useState([null , null]);
-    const [startDate , endDate] = dateRange;
     const [ladakh, setLadakh] = useState([]);
 
-      useEffect( () => {
-      async function getImage() {
-        const data=await destinationsApi.getDestinationsByQuery("name=Ladakh");
-        setLadakh(data[0]);
-        console.log(ladakh);
-        ScrollTrigger.refresh();
-      }
-      getImage();
-      }, []);
+    useEffect(() => {
+        async function getImage() {
+            const data = await destinationsApi.getDestinationsByQuery("name=Ladakh");
+            setLadakh(data[0]);
+            ScrollTrigger.refresh();
+        }
+        getImage();
+    }, []);
 
-    return(<>
-    <section ref={wrapRef}>
-        <div ref={heroRef} className="relative inset-0 overflow-hidden md:h-screen h-[520px]">
-            <img ref={bgRef} src={`${API_URL}${ladakh?.imageUrl}`} alt="mountains" className="absolute inset-0 w-full h-full object-cover">
-            </img>
-    <div className="absolute inset-0 bg-black/30"></div>
+    return (<>
+        <section ref={wrapRef}>
+            <div ref={heroRef} className="relative inset-0 overflow-hidden md:h-screen h-[520px]"
+                style={{ background: "radial-gradient(ellipse at center 40%, #0a1628 0%, #050d1a 50%, #020810 100%)", perspective: "1000px" }}
+            >
 
-    <div className="absolute inset-0"
-    style={{
-          background:
-            "linear-gradient(to bottom, transparent 60%, var(--color-background) 95%)",
-        }}
-    ></div>
+                {/* ── 3D Globe – almost full-page ── */}
+                <div
+                    ref={globeContainerRef}
+                    className="absolute inset-0 z-[5] flex items-center justify-center pointer-events-none"
+                >
+                    <div
+                        className="relative pointer-events-auto"
+                        style={{
+                            width: "min(95vh, 95vw)",
+                            height: "min(95vh, 95vw)",
+                        }}
+                    >
+                        <Globe onReady={handleGlobeReady} />
+                    </div>
+                </div>
 
-    <div className="absolute inset-0 z-10 flex h-full flex-col items-center justify-center px-6 text-center ">
-        <h1 ref={eyebrowRef} className="eyebrow text-white mb-6 text-xl font-body font-bold">THE WORLD AWAITS</h1>
+                {/* ── Text & search overlay ── */}
+                <div className="absolute inset-0 z-10 flex h-full flex-col items-center justify-center px-6 text-center pointer-events-none">
+                    <h1 ref={eyebrowRef} className="eyebrow text-white/80 mb-6 text-xl font-body font-bold tracking-widest">
+                        THE WORLD AWAITS
+                    </h1>
 
-      <h1 ref={headlineRef} className=" headline text-5xl font-bold font-display leading-tight text-surface md:text-6xl lg:text-7xl ">
-        Curated Expeditions for <br></br>
-        the Discerning Explorer
-      </h1>
+                    <h1 ref={headlineRef} className="headline text-5xl font-bold font-display leading-tight text-white md:text-6xl lg:text-7xl drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]">
+                        Curated Expeditions for <br></br>
+                        the Discerning Explorer
+                    </h1>
 
-      <div
-          className=" mt-8 flex w-full max-w-xl items-center gap-3 rounded-full bg-white/50 px-6 py-6 backdrop-blur-sm "
-          style={{ boxShadow: warmShadow }}
-          ref={searchBarRef}
-        >
-        <div className=" flex flex-1 items-center justify-center gap-2 px-3">
-          <MapPin  className="text-on-surface-variant w-[60px] h-[60px] lg:w-5 lg:h-5" />
-            <span className="font-body text-lg text-on-surface-variant ">
-              Where to next?
-            </span>
-        </div>
-      </div>
-       <div className="absolute -bottom-5 right-5  md:bottom-5 flex items-center gap-3 pl-3 pr-4 py-2 rounded-full bg-white/25 backdrop-blur-lg backdrop-saturate-150 border border-white/40 shadow-[0_8px_24px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.6)]">
-        <div className="w-8 h-8 rounded-full bg-white/50 flex items-center justify-center shrink-0">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#b5502e"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="compass-needle w-6 h-6"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-          </svg>
-        </div>
-        <div>
-          <div className="text-[11px] font-medium text-on-surface/65">
-            Current feature
-          </div>
-          <div className="text-sm font-semibold text-on-surface">
-            Ladakh
-          </div>
-        </div>
-      </div>
-      </div>
-      </div>
-    </section>
-    <FeaturedJourney/>
-    <Footer/>
+                    {/* ── Search pill + Orange Explore CTA ── */}
+                    <div
+                        className="pointer-events-auto relative z-20 mt-8 flex w-full max-w-xl items-center justify-between gap-3 rounded-full bg-white/15 p-2 sm:p-2.5 backdrop-blur-md border border-white/20 shadow-2xl"
+                        ref={searchBarRef}
+                    >
+                        <div className="flex flex-1 items-center gap-3 px-4">
+                            <MapPin className="text-white/70 w-5 h-5 shrink-0" />
+                            <span className="font-body text-base sm:text-lg text-white/80 font-medium">
+                                Where to next?
+                            </span>
+                        </div>
+
+                        <Link
+                            to="/destinations"
+                            className="glossy-button shrink-0 px-6 py-3 rounded-full text-white font-body text-sm font-semibold tracking-wide flex items-center gap-2 transition-all duration-300 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
+                        >
+                            <span>Explore</span>
+                            <ArrowRight className="w-4 h-4" />
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <FeaturedJourney />
+        <Footer />
     </>);
 }
-export default Discover
+export default Discover;
