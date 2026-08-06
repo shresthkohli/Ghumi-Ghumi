@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-oauth/google": "^0.13.5",
     "@gsap/react": "^2.1.2",
+    "@react-oauth/google": "^0.13.5",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "lucide-react": "^1.24.0",
@@ -24,6 +24,7 @@
     "@tailwindcss/vite": "^4.3.2",
     "@vitejs/plugin-react": "^5.0.0",
     "tailwindcss": "^4.3.2",
-    "vite": "^7.3.6"
+    "vite": "^7.3.6",
+    "vite-plugin-svgr": "^5.2.0"
   }
 }
