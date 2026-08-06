@@ -21,7 +21,7 @@ function TravelProgress({ stats }) {
 
         <section className="rounded-[2.5rem] bg-surface-container border border-outline/20 p-8 shadow-lg">
 
-            {/* Heading */}
+            {/* Header */}
 
             <div className="flex items-center justify-between">
 
@@ -37,9 +37,9 @@ function TravelProgress({ stats }) {
 
                 </div>
 
-                <div className="w-14 h-14 rounded-2xl bg-primary-container flex items-center justify-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-container">
 
-                    <span className="material-symbols-outlined text-primary text-3xl">
+                    <span className="material-symbols-outlined text-3xl text-primary">
                         timeline
                     </span>
 
@@ -47,32 +47,28 @@ function TravelProgress({ stats }) {
 
             </div>
 
-            {/* Progress */}
+            {/* Progress Bar */}
 
             <div className="mt-10">
 
-                <div className="flex justify-between mb-3">
+                <div className="mb-3 flex justify-between">
 
                     <span className="font-body text-label-lg text-on-surface">
-
                         India Completion
-
                     </span>
 
                     <span className="font-body font-semibold text-primary">
-
                         {statesVisited}/{TOTAL_STATES} States
-
                     </span>
 
                 </div>
 
-                <div className="h-4 rounded-full bg-outline/10 overflow-hidden">
+                <div className="h-4 overflow-hidden rounded-full bg-outline/10">
 
                     <div
                         className="h-full rounded-full bg-primary transition-all duration-700"
                         style={{
-                            width: `${progress}%`
+                            width: `${progress}%`,
                         }}
                     />
 
@@ -82,32 +78,50 @@ function TravelProgress({ stats }) {
 
             {/* Stats */}
 
-            <div className="mt-10 grid grid-cols-2 lg:grid-cols-5 gap-5">
+            <div className="mt-12 space-y-6">
 
-                <StatCard
-                    value={statesVisited}
-                    label="States"
-                />
+                {/* First Row */}
 
-                <StatCard
-                    value={citiesVisited}
-                    label="Cities"
-                />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                <StatCard
-                    value={favoriteCount}
-                    label="Favorites"
-                />
+                    <StatCard
+                        value={statesVisited}
+                        label="States Visited"
+                        icon="public"
+                        accent
+                    />
 
-                <StatCard
-                    value={reviewCount}
-                    label="Reviews"
-                />
+                    <StatCard
+                        value={citiesVisited}
+                        label="Cities Explored"
+                        icon="location_city"
+                    />
 
-                <StatCard
-                    value={itineraryCount}
-                    label="Itineraries"
-                />
+                    <StatCard
+                        value={favoriteCount}
+                        label="Favorites"
+                        icon="favorite"
+                    />
+
+                </div>
+
+                {/* Second Row */}
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <StatCard
+                        value={reviewCount}
+                        label="Reviews"
+                        icon="rate_review"
+                    />
+
+                    <StatCard
+                        value={itineraryCount}
+                        label="Itineraries"
+                        icon="route"
+                    />
+
+                </div>
 
             </div>
 

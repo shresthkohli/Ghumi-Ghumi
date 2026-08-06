@@ -16,8 +16,6 @@ const sectionRef = useRef(null);
           
           async function get() {
               const response = await destinationApi.getAllDestinations();
-              console.log(response);
-              console.log(Array.isArray(response));
               setDestinations(response);
               setIsLoading(false);
           }
