@@ -111,5 +111,9 @@
 
 .gold-accent {
   color: #d4af37;
-  text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+   filter:
+      drop-shadow(0 0 1.5px #f7d23b)
+      drop-shadow(0 0 2px #d4af37)
+      drop-shadow(0 0 10px rgba(255,215,0,.45));
+  transition:all 0.25s ease;
 }

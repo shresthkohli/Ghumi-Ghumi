@@ -40,31 +40,6 @@ async function getDestinationById(DestinationId) {
     }
 }
 
-async function getDestinationById(DestinationId) {
-    const response = await apiFetch(
-        `/api/destinations/${DestinationId}`
-    );
-    if (response.success) {
-        return response.data;
-    }
-    else {
-        console.error(response.error);
-    }
-}
-
-async function getDestinationById(id) {
-    
-    const response = await apiFetch(
-        `/api/destinations/${id}`
-    );
-    if (response.success) {
-        return response.data;
-    }
-    else {
-        console.error(response.error);
-    }
-}
-
 export default {
     getAllDestinations,
     getDestinationsByQuery,
