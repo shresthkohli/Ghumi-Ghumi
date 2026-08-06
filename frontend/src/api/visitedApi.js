@@ -1,9 +1,9 @@
 import apiFetch from "./apiClient";
 
-async function getAllFavDestinations(credentials) {
+async function getAllVisitedDestinations(credentials) {
 
     const response = await apiFetch(
-        "/api/favorites/",
+        "/api/visited",
     );
 
     if (response.success) {
@@ -14,28 +14,29 @@ async function getAllFavDestinations(credentials) {
     }
 }
 
-async function addFavorite(credentials) {
+async function addVisited(credentials) {
 
     return await apiFetch(
-        `/api/favorites/${credentials.id}`,
+        `/api/visited/${credentials.id}`,
         {
             method: "POST"
         }
     );
 }
 
-async function deleteFavorite(credentials) {
-    
+async function deleteVisited(credentials) {
+
     return await apiFetch(
-        `/api/favorites/${credentials.id}`,
+        `/api/visited/${credentials.id}`,
         {
             method: "DELETE"
         }
     );
 }
 
+
 export default {
-    getAllFavDestinations,
-    addFavorite,
-    deleteFavorite
+    getAllVisitedDestinations,
+    addVisited,
+    deleteVisited
 };

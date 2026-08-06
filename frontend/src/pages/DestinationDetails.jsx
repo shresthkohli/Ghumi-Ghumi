@@ -111,6 +111,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import destinationApi from "../api/destinationApi";
+import favoriteApi from "../api/favoritesApi"
+import visitedApi from "../api/visitedApi"
 
 const API_URL = import.meta.env.VITE_API_URL ?? "";
 
@@ -129,8 +131,8 @@ function InfoCard({ icon, title, value }) {
 export default function DestinationDetailPage() {
     const { id } = useParams();
     const [destination, setDestination] = useState({});
-    const [favorite, setFavorite] = useState(destination?.isFavorite ?? false);
-    const [visited, setVisited] = useState(destination?.isVisited ?? false);
+    const [favorite, setFavorite] = useState(false);
+    const [visited, setVisited] = useState(false);
 
     useEffect(() => {
 
@@ -141,6 +143,13 @@ export default function DestinationDetailPage() {
 
         get();
     }, []);
+
+    useEffect(() => {
+
+        setFavorite(destination.isFavorite ?? false);
+        setVisited(destination.isVisited ?? false);
+
+    }, [destination]);
 
     if (!destination) {
         return (
@@ -206,10 +215,17 @@ export default function DestinationDetailPage() {
 
                     <div className="flex flex-wrap gap-4">
                         <button
-                            onClick={() => setFavorite(v => !v)}
+                            onClick={async () => {
+                                if (favorite) {
+                                    await favoriteApi.deleteFavorite({ id });
+                                } else {
+                                    await favoriteApi.addFavorite({ id });
+                                }
+                                setFavorite(!favorite);
+                            }}
                             className={`rounded-full px-5 py-3 backdrop-blur-md border transition-all ${favorite
-                                    ? "bg-red-500 text-white border-red-500"
-                                    : "bg-white/15 text-white border-white/20 hover:bg-white/25"
+                                ? "bg-red-500 text-white border-red-500"
+                                : "bg-white/15 text-white border-white/20 hover:bg-white/25"
                                 }`}
                         >
                             <span className="material-symbols-outlined align-middle mr-2"
@@ -220,10 +236,17 @@ export default function DestinationDetailPage() {
                         </button>
 
                         <button
-                            onClick={() => setVisited(v => !v)}
+                            onClick={async () => {
+                                if (visited) {
+                                    await visitedApi.deleteVisited({ id });
+                                } else {
+                                    await visitedApi.addVisited({ id });
+                                }
+                                setVisited(!visited);
+                            }}
                             className={`rounded-full px-5 py-3 backdrop-blur-md border transition-all ${visited
-                                    ? "bg-green-600 text-white border-green-600"
-                                    : "bg-white/15 text-white border-white/20 hover:bg-white/25"
+                                ? "bg-green-600 text-white border-green-600"
+                                : "bg-white/15 text-white border-white/20 hover:bg-white/25"
                                 }`}
                         >
                             <span className="material-symbols-outlined align-middle mr-2">
