@@ -158,8 +158,20 @@ function Discover() {
     return (<>
         <section ref={wrapRef}>
             <div ref={heroRef} className="relative inset-0 overflow-hidden md:h-screen h-[520px]"
-                style={{ background: "radial-gradient(ellipse at center 40%, #0a1628 0%, #050d1a 50%, #020810 100%)", perspective: "1000px" }}
+                style={{ background: "radial-gradient(ellipse at center 40%, #0a182b 0%, #050e1c 55%, #020710 100%)", perspective: "1000px" }}
             >
+                {/* ── Subtle celestial coordinate grid & star textures to break monotonicity ── */}
+                <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.07)_1px,transparent_1px)] [background-size:36px_36px] pointer-events-none opacity-40" />
+
+                {/* ── Concentric orbital rings ── */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-15">
+                    <div className="w-[min(115vh,115vw)] h-[min(115vh,115vw)] rounded-full border border-dashed border-white/30 animate-[spin_180s_linear_infinite]" />
+                    <div className="absolute w-[min(85vh,85vw)] h-[min(85vh,85vw)] rounded-full border border-white/10" />
+                </div>
+
+                {/* ── Soft celestial light accents ── */}
+                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#163f3f]/15 rounded-full blur-[100px] pointer-events-none" />
+                <div className="absolute bottom-1/4 right-1/4 w-[450px] h-[450px] bg-[#1a385c]/20 rounded-full blur-[120px] pointer-events-none" />
 
                 {/* ── 3D Globe – almost full-page ── */}
                 <div

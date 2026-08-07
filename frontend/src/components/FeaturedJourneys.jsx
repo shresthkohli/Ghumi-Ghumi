@@ -2,6 +2,7 @@ import JourneyCard from "./JourneyCard-discover.jsx";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState, useRef, useMemo } from "react";
 import destinationApi from "../api/destinationApi.js";
+import IndiaSvg from "../assets/india-map.svg?react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -23,6 +24,9 @@ function FeaturedJourneys() {
       try {
         const response = await destinationApi.getAllDestinations();
         setDestinations(response);
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 150);
       } catch (err) {
         console.error("Failed to fetch destinations:", err);
       } finally {
@@ -205,7 +209,12 @@ function FeaturedJourneys() {
       ref={sectionRef}
       className="px-6 py-section-gap md:px-margin-desktop overflow-hidden relative bg-[#f7ece2]"
     >
-      <div className="mt-2 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      {/* ── Translucent India Map Watermark Background ── */}
+      <div className="absolute right-[-2%] top-1/2 -translate-y-1/2 w-[420px] md:w-[650px] lg:w-[800px] pointer-events-none opacity-[0.08] select-none text-[#a23f1a] blur-[0.3px] z-0">
+        <IndiaSvg className="w-full h-auto fill-current" />
+      </div>
+
+      <div className="mt-2 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4 relative z-10">
         <div>
           <h2
             ref={titleRef}

@@ -14,6 +14,8 @@ function ItinerariesSection() {
   const btnRef = useRef(null);
   const cardWindowRef = useRef(null);
   const scheduleItemsRef = useRef(null);
+  const trailSvgRef = useRef(null);
+  const trailPathRef = useRef(null);
 
   useGSAP(
     () => {
@@ -26,11 +28,36 @@ function ItinerariesSection() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
+          start: "top 65%",
+          toggleActions: "play none none none",
+          once: true,
           invalidateOnRefresh: true,
         },
       });
+
+      // 0. Serpentine Dashed Journey Trail scroll entrance (draws from top to bottom)
+      let flowTween;
+      if (trailSvgRef.current && trailPathRef.current) {
+        tl.fromTo(
+          trailSvgRef.current,
+          { clipPath: "inset(0% 0% 100% 0%)", opacity: 0 },
+          {
+            clipPath: "inset(0% 0% 0% 0%)",
+            opacity: 0.85,
+            duration: 1.4,
+            ease: "power2.inOut",
+          },
+          0
+        );
+
+        // Infinite continuous downward flow of dashes
+        flowTween = gsap.to(trailPathRef.current, {
+          strokeDashoffset: -170,
+          duration: 3.2,
+          repeat: -1,
+          ease: "none",
+        });
+      }
 
       // 1. Heading SplitText animation
       if (split && split.chars && split.chars.length > 0) {
@@ -45,13 +72,15 @@ function ItinerariesSection() {
             stagger: 0.02,
             duration: 0.8,
             ease: "power3.out",
-          }
+          },
+          "-=0.9"
         );
       } else if (titleRef.current) {
         tl.fromTo(
           titleRef.current,
           { opacity: 0, y: 30, filter: "blur(6px)" },
-          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, ease: "power3.out" }
+          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, ease: "power3.out" },
+          "-=0.9"
         );
       }
 
@@ -126,6 +155,7 @@ function ItinerariesSection() {
 
       return () => {
         if (split) split.revert();
+        if (flowTween) flowTween.kill();
         tl.kill();
       };
     },
@@ -192,13 +222,31 @@ function ItinerariesSection() {
           </div>
         </div>
 
-        {/* Right Column: Mock UI Card */}
-        <div className="lg:col-span-6 flex justify-center lg:justify-end">
+        {/* Right Column: Mock UI Card with Dashed Journey Trail */}
+        <div className="lg:col-span-6 flex justify-center lg:justify-end relative">
+          {/* Winding serpentine dashed travel path with top-to-bottom reveal & continuous downward flow */}
+          <svg
+            ref={trailSvgRef}
+            className="absolute -left-6 sm:-left-10 -top-10 -bottom-10 h-[120%] w-24 pointer-events-none z-0 overflow-visible select-none"
+            viewBox="0 0 100 600"
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <path
+              ref={trailPathRef}
+              d="M 55 0 C 15 80, 85 160, 50 240 C 15 320, 82 400, 48 480 C 18 540, 72 575, 48 620"
+              stroke="#d29d8d"
+              strokeWidth="4.5"
+              strokeDasharray="9 8"
+              strokeLinecap="round"
+            />
+          </svg>
+
           <div
             ref={cardWindowRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="w-full max-w-xl rounded-3xl sm:rounded-[32px] bg-white border border-[#dec0b7]/60 p-6 sm:p-8 shadow-[0_20px_50px_rgba(43,38,32,0.08)] transition-all duration-300 hover:border-[#dec0b7] hover:shadow-[0_25px_60px_rgba(43,38,32,0.12)]"
+            className="w-full max-w-xl rounded-3xl sm:rounded-[32px] bg-white border border-[#dec0b7]/60 p-6 sm:p-8 shadow-[0_20px_50px_rgba(43,38,32,0.08)] transition-all duration-300 hover:border-[#dec0b7] hover:shadow-[0_25px_60px_rgba(43,38,32,0.12)] relative z-10"
           >
             {/* Header section inside card */}
             <div className="flex items-start justify-between mb-6 pb-3 border-b border-[#dec0b7]/30">
