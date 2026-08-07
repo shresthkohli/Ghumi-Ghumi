@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { MapPin, ArrowRight } from "lucide-react";
 import FeaturedJourney from "../components/FeaturedJourneys";
+import ItinerariesSection from "../components/ItinerariesSection.jsx";
 import Footer from "../components/Footer.jsx";
 import destinationsApi from "../api/destinationApi.js";
 import { gsap } from "gsap";
@@ -74,7 +75,7 @@ function Discover() {
                 scrollTrigger: {
                     trigger: wrapRef.current,
                     start: "top top",
-                    end: "+=100%",
+                    end: "+=45%",
                     pin: heroRef.current,
                     scrub: 1,
                 },
@@ -132,7 +133,7 @@ function Discover() {
         const st = ScrollTrigger.create({
             trigger: wrapRef.current,
             start: "top top",
-            end: "+=100%",
+            end: "+=45%",
             scrub: 1,
             onUpdate: (self) => {
                 if (!globeObjectsRef.current) return;
@@ -211,6 +212,7 @@ function Discover() {
             </div>
         </section>
         <FeaturedJourney />
+        <ItinerariesSection />
         <Footer />
     </>);
 }
