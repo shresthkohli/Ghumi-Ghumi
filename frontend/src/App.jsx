@@ -11,6 +11,7 @@ import Destinations from "./pages/Destinations.jsx";
 import DestinationDetailPage from './pages/DestinationDetails.jsx';
 import Guides from "./pages/Guides.jsx";
 import Profile from './pages/Profile.jsx';
+import Test from "./pages/Test.jsx"
 
 // Components
 import Navbar from './components/Navbar.jsx'
@@ -31,6 +32,7 @@ function App() {
               <Route path="/destinations/:id" element={<DestinationDetailPage />}/>
               <Route path="/guides" element={<Guides />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/test" element={<Test/>}/>
             </Routes>
         </BrowserRouter>
       </AuthProvider>
