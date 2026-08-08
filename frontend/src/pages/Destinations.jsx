@@ -14,9 +14,9 @@ function Destinations() {
     const [isLoading, setIsLoading] = useState(true);
     const [activeCategories, setActiveCategories] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
-    
+
     useEffect(() => {
-        
+
         async function get() {
             const response = await destinationApi.getAllDestinations();
             console.log(response);
@@ -32,21 +32,21 @@ function Destinations() {
     function handleCategoryToggle(categoryId) {
         setCurrentPage(1);
         setActiveCategories((prev) =>
-          prev.includes(categoryId)
-            ?  prev.filter((id) => id != categoryId)
-            :  [...prev, categoryId]
+            prev.includes(categoryId)
+                ? prev.filter((id) => id != categoryId)
+                : [...prev, categoryId]
         )
     }
-    
+
     const filteredDestinations =
         activeCategories.length === 0
-            ?   destinations
-            :   destinations.filter((d) => activeCategories.includes(d.category))
+            ? destinations
+            : destinations.filter((d) => activeCategories.includes(d.category))
 
 
     const totalPages = Math.ceil(filteredDestinations.length / RESULTS_PER_PAGE);
     const startIndex = (currentPage - 1) * RESULTS_PER_PAGE;
-    
+
     const visibleDestinations = filteredDestinations.slice(
         startIndex,
         startIndex + RESULTS_PER_PAGE
@@ -54,10 +54,10 @@ function Destinations() {
 
     const featuredId = "Jaipur";
 
-    const featuredDestination = 
+    const featuredDestination =
         currentPage === 1
-            ?   visibleDestinations.find((d) => d.name === featuredId)
-            :   undefined;
+            ? visibleDestinations.find((d) => d.name === featuredId)
+            : undefined;
 
     const regularDestinations = visibleDestinations.filter(
         (d) => d.name !== featuredDestination?.name
@@ -78,7 +78,7 @@ function Destinations() {
                         Best Places to Visit in India
                     </h1>
                     <p className="text-primary-fixed max-w-2xl font-body text-body-lg leading-relaxed">
-                        From the Pink City's palaces to the tiger trails of Jim Corbett, 
+                        From the Pink City's palaces to the tiger trails of Jim Corbett,
                         discover the destinations worth building your next trip around.
                     </p>
                 </div>

@@ -1,6 +1,7 @@
 import destinationRepositories from "../repositories/destinationRepositories.js";
 import reviewRepositories from "../repositories/reviewRepositories.js";
 import itineraryRepositories from "../repositories/itineraryRepositories.js";
+import attractionRepositories from "../repositories/attractionRepositories.js";
 
 async function getAllDestinationsService(query, userId) {
 
@@ -14,9 +15,29 @@ async function getDestinationByIdService(
     userId
 ) {
 
-    const destination =
-        await destinationRepositories
-            .getDestinationByIdRepository(destinationId, userId);
+    const [
+        destination,
+        reviews,
+        attractions
+    ] = await Promise.all([
+
+        destinationRepositories
+            .getDestinationByIdRepository(
+                destinationId,
+                userId
+            ),
+
+        reviewRepositories
+            .getReviewsForDestinationRepository(
+                destinationId
+            ),
+
+        attractionRepositories
+            .getAttractionsRepository(
+                destinationId
+            )
+
+    ]);
 
     if (!destination) {
         throw new AppError(
@@ -25,12 +46,6 @@ async function getDestinationByIdService(
             "DESTINATION_NOT_FOUND"
         );
     }
-
-    const reviews =
-        await reviewRepositories
-            .getReviewsForDestinationRepository(
-                destinationId
-            );
 
     if (userId) {
 
@@ -41,7 +56,8 @@ async function getDestinationByIdService(
 
         reviews.sort(
             (a, b) =>
-                Number(b.isOwner) - Number(a.isOwner)
+                Number(b.isOwner) -
+                Number(a.isOwner)
         );
 
         destination.itineraries =
@@ -50,19 +66,25 @@ async function getDestinationByIdService(
                     userId,
                     destinationId
                 );
+
     }
 
     else {
+
         for (const review of reviews) {
             review.isOwner = false;
         }
 
         destination.itineraries = [];
+
     }
 
     destination.reviews = reviews;
 
+    destination.attractions = attractions;
+
     return destination;
+
 }
 
 

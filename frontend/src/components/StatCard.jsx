@@ -56,8 +56,7 @@ function StatCard({
                     transition-all
                     duration-300
 
-                    ${
-                        accent
+                    ${accent
                         ? "bg-primary text-on-primary"
                         : "bg-tertiary text-tertiary-fixed"
                     }
@@ -93,8 +92,7 @@ function StatCard({
                     bottom-0
                     h-1
 
-                    ${
-                        accent
+                    ${accent
                         ? "bg-primary w-20"
                         : "bg-tertiary-fixed w-14"
                     }

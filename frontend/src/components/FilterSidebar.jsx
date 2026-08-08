@@ -33,10 +33,9 @@ function FilterSidebar({ activeCategories, onCatefotyToggle }) {
                                         onClick={() => onCatefotyToggle(category.id)}
                                         className={
                                             `px-4 py-2 rounded-full text-label-lg flex items-center gap-2 transition-all
-                                            ${
-                                                isActive
-                                                    ?   "bg-primary text-on-primary"
-                                                    :   "bg-white/40 text-on-surface-variant hover:bg-primary/10"
+                                            ${isActive
+                                                ? "bg-primary text-on-primary"
+                                                : "bg-white/40 text-on-surface-variant hover:bg-primary/10"
                                             }`
                                         }
                                     >
@@ -51,7 +50,7 @@ function FilterSidebar({ activeCategories, onCatefotyToggle }) {
                     </div>
                 </div>
 
-                <hr className="border-outline-variant"/>
+                <hr className="border-outline-variant" />
 
             </div>
         </aside>

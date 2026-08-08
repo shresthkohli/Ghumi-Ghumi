@@ -28,14 +28,14 @@ function ItineraryCard({ itinerary, onDelete }) {
         }
     }, [destination]);
 
-    // GSAP-driven hover: lift the card and zoom the image slightly
+    // GSAP-driven hover: lift the card, zoom image, and expand shadow
     function handleMouseEnter() {
-        gsap.to(cardRef.current, { y: -6, boxShadow: "0 20px 40px rgba(0,0,0,0.12)", duration: 0.35, ease: "power2.out" });
-        gsap.to(imgRef.current, { scale: 1.08, duration: 0.5, ease: "power2.out" });
+        gsap.to(cardRef.current, { y: -8, scale: 1.01, boxShadow: "0 22px 45px rgba(0,0,0,0.18)", duration: 0.35, ease: "power2.out" });
+        gsap.to(imgRef.current, { scale: 1.1, duration: 0.5, ease: "power2.out" });
     }
 
     function handleMouseLeave() {
-        gsap.to(cardRef.current, { y: 0, boxShadow: "0 0px 0px rgba(0,0,0,0)", duration: 0.35, ease: "power2.out" });
+        gsap.to(cardRef.current, { y: 0, scale: 1, boxShadow: "0 0px 0px rgba(0,0,0,0)", duration: 0.35, ease: "power2.out" });
         gsap.to(imgRef.current, { scale: 1, duration: 0.5, ease: "power2.out" });
     }
 
