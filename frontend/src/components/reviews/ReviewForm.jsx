@@ -17,6 +17,9 @@ export default function ReviewForm({
         if(existingReview){
             setRating(existingReview.rating);
             setReview(existingReview.review);
+        } else {
+            setRating(0);
+            setReview("");
         }
     },[existingReview]);
 
