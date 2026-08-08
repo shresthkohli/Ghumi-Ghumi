@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import IndiaSvg from "../assets/india-map-premium.svg?react";
 
-
 const STATE_TO_CODE = {
     "Andaman and Nicobar Islands": "IN-AN",
     "Andhra Pradesh": "IN-AP",
@@ -41,53 +40,63 @@ const STATE_TO_CODE = {
     "West Bengal": "IN-WB",
 };
 
-
 function IndiaMap({
-
     visitedStates = [],
     visitedCount = 0,
     totalStates = 28,
-
 }) {
 
     useEffect(() => {
         console.log("useEffect fired");
-        
-        // remove old styles
+        console.log("Visited states:", visitedStates);
 
+        /*
+         * Remove previous visited classes
+         */
         document
             .querySelectorAll(".india-map .visited")
             .forEach((state) => {
-
                 state.classList.remove("visited");
-
             });
 
-        // highlight visited states
-
+        /*
+         * Add visited class
+         */
         visitedStates.forEach((stateName) => {
 
             const stateCode = STATE_TO_CODE[stateName];
+
+            console.log(
+                `${stateName} -> ${stateCode}`
+            );
 
             if (!stateCode) return;
 
             const state = document.getElementById(stateCode);
 
-            if (state) {
-                state.classList.add("visited");
+            if (!state) {
+                console.warn(
+                    `State element not found: ${stateCode}`
+                );
+                return;
             }
 
-        });
+            state.classList.add("visited");
 
-        console.log(visitedStates);
+            console.log(
+                `${stateCode} marked visited`,
+                state.classList
+            );
+        });
 
     }, [visitedStates]);
 
-    const progress =
-        (visitedCount / totalStates) * 100;
+    const progress = Math.min(
+        (visitedCount / totalStates) * 100,
+        100
+    );
 
     return (
-
         <section
             className="
                 relative
@@ -101,25 +110,170 @@ function IndiaMap({
             "
         >
 
-            {/* Header */}
+            {/* =====================================================
+                SVG MAP STYLES
+            ====================================================== */}
+
+            <style>
+                {`
+
+                    /* -----------------------------------------
+                       Base state styling
+                    ----------------------------------------- */
+
+                    .india-map svg path,
+                    .india-map svg polygon,
+                    .india-map svg g {
+                        transition:
+                            fill 0.5s ease,
+                            stroke 0.5s ease,
+                            filter 0.5s ease;
+                    }
+
+
+                    /* -----------------------------------------
+                       UNVISITED STATES
+                    ----------------------------------------- */
+
+                    .india-map svg path,
+                    .india-map svg polygon {
+                        fill: #050807 !important;
+                        stroke: transparent !important;
+                        stroke-width: 0 !important;
+                    }
+
+
+                    /* -----------------------------------------
+                       VISITED STATES
+                    ----------------------------------------- */
+
+                    .india-map svg .visited {
+                        fill: url("#visitedGoldGradient") !important;
+
+                        stroke: #D9B45C !important;
+                        stroke-width: 0.8 !important;
+
+                        filter:
+                            drop-shadow(
+                                0 0 4px rgba(217, 180, 92, 0.45)
+                            )
+                            drop-shadow(
+                                0 0 12px rgba(217, 180, 92, 0.20)
+                            );
+                    }
+
+
+                    /* -----------------------------------------
+                       Hover
+                    ----------------------------------------- */
+
+                    .india-map svg .visited:hover {
+                        filter:
+                            drop-shadow(
+                                0 0 7px rgba(246, 227, 156, 0.75)
+                            )
+                            drop-shadow(
+                                0 0 18px rgba(217, 180, 92, 0.45)
+                            );
+
+                        cursor: pointer;
+                    }
+
+
+                    .india-map svg path:hover {
+                        fill: #111A16 !important;
+                    }
+
+
+                    .india-map svg .visited:hover {
+                        fill: url("#visitedGoldGradient") !important;
+                    }
+
+
+                    /* -----------------------------------------
+                       Country outline
+                    ----------------------------------------- */
+
+                    .india-map svg > path.country-outline {
+                        fill: none !important;
+                        stroke: #D9B45C !important;
+                        stroke-width: 2 !important;
+                        opacity: 0.9;
+                        filter:
+                            drop-shadow(
+                                0 0 5px rgba(217, 180, 92, 0.65)
+                            )
+                            drop-shadow(
+                                0 0 16px rgba(217, 180, 92, 0.3)
+                            );
+                    }
+
+                `}
+            </style>
+
+
+            {/* =====================================================
+                GRADIENT DEFINITION
+            ====================================================== */}
+
+            <svg
+                width="0"
+                height="0"
+                className="absolute"
+                aria-hidden="true"
+            >
+                <defs>
+
+                    <linearGradient
+                        id="visitedGoldGradient"
+                        x1="0%"
+                        y1="100%"
+                        x2="100%"
+                        y2="0%"
+                    >
+                        <stop
+                            offset="0%"
+                            stopColor="#3A2A0D"
+                        />
+
+                        <stop
+                            offset="35%"
+                            stopColor="#8F6B25"
+                        />
+
+                        <stop
+                            offset="65%"
+                            stopColor="#D9B45C"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stopColor="#F6E39C"
+                        />
+                    </linearGradient>
+
+                </defs>
+            </svg>
+
+
+            {/* =====================================================
+                HEADER
+            ====================================================== */}
 
             <div className="flex justify-between items-start mb-8">
 
                 <div>
 
                     <h2 className="font-display text-3xl text-white">
-
                         India Exploration
-
                     </h2>
 
                     <p className="mt-2 font-body text-white/70">
-
                         {visitedCount} of {totalStates} states explored
-
                     </p>
 
                 </div>
+
 
                 <div
                     className="
@@ -132,30 +286,36 @@ function IndiaMap({
                     "
                 >
 
-                    <span className="material-symbols-outlined text-[#F2C66D] text-3xl">
-
+                    <span
+                        className="
+                            material-symbols-outlined
+                            text-[#F2C66D]
+                            text-3xl
+                        "
+                    >
                         public
-
                     </span>
 
                 </div>
 
             </div>
 
-            {/* Progress */}
+
+            {/* =====================================================
+                PROGRESS BAR
+            ====================================================== */}
 
             <div
                 className="
                     h-3
                     rounded-full
-                    bg-outline/10
+                    bg-black/30
                     overflow-hidden
                     mb-8
                 "
             >
 
                 <div
-
                     className="
                         h-full
                         rounded-full
@@ -165,74 +325,105 @@ function IndiaMap({
                         to-[#F6E39C]
                         transition-all
                         duration-700
+                        shadow-[0_0_12px_rgba(232,195,106,.45)]
                     "
-
                     style={{
-
-                        width: `${progress}%`
-
+                        width: `${progress}%`,
                     }}
-
                 />
 
             </div>
 
-            {/* SVG */}
+
+            {/* =====================================================
+                MAP
+            ====================================================== */}
 
             <div
                 className="
                     india-map
                     relative
-                    flex
-                    items-center
-                    justify-center
-
-                    h-[55vw]
-                    max-h-[700px]
-                    min-h-[420px]
-
+                    w-full
                     rounded-[2rem]
                     bg-[#12372A]
                     overflow-hidden
-                "
-            >
-
-                <div
-                    className="
-                    absolute
-                    inset-0
-                    pointer-events-none
                     flex
                     items-center
                     justify-center
+                    p-4
+                    md:p-8
                 "
+            >
+
+                {/* Golden aura */}
+
+                <div
+                    className="
+                        absolute
+                        inset-0
+                        pointer-events-none
+                        flex
+                        items-center
+                        justify-center
+                    "
                 >
+
                     <div
                         className="
-                        h-[75%]
-                        w-[75%]
-                        rounded-full
-                        bg-[#D9B45C]/15
-                        blur-[60px]
-                    "
+                            w-[70%]
+                            aspect-square
+                            rounded-full
+                            bg-[#D9B45C]/15
+                            blur-[80px]
+                        "
                     />
+
                 </div>
 
-                <IndiaSvg
+
+                {/* Secondary darker aura */}
+
+                <div
                     className="
-                        w-full
-                        h-full
-                        object-contain
-                        drop-shadow-[0_0_30px_rgba(217,180,92,.18)]
+                        absolute
+                        inset-0
+                        pointer-events-none
+                        bg-[radial-gradient(
+                            ellipse_at_center,
+                            rgba(217,180,92,0.08),
+                            transparent 65%
+                        )]
                     "
                 />
+
+
+                {/* SVG */}
+
+                <div
+                    className="
+                        relative
+                        z-10
+                        w-full
+                        flex
+                        justify-center
+                    "
+                >
+
+                    <IndiaSvg
+                        className="
+                            block
+                            w-full
+                            max-w-[850px]
+                            h-auto
+                        "
+                    />
+
+                </div>
 
             </div>
 
         </section>
-
     );
-
 }
 
 export default IndiaMap;
