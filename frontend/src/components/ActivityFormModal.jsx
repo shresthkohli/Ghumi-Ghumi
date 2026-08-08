@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { toInputTime, toApiTime } from "../utils/formatTime";
+import { toInputTime } from "../utils/formatTime";
+import getErrorMessage from "../utils/getErrorMessage";
 
 function ActivityFormModal({ initialData, dayNumber, onClose, onSave }) {
     const isEditing = Boolean(initialData);
@@ -19,6 +20,14 @@ function ActivityFormModal({ initialData, dayNumber, onClose, onSave }) {
             setError("Give this activity a title.");
             return;
         }
+        if (title.trim().length > 100) {
+            setError("Title can't be longer than 100 characters.");
+            return;
+        }
+        if (description.trim().length > 1000) {
+            setError("Description can't be longer than 1000 characters.");
+            return;
+        }
         if (!startTime || !endTime) {
             setError("Start and end time are both required.");
             return;
@@ -33,13 +42,13 @@ function ActivityFormModal({ initialData, dayNumber, onClose, onSave }) {
             await onSave({
                 title: title.trim(),
                 description: description.trim() || null,
-                startTime: toApiTime(startTime),
-                endTime: toApiTime(endTime),
+                startTime,
+                endTime,
             });
             onClose();
         }
         catch (err) {
-            setError(err?.message ?? "Couldn't save this activity. Please try again.");
+            setError(getErrorMessage(err));
         }
         finally {
             setSaving(false);
@@ -75,6 +84,7 @@ function ActivityFormModal({ initialData, dayNumber, onClose, onSave }) {
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
+                            maxLength={100}
                             placeholder="Check-in at Villa Bordoni"
                             className="w-full px-4 py-3 rounded-lg bg-surface-container-low border border-outline-variant focus:border-primary focus:outline-none font-body-md text-body-md"
                         />
@@ -87,6 +97,7 @@ function ActivityFormModal({ initialData, dayNumber, onClose, onSave }) {
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
+                            maxLength={1000}
                             rows={3}
                             className="w-full px-4 py-3 rounded-lg bg-surface-container-low border border-outline-variant focus:border-primary focus:outline-none font-body-md text-body-md resize-none"
                         />

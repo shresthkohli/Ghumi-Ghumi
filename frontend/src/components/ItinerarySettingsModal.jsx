@@ -1,4 +1,5 @@
 import { useState } from "react";
+import getErrorMessage from "../utils/getErrorMessage";
 
 function ItinerarySettingsModal({ itinerary, onClose, onSave, onDelete }) {
     const [title, setTitle] = useState(itinerary.title);
@@ -21,7 +22,7 @@ function ItinerarySettingsModal({ itinerary, onClose, onSave, onDelete }) {
             onClose();
         }
         catch (err) {
-            setError(err?.message ?? "Couldn't save changes. Please try again.");
+            setError(getErrorMessage(err));
         }
         finally {
             setSaving(false);

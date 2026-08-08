@@ -174,3 +174,15 @@
     transform: translateX(200%);
   }
 }
+
+/* Hand-drawn timeline path animation */
+.timeline-path {
+  stroke-dasharray: 10, 15;
+  animation: dash 30s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 1000;
+  }
+}

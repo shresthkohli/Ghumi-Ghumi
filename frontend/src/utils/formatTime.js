@@ -1,17 +1,12 @@
-export function toInputTime(pgTime) {
-    if (!pgTime) return "";
-    return pgTime.slice(0, 5); 
+export function toInputTime(apiTime) {
+    if (!apiTime) return "";
+    return apiTime.slice(0, 5); 
 }
 
-export function toApiTime(inputTime) {
-    if (!inputTime) return "";
-    return `${inputTime}:00`; 
-}
+export function formatDisplayTime(apiTime) {
+    if (!apiTime) return "";
 
-export function formatDisplayTime(pgTime) {
-    if (!pgTime) return "";
-
-    const [hoursStr, minutesStr] = pgTime.split(":");
+    const [hoursStr, minutesStr] = apiTime.split(":");
     const hours = Number(hoursStr);
     const minutes = Number(minutesStr);
 
@@ -22,12 +17,12 @@ export function formatDisplayTime(pgTime) {
     return `${displayHours}:${displayMinutes} ${period}`;
 }
 
-export function getTimeOfDayIcon(pgTime) {
-    if (!pgTime) return "schedule";
+export function getTimeOfDayIcon(apiTime) {
+    if (!apiTime) return "schedule";
 
-    const hours = Number(pgTime.split(":")[0]);
+    const hours = Number(apiTime.split(":")[0]);
 
-    if (hours < 12) return "wb_twilight";   
-    if (hours < 17) return "sunny";         
-    return "bedtime";                       
+    if (hours < 12) return "wb_twilight";
+    if (hours < 17) return "sunny";
+    return "bedtime";
 }
