@@ -24,7 +24,7 @@ function App() {
             <Navbar/>
             <Routes>
               <Route path="/" element={<Discover />} />
-              <Route path="/login" element={<Login darkMode={darkMode} setdarkMode={setdarkMode}/>}></Route>
+              <Route path="/login" element={<Login />}></Route>
               <Route path="/signup" element={<Signup darkMode={darkMode} setdarkMode={setdarkMode} />}></Route>
               <Route path="/discover" element={<Discover />} />
               <Route path="/itineraries" element={<Itineraries />} />

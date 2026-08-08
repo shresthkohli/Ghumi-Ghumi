@@ -6,6 +6,7 @@ import {useAuth} from "../../context/AuthContext";
 import ReviewSummary from "./ReviewSummary";
 import ReviewCard from "./ReviewCard";
 import ReviewForm from "./ReviewForm";
+import LoginModal from "../auth/LoginModal";
 
 export default function ReviewSection({
     destination,
@@ -16,6 +17,7 @@ export default function ReviewSection({
 }) {
     const {user } = useAuth();
     const [editingReview , setEditingReview] = useState(null);
+    const [showLoginModal , setShowLoginModal] = useState(false);
 
     const averageRating = reviews.length === 0 ? 0 : reviews.reduce((sum,review) => sum + review.rating,0) /
      reviews.length;
@@ -40,19 +42,20 @@ export default function ReviewSection({
                             onSubmit={handleSubmit}
                             onCancel={() => setEditingReview(null)}
                 />) : (
-                    <div className="glass-widget rounded-3xl p-8 text-center">
-                        <span className="material-symbols-outlined text-5xl text-primary">
+                    <div className="glass-widget mx-auto w-full max-w-3xl rounded-3xl p-8 text-center">
+                        <span className="materials-symbols-outlined text-5xl text-primary">
                             lock
                         </span>
-                        <h3 className="mt-4 font-display text-headline-md text-on-surface">
-                            Share Your travel story 
+                        <h3 className="mt-4 font-display text-headline-md text-on-surface"> 
+                            Join the conversation
                         </h3>
-                        <Link
-                            to ="/login"
-                            className="inline-block mt-8 glossy-button rounded-2xl px-8 py-4 text-on-primary font-semibold transition-all hover:scale-105"
+                        <button
+                            type="button"
+                            onClick={() => setShowLoginModal(true)}
+                            className="glossy-button mt-6 rounded-xl px-7 py-3 font-semibold text-on-primary transition-all hover:scale-105"
                         >
-                            Sign In to Write Review
-                        </Link>
+                            Sign in to review
+                        </button>
                     </div>
                 )}
                 <div className="space-y-8">
@@ -79,6 +82,11 @@ export default function ReviewSection({
                             ))
                         )}
                 </div>
+                <LoginModal
+                    open={showLoginModal}
+                    onClose={() => setShowLoginModal(false)}
+                />
+
         </section>
      )
 }
