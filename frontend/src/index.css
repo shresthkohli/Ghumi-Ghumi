@@ -110,92 +110,130 @@
 
 
 .gold-accent {
-    color: #d4af37;
-    filter:
-        drop-shadow(0 0 1.5px #f7d23b) drop-shadow(0 0 2px #d4af37) drop-shadow(0 0 10px rgba(255, 215, 0, .45));
-    transition: all 0.25s ease;
+  color: #d4af37;
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
 }
 
 .india-map svg {
 
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 
 }
 
 .india-map path {
 
-    fill: var(--color-surface-container-high);
+  fill: var(--color-surface-container-high);
 
-    stroke: var(--color-outline);
+  stroke: var(--color-outline);
 
-    stroke-width: 1.2;
+  stroke-width: 1.2;
 
-    transition:
-        fill .3s,
-        transform .3s;
+  transition:
+    fill .3s,
+    transform .3s;
 
-    cursor: pointer;
+  cursor: pointer;
 
 }
 
 .india-map path:hover {
 
-    fill: var(--color-primary-container);
+  fill: var(--color-primary-container);
 
 }
 
 .india-map .visited {
+  fill: #D5AE57;
 
-    fill: var(--color-primary);
+  filter:
+    drop-shadow(0 0 5px #D5AE57) drop-shadow(0 0 10px #D5AE57);
+}
 
+.india-map svg path {
+  fill: #0A0B0B;
+  stroke: none;
+  transition: .35s;
+}
+
+.india-map svg path.visited {
+  fill: url(#goldGradient);
+}
+
+.india-map svg {
+  filter:
+    drop-shadow(0 0 8px rgba(230, 185, 90, .18)) drop-shadow(0 0 22px rgba(230, 185, 90, .12));
+}
+
+.india-map svg path:hover {
+  filter: brightness(1.15);
 }
 
 @keyframes shimmer {
-    100% {
-        transform: translateX(200%);
-    }
+  100% {
+    transform: translateX(200%);
+  }
 }
 
 .india-map svg {
 
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 
 }
 
 .india-map path {
 
-    fill: var(--color-surface-container-high);
+  fill: var(--color-surface-container-high);
 
-    stroke: var(--color-outline);
+  stroke: var(--color-outline);
 
-    stroke-width: 1.2;
+  stroke-width: 1.2;
 
-    transition:
-        fill .3s,
-        transform .3s;
+  transition:
+    fill .3s,
+    transform .3s;
 
-    cursor: pointer;
+  cursor: pointer;
 
 }
 
 .india-map path:hover {
 
-    fill: var(--color-primary-container);
+  fill: var(--color-primary-container);
 
 }
 
 .india-map .visited {
+  fill: #D5AE57;
 
-    fill: var(--color-primary);
+  filter:
+    drop-shadow(0 0 5px #D5AE57) drop-shadow(0 0 10px #D5AE57);
+}
 
+.india-map svg path {
+  fill: #0A0B0B;
+  stroke: none;
+  transition: .35s;
+}
+
+.india-map svg path.visited {
+  fill: url(#goldGradient);
+}
+
+.india-map svg {
+  filter:
+    drop-shadow(0 0 8px rgba(230, 185, 90, .18)) drop-shadow(0 0 22px rgba(230, 185, 90, .12));
+}
+
+.india-map svg path:hover {
+  filter: brightness(1.15);
 }
 
 @keyframes shimmer {
-    100% {
-        transform: translateX(200%);
-    }
+  100% {
+    transform: translateX(200%);
+  }
 }
 
 @keyframes fadeSlideDown {
