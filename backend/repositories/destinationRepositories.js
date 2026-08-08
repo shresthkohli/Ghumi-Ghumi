@@ -21,6 +21,7 @@ function mapDestination(row) {
         budgetCategory: row.budget_category,
         isFavorite: row.is_favorite ?? false,
         isVisited: row.is_visited ?? false,
+        icon: row.icon,
         createdAt: row.created_at,
         updatedAt: row.updated_at
     };
@@ -213,7 +214,8 @@ async function getPassportStampsRepository(userId) {
         SELECT
             destinations.id,
             destinations.name,
-            'location_on' AS icon
+            destinations.state,
+            destinations.icon
 
         FROM visited_destinations
 
@@ -233,7 +235,8 @@ async function getPassportStampsRepository(userId) {
     return result.rows.map((row) => ({
         id: row.id,
         name: row.name,
-        icon: row.icon
+        icon: row.icon,
+        state: row.state
     }));
 
 }

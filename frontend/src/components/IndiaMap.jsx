@@ -1,45 +1,45 @@
 import { useEffect } from "react";
-import IndiaSvg from "../assets/india-map.svg?react";
+import IndiaSvg from "../assets/india-map-premium.svg?react";
 
 
 const STATE_TO_CODE = {
-        "Andaman and Nicobar Islands": "IN-AN",
-        "Andhra Pradesh": "IN-AP",
-        "Arunachal Pradesh": "IN-AR",
-        "Assam": "IN-AS",
-        "Bihar": "IN-BR",
-        "Chandigarh": "IN-CH",
-        "Chhattisgarh": "IN-CT",
-        "Dadra and Nagar Haveli and Daman and Diu": "IN-DH",
-        "Delhi": "IN-DL",
-        "Goa": "IN-GA",
-        "Gujarat": "IN-GJ",
-        "Haryana": "IN-HR",
-        "Himachal Pradesh": "IN-HP",
-        "Jammu and Kashmir": "IN-JK",
-        "Jharkhand": "IN-JH",
-        "Karnataka": "IN-KA",
-        "Kerala": "IN-KL",
-        "Ladakh": "IN-LA",
-        "Lakshadweep": "IN-LD",
-        "Madhya Pradesh": "IN-MP",
-        "Maharashtra": "IN-MH",
-        "Manipur": "IN-MN",
-        "Meghalaya": "IN-ML",
-        "Mizoram": "IN-MZ",
-        "Nagaland": "IN-NL",
-        "Odisha": "IN-OR",
-        "Puducherry": "IN-PY",
-        "Punjab": "IN-PB",
-        "Rajasthan": "IN-RJ",
-        "Sikkim": "IN-SK",
-        "Tamil Nadu": "IN-TN",
-        "Telangana": "IN-TS",
-        "Tripura": "IN-TR",
-        "Uttar Pradesh": "IN-UP",
-        "Uttarakhand": "IN-UT",
-        "West Bengal": "IN-WB",
-    };
+    "Andaman and Nicobar Islands": "IN-AN",
+    "Andhra Pradesh": "IN-AP",
+    "Arunachal Pradesh": "IN-AR",
+    "Assam": "IN-AS",
+    "Bihar": "IN-BR",
+    "Chandigarh": "IN-CH",
+    "Chhattisgarh": "IN-CT",
+    "Dadra and Nagar Haveli and Daman and Diu": "IN-DH",
+    "Delhi": "IN-DL",
+    "Goa": "IN-GA",
+    "Gujarat": "IN-GJ",
+    "Haryana": "IN-HR",
+    "Himachal Pradesh": "IN-HP",
+    "Jammu and Kashmir": "IN-JK",
+    "Jharkhand": "IN-JH",
+    "Karnataka": "IN-KA",
+    "Kerala": "IN-KL",
+    "Ladakh": "IN-LA",
+    "Lakshadweep": "IN-LD",
+    "Madhya Pradesh": "IN-MP",
+    "Maharashtra": "IN-MH",
+    "Manipur": "IN-MN",
+    "Meghalaya": "IN-ML",
+    "Mizoram": "IN-MZ",
+    "Nagaland": "IN-NL",
+    "Odisha": "IN-OR",
+    "Puducherry": "IN-PY",
+    "Punjab": "IN-PB",
+    "Rajasthan": "IN-RJ",
+    "Sikkim": "IN-SK",
+    "Tamil Nadu": "IN-TN",
+    "Telangana": "IN-TS",
+    "Tripura": "IN-TR",
+    "Uttar Pradesh": "IN-UP",
+    "Uttarakhand": "IN-UT",
+    "West Bengal": "IN-WB",
+};
 
 
 function IndiaMap({
@@ -51,7 +51,8 @@ function IndiaMap({
 }) {
 
     useEffect(() => {
-
+        console.log("useEffect fired");
+        
         // remove old styles
 
         document
@@ -78,6 +79,8 @@ function IndiaMap({
 
         });
 
+        console.log(visitedStates);
+
     }, [visitedStates]);
 
     const progress =
@@ -87,11 +90,13 @@ function IndiaMap({
 
         <section
             className="
+                relative
+                overflow-hidden
                 rounded-[2.5rem]
-                bg-surface-container
+                bg-[#12372A]
                 border
-                border-outline/20
-                shadow-lg
+                border-[#1F5A45]
+                shadow-[0_20px_60px_rgba(0,0,0,.45)]
                 p-8
             "
         >
@@ -102,13 +107,13 @@ function IndiaMap({
 
                 <div>
 
-                    <h2 className="font-display text-3xl text-on-surface">
+                    <h2 className="font-display text-3xl text-white">
 
                         India Exploration
 
                     </h2>
 
-                    <p className="mt-2 font-body text-on-surface-variant">
+                    <p className="mt-2 font-body text-white/70">
 
                         {visitedCount} of {totalStates} states explored
 
@@ -121,14 +126,13 @@ function IndiaMap({
                         w-14
                         h-14
                         rounded-2xl
-                        bg-primary-container
                         flex
                         items-center
                         justify-center
                     "
                 >
 
-                    <span className="material-symbols-outlined text-primary text-3xl">
+                    <span className="material-symbols-outlined text-[#F2C66D] text-3xl">
 
                         public
 
@@ -155,7 +159,10 @@ function IndiaMap({
                     className="
                         h-full
                         rounded-full
-                        bg-primary
+                        bg-gradient-to-r
+                        from-[#C88A2B]
+                        via-[#E8C36A]
+                        to-[#F6E39C]
                         transition-all
                         duration-700
                     "
@@ -175,16 +182,48 @@ function IndiaMap({
             <div
                 className="
                     india-map
-                    rounded-3xl
-                    bg-background
-                    p-4
+                    relative
+                    flex
+                    items-center
+                    justify-center
+
+                    h-[55vw]
+                    max-h-[700px]
+                    min-h-[420px]
+
+                    rounded-[2rem]
+                    bg-[#12372A]
+                    overflow-hidden
                 "
             >
+
+                <div
+                    className="
+                    absolute
+                    inset-0
+                    pointer-events-none
+                    flex
+                    items-center
+                    justify-center
+                "
+                >
+                    <div
+                        className="
+                        h-[75%]
+                        w-[75%]
+                        rounded-full
+                        bg-[#D9B45C]/15
+                        blur-[60px]
+                    "
+                    />
+                </div>
 
                 <IndiaSvg
                     className="
                         w-full
-                        h-auto
+                        h-full
+                        object-contain
+                        drop-shadow-[0_0_30px_rgba(217,180,92,.18)]
                     "
                 />
 
