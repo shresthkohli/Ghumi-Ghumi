@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import destinationApi from "../api/destinationApi";
 
 function CreateItineraryModal({ onClose, onCreate }) {
@@ -10,12 +10,25 @@ function CreateItineraryModal({ onClose, onCreate }) {
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState("");
 
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
+
     useEffect(() => {
         async function loadDestinations() {
         const data = await destinationApi.getAllDestinations();
         setDestinations(data);
         }
         loadDestinations();
+    }, []);
+
+    useEffect(() => {
+        function handleClickOutside(e) {
+        if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+            setIsDropdownOpen(false);
+        }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
     async function handleSubmit(e) {
@@ -39,6 +52,8 @@ function CreateItineraryModal({ onClose, onCreate }) {
         }
     }
 
+    const selectedDestination = destinations.find((dest) => dest.id === destinationId);
+
     return (
         <div className="fixed inset-0 bg-on-surface/40 backdrop-blur-sm flex items-center justify-center z-[100] px-margin-mobile">
         <div className="bg-surface rounded-3xl p-8 w-full max-w-md shadow-2xl">
@@ -47,22 +62,57 @@ function CreateItineraryModal({ onClose, onCreate }) {
             </h3>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-            <div>
+            <div ref={dropdownRef} className="relative">
                 <label className="font-label-lg text-label-lg text-on-surface-variant block mb-2">
                 Destination
                 </label>
-                <select
-                value={destinationId}
-                onChange={(e) => setDestinationId(e.target.value)}
-                className="w-full rounded-lg border border-outline-variant bg-surface-container-lowest px-4 py-3 focus:outline-none focus:border-primary"
+
+                {/* Trigger button — shows the current selection */}
+                <button
+                type="button"
+                onClick={() => setIsDropdownOpen((open) => !open)}
+                className="w-full flex items-center justify-between rounded-lg border border-outline-variant bg-surface-container-lowest px-4 py-3 text-left font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors"
                 >
-                <option value="">Select a destination</option>
-                {destinations.map((dest) => (
-                    <option key={dest.id} value={dest.id}>
-                    {dest.name}
-                    </option>
-                ))}
-                </select>
+                <span className={selectedDestination ? "text-on-surface" : "text-outline"}>
+                    {selectedDestination ? selectedDestination.name : "Select a destination"}
+                </span>
+                <span
+                    className={`material-symbols-outlined text-on-surface-variant transition-transform ${
+                    isDropdownOpen ? "rotate-180" : ""
+                    }`}
+                >
+                    expand_more
+                </span>
+                </button>
+
+                {/* Dropdown menu */}
+                {isDropdownOpen && (
+                <div className="absolute z-10 mt-2 w-full max-h-60 overflow-y-auto rounded-lg border border-outline-variant bg-surface-container-lowest shadow-xl">
+                    {destinations.length === 0 && (
+                    <p className="px-4 py-3 font-body-md text-body-md text-outline">
+                        No destinations available
+                    </p>
+                    )}
+
+                    {destinations.map((dest) => (
+                    <button
+                        key={dest.id}
+                        type="button"
+                        onClick={() => {
+                        setDestinationId(dest.id);
+                        setIsDropdownOpen(false);
+                        }}
+                        className={`w-full text-left px-4 py-3 font-body-md text-body-md transition-colors hover:bg-surface-container ${
+                        dest.id === destinationId
+                            ? "bg-primary-container text-on-primary-container"
+                            : "text-on-surface"
+                        }`}
+                    >
+                        {dest.name}
+                    </button>
+                    ))}
+                </div>
+                )}
             </div>
 
             <div>
