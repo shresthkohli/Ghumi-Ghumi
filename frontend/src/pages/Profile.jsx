@@ -129,11 +129,7 @@ function Profile() {
                         />
 
                         <IndiaMap
-                            visitedStates={
-                                passport.stamps.map(
-                                    stamp => stamp.label
-                                )
-                            }
+                            visitedStates={passport.stamps.map(stamp => stamp.state)}
                             visitedCount={stats.statesVisited}
                         />
 
