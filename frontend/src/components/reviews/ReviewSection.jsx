@@ -71,19 +71,19 @@ export default function ReviewSection({
                 </div> 
             ) : (
                         <div className=" mx-auto mt-12 w-full max-w-2xl relative overflow-hidden rounded-3xl border border-primary/10 bg-surface-container p-5
-                        shadow-sm transition-all duration:500 hover:-translate-y-1 hover:shadow-warm-lg sm:p-7">
+                        shadow-sm transition-all duration:500 hover:-translate-y-1 hover:shadow-warm-lg sm:p-7 flex flex-col items:center">
                     <div className="flex h-12 w-12 mx-auto items-center justify-center rounded-3xl bg-primary/10 text-primary">
-                        <span className="materials-symbols-outlined text-5xl text-primary">
+                        <span className="material-symbols-outlined text-5xl text-primary">
                             lock
                         </span>
                         </div>
-                        <h3 className="mt-4 font-display text-xl font-semibold text-on-surface"> 
+                        <h3 className=" mt-4 font-display text-xl font-semibold text-on-surface"> 
                             Join the conversation
                         </h3>
                         <button
                             type="button"
                             onClick={() => setShowLoginModal(true)}
-                            className="glossy-button mt-6 rounded-xl px-7 py-3 font-semibold text-on-primary transition-all hover:scale-105"
+                            className="glossy-button mt-6 w-fit self-center rounded-xl px-7 py-3 font-semibold text-on-primary transition-all hover:scale-105"
                         >
                             Sign in to review
                         </button>

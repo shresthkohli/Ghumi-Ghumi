@@ -1,6 +1,5 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
-import DarkMode from "../components/DarkMode.jsx";
 import { signup, googleLogin } from "../api/authApi.js";
 import Toast from "../components/Toast.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
@@ -77,46 +76,85 @@ function Signup({ darkMode, setdarkMode }) {
     }
 
     return (<>
-        <DarkMode darkMode={darkMode} setdarkMode={setdarkMode} />
         <Toast message={error} onClose={() => setError("")} />
-        <div className={`flex justify-center items-center h-screen ${darkMode
-            ? "bg-gray-900 text-white"
-            : "bg-surface-container-high text-black"
-            }`}>
+        <div className="min-h-screen flex items-center justify-center bg-surface-container-high px-4 py-8"
+          >
             <form
                 onSubmit={handleSubmit}
-                className={`p-10 rounded-2xl ${darkMode
-                    ? "bg-gray-800 text-white"
-                    : "bg-white text-black"
-                    }`}>
+                className=" w-full max-w-md rounded-3xl border border-primary/10 bg-white p-7 shadow-warm-lg transition-all duration-300 sm:p-9 ">
+                
+                <div className="mb-7 text-center">
+                <h1 className="font-display text-3xl font-bold text-on-surface">
+                    Signup
+                </h1>
+                <p className="mt-2 text-sm text-on-surface-variant"> 
+                    Create your account 
+                </p>
+                </div>
+                <div className="mb-4"> 
+                    <label className="mb-2 block text-sm font-semibold text-on-surface"> 
+                        Name 
+                    </label>
+                    <input 
+                        type="text" 
+                        value={name} 
+                        placeholder="Enter your Name"
+                        onChange={(e) => setName(e.target.value)}
+                        className=" w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-on-surface placeholder:text-on-surface-variant outline-none transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20 "
+                    />
+                </div>
 
-                <h1 className={`text-4xl text-center font-bold mb-6 ${darkMode ? "text-white" : "text-on-surface-variant"}`}>Signup</h1>
+                <div className="mb-4"> 
+                    <label className="mb-2 block text-sm font-semibold text-on-surface"> 
+                        Email 
+                    </label>
+                <input 
+                    type="email" 
+                    value={email} 
+                    placeholder="Enter your email"
+                    className=" w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-on-surface placeholder:text-on-surface-variant outline-none transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20 "
+                    onChange={(e) => setemail(e.target.value)}>
+                </input>
+                </div>
 
-                <input type="text" value={name} placeholder="Enter your Name"
-                    className={`mb-6 border-2  border-on-surface rounded px-11 ${darkMode ?
-                        "text-white placeholder:text-gray-400" : "text-black placeholder:text-gray-600"}`} onChange={(e) => setName(e.target.value)}
-                /><br></br>
-
-                <input type="email" value={email} placeholder="Enter your email"
-                    className={`mb-6 border-2  border-on-surface rounded px-11 ${darkMode ?
-                        "text-white placeholder:text-gray-400" : "text-black placeholder:text-gray-600"}`} onChange={(e) => setemail(e.target.value)}></input><br></br>
-
-                <input type="password" value={password} placeholder="Create a password"
-                    className={`mb-6 border-2  border-on-surface rounded px-11 ${darkMode ?
-                        "text-white placeholder:text-gray-400" : "text-black placeholder:text-gray-600"}`} onChange={(e) => setpassword(e.target.value)}></input> <br></br>
-
-                <input type="password" value={confirmPassword} placeholder="Confirm the new password"
-                    className={`mb-6 border-2  border-on-surface rounded px-11 ${darkMode ?
-                        "text-white placeholder:text-gray-400" : "text-black placeholder:text-gray-600 placeholder:text-right"}`} onChange={(e) => setconfirmPassword(e.target.value)}></input> <br></br>
-
+                <div className="mb-4"> 
+                    <label className="mb-2 block text-sm font-semibold text-on-surface">
+                         Password 
+                    </label> 
+                    <input 
+                    type="password" 
+                    value={password} 
+                    placeholder="Create a password" 
+                    onChange={(e) => setpassword(e.target.value)} 
+                    className=" w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-on-surface placeholder:text-on-surface-variant outline-none transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20 " /> 
+                </div>
+                
+                <div className="mb-5"> 
+                    <label className="mb-2 block text-sm font-semibold text-on-surface"> 
+                        Confirm Password 
+                    </label> 
+                    <input 
+                    type="password" 
+                    value={confirmPassword} 
+                    placeholder="Confirm your password" 
+                    onChange={(e) => setconfirmPassword(e.target.value) } 
+                    className=" w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-on-surface placeholder:text-on-surface-variant outline-none transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20 " 
+                    /> 
+                </div>
                 <button
                     type="submit"
                     disabled={loading}
-                    className=" rounded text-white px-24 my-4 py-2 text-2xl font-bold bg-gradient-to-r from-primary-container to-primary
-                hover:from-primary hover:to-primary-container hover:scale-105 transition duration-600">
+                    className=" w-full rounded-xl bg-gradient-to-r from-primary-container to-primary px-6 py-3 text-base font-bold text-white shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60 ">
                     {loading ? "Creating account..." : "Signup"}
                 </button>
 
+                <div className="my-6 flex items-center gap-3"> 
+                    <div className="h-px flex-1 bg-outline-variant" /> 
+                    <span className="text-xs font-medium text-on-surface-variant"> 
+                        OR 
+                    </span> 
+                    <div className="h-px flex-1 bg-outline-variant" /> 
+                    </div>
                 <GoogleLogin
                     onSuccess={handleGoogleSuccess}
                     onError={() => {
@@ -124,10 +162,14 @@ function Signup({ darkMode, setdarkMode }) {
                     }}
                 />
 
-                <h3 className={` font-semibold ml-5 pt-5 ${darkMode ? "text-white" : "text-black"}`}>Already have an account?
-                    <Link to="/" className={`font-semibold text-md ml-1
-         hover:font-bold hover:underline ${darkMode ? "text-fuchsia-300" : "text-on-surface-variant"}`}>
-                        Login</Link></h3>
+                <p className="mt-6 text-center text-sm text-on-surface-variant"> 
+                    Already have an account? 
+                    <Link 
+                    to="/login" 
+                    className=" ml-1 font-semibold text-primary transition-all duration-200 hover:underline " > 
+                    Login 
+                    </Link> 
+                    </p>
             </form>
         </div>
     </>

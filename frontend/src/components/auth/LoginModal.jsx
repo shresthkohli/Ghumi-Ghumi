@@ -44,10 +44,10 @@ export default function LoginModal({
                     <button
                         onClick={onClose}
                         type="button"
-                        className="absolute -right-3 -top-3 z-20 flex h-10 w-10 items-center justofy-center rounded-full
+                        className="absolute -right-3 -top-3 z-20 flex h-10 w-10 items-center justify-center rounded-full
                         bg-white text-on-surface shadow-xl transition-all hover:scale-110 hover:bg-surface-container"
                     >
-                        <span className="material-symbols-outlined">
+                        <span className="material-symbols-outlined ">
                             close
                         </span>
                     </button>
