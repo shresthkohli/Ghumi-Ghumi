@@ -9,7 +9,7 @@ export default function ReviewSummary ({
         <div className="glass-widget relative rounded-3xl p-8 md:p-12 transition-all duration-500 hover:-translate-y-1 hover:shadow-warm-lg ">
             <div className="absolute -left-24 -top-24 h-64 w-64 rounded-full bg-primary/10 blur-3xl"/>
              <div className="pointer-events-none absolute inset-3 rounded-[32px] border border-white/30" />
-                <span className="absolute right-72 top-1 text-[140px] opacity-[0.06] text-primary select-none font-display">
+                <span className="absolute right-72 top-1 text-[180px] opacity-[0.06] text-primary select-none font-display">
                         🌍
                 </span>
 
@@ -26,7 +26,7 @@ export default function ReviewSummary ({
                 <div>
                     <div className="flex items-end gap-3">
                         <div className=" absolute h-36 w-36 rounded-full "/>
-                        <span className="font-display text-display-md text-primary">
+                        <span className="font-serif text-display-md text-primary">
                             {averageRating.toFixed(1)}
                         </span>
                         <span className="mb-2 text-on-surface-variant text-xl">
@@ -41,11 +41,11 @@ export default function ReviewSummary ({
                         />
                     </div>
                     <p className="mt-6 text-on-surface-variant text-lg">
-                        Based on{" "}
+                        Based on{""}
                     <span className="font-semibold text-on-surface mx-2">
                         {totalReviews}
                     </span>
-                    {" "}traveller{totalReviews !== 1 ? "s" : ""}
+                    {""}traveller{totalReviews !== 1 ? "s" : ""}
                     </p>
                 </div>
                 <div className="flex items-start rounded-3xl bg-surface-container p-6 w-full max-w-2xl">
