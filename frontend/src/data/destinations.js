@@ -3,9 +3,10 @@ const destinations = [
         id: 1,
         name: "Jaipur",
         city: "Jaipur",
+        state: "Rajasthan",
         country: "India",
         description: "Famous for its rich history, majestic palaces, forts, vibrant bazaars, and authentic Rajasthani culture. Jaipur offers a royal experience with breathtaking architecture and delicious local cuisine.",
-        imageUrl: "../data/images/destinations/jaipur.avif",
+        imageUrl: "/images/destinations/jaipur.avif",
         category: "heritage",
         bestTimeToVisit: "October to March",
         weather: "Pleasant winters with warm sunny days. Summers can be extremely hot.",
@@ -18,9 +19,10 @@ const destinations = [
         id: 2,
         name: "Goa",
         city: "Panaji",
+        state: "Goa",
         country: "India",
         description: "India's most popular beach destination, known for its Portuguese heritage, lively nightlife, delicious seafood, and pristine beaches along the Arabian Sea.",
-        imageUrl: "../data/images/destinations/goa.avif",
+        imageUrl: "/images/destinations/goa.avif",
         category: "beach",
         bestTimeToVisit: "November to February",
         weather: "Warm tropical climate throughout the year with pleasant winters.",
@@ -33,6 +35,7 @@ const destinations = [
         id: 3,
         name: "Ladakh",
         city: "Leh",
+        state: "Ladakh",
         country: "India",
         description: "A breathtaking high-altitude desert known for dramatic mountains, serene monasteries, crystal-clear lakes, and thrilling adventures like trekking and motorbiking.",
         imageUrl: "/images/destinations/ladakh.avif",
@@ -48,6 +51,7 @@ const destinations = [
         id: 4,
         name: "Munnar",
         city: "Munnar",
+        state: "Kerala",
         country: "India",
         description: "A peaceful hill station famous for lush tea plantations, misty hills, waterfalls, and rich biodiversity including the Nilgiri Tahr.",
         imageUrl: "/images/destinations/munnar.avif",
@@ -63,6 +67,7 @@ const destinations = [
         id: 5,
         name: "Varanasi",
         city: "Varanasi",
+        state: "Uttar Pradesh",
         country: "India",
         description: "One of the world's oldest living cities, renowned for its spiritual atmosphere, sacred ghats, ancient temples, and mesmerizing evening Ganga Aarti.",
         imageUrl: "/images/destinations/varanasi.avif",
@@ -78,6 +83,7 @@ const destinations = [
         id: 6,
         name: "Andaman and Nicobar Islands",
         city: "Port Blair",
+        state: "Andaman and Nicobar Islands",
         country: "India",
         description: "A tropical paradise with crystal-clear waters, white sandy beaches, coral reefs, and world-class scuba diving and snorkeling experiences.",
         imageUrl: "/images/destinations/andaman-nicobar.avif",
@@ -93,6 +99,7 @@ const destinations = [
         id: 7,
         name: "Agra",
         city: "Agra",
+        state: "Uttar Pradesh",
         country: "India",
         description: "Home to the iconic Taj Mahal, Agra is famous for its magnificent Mughal architecture, historical significance, and landmarks like Agra Fort.",
         imageUrl: "/images/destinations/agra.avif",
@@ -108,6 +115,7 @@ const destinations = [
         id: 8,
         name: "Jim Corbett National Park",
         city: "Ramnagar",
+        state: "Uttarakhand",
         country: "India",
         description: "India's oldest national park, famous for Bengal tigers, diverse wildlife, birdwatching, and exciting jeep safaris through forests and riverine landscapes.",
         imageUrl: "/images/destinations/jim-corbett-national-park.avif",
@@ -122,8 +130,7 @@ const destinations = [
 
 export function getFeaturedId(list) {
     if (list.length === 0) return undefined;
-    return list.reduce((best, d) => (d.averageRating > best.averageRating ? d : best))
-    .id;
+    return list.reduce((best, d) => (d.averageRating > best.averageRating ? d : best)).id;
 }
 
 const categories = [
@@ -131,9 +138,25 @@ const categories = [
     { id: "beach", label: "Beach", icon: "beach_access" },
     { id: "mountains", label: "Mountains", icon: "forest" },
     { id: "adventure", label: "Adventure", icon: "hiking" },
-]
+];
 
-export {categories}
+const budgetOptions = [
+    { id: "budget", label: "Budget", tier: "₹", icon: "savings", description: "Economy" },
+    { id: "mid-range", label: "Mid-Range", tier: "₹₹", icon: "credit_card", description: "Standard" },
+    { id: "luxury", label: "Luxury", tier: "₹₹₹", icon: "diamond", description: "Premium" },
+];
+
+const statesList = [
+    { id: "Rajasthan", label: "Rajasthan", icon: "fort" },
+    { id: "Goa", label: "Goa", icon: "surfing" },
+    { id: "Kerala", label: "Kerala", icon: "sailing" },
+    { id: "Ladakh", label: "Ladakh", icon: "landscape" },
+    { id: "Uttar Pradesh", label: "Uttar Pradesh", icon: "temple_hindu" },
+    { id: "Uttarakhand", label: "Uttarakhand", icon: "terrain" },
+    { id: "Andaman and Nicobar Islands", label: "Andaman & Nicobar", icon: "waves" },
+];
+
+export { categories, budgetOptions, statesList };
 
 // change with api call later
 export function getDestinations() {

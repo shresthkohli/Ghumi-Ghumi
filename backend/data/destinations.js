@@ -2,6 +2,7 @@ const destinations = [
     {
         name: "Jaipur",
         city: "Jaipur",
+        state: "Rajasthan",
         country: "India",
         description: "Famous for its rich history, majestic palaces, forts, vibrant bazaars, and authentic Rajasthani culture. Jaipur offers a royal experience with breathtaking architecture and delicious local cuisine.",
         imageUrl: "/images/destinations/jaipur.avif",
@@ -16,6 +17,7 @@ const destinations = [
     {
         name: "Goa",
         city: "Panaji",
+        state: "Goa",
         country: "India",
         description: "India's most popular beach destination, known for its Portuguese heritage, lively nightlife, delicious seafood, and pristine beaches along the Arabian Sea.",
         imageUrl: "/images/destinations/goa.avif",
@@ -30,6 +32,7 @@ const destinations = [
     {
         name: "Ladakh",
         city: "Leh",
+        state: "Ladakh",
         country: "India",
         description: "A breathtaking high-altitude desert known for dramatic mountains, serene monasteries, crystal-clear lakes, and thrilling adventures like trekking and motorbiking.",
         imageUrl: "/images/destinations/ladakh.avif",
@@ -44,6 +47,7 @@ const destinations = [
     {
         name: "Munnar",
         city: "Munnar",
+        state: "Kerala",
         country: "India",
         description: "A peaceful hill station famous for lush tea plantations, misty hills, waterfalls, and rich biodiversity including the Nilgiri Tahr.",
         imageUrl: "/images/destinations/munnar.avif",
@@ -58,6 +62,7 @@ const destinations = [
     {
         name: "Varanasi",
         city: "Varanasi",
+        state: "Uttar Pradesh",
         country: "India",
         description: "One of the world's oldest living cities, renowned for its spiritual atmosphere, sacred ghats, ancient temples, and mesmerizing evening Ganga Aarti.",
         imageUrl: "/images/destinations/varanasi.avif",
@@ -72,6 +77,7 @@ const destinations = [
     {
         name: "Andaman and Nicobar Islands",
         city: "Port Blair",
+        state: "Andaman and Nicobar Islands",
         country: "India",
         description: "A tropical paradise with crystal-clear waters, white sandy beaches, coral reefs, and world-class scuba diving and snorkeling experiences.",
         imageUrl: "/images/destinations/andaman-nicobar.avif",
@@ -86,6 +92,7 @@ const destinations = [
     {
         name: "Agra",
         city: "Agra",
+        state: "Uttar Pradesh",
         country: "India",
         description: "Home to the iconic Taj Mahal, Agra is famous for its magnificent Mughal architecture, historical significance, and landmarks like Agra Fort.",
         imageUrl: "/images/destinations/agra.avif",
@@ -100,6 +107,7 @@ const destinations = [
     {
         name: "Jim Corbett National Park",
         city: "Ramnagar",
+        state: "Uttarakhand",
         country: "India",
         description: "India's oldest national park, famous for Bengal tigers, diverse wildlife, birdwatching, and exciting jeep safaris through forests and riverine landscapes.",
         imageUrl: "/images/destinations/jim-corbett-national-park.avif",
