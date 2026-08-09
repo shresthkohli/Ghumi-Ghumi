@@ -9,7 +9,7 @@ const router = express.Router();
 router.use(authMiddleware.requireLogin);
 
 router.post(
-    "/",
+    "/:id",
     reviewValidators.createReviewValidation,
     validateRequest,
     reviewControllers.createReviewController

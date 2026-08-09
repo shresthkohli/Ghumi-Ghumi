@@ -14,6 +14,7 @@ function Navbar() {
     const { user, loading } = useAuth();
 
     const [searchOpen, setSearchOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
     const searchInputRef = useRef(null);
 
     const {
@@ -41,6 +42,7 @@ function Navbar() {
         function handleKey(e) {
             if (e.key === "Escape") {
                 setSearchOpen(false);
+                setMenuOpen(false);
                 resetSearch();
             }
         }
@@ -73,7 +75,18 @@ function Navbar() {
         if (searchOpen && searchQuery === "" && !isSearching && !searchError) {
             setSearchOpen(false);
         }
-    }, [searchQuery, isSearching, searchError]);
+    }, [searchQuery, isSearching, searchError, searchOpen]);
+
+    function handleMobileLinkClick()
+    {
+        setMenuOpen(false);
+    }
+
+    function openMobileSearch()
+    {
+        setMenuOpen(false);
+        setSearchOpen(true);
+    }
 
     return (
         <header className="bg-[#050d1a]/70 backdrop-blur-md sticky top-0 z-50 border-b border-white/10 shadow-lg">
@@ -127,7 +140,116 @@ function Navbar() {
                         </Link>
                     )}
                 </div>
+
+                <button
+                    onClick={() => setMenuOpen(!menuOpen)} 
+                    className="md:hidden flex items-center justify-center w-10 h-10 text-white"
+                    aria-label="Toggle menu"
+                >
+                    <span className="material-symbols-outlined text-3xl">
+                        {menuOpen ? "close" : "menu"}
+                    </span>
+                </button>
             </nav>
+
+            {/* Mobile Menu */ }
+            <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+                menuOpen ?
+                "max-h-[500px] opacity-100"
+                : "max-h-0 opacity-0"
+            }`}>
+            <div className="border-t border-white/10 bg-[#050d1a]/95 backdrop-blur-xl px-5 sm:px-8 py-5">
+                <div className="flex flex-col">
+                    <Link to="/discover"
+                          onClick={handleMobileLinkClick}
+                          className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors"
+                    >
+                            <span className="material-symbols-outlined text-[22px]">
+                                explore
+                            </span>
+                            <span className="font-body text-base font-medium">
+                                Discover
+                            </span>
+                    </Link>
+                    <Link to="/itineraries"
+                          onClick={handleMobileLinkClick}
+                          className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors"
+                    >
+                            <span className="material-symbols-outlined text-[22px]">
+                                map
+                            </span>
+                            <span className="font-body text-base font-medium">
+                                Itineraries
+                            </span>
+                    </Link>
+                    <Link to="/destinations"
+                          onClick={handleMobileLinkClick}
+                          className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors"
+                    >
+                            <span className="material-symbols-outlined text-[22px]">
+                                location_on
+                            </span>
+                            <span className="font-body text-base font-medium">
+                                Destinations
+                            </span>
+                    </Link>
+                    <Link to="/guides"
+                          onClick={handleMobileLinkClick}
+                          className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors"
+                    >
+                            <span className="material-symbols-outlined text-[22px]">
+                                menu_book
+                            </span>
+                            <span className="font-body text-base font-medium">
+                                Guides
+                            </span>
+                    </Link>
+                    <button
+                        onClick={openMobileSearch}
+                        className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors text-left"
+                    >
+                        <span className="material-symbols-outlined text-[22px]">
+                            search
+                        </span>
+                        <span className="font-body text-base font-medium">
+                            Search
+                        </span>
+                    </button>
+                {loading ? (
+                    <div className="flex items-center gap-4 py-4"> 
+                        <div className="w-9 h-9 rounded-full bg-white/20 animate-pulse" /> 
+                        <div className="h-4 w-20 rounded bg-white/20 animate-pulse" /> 
+                    </div> 
+                    ) : user ? ( 
+                    <Link 
+                    to="/profile" 
+                    onClick={handleMobileLinkClick} 
+                    className="flex items-center gap-4 py-4 text-white/85 hover:text-white transition-colors" > 
+                        <div className="w-9 h-9 rounded-full border border-white/30 overflow-hidden"> 
+                        <img 
+                            src={`https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent( user.name )}`} 
+                            alt={user.name} className="w-full h-full object-cover" /> 
+                        </div> 
+                        <span className="font-body text-base font-medium"> 
+                            Profile 
+                        </span> 
+                        </Link> 
+                    ) : ( 
+                        <Link 
+                            to="/login" 
+                            onClick={handleMobileLinkClick} 
+                            className="flex items-center gap-4 py-4 text-white/85 hover:text-white transition-colors" > 
+                        <span className="material-symbols-outlined text-[22px]"> 
+                            login 
+                        </span> 
+                        <span className="font-body text-base font-medium"> 
+                            Log in 
+                        </span> 
+                    </Link>
+                )}
+                </div>
+            </div>
+            </div>
 
             {/* ── Expandable Search Overlay ── */}
             <div
@@ -138,15 +260,23 @@ function Navbar() {
             >
                 <div className="bg-[#050d1a]/95 backdrop-blur-xl border-b border-white/10 shadow-2xl">
                     <div className="max-w-container-max mx-auto px-margin-desktop py-4 relative">
-                        <form onSubmit={handleNavSearch} className="flex items-center gap-4">
-                            <span className="material-symbols-outlined text-white/50 text-2xl">search</span>
+                        <form 
+                            onSubmit={handleNavSearch} 
+                            className="flex items-center gap-4">
+                        <span className="material-symbols-outlined text-white/50 text-2xl">
+                            search
+                        </span>
 
                             <input
                                 ref={searchInputRef}
                                 type="text"
                                 value={searchQuery}
-                                onChange={(e) => { setSearchQuery(e.target.value); setSearchError(""); }}
-                                onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+                                onChange={(e) => { 
+                                    setSearchQuery(e.target.value); 
+                                    setSearchError(""); }}
+                                onFocus={() => 
+                                    suggestions.length > 0 && 
+                                    setShowSuggestions(true)}
                                 onBlur={dismissSuggestions}
                                 placeholder="Search destinations..."
                                 className="flex-1 bg-transparent font-body text-lg text-white placeholder-white/40 font-medium outline-none"
@@ -159,7 +289,7 @@ function Navbar() {
                             <button
                                 type="submit"
                                 disabled={isSearching || !searchQuery.trim()}
-                                className="px-5 py-2 rounded-full bg-primary text-on-primary font-body text-sm font-semibold tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-40 disabled:hover:scale-100"
+                                className=" hidden sm:block px-5 py-2 rounded-full bg-primary text-on-primary font-body text-sm font-semibold tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-40 disabled:hover:scale-100"
                             >
                                 Search
                             </button>
