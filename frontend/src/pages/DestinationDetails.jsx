@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 
 import AttractionCard from "../components/destination/AttractionCard";
@@ -10,6 +12,8 @@ import visitedApi from "../api/visitedApi";
 import ItineraryCard from "../components/itinerary/ItineraryCard";
 import reviewApi from "../api/reviewApi";
 import ReviewSection from "../components/reviews/ReviewSection";
+
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const API_URL = import.meta.env.VITE_API_URL ?? "";
 
@@ -44,6 +48,15 @@ export default function DestinationDetailPage() {
 
     const pageRef = useRef(null);
     const heroImageRef = useRef(null);
+    const heroTitleRef = useRef(null);
+    const aboutSectionRef = useRef(null);
+    const aboutTitleRef = useRef(null);
+    const infoGridRef = useRef(null);
+    const attractionsSectionRef = useRef(null);
+    const attractionsTitleRef = useRef(null);
+    const itinerariesSectionRef = useRef(null);
+    const itinerariesTitleRef = useRef(null);
+    const reviewsSectionRef = useRef(null);
     const favBtnRef = useRef(null);
     const visitedBtnRef = useRef(null);
 
@@ -72,89 +85,296 @@ export default function DestinationDetailPage() {
         };
     }, [id]);
 
-    // GSAP Entrance Animations
+    // GSAP ScrollTrigger & SplitText Animations
     useGSAP(
         () => {
             if (loading || !destination || !pageRef.current) return;
 
-            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+            const splits = [];
 
-            // 1. Hero Image subtle scale down entrance
+            function createSplit(element) {
+                if (!element) return null;
+                try {
+                    const split = new SplitText(element, { type: "words, chars" });
+                    splits.push(split);
+                    return split;
+                } catch (e) {
+                    return null;
+                }
+            }
+
+            // 1. Hero Section Entrance
             if (heroImageRef.current) {
                 gsap.fromTo(
                     heroImageRef.current,
-                    { scale: 1.12, opacity: 0.4 },
+                    { scale: 1.15, opacity: 0.3 },
                     { scale: 1, opacity: 1, duration: 1.2, ease: "power2.out" }
                 );
             }
 
-            // 2. Hero Content Stagger
-            tl.fromTo(
-                pageRef.current.querySelectorAll("[data-animate-hero-badge]"),
-                { opacity: 0, y: 20, scale: 0.9 },
-                { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.08 },
-                "-=0.8"
-            );
+            const heroBadges = pageRef.current.querySelectorAll("[data-animate-hero-badge]");
+            if (heroBadges.length > 0) {
+                gsap.fromTo(
+                    heroBadges,
+                    { opacity: 0, y: 20, scale: 0.9 },
+                    { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.08, ease: "back.out(1.4)", delay: 0.1 }
+                );
+            }
 
-            tl.fromTo(
-                pageRef.current.querySelectorAll("[data-animate-hero-title]"),
-                { opacity: 0, y: 30, filter: "blur(4px)" },
-                { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7 },
-                "-=0.3"
-            );
+            if (heroTitleRef.current) {
+                const heroSplit = createSplit(heroTitleRef.current);
+                if (heroSplit?.chars?.length > 0) {
+                    gsap.fromTo(
+                        heroSplit.chars,
+                        { opacity: 0, y: 35, rotateX: -50, filter: "blur(4px)" },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            rotateX: 0,
+                            filter: "blur(0px)",
+                            stagger: 0.02,
+                            duration: 0.8,
+                            ease: "back.out(1.4)",
+                            delay: 0.2,
+                        }
+                    );
+                } else {
+                    gsap.fromTo(
+                        heroTitleRef.current,
+                        { opacity: 0, y: 30, filter: "blur(4px)" },
+                        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, delay: 0.2 }
+                    );
+                }
+            }
 
-            tl.fromTo(
-                pageRef.current.querySelectorAll("[data-animate-hero-location]"),
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 0.5 },
-                "-=0.4"
-            );
+            const locationEl = pageRef.current.querySelector("[data-animate-hero-location]");
+            if (locationEl) {
+                gsap.fromTo(
+                    locationEl,
+                    { opacity: 0, y: 15 },
+                    { opacity: 1, y: 0, duration: 0.5, delay: 0.45, ease: "power2.out" }
+                );
+            }
 
-            tl.fromTo(
-                pageRef.current.querySelectorAll("[data-animate-hero-btn]"),
-                { opacity: 0, y: 25, scale: 0.95 },
-                { opacity: 1, y: 0, scale: 1, duration: 0.55, stagger: 0.1 },
-                "-=0.3"
-            );
+            const heroBtns = pageRef.current.querySelectorAll("[data-animate-hero-btn]");
+            if (heroBtns.length > 0) {
+                gsap.fromTo(
+                    heroBtns,
+                    { opacity: 0, y: 20, scale: 0.9 },
+                    { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.1, delay: 0.55, ease: "back.out(1.5)" }
+                );
+            }
 
-            // 3. About Section & Quick Info Cards
-            tl.fromTo(
-                pageRef.current.querySelectorAll("[data-animate-about]"),
-                { opacity: 0, y: 30 },
-                { opacity: 1, y: 0, duration: 0.6 },
-                "-=0.2"
-            );
+            // 2. About Overview (Scroll-Triggered with SplitText)
+            if (aboutSectionRef.current) {
+                const aboutEl = aboutSectionRef.current;
+                const aboutSplit = createSplit(aboutTitleRef.current);
+                const aboutTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: aboutEl,
+                        start: "top 85%",
+                        once: true,
+                    },
+                    defaults: { ease: "power2.out" },
+                });
 
-            tl.fromTo(
-                pageRef.current.querySelectorAll("[data-animate-info-card]"),
-                { opacity: 0, y: 30, scale: 0.95 },
-                { opacity: 1, y: 0, scale: 1, duration: 0.55, stagger: 0.09 },
-                "-=0.35"
-            );
+                const badgeEl = aboutEl.querySelector(".about-badge");
+                if (badgeEl) {
+                    aboutTl.fromTo(
+                        badgeEl,
+                        { opacity: 0, y: 15, scale: 0.9 },
+                        { opacity: 1, y: 0, scale: 1, duration: 0.4 }
+                    );
+                }
 
-            // 4. Top Attractions
-            tl.fromTo(
-                pageRef.current.querySelectorAll("[data-animate-attraction]"),
-                { opacity: 0, y: 30, scale: 0.97 },
-                { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.1 },
-                "-=0.3"
-            );
+                if (aboutSplit?.chars?.length > 0) {
+                    aboutTl.fromTo(
+                        aboutSplit.chars,
+                        { opacity: 0, y: 20, rotateX: -40 },
+                        { opacity: 1, y: 0, rotateX: 0, duration: 0.55, stagger: 0.015, ease: "back.out(1.2)" },
+                        "-=0.2"
+                    );
+                }
 
-            // 5. Itineraries Section
-            tl.fromTo(
-                pageRef.current.querySelectorAll("[data-animate-itinerary]"),
-                { opacity: 0, y: 30 },
-                { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 },
-                "-=0.3"
-            );
+                const descEl = aboutEl.querySelector(".about-desc");
+                if (descEl) {
+                    aboutTl.fromTo(
+                        descEl,
+                        { opacity: 0, y: 25, filter: "blur(2px)" },
+                        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6 },
+                        "-=0.25"
+                    );
+                }
+            }
 
-            // 6. Review Section
-            tl.fromTo(
-                pageRef.current.querySelectorAll("[data-animate-reviews]"),
-                { opacity: 0, y: 35 },
-                { opacity: 1, y: 0, duration: 0.7 },
-                "-=0.2"
-            );
+            // 3. Quick Info Cards Grid (Scroll-Triggered 3D entrance)
+            if (infoGridRef.current) {
+                const cards = infoGridRef.current.children;
+                gsap.fromTo(
+                    cards,
+                    { opacity: 0, y: 40, scale: 0.94, rotateX: 10 },
+                    {
+                        scrollTrigger: {
+                            trigger: infoGridRef.current,
+                            start: "top 85%",
+                            once: true,
+                        },
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        rotateX: 0,
+                        duration: 0.6,
+                        stagger: 0.1,
+                        ease: "power3.out",
+                    }
+                );
+            }
+
+            // 4. Top Attractions (Scroll-Triggered with SplitText + Warm Card Pop)
+            if (attractionsSectionRef.current) {
+                const attrEl = attractionsSectionRef.current;
+                const attrSplit = createSplit(attractionsTitleRef.current);
+                const attrTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: attrEl,
+                        start: "top 85%",
+                        once: true,
+                    },
+                    defaults: { ease: "power2.out" },
+                });
+
+                const badgeEl = attrEl.querySelector(".attr-badge");
+                if (badgeEl) {
+                    attrTl.fromTo(
+                        badgeEl,
+                        { opacity: 0, y: 15, scale: 0.9 },
+                        { opacity: 1, y: 0, scale: 1, duration: 0.4 }
+                    );
+                }
+
+                if (attrSplit?.chars?.length > 0) {
+                    attrTl.fromTo(
+                        attrSplit.chars,
+                        { opacity: 0, y: 25, rotateX: -45 },
+                        { opacity: 1, y: 0, rotateX: 0, duration: 0.6, stagger: 0.02, ease: "back.out(1.3)" },
+                        "-=0.2"
+                    );
+                }
+
+                const countEl = attrEl.querySelector(".attr-count");
+                if (countEl) {
+                    attrTl.fromTo(
+                        countEl,
+                        { opacity: 0, scale: 0.9 },
+                        { opacity: 1, scale: 1, duration: 0.4 },
+                        "-=0.3"
+                    );
+                }
+
+                const attrCards = attrEl.querySelectorAll("[data-animate-attraction-card]");
+                if (attrCards.length > 0) {
+                    attrTl.fromTo(
+                        attrCards,
+                        { opacity: 0, y: 45, scale: 0.9, rotateY: 6 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            scale: 1,
+                            rotateY: 0,
+                            duration: 0.65,
+                            stagger: 0.12,
+                            ease: "back.out(1.2)",
+                        },
+                        "-=0.2"
+                    );
+                }
+            }
+
+            // 5. Featured Itineraries (Scroll-Triggered with SplitText)
+            if (itinerariesSectionRef.current) {
+                const itinEl = itinerariesSectionRef.current;
+                const itinSplit = createSplit(itinerariesTitleRef.current);
+                const itinTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: itinEl,
+                        start: "top 85%",
+                        once: true,
+                    },
+                    defaults: { ease: "power2.out" },
+                });
+
+                const badgeEl = itinEl.querySelector(".itin-badge");
+                if (badgeEl) {
+                    itinTl.fromTo(
+                        badgeEl,
+                        { opacity: 0, y: 15 },
+                        { opacity: 1, y: 0, duration: 0.4 }
+                    );
+                }
+
+                if (itinSplit?.chars?.length > 0) {
+                    itinTl.fromTo(
+                        itinSplit.chars,
+                        { opacity: 0, y: 25, rotateX: -45 },
+                        { opacity: 1, y: 0, rotateX: 0, duration: 0.6, stagger: 0.02, ease: "back.out(1.3)" },
+                        "-=0.2"
+                    );
+                }
+
+                const descEl = itinEl.querySelector(".itin-desc");
+                if (descEl) {
+                    itinTl.fromTo(
+                        descEl,
+                        { opacity: 0, y: 15 },
+                        { opacity: 1, y: 0, duration: 0.5 },
+                        "-=0.3"
+                    );
+                }
+
+                const itinCards = itinEl.querySelectorAll("[data-animate-itinerary-card]");
+                if (itinCards.length > 0) {
+                    itinTl.fromTo(
+                        itinCards,
+                        { opacity: 0, y: 40, scale: 0.94 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            scale: 1,
+                            duration: 0.6,
+                            stagger: 0.1,
+                            ease: "power3.out",
+                        },
+                        "-=0.2"
+                    );
+                }
+            }
+
+            // 6. Reviews Section (Scroll-Triggered)
+            if (reviewsSectionRef.current) {
+                gsap.fromTo(
+                    reviewsSectionRef.current,
+                    { opacity: 0, y: 40 },
+                    {
+                        scrollTrigger: {
+                            trigger: reviewsSectionRef.current,
+                            start: "top 85%",
+                            once: true,
+                        },
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.7,
+                        ease: "power2.out",
+                    }
+                );
+            }
+
+            return () => {
+                splits.forEach((s) => {
+                    try {
+                        s.revert();
+                    } catch (e) {}
+                });
+            };
         },
         { scope: pageRef, dependencies: [loading, destination] }
     );
@@ -382,6 +602,7 @@ export default function DestinationDetailPage() {
 
                     {/* Destination Title */}
                     <h1
+                        ref={heroTitleRef}
                         data-animate-hero-title
                         className="font-display text-4xl sm:text-5xl md:text-display-lg text-white font-bold mb-3 tracking-tight drop-shadow-md max-w-4xl"
                     >
@@ -455,52 +676,59 @@ export default function DestinationDetailPage() {
 
                 <div className="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop space-y-24">
                     {/* 1. About Description */}
-                    <div data-animate-about className="max-w-4xl">
-                        <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-tertiary-fixed mb-4">
+                    <div ref={aboutSectionRef} className="max-w-4xl">
+                        <div className="about-badge inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-tertiary-fixed mb-4">
                             <span className="material-symbols-outlined text-sm">menu_book</span>
                             Overview
                         </div>
-                        <h2 className="font-display text-3xl md:text-headline-lg text-tertiary-fixed mb-6 font-bold">
+                        <h2
+                            ref={aboutTitleRef}
+                            className="font-display text-3xl md:text-headline-lg text-tertiary-fixed mb-6 font-bold"
+                        >
                             About {name}
                         </h2>
-                        <p className="text-white/85 font-body text-base md:text-body-lg leading-relaxed md:leading-loose">
+                        <p className="about-desc text-white/85 font-body text-base md:text-body-lg leading-relaxed md:leading-loose">
                             {description}
                         </p>
                     </div>
 
                     {/* 2. Quick Info Cards Grid */}
-                    <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+                    <div ref={infoGridRef} className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
                         <InfoCard icon="calendar_month" title="Best Time" value={bestTimeToVisit} />
                         <InfoCard icon="partly_cloudy_day" title="Weather" value={weather} />
                         <InfoCard icon="payments" title="Budget" value={badge(budgetCategory)} />
                         <InfoCard icon="badge" title="Entry Requirements" value={entryRequirements} />
                     </div>
 
-                    {/* 3. Top Attractions */}
+                    {/* 3. Top Attractions (Warm Accent Section) */}
                     {attractions?.length > 0 && (
-                        <section data-animate-attraction>
-                            <div className="flex items-end justify-between mb-8 pb-4 border-b border-white/10">
+                        <section ref={attractionsSectionRef}>
+                            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 pb-4 border-b border-white/15">
                                 <div>
-                                    <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-tertiary-fixed mb-2">
+                                    <div className="attr-badge inline-flex items-center gap-2 rounded-full bg-primary-fixed/20 border border-primary-fixed/40 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-primary-fixed mb-2 shadow-xs">
                                         <span className="material-symbols-outlined text-sm">photo_camera</span>
                                         Highlights
                                     </div>
-                                    <h2 className="font-display text-3xl md:text-headline-lg text-tertiary-fixed font-bold">
+                                    <h2
+                                        ref={attractionsTitleRef}
+                                        className="font-display text-3xl md:text-headline-lg text-white font-bold tracking-tight"
+                                    >
                                         Top Attractions
                                     </h2>
                                 </div>
-                                <span className="font-body text-xs font-semibold text-white/60">
+                                <span className="attr-count font-body text-xs font-semibold text-primary-fixed bg-primary-fixed/15 border border-primary-fixed/30 px-3.5 py-1.5 rounded-full self-start sm:self-auto shadow-xs">
                                     {attractions.length} {attractions.length === 1 ? "Spot" : "Spots"} to Explore
                                 </span>
                             </div>
 
                             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                                {attractions.map((attraction) => (
-                                    <div key={attraction.id} data-animate-attraction>
+                                {attractions.map((attraction, index) => (
+                                    <div key={attraction.id || index} data-animate-attraction-card className="h-full">
                                         <AttractionCard
                                             icon={attraction.icon}
                                             name={attraction.name}
                                             description={attraction.description}
+                                            index={index}
                                         />
                                     </div>
                                 ))}
@@ -509,17 +737,20 @@ export default function DestinationDetailPage() {
                     )}
 
                     {/* 4. Itineraries */}
-                    <section data-animate-itinerary>
+                    <section ref={itinerariesSectionRef}>
                         <div className="flex items-end justify-between mb-8 pb-4 border-b border-white/10">
                             <div>
-                                <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-tertiary-fixed mb-2">
+                                <div className="itin-badge inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-tertiary-fixed mb-2">
                                     <span className="material-symbols-outlined text-sm">route</span>
                                     Curated Trips
                                 </div>
-                                <h2 className="font-display text-3xl md:text-headline-lg text-tertiary-fixed font-bold">
+                                <h2
+                                    ref={itinerariesTitleRef}
+                                    className="font-display text-3xl md:text-headline-lg text-tertiary-fixed font-bold"
+                                >
                                     Featured Itineraries
                                 </h2>
-                                <p className="text-white/75 font-body text-sm md:text-base mt-1">
+                                <p className="itin-desc text-white/75 font-body text-sm md:text-base mt-1">
                                     Explore step-by-step travel blueprints crafted for {name}.
                                 </p>
                             </div>
@@ -540,7 +771,7 @@ export default function DestinationDetailPage() {
                         ) : (
                             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                                 {itineraries.map((itinerary) => (
-                                    <div key={itinerary.id} data-animate-itinerary>
+                                    <div key={itinerary.id} data-animate-itinerary-card>
                                         <ItineraryCard
                                             itinerary={itinerary}
                                             onDelete={() => {}}
@@ -552,7 +783,7 @@ export default function DestinationDetailPage() {
                     </section>
 
                     {/* 5. Reviews Section */}
-                    <div data-animate-reviews>
+                    <div ref={reviewsSectionRef}>
                         <ReviewSection
                             destination={destination}
                             reviews={reviews}

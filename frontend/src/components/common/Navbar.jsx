@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
@@ -11,7 +11,12 @@ const API_URL = import.meta.env.VITE_API_URL ?? "";
 
 function Navbar() {
     const navigate = useNavigate();
+    const { pathname } = useLocation();
     const { user, loading } = useAuth();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
 
     const [searchOpen, setSearchOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);

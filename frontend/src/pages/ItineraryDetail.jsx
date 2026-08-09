@@ -2,12 +2,15 @@ import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import itinerariesApi from "../api/itinerariesApi";
 import ActivityCard from "../components/itinerary/ActivityCard";
 import ActivityFormModal from "../components/itinerary/ActivityFormModal";
 import ItinerarySettingsModal from "../components/itinerary/ItinerarySettingsModal";
 import DayTimeline from "../components/itinerary/DayTimeline";
 import { formatDisplayTime } from "../utils/formatTime";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function ItineraryDetail() {
     const { id } = useParams();
@@ -28,26 +31,137 @@ function ItineraryDetail() {
         loadItinerary();
     }, [id]);
 
-    useGSAP(() => {
-        if (!loading && !error && pageRef.current) {
-            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    useGSAP(
+        () => {
+            if (loading || error || !pageRef.current || !itinerary) return;
 
-            // Stagger hero elements
-            tl.fromTo(
-                pageRef.current.querySelectorAll("[data-animate-hero]"),
-                { opacity: 0, y: 30, filter: "blur(4px)" },
-                { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, stagger: 0.1 }
-            );
+            // 1. Hero / Page Header entrance animation (scroll-triggered once)
+            const heroElements = pageRef.current.querySelectorAll("[data-animate-hero]");
+            if (heroElements.length > 0) {
+                gsap.fromTo(
+                    heroElements,
+                    { opacity: 0, y: 30, filter: "blur(4px)" },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        filter: "blur(0px)",
+                        duration: 0.7,
+                        stagger: 0.08,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: heroElements[0],
+                            start: "top 90%",
+                            once: true,
+                        },
+                    }
+                );
+            }
 
-            // Stagger day sections
-            tl.fromTo(
-                pageRef.current.querySelectorAll("[data-animate-day]"),
-                { opacity: 0, y: 35, scale: 0.98 },
-                { opacity: 1, y: 0, scale: 1, duration: 0.65, stagger: 0.12 },
-                "-=0.3"
-            );
-        }
-    }, [loading, error, itinerary]);
+            // 2. Sticky DayTimeline entrance animation
+            const timelineEl = pageRef.current.querySelector("aside");
+            if (timelineEl) {
+                gsap.fromTo(
+                    timelineEl,
+                    { opacity: 0, x: -25, filter: "blur(3px)" },
+                    {
+                        opacity: 1,
+                        x: 0,
+                        filter: "blur(0px)",
+                        duration: 0.75,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: timelineEl,
+                            start: "top 85%",
+                            once: true,
+                        },
+                    }
+                );
+            }
+
+            // 3. Day Sections & Activities: scroll-triggered once as each section scrolls into view
+            const daySections = pageRef.current.querySelectorAll("[data-animate-day]");
+            daySections.forEach((dayEl) => {
+                const header = dayEl.querySelector(".day-header");
+                const cards = dayEl.querySelectorAll("article");
+                const curateBtn = dayEl.querySelector(".curate-btn");
+
+                // Empty state card (when 0 days planned)
+                if (!header && cards.length === 0) {
+                    gsap.fromTo(
+                        dayEl,
+                        { opacity: 0, y: 35, scale: 0.97 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            scale: 1,
+                            duration: 0.7,
+                            ease: "power3.out",
+                            scrollTrigger: {
+                                trigger: dayEl,
+                                start: "top 85%",
+                                once: true,
+                            },
+                        }
+                    );
+                    return;
+                }
+
+                // Day section timeline triggered once on scroll
+                const dayTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: dayEl,
+                        start: "top 82%",
+                        once: true,
+                    },
+                    defaults: { ease: "power3.out" },
+                });
+
+                if (header) {
+                    dayTl.fromTo(
+                        header,
+                        { opacity: 0, y: 25, filter: "blur(3px)" },
+                        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6 }
+                    );
+                }
+
+                if (cards.length > 0) {
+                    dayTl.fromTo(
+                        cards,
+                        { opacity: 0, y: 35, scale: 0.96, filter: "blur(3px)" },
+                        { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.6, stagger: 0.08 },
+                        header ? "-=0.35" : 0
+                    );
+                }
+
+                if (curateBtn) {
+                    dayTl.fromTo(
+                        curateBtn,
+                        { opacity: 0, y: 20 },
+                        { opacity: 1, y: 0, duration: 0.5 },
+                        "-=0.2"
+                    );
+                }
+            });
+
+            // 4. ScrollSpy: Update activeDay in the sticky timeline as user scrolls through sections
+            const days = getDayNumbers(itinerary?.activities || []);
+            days.forEach((dayNumber) => {
+                const el = dayRefs.current[dayNumber];
+                if (!el) return;
+
+                ScrollTrigger.create({
+                    trigger: el,
+                    start: "top 45%",
+                    end: "bottom 45%",
+                    onEnter: () => setActiveDay(dayNumber),
+                    onEnterBack: () => setActiveDay(dayNumber),
+                });
+            });
+
+            ScrollTrigger.refresh();
+        },
+        { scope: pageRef, dependencies: [loading, error, itinerary] }
+    );
 
     async function loadItinerary() {
         try {
@@ -300,7 +414,7 @@ function ItineraryDetail() {
                                     className="relative scroll-mt-[120px]"
                                 >
                                     {/* Day Header Bar */}
-                                    <div className="flex justify-between items-end mb-6 pb-4 border-b border-surface-variant">
+                                    <div className="day-header flex justify-between items-end mb-6 pb-4 border-b border-surface-variant">
                                         <div>
                                             <div className="flex items-center gap-2 mb-1">
                                                 <span className="font-label-md text-xs font-bold uppercase tracking-widest text-primary px-2.5 py-0.5 rounded-full bg-primary-fixed/40">
@@ -343,7 +457,7 @@ function ItineraryDetail() {
                                     {/* Curate Next Experience Callout Button */}
                                     <button
                                         onClick={() => openCreateActivity(dayNumber)}
-                                        className="mt-6 w-full py-6 border-2 border-dashed border-outline-variant/60 rounded-3xl flex items-center justify-center gap-4 bg-surface-container-low/30 hover:bg-surface-container-low/70 hover:border-primary/50 transition-all duration-300 group cursor-pointer"
+                                        className="curate-btn mt-6 w-full py-6 border-2 border-dashed border-outline-variant/60 rounded-3xl flex items-center justify-center gap-4 bg-surface-container-low/30 hover:bg-surface-container-low/70 hover:border-primary/50 transition-all duration-300 group cursor-pointer"
                                     >
                                         <div className="w-10 h-10 rounded-full bg-surface shadow-sm flex items-center justify-center text-primary group-hover:scale-115 group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
                                             <span className="material-symbols-outlined text-xl">add</span>

@@ -14,6 +14,7 @@ function ActivityFormModal({ initialData, dayNumber, onClose, onSave }) {
     const [endTime, setEndTime] = useState(toInputTime(initialData?.endTime) || "11:00");
     const [error, setError] = useState("");
     const [saving, setSaving] = useState(false);
+    const [isClosing, setIsClosing] = useState(false);
 
     const backdropRef = useRef(null);
     const modalRef = useRef(null);
@@ -29,21 +30,73 @@ function ActivityFormModal({ initialData, dayNumber, onClose, onSave }) {
         return () => clearTimeout(timer);
     }, []);
 
+    // Prevent body scroll when modal is open
+    useEffect(() => {
+        const originalOverflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+        return () => {
+            document.body.style.overflow = originalOverflow;
+        };
+    }, []);
+
     // Smooth GSAP Entrance Animation
     useGSAP(() => {
         if (backdropRef.current && modalRef.current) {
             gsap.fromTo(
                 backdropRef.current,
                 { opacity: 0 },
-                { opacity: 1, duration: 0.25, ease: "power2.out" }
+                { opacity: 1, duration: 0.28, ease: "power2.out" }
             );
             gsap.fromTo(
                 modalRef.current,
-                { opacity: 0, scale: 0.92, y: 30 },
-                { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(1.3)" }
+                { opacity: 0, scale: 0.88, y: 35, rotateX: 6 },
+                { opacity: 1, scale: 1, y: 0, rotateX: 0, duration: 0.45, ease: "back.out(1.4)" }
             );
         }
     }, []);
+
+    function handleAnimatedClose() {
+        if (isClosing) return;
+        setIsClosing(true);
+
+        const tl = gsap.timeline({
+            onComplete: () => {
+                onClose();
+            },
+        });
+
+        if (modalRef.current && backdropRef.current) {
+            tl.to(
+                modalRef.current,
+                { opacity: 0, scale: 0.92, y: 20, duration: 0.22, ease: "power2.in" },
+                0
+            );
+            tl.to(
+                backdropRef.current,
+                { opacity: 0, duration: 0.22, ease: "power2.in" },
+                0
+            );
+        } else {
+            onClose();
+        }
+    }
+
+    // Close on Escape key
+    useEffect(() => {
+        function handleKeyDown(e) {
+            if (e.key === "Escape") {
+                handleAnimatedClose();
+            }
+        }
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [isClosing]);
+
+    function handleBackdropClick(e) {
+        if (e.target === backdropRef.current) {
+            handleAnimatedClose();
+        }
+    }
 
     function handleAutoFixEndTime() {
         const fixedEndTime = addMinutesToTime(startTime, 60);
@@ -84,12 +137,10 @@ function ActivityFormModal({ initialData, dayNumber, onClose, onSave }) {
                 startTime,
                 endTime,
             });
-            onClose();
+            handleAnimatedClose();
         }
         catch (err) {
             setError(getErrorMessage(err));
-        }
-        finally {
             setSaving(false);
         }
     }
@@ -97,11 +148,13 @@ function ActivityFormModal({ initialData, dayNumber, onClose, onSave }) {
     return (
         <div
             ref={backdropRef}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md px-margin-mobile py-6 transition-all duration-300"
+            onClick={handleBackdropClick}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md px-margin-mobile py-6"
+            style={{ perspective: "1000px" }}
         >
             <div
                 ref={modalRef}
-                className="bg-surface rounded-3xl shadow-[0px_30px_70px_rgba(43,38,32,0.25)] border border-outline-variant/40 w-full max-w-lg max-h-[92vh] flex flex-col relative overflow-hidden transition-all duration-300"
+                className="bg-surface rounded-3xl shadow-[0px_30px_70px_rgba(43,38,32,0.25)] border border-outline-variant/40 w-full max-w-lg max-h-[92vh] flex flex-col relative overflow-hidden"
             >
                 {/* Decorative background glows */}
                 <div className="absolute -top-20 -right-20 w-48 h-48 bg-primary-fixed/25 rounded-full blur-2xl pointer-events-none" />
@@ -127,7 +180,7 @@ function ActivityFormModal({ initialData, dayNumber, onClose, onSave }) {
                     </div>
                     <button
                         type="button"
-                        onClick={onClose}
+                        onClick={handleAnimatedClose}
                         className="w-9 h-9 rounded-full bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-primary transition-all duration-200 cursor-pointer"
                     >
                         <span className="material-symbols-outlined text-lg">close</span>
@@ -212,7 +265,7 @@ function ActivityFormModal({ initialData, dayNumber, onClose, onSave }) {
                     <div className="flex items-center gap-3 pt-2">
                         <button
                             type="button"
-                            onClick={onClose}
+                            onClick={handleAnimatedClose}
                             className="flex-1 py-3 rounded-full border border-outline-variant font-body text-sm font-semibold text-on-surface-variant hover:bg-surface-container transition-colors cursor-pointer"
                         >
                             Cancel

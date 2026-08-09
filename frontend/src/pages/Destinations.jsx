@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { getFeaturedId, getDestinations } from "../data/destinations";
 import DestinationCard from "../components/destination/DestinationCard";
 import FilterSidebar from "../components/destination/FilterSidebar";
@@ -9,9 +10,11 @@ import Pagination from "../components/destination/Pagination";
 import destinationApi from "../api/destinationApi";
 
 try {
-    gsap.registerPlugin(SplitText);
+    gsap.registerPlugin(ScrollTrigger, SplitText);
 } catch (e) {
-    // SplitText plugin registration fallback
+    try {
+        gsap.registerPlugin(ScrollTrigger);
+    } catch (err) {}
 }
 
 const RESULTS_PER_PAGE = 5;
@@ -24,6 +27,7 @@ function Destinations() {
     const [currentPage, setCurrentPage] = useState(1);
 
     const pageRef = useRef(null);
+    const headerRef = useRef(null);
     const navRef = useRef(null);
     const titleRef = useRef(null);
     const descRef = useRef(null);
@@ -31,6 +35,7 @@ function Destinations() {
     const gridRef = useRef(null);
     const resultsBarRef = useRef(null);
     const emptyStateRef = useRef(null);
+    const paginationRef = useRef(null);
 
     useEffect(() => {
         async function fetchDestinations() {
@@ -51,91 +56,6 @@ function Destinations() {
 
         fetchDestinations();
     }, []);
-
-    // GSAP Hero & Page Entrance
-    useGSAP(
-        () => {
-            let split;
-            if (titleRef.current) {
-                try {
-                    split = new SplitText(titleRef.current, { type: "words, chars" });
-                } catch (e) {
-                    split = null;
-                }
-            }
-
-            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-            // 1. Breadcrumb nav
-            if (navRef.current) {
-                tl.fromTo(
-                    navRef.current,
-                    { opacity: 0, y: -15, filter: "blur(4px)" },
-                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6 }
-                );
-            }
-
-            // 2. Title entrance with SplitText
-            if (split && split.chars && split.chars.length > 0) {
-                tl.fromTo(
-                    split.chars,
-                    { opacity: 0, y: 35, rotateX: -60, filter: "blur(6px)" },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        rotateX: 0,
-                        filter: "blur(0px)",
-                        stagger: 0.02,
-                        duration: 0.8,
-                        ease: "back.out(1.4)",
-                    },
-                    "-=0.3"
-                );
-            } else if (titleRef.current) {
-                tl.fromTo(
-                    titleRef.current,
-                    { opacity: 0, y: 25, filter: "blur(6px)" },
-                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8 },
-                    "-=0.3"
-                );
-            }
-
-            // 3. Subtitle description reveal
-            if (descRef.current) {
-                tl.fromTo(
-                    descRef.current,
-                    { opacity: 0, y: 20, filter: "blur(4px)" },
-                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6 },
-                    "-=0.4"
-                );
-            }
-
-            // 4. Filter sidebar entrance
-            if (sidebarRef.current) {
-                tl.fromTo(
-                    sidebarRef.current,
-                    { opacity: 0, x: -30, filter: "blur(6px)" },
-                    { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.7 },
-                    "-=0.3"
-                );
-            }
-
-            // 5. Results info bar
-            if (resultsBarRef.current) {
-                tl.fromTo(
-                    resultsBarRef.current,
-                    { opacity: 0, y: 15 },
-                    { opacity: 1, y: 0, duration: 0.5 },
-                    "-=0.4"
-                );
-            }
-
-            return () => {
-                if (split && split.revert) split.revert();
-            };
-        },
-        { scope: pageRef }
-    );
 
     // Category toggle
     function handleCategoryToggle(categoryId) {
@@ -204,41 +124,205 @@ function Destinations() {
         ? visibleDestinations.filter((d) => d.name !== featuredDestination.name)
         : visibleDestinations;
 
-    // Stagger animation for destination cards whenever list/page/filters change
-    useEffect(() => {
-        if (!isLoading && gridRef.current && gridRef.current.children.length > 0) {
-            gsap.fromTo(
-                gridRef.current.children,
-                { opacity: 0, y: 35, scale: 0.96, rotateX: 6, filter: "blur(4px)" },
-                {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    rotateX: 0,
-                    filter: "blur(0px)",
-                    duration: 0.55,
-                    ease: "power3.out",
-                    stagger: 0.08,
-                }
-            );
-        }
-    }, [isLoading, currentPage, activeCategories, activeBudgets, filteredDestinations.length]);
+    // 1. GSAP Hero & Page Entrance Animations (Runs once on initial load / scroll)
+    useGSAP(
+        () => {
+            if (isLoading) return;
 
-    // Animate empty state if no results
-    useEffect(() => {
-        if (!isLoading && filteredDestinations.length === 0 && emptyStateRef.current) {
-            gsap.fromTo(
-                emptyStateRef.current,
-                { opacity: 0, scale: 0.92, y: 25 },
-                { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.2)" }
-            );
+            let split;
+            if (titleRef.current) {
+                try {
+                    split = new SplitText(titleRef.current, { type: "words, chars" });
+                } catch (e) {
+                    split = null;
+                }
+            }
+
+            // Hero Header Entrance (scroll-triggered once)
+            const heroTl = gsap.timeline({
+                defaults: { ease: "power3.out" },
+                scrollTrigger: {
+                    trigger: headerRef.current || pageRef.current,
+                    start: "top 90%",
+                    once: true,
+                },
+            });
+
+            // Breadcrumb nav
+            if (navRef.current) {
+                heroTl.fromTo(
+                    navRef.current,
+                    { opacity: 0, y: -15, filter: "blur(4px)" },
+                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6 }
+                );
+            }
+
+            // Title entrance with SplitText
+            if (split && split.chars && split.chars.length > 0) {
+                heroTl.fromTo(
+                    split.chars,
+                    { opacity: 0, y: 35, rotateX: -60, filter: "blur(6px)" },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        rotateX: 0,
+                        filter: "blur(0px)",
+                        stagger: 0.02,
+                        duration: 0.8,
+                        ease: "back.out(1.4)",
+                    },
+                    "-=0.3"
+                );
+            } else if (titleRef.current) {
+                heroTl.fromTo(
+                    titleRef.current,
+                    { opacity: 0, y: 25, filter: "blur(6px)" },
+                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8 },
+                    "-=0.3"
+                );
+            }
+
+            // Subtitle description reveal
+            if (descRef.current) {
+                heroTl.fromTo(
+                    descRef.current,
+                    { opacity: 0, y: 20, filter: "blur(4px)" },
+                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6 },
+                    "-=0.4"
+                );
+            }
+
+            // Filter sidebar entrance (scroll-triggered once)
+            if (sidebarRef.current) {
+                gsap.fromTo(
+                    sidebarRef.current,
+                    { opacity: 0, x: -35, filter: "blur(4px)" },
+                    {
+                        opacity: 1,
+                        x: 0,
+                        filter: "blur(0px)",
+                        duration: 0.75,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: sidebarRef.current,
+                            start: "top 85%",
+                            once: true,
+                        },
+                    }
+                );
+            }
+
+            // Results info bar (scroll-triggered once)
+            if (resultsBarRef.current) {
+                gsap.fromTo(
+                    resultsBarRef.current,
+                    { opacity: 0, y: 15, filter: "blur(2px)" },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        filter: "blur(0px)",
+                        duration: 0.55,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: resultsBarRef.current,
+                            start: "top 88%",
+                            once: true,
+                        },
+                    }
+                );
+            }
+
+            ScrollTrigger.refresh();
+
+            return () => {
+                if (split && split.revert) split.revert();
+            };
+        },
+        {
+            scope: pageRef,
+            dependencies: [isLoading],
         }
-    }, [isLoading, filteredDestinations.length]);
+    );
+
+    // 2. Destination Cards & Pagination: Scroll-Triggered Slide-In Animation
+    useGSAP(
+        () => {
+            if (isLoading) return;
+
+            // Scroll-triggered Slide-in for each Destination Card as user scrolls down
+            if (gridRef.current && gridRef.current.children.length > 0) {
+                const cards = Array.from(gridRef.current.children);
+                cards.forEach((cardEl) => {
+                    gsap.fromTo(
+                        cardEl,
+                        { opacity: 0, x: 45, filter: "blur(4px)" },
+                        {
+                            opacity: 1,
+                            x: 0,
+                            filter: "blur(0px)",
+                            duration: 0.65,
+                            ease: "power3.out",
+                            scrollTrigger: {
+                                trigger: cardEl,
+                                start: "top 88%",
+                                once: true,
+                            },
+                        }
+                    );
+                });
+            }
+
+            // Scroll-triggered Slide-in for empty state
+            if (filteredDestinations.length === 0 && emptyStateRef.current) {
+                gsap.fromTo(
+                    emptyStateRef.current,
+                    { opacity: 0, x: 35, scale: 0.96 },
+                    {
+                        opacity: 1,
+                        x: 0,
+                        scale: 1,
+                        duration: 0.55,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: emptyStateRef.current,
+                            start: "top 88%",
+                            once: true,
+                        },
+                    }
+                );
+            }
+
+            // Scroll-triggered Pagination entrance
+            if (paginationRef.current) {
+                gsap.fromTo(
+                    paginationRef.current,
+                    { opacity: 0, y: 20 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.45,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: paginationRef.current,
+                            start: "top 92%",
+                            once: true,
+                        },
+                    }
+                );
+            }
+
+            ScrollTrigger.refresh();
+        },
+        {
+            scope: pageRef,
+            dependencies: [isLoading, currentPage, activeCategories, activeBudgets, filteredDestinations.length],
+        }
+    );
 
     return (
         <div ref={pageRef} className="bg-surface min-h-screen">
             {/* Hero header */}
-            <header className="relative bg-[#0b2b26] pt-12 pb-24 px-margin-desktop overflow-hidden">
+            <header ref={headerRef} className="relative bg-[#0b2b26] pt-12 pb-24 px-margin-desktop overflow-hidden">
                 <div className="max-w-container-max mx-auto relative z-10">
                     <nav
                         ref={navRef}
@@ -292,6 +376,7 @@ function Destinations() {
 
                         {totalActiveFilters > 0 && (
                             <button
+                                type="button"
                                 onClick={handleClearAll}
                                 className="text-xs text-primary font-semibold hover:underline flex items-center gap-1 self-start sm:self-auto cursor-pointer"
                             >
@@ -310,6 +395,7 @@ function Destinations() {
 
                             {activeCategories.map((cat) => (
                                 <button
+                                    type="button"
                                     key={cat}
                                     onClick={() => handleCategoryToggle(cat)}
                                     className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-primary text-white hover:bg-primary/90 transition-colors cursor-pointer"
@@ -321,6 +407,7 @@ function Destinations() {
 
                             {activeBudgets.map((budget) => (
                                 <button
+                                    type="button"
                                     key={budget}
                                     onClick={() => handleBudgetToggle(budget)}
                                     className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-tertiary text-white hover:bg-tertiary/90 transition-colors cursor-pointer"
@@ -354,6 +441,7 @@ function Destinations() {
                                 Try selecting different categories or budget ranges to see available places.
                             </p>
                             <button
+                                type="button"
                                 onClick={handleClearAll}
                                 className="px-6 py-2.5 rounded-full bg-primary text-on-primary text-label-lg font-medium hover:bg-primary/90 transition-all cursor-pointer shadow-md"
                             >
@@ -381,11 +469,13 @@ function Destinations() {
                     )}
 
                     {totalPages > 1 && (
-                        <Pagination
-                            currentPage={currentPage}
-                            totalPages={totalPages}
-                            onPageChange={setCurrentPage}
-                        />
+                        <div ref={paginationRef}>
+                            <Pagination
+                                currentPage={currentPage}
+                                totalPages={totalPages}
+                                onPageChange={setCurrentPage}
+                            />
+                        </div>
                     )}
                 </section>
             </main>

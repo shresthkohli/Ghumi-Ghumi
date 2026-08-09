@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 
 import profileApi from "../api/profileApi";
@@ -11,6 +13,14 @@ import TravelProgress from "../components/profile/TravelProgress";
 import IndiaMap from "../components/profile/IndiaMap";
 import ItineraryCard from "../components/itinerary/ItineraryCard";
 
+try {
+    gsap.registerPlugin(ScrollTrigger, SplitText);
+} catch (e) {
+    try {
+        gsap.registerPlugin(ScrollTrigger);
+    } catch (err) { }
+}
+
 function Profile() {
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -18,8 +28,10 @@ function Profile() {
     const pageRef = useRef(null);
     const headerRef = useRef(null);
     const badgeRef = useRef(null);
+    const passportProgressRef = useRef(null);
     const passportRef = useRef(null);
     const progressRef = useRef(null);
+    const mapItinerariesRef = useRef(null);
     const mapRef = useRef(null);
     const itinerariesRef = useRef(null);
 
@@ -38,69 +50,196 @@ function Profile() {
         loadProfile();
     }, []);
 
-    // GSAP Page Entrance Stagger Animation
+    // GSAP Scroll-Triggered Staggered Animations with SplitText
     useGSAP(
         () => {
-            if (loading || !profile) return;
+            if (loading || !profile || !pageRef.current) return;
 
-            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+            const splits = [];
+
+            function createSplit(element) {
+                if (!element) return null;
+                try {
+                    const split = new SplitText(element, { type: "words, chars" });
+                    splits.push(split);
+                    return split;
+                } catch (e) {
+                    return null;
+                }
+            }
 
             // 1. Profile Header
             if (headerRef.current) {
-                tl.fromTo(
-                    headerRef.current,
-                    { opacity: 0, y: 30, scale: 0.99 },
-                    { opacity: 1, y: 0, scale: 1, duration: 0.6 }
+                const headerEl = headerRef.current;
+                const nameH1 = headerEl.querySelector("h1");
+                const nameSplit = createSplit(nameH1);
+
+                const headerTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: headerEl,
+                        start: "top 92%",
+                        once: true,
+                    },
+                    defaults: { ease: "power2.out" },
+                });
+
+                headerTl.fromTo(
+                    headerEl,
+                    { opacity: 0, y: 20 },
+                    { opacity: 1, y: 0, duration: 0.5 }
                 );
+
+                if (nameSplit?.chars?.length > 0) {
+                    headerTl.fromTo(
+                        nameSplit.chars,
+                        { opacity: 0, y: 12 },
+                        { opacity: 1, y: 0, duration: 0.45, stagger: 0.02 },
+                        "-=0.3"
+                    );
+                }
             }
 
             // 2. Achievement Badge
             if (badgeRef.current) {
-                tl.fromTo(
-                    badgeRef.current,
-                    { opacity: 0, y: 24 },
-                    { opacity: 1, y: 0, duration: 0.55 },
-                    "-=0.35"
+                const badgeEl = badgeRef.current;
+                const badgeH2 = badgeEl.querySelector("h2");
+                const badgeSplit = createSplit(badgeH2);
+
+                const badgeTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: badgeEl,
+                        start: "top 88%",
+                        once: true,
+                    },
+                    defaults: { ease: "power2.out" },
+                });
+
+                badgeTl.fromTo(
+                    badgeEl,
+                    { opacity: 0, y: 20 },
+                    { opacity: 1, y: 0, duration: 0.5 }
                 );
+
+                if (badgeSplit?.chars?.length > 0) {
+                    badgeTl.fromTo(
+                        badgeSplit.chars,
+                        { opacity: 0, y: 12 },
+                        { opacity: 1, y: 0, duration: 0.45, stagger: 0.02 },
+                        "-=0.3"
+                    );
+                }
             }
 
-            // 3. Passport & Travel Progress
-            if (passportRef.current) {
-                tl.fromTo(
-                    passportRef.current,
-                    { opacity: 0, x: -25 },
-                    { opacity: 1, x: 0, duration: 0.65 },
-                    "-=0.3"
-                );
+            // 3. Passport & Travel Progress Section
+            if (passportProgressRef.current) {
+                const sectionEl = passportProgressRef.current;
+                const passportCard = passportRef.current;
+                const progressCard = progressRef.current;
+                const statCards = progressCard?.querySelectorAll(".group");
+                const progH2 = progressCard?.querySelector("h2");
+                const progSplit = createSplit(progH2);
+
+                const s3Tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: sectionEl,
+                        start: "top 85%",
+                        once: true,
+                    },
+                    defaults: { ease: "power2.out" },
+                });
+
+                // Smooth cards reveal
+                const cards = [passportCard, progressCard].filter(Boolean);
+                if (cards.length > 0) {
+                    s3Tl.fromTo(
+                        cards,
+                        { opacity: 0, y: 20 },
+                        { opacity: 1, y: 0, duration: 0.55, stagger: 0.1 }
+                    );
+                }
+
+                // SplitText on Progress title
+                if (progSplit?.chars?.length > 0) {
+                    s3Tl.fromTo(
+                        progSplit.chars,
+                        { opacity: 0, y: 10 },
+                        { opacity: 1, y: 0, duration: 0.4, stagger: 0.015 },
+                        "-=0.35"
+                    );
+                }
+
+                // Subtle stagger on stat cards
+                if (statCards && statCards.length > 0) {
+                    s3Tl.fromTo(
+                        statCards,
+                        { opacity: 0, y: 12 },
+                        { opacity: 1, y: 0, duration: 0.45, stagger: 0.05 },
+                        "-=0.35"
+                    );
+                }
             }
 
-            if (progressRef.current) {
-                tl.fromTo(
-                    progressRef.current,
-                    { opacity: 0, x: 25 },
-                    { opacity: 1, x: 0, duration: 0.65 },
-                    "-=0.5"
-                );
+            // 4. India Map & Featured Itineraries Section
+            if (mapItinerariesRef.current) {
+                const sectionEl = mapItinerariesRef.current;
+                const mapCard = mapRef.current;
+                const itinerariesCard = itinerariesRef.current;
+                const itinCards = itinerariesCard?.querySelectorAll(".glass-widget, [data-empty-itinerary]");
+                const mapH2 = mapCard?.querySelector("h2");
+                const mapSplit = createSplit(mapH2);
+                const itinH2 = itinerariesCard?.querySelector("h2");
+                const itinSplit = createSplit(itinH2);
+
+                const s4Tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: sectionEl,
+                        start: "top 85%",
+                        once: true,
+                    },
+                    defaults: { ease: "power2.out" },
+                });
+
+                // Smooth cards reveal
+                const cards = [mapCard, itinerariesCard].filter(Boolean);
+                if (cards.length > 0) {
+                    s4Tl.fromTo(
+                        cards,
+                        { opacity: 0, y: 20 },
+                        { opacity: 1, y: 0, duration: 0.55, stagger: 0.1 }
+                    );
+                }
+
+                // SplitText on Map & Itineraries headings
+                const headingChars = [
+                    ...(mapSplit?.chars || []),
+                    ...(itinSplit?.chars || []),
+                ];
+                if (headingChars.length > 0) {
+                    s4Tl.fromTo(
+                        headingChars,
+                        { opacity: 0, y: 10 },
+                        { opacity: 1, y: 0, duration: 0.4, stagger: 0.015 },
+                        "-=0.35"
+                    );
+                }
+
+                // Subtle stagger on itinerary cards
+                if (itinCards && itinCards.length > 0) {
+                    s4Tl.fromTo(
+                        itinCards,
+                        { opacity: 0, y: 15 },
+                        { opacity: 1, y: 0, duration: 0.45, stagger: 0.08 },
+                        "-=0.35"
+                    );
+                }
             }
 
-            // 4. India Map (Left) & Featured Itineraries (Right)
-            if (mapRef.current) {
-                tl.fromTo(
-                    mapRef.current,
-                    { opacity: 0, x: -25 },
-                    { opacity: 1, x: 0, duration: 0.65 },
-                    "-=0.3"
-                );
-            }
+            // Refresh ScrollTrigger to recalculate exact offsets
+            ScrollTrigger.refresh();
 
-            if (itinerariesRef.current) {
-                tl.fromTo(
-                    itinerariesRef.current,
-                    { opacity: 0, x: 25 },
-                    { opacity: 1, x: 0, duration: 0.65 },
-                    "-=0.5"
-                );
-            }
+            return () => {
+                splits.forEach((s) => s?.revert && s.revert());
+            };
         },
         { scope: pageRef, dependencies: [loading, profile] }
     );
@@ -151,7 +290,7 @@ function Profile() {
                 </div>
 
                 {/* 3. Passport (Left) + Travel Progress (Right) */}
-                <section className="grid gap-gutter lg:grid-cols-12 items-start">
+                <section ref={passportProgressRef} className="grid gap-gutter lg:grid-cols-12 items-start">
                     {/* Digital Passport */}
                     <div ref={passportRef} className="lg:col-span-5">
                         <PassportCard passport={passport} />
@@ -163,8 +302,8 @@ function Profile() {
                     </div>
                 </section>
 
-                {/* 4. India Map on Left & 2 Full Length User Made Itineraries on Right */}
-                <section className="grid gap-gutter lg:grid-cols-12 items-start">
+                {/* 4. India Map on Left & Featured Itineraries on Right */}
+                <section ref={mapItinerariesRef} className="grid gap-gutter lg:grid-cols-12 items-start">
                     {/* Big India Exploration Map on Left */}
                     <div ref={mapRef} className="lg:col-span-7 h-full">
                         <IndiaMap
@@ -173,7 +312,7 @@ function Profile() {
                         />
                     </div>
 
-                    {/* User Made / Featured Itineraries (2 Full Length Cards) on Right */}
+                    {/* User Made / Featured Itineraries on Right */}
                     <div ref={itinerariesRef} className="lg:col-span-5 flex flex-col space-y-6">
                         <div>
                             <h2 className="font-display text-3xl text-on-surface">
@@ -186,6 +325,7 @@ function Profile() {
 
                         {featuredJourneys.length === 0 ? (
                             <div
+                                data-empty-itinerary
                                 className="
                                     flex
                                     flex-col
@@ -218,7 +358,7 @@ function Profile() {
                                     <ItineraryCard
                                         key={itinerary.id}
                                         itinerary={itinerary}
-                                        onDelete={() => {}}
+                                        onDelete={() => { }}
                                     />
                                 ))}
                             </div>

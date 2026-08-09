@@ -34,6 +34,7 @@ function FilterSidebar({
                             </span>
                             {onClearAll && (
                                 <button
+                                    type="button"
                                     onClick={onClearAll}
                                     className="text-xs text-primary font-semibold hover:underline flex items-center gap-0.5 cursor-pointer transition-colors"
                                 >
@@ -64,6 +65,7 @@ function FilterSidebar({
                             const isActive = activeCategories.includes(category.id);
                             return (
                                 <button
+                                    type="button"
                                     key={category.id}
                                     onClick={() => handleCategoryClick && handleCategoryClick(category.id)}
                                     className={`px-4 py-2 rounded-full text-label-lg flex items-center gap-2 transition-all cursor-pointer select-none ${
@@ -109,6 +111,7 @@ function FilterSidebar({
                             const isActive = activeBudgets.includes(budget.id);
                             return (
                                 <button
+                                    type="button"
                                     key={budget.id}
                                     onClick={() => onBudgetToggle && onBudgetToggle(budget.id)}
                                     className={`px-4 py-2.5 rounded-2xl text-left flex items-center justify-between transition-all cursor-pointer select-none ${
@@ -169,6 +172,7 @@ function FilterSidebar({
                 {totalActiveFilters > 0 && onClearAll && (
                     <div className="pt-2">
                         <button
+                            type="button"
                             onClick={onClearAll}
                             className="w-full py-2.5 px-4 rounded-full border border-primary/40 text-primary hover:bg-primary hover:text-white transition-all text-label-md flex items-center justify-center gap-2 font-medium cursor-pointer shadow-xs"
                         >
