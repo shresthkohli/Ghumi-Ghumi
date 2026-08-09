@@ -1,42 +1,53 @@
-import axios from "axios";
+import apiFetch from "./apiClient";
 
-const API_URL = import.meta.env.VITE_API_URL;
+async function createReview(destinationId, reviewData) {
+    const response = await apiFetch(
+        `/api/reviews/${destinationId}`,
+        {
+            method: "POST",
+            body: JSON.stringify(reviewData),
+        }
+    );
 
-function getAuthHeaders()
-{
-    const token= localStorage.getItem("token");
-    
-    return{
-        headers:{
-            Authorization : `Bearer ${token}`,
-        },
-    };
+    if (response.success) {
+        return response.data;
+    }
+
+    console.error(response.error);
+    return null;
 }
 
-async function createReview(destinationId , reviewData) {
-    const response = await axios.post(
-        `${API_URL}/reviews/${destinationId}`,
-        reviewData,
-        getAuthHeaders()
-    )
-    return response.data.data;
-}
+async function updateReview(reviewId, reviewData) {
+    const response = await apiFetch(
+        `/api/reviews/${reviewId}`,
+        {
+            method: "PATCH",
+            body: JSON.stringify(reviewData),
+        }
+    );
 
-async function updateReview(reviewId , reviewData) {
-     const response = await axios.patch(
-        `${API_URL}/reviews/${reviewId}`,
-        reviewData,
-        getAuthHeaders()
-    )
-    return response.data.data;
+    if (response.success) {
+        return response.data;
+    }
+
+    console.error(response.error);
+    return null;
 }
 
 async function deleteReview(reviewId) {
-     const response = await axios.delete(
-        `${API_URL}/reviews/${reviewId}`,
-        getAuthHeaders()
-    )
-    return response.data.data;
+    const response = await apiFetch(
+        `/api/reviews/${reviewId}`,
+        {
+            method: "DELETE",
+        }
+    );
+
+    if (response.success) {
+        return response.data;
+    }
+
+    console.error(response.error);
+    return null;
 }
 
 export default {

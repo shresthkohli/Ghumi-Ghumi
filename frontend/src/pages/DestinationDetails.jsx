@@ -5,6 +5,8 @@ import destinationApi from "../api/destinationApi";
 import favoriteApi from "../api/favoritesApi"
 import visitedApi from "../api/visitedApi"
 import ItineraryCard from "../components/ItineraryCard";
+import reviewApi from "../api/reviewApi";
+import ReviewSection from "../components/reviews/ReviewSection";
 
 const API_URL = import.meta.env.VITE_API_URL ?? "";
 
@@ -45,6 +47,40 @@ export default function DestinationDetailPage() {
         setVisited(destination.isVisited ?? false);
 
     }, [destination]);
+
+    async function handleCreateReview(reviewData) {
+        const newReview = await reviewApi.createReview(id, reviewData);
+
+        setDestination((prev) => ({
+            ...prev,
+            reviews: [newReview, ...(prev.reviews || [])],
+        }));
+    }
+
+    async function handleUpdateReview(reviewId, reviewData) {
+        const updatedReview = await reviewApi.updateReview(
+            reviewId,
+            reviewData
+        );
+
+        setDestination((prev) => ({
+            ...prev,
+            reviews: (prev.reviews || []).map((review) =>
+                review.id === reviewId ? updatedReview : review
+            ),
+        }));
+    }
+
+    async function handleDeleteReview(reviewId) {
+        await reviewApi.deleteReview(reviewId);
+
+        setDestination((prev) => ({
+            ...prev,
+            reviews: (prev.reviews || []).filter(
+                (review) => review.id !== reviewId
+            ),
+        }));
+    }
 
     if (!destination) {
         return (
@@ -274,17 +310,13 @@ export default function DestinationDetailPage() {
 
                     </section>
 
-                    <div className="rounded-[2rem] border border-dashed border-white/20 p-12 text-center">
-                        <span className="material-symbols-outlined text-6xl text-tertiary-fixed mb-4">
-                            reviews
-                        </span>
-                        <h3 className="font-display text-headline-md text-white mb-3">
-                            Traveller Reviews
-                        </h3>
-                        <p className="text-white/70">
-                            Reviews will appear here once the review system is completed.
-                        </p>
-                    </div>
+                    <ReviewSection
+                        destination={destination}
+                        reviews={destination.reviews || []}
+                        onCreateReview={handleCreateReview}
+                        onUpdateReview={handleUpdateReview}
+                        onDeleteReview={handleDeleteReview}
+                    />
 
                 </div>
             </section>
