@@ -4,6 +4,7 @@ import AttractionCard from "../components/attractionCard";
 import destinationApi from "../api/destinationApi";
 import favoriteApi from "../api/favoritesApi"
 import visitedApi from "../api/visitedApi"
+import ItineraryCard from "../components/ItineraryCard";
 
 const API_URL = import.meta.env.VITE_API_URL ?? "";
 
@@ -21,7 +22,10 @@ function InfoCard({ icon, title, value }) {
 
 export default function DestinationDetailPage() {
     const { id } = useParams();
-    const [destination, setDestination] = useState({});
+    const [destination, setDestination] = useState({
+        attractions: [],
+        itineraries: [],
+    });
     const [favorite, setFavorite] = useState(false);
     const [visited, setVisited] = useState(false);
 
@@ -203,17 +207,72 @@ export default function DestinationDetailPage() {
 
                     </section>
 
-                    <div className="rounded-[2rem] border border-dashed border-white/20 p-12 text-center mb-10">
-                        <span className="material-symbols-outlined text-6xl text-tertiary-fixed mb-4">
-                            route
-                        </span>
-                        <h3 className="font-display text-headline-md text-white mb-3">
-                            Curated Itineraries
-                        </h3>
-                        <p className="text-white/70">
-                            This section is under development and will soon feature curated travel plans.
-                        </p>
-                    </div>
+                    {/* Itineraries */}
+
+                    <section className="mt-12">
+
+                        <div className="mb-8">
+
+                            <h2 className="font-display
+                            text-headline-lg
+                            text-tertiary-fixed
+                            mb-8">
+                                Itineraries
+                            </h2>
+
+                            <p className="text-white/80 text-body-lg leading-loose max-w-4xl">
+                                Explore itineraries created for {destination.name}.
+                            </p>
+
+                        </div>
+
+                        {destination.itineraries?.length === 0 ? (
+
+                            <div
+                                className="
+                                rounded-[2.5rem]
+                                border-2
+                                border-dashed
+                                border-outline/20
+                                p-12
+                                text-center
+                                mb-10
+                            "
+                            >
+
+                                <span className="material-symbols-outlined text-6xl text-tertiary-fixed mb-4">
+                                    route
+                                </span>
+
+                                <h3 className="font-display text-headline-md text-white mb-3">
+                                    No itineraries yet
+                                </h3>
+
+                                <p className="text-white/70">
+                                    Be the first to create an itinerary for this destination.
+                                </p>
+
+                            </div>
+
+                        ) : (
+
+                            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+
+                                {destination.itineraries.map((itinerary) => (
+
+                                    <ItineraryCard
+                                        key={itinerary.id}
+                                        itinerary={itinerary}
+                                        onDelete={() => { }}
+                                    />
+
+                                ))}
+
+                            </div>
+
+                        )}
+
+                    </section>
 
                     <div className="rounded-[2rem] border border-dashed border-white/20 p-12 text-center">
                         <span className="material-symbols-outlined text-6xl text-tertiary-fixed mb-4">
