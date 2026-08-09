@@ -11,31 +11,35 @@ import ItineraryDetail from './pages/ItineraryDetail.jsx';
 import Destinations from "./pages/Destinations.jsx";
 import DestinationDetailPage from './pages/DestinationDetails.jsx';
 import Guides from "./pages/Guides.jsx";
+import Blogs from './pages/Blogs.jsx';
 import Profile from './pages/Profile.jsx';
 
 // Components
 import Navbar from './components/Navbar.jsx'
 
 function App() {
-  const[darkMode , setdarkMode]= useState(false);
-  return(<>
-      <AuthProvider>
-        <BrowserRouter>
-            <Navbar/>
-            <Routes>
-              <Route path="/" element={<Discover />} />
-              <Route path="/login" element={<Login />}></Route>
-              <Route path="/signup" element={<Signup darkMode={darkMode} setdarkMode={setdarkMode} />}></Route>
-              <Route path="/discover" element={<Discover />} />
-              <Route path="/itineraries" element={<Itineraries />} />
-              <Route path="/destinations" element={<Destinations />} />
-              <Route path="/destinations/:id" element={<DestinationDetailPage />}/>
-              <Route path="/guides" element={<Guides />} />
-              <Route path="/profile" element={<Profile />} />
-            </Routes>
-        </BrowserRouter>
-      </AuthProvider>
-  </>);
+    const [darkMode, setdarkMode] = useState(false);
+    return (
+        <>
+            <AuthProvider>
+                <BrowserRouter>
+                    <Navbar />
+                    <Routes>
+                        <Route path="/" element={<Discover />} />
+                        <Route path="/login" element={<Login darkMode={darkMode} setdarkMode={setdarkMode} />}></Route>
+                        <Route path="/signup" element={<Signup darkMode={darkMode} setdarkMode={setdarkMode} />}></Route>
+                        <Route path="/discover" element={<Discover />} />
+                        <Route path="/itineraries" element={<Itineraries />} />
+                        <Route path="/itineraries/:id" element={<ItineraryDetail />} />
+                        <Route path="/destinations" element={<Destinations />} />
+                        <Route path="/destinations/:id" element={<DestinationDetailPage />} />
+                        <Route path="/blogs" element={<Blogs />} />
+                        <Route path="/profile" element={<Profile />} />
+                    </Routes>
+                </BrowserRouter>
+            </AuthProvider>
+        </>
+    );
 }
 
 export default App
