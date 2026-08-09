@@ -14,7 +14,7 @@ try {
     // SplitText plugin registration fallback
 }
 
-const RESULTS_PER_PAGE = 6;
+const RESULTS_PER_PAGE = 5;
 
 function Destinations() {
     const [destinations, setDestinations] = useState([]);
