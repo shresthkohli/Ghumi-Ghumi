@@ -48,10 +48,10 @@ function DestinationCard({ destination, featured = false }) {
     if (featured) {
 
         return (
-            <div>
+            <div className="lg:col-span-2">
             <Link to={`/destinations/${destination.id}`}>
 
-                <div className="lg:col-span-2 group relative h-125 rounded-[2.5rem] overflow-hidden shadow-2xl">
+                <div className="lg:col-span-4 group relative h-125 rounded-[2.5rem] overflow-hidden shadow-2xl">
                     <div
                         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                         style={{ backgroundImage: `url(${API_URL}${imageUrl})` }}
