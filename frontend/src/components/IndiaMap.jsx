@@ -332,14 +332,16 @@ function IndiaMap({
                     india-map
                     relative
                     w-full
+                    flex-1
                     rounded-[2rem]
                     bg-[#12372A]
                     overflow-hidden
                     flex
                     items-center
                     justify-center
-                    p-4
-                    md:p-8
+                    p-2
+                    sm:p-4
+                    min-h-[440px]
                 "
             >
 
@@ -358,7 +360,7 @@ function IndiaMap({
 
                     <div
                         className="
-                            w-[70%]
+                            w-[80%]
                             aspect-square
                             rounded-full
                             bg-[#D9B45C]/15
@@ -392,7 +394,9 @@ function IndiaMap({
                         relative
                         z-10
                         w-full
+                        h-full
                         flex
+                        items-center
                         justify-center
                     "
                 >
@@ -401,8 +405,9 @@ function IndiaMap({
                         className="
                             block
                             w-full
-                            max-w-[850px]
                             h-auto
+                            max-h-[580px]
+                            object-contain
                         "
                     />
 

@@ -52,14 +52,14 @@ function ItineraryCard({ itinerary, onDelete }) {
 
     return (
 
-        <Link to={`/itineraries/${itinerary.id}`}>
+        <Link to={`/itineraries/${itinerary.id}`} className="block w-full">
         <div
             ref={cardRef}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="glass-widget p-6 rounded-3xl cursor-pointer"
+            className="glass-widget p-6 rounded-3xl cursor-pointer w-full"
         >
-            <div className="relative aspect-square rounded-2xl overflow-hidden mb-6 bg-surface-container-high">
+            <div className="relative aspect-[16/9] rounded-2xl overflow-hidden mb-5 bg-surface-container-high">
 
                 <img
                     ref={imgRef}
