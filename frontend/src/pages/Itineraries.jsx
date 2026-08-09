@@ -5,7 +5,7 @@ import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 import ItineraryCard from "../components/ItineraryCard";
 import CreateItineraryModal from "../components/CreateItineraryModal";
-import itineraryApi from "../api/itineraryApi";
+import itinerariesApi from "../api/itinerariesApi";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -109,7 +109,7 @@ function Itineraries() {
     async function loadItineraries() {
         try {
             setLoading(true);
-            const data = await itineraryApi.getAllItineraries();
+            const data = await itinerariesApi.getAllItineraries();
             setItineraries(data);
         }
         catch (err) {
@@ -122,7 +122,7 @@ function Itineraries() {
     }
 
     async function handleCreate(itineraryData) {
-        const newItinerary = await itineraryApi.createItinerary(itineraryData);
+        const newItinerary = await itinerariesApi.createItinerary(itineraryData);
         setItineraries((prev) => [...prev, newItinerary]);
     }
 
@@ -130,7 +130,7 @@ function Itineraries() {
         const confirmed = window.confirm("Delete this itinerary?");
         if (!confirmed) return;
 
-        await itineraryApi.deleteItinerary({ id: id });
+        await itinerariesApi.deleteItinerary({ id: id });
         setItineraries((prev) => prev.filter((it) => it.id !== id));
     }
 

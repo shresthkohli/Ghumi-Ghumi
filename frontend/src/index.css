@@ -174,3 +174,30 @@
     transform: translateX(200%);
   }
 }
+
+/* Hand-drawn timeline path animation flowing downwards */
+.timeline-path {
+  stroke-dasharray: 10, 15;
+  animation: dash-down 24s linear infinite;
+}
+
+@keyframes dash-down {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

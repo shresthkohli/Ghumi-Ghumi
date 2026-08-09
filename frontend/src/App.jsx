@@ -7,6 +7,7 @@ import Login from './pages/Login.jsx'
 import Signup from "./pages/Signup.jsx";
 import Discover from "./pages/Discover.jsx";
 import Itineraries from "./pages/Itineraries.jsx";
+import ItineraryDetail from './pages/ItineraryDetail.jsx';
 import Destinations from "./pages/Destinations.jsx";
 import DestinationDetailPage from './pages/DestinationDetails.jsx';
 import Guides from "./pages/Guides.jsx";
@@ -27,6 +28,7 @@ function App() {
                     <Route path="/signup" element={<Signup darkMode={darkMode} setdarkMode={setdarkMode} />}></Route>
                     <Route path="/discover" element={<Discover />} />
                     <Route path="/itineraries" element={<Itineraries />} />
+                    <Route path="/itineraries/:id" element={<ItineraryDetail />} />
                     <Route path="/destinations" element={<Destinations />} />
                     <Route path="/destinations/:id" element={<DestinationDetailPage />} />
                     <Route path="/guides" element={<Guides />} />
