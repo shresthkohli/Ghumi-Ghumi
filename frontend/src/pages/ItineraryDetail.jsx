@@ -9,8 +9,6 @@ import ItinerarySettingsModal from "../components/ItinerarySettingsModal";
 import DayTimeline from "../components/DayTimeline";
 import { formatDisplayTime } from "../utils/formatTime";
 
-const API_URL = import.meta.env.VITE_API_URL ?? "";
-
 function ItineraryDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -32,13 +30,24 @@ function ItineraryDetail() {
 
     useGSAP(() => {
         if (!loading && !error && pageRef.current) {
-            gsap.fromTo(
-                pageRef.current.querySelectorAll("[data-animate]"),
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.08, overwrite: true }
+            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+            // Stagger hero elements
+            tl.fromTo(
+                pageRef.current.querySelectorAll("[data-animate-hero]"),
+                { opacity: 0, y: 30, filter: "blur(4px)" },
+                { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, stagger: 0.1 }
+            );
+
+            // Stagger day sections
+            tl.fromTo(
+                pageRef.current.querySelectorAll("[data-animate-day]"),
+                { opacity: 0, y: 35, scale: 0.98 },
+                { opacity: 1, y: 0, scale: 1, duration: 0.65, stagger: 0.12 },
+                "-=0.3"
             );
         }
-    }, [loading, error]);
+    }, [loading, error, itinerary]);
 
     async function loadItinerary() {
         try {
@@ -59,15 +68,16 @@ function ItineraryDetail() {
         }
     }
 
-    function getDayNumbers(activities) {
+    function getDayNumbers(activities = []) {
         const unique = [...new Set(activities.map((a) => a.dayNumber))];
         return unique.sort((a, b) => a - b);
     }
 
     function getActivitiesForDay(dayNumber) {
+        if (!itinerary?.activities) return [];
         return itinerary.activities
             .filter((a) => a.dayNumber === dayNumber)
-            .sort((a, b) => a.position - b.position);
+            .sort((a, b) => (a.position ?? 0) - (b.position ?? 0));
     }
 
     function scrollToDay(dayNumber) {
@@ -94,7 +104,7 @@ function ItineraryDetail() {
     }
 
     function handleAddDay() {
-        const days = getDayNumbers(itinerary.activities);
+        const days = getDayNumbers(itinerary?.activities || []);
         const nextDay = days.length > 0 ? Math.max(...days) + 1 : 1;
         openCreateActivity(nextDay);
     }
@@ -116,7 +126,7 @@ function ItineraryDetail() {
                 dayNumber: dayNumber,
                 position: existingInDay + 1,
             });
-            setItinerary((prev) => ({ ...prev, activities: [...prev.activities, created] }));
+            setItinerary((prev) => ({ ...prev, activities: [...(prev.activities || []), created] }));
             setActiveDay(dayNumber);
         }
     }
@@ -132,16 +142,15 @@ function ItineraryDetail() {
         }));
     }
 
-    // ── Loading skeleton ──
+    // ── Loading Skeleton ──
     if (loading) {
         return (
             <main className="min-h-screen bg-background pt-[100px] pb-32">
                 <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-                    <div className="py-12 md:py-20">
-                        <div className="h-5 w-40 rounded-full bg-surface-container-high animate-pulse mb-6" />
-                        <div className="h-16 w-2/3 rounded-xl bg-surface-container-high animate-pulse mb-4" />
-                        <div className="h-16 w-1/2 rounded-xl bg-surface-container-high animate-pulse mb-8" />
-                        <div className="h-6 w-3/4 rounded-full bg-surface-container-high animate-pulse" />
+                    <div className="py-12 md:py-20 animate-pulse">
+                        <div className="h-6 w-36 rounded-full bg-surface-container-high mb-6" />
+                        <div className="h-16 w-2/3 rounded-2xl bg-surface-container-high mb-4" />
+                        <div className="h-6 w-1/2 rounded-full bg-surface-container-high mb-8" />
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
                         <div className="hidden md:block col-span-3">
@@ -151,13 +160,10 @@ function ItineraryDetail() {
                             </div>
                         </div>
                         <div className="col-span-1 md:col-span-9">
-                            <div className="h-10 w-1/2 rounded-full bg-surface-container-high animate-pulse mb-8" />
+                            <div className="h-10 w-1/3 rounded-full bg-surface-container-high animate-pulse mb-8" />
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
-                                <div className="h-[400px] rounded-2xl bg-surface-container-high animate-pulse" />
-                                <div className="flex flex-col gap-gutter">
-                                    <div className="h-[190px] rounded-2xl bg-surface-container-high animate-pulse" />
-                                    <div className="h-[190px] rounded-2xl bg-surface-container-high animate-pulse" />
-                                </div>
+                                <div className="h-[360px] rounded-3xl bg-surface-container-high animate-pulse" />
+                                <div className="h-[360px] rounded-3xl bg-surface-container-high animate-pulse" />
                             </div>
                         </div>
                     </div>
@@ -166,71 +172,88 @@ function ItineraryDetail() {
         );
     }
 
-    // ── Error state ──
+    // ── Error State ──
     if (error || !itinerary) {
         return (
-            <main className="min-h-screen bg-background pt-[100px] pb-24 flex flex-col items-center justify-center text-center gap-4">
-                <span className="material-symbols-outlined text-error text-5xl">error</span>
-                <p className="font-body text-base text-error">{error || "Itinerary not found."}</p>
+            <main className="min-h-screen bg-background pt-[100px] pb-24 flex flex-col items-center justify-center text-center gap-4 px-margin-mobile">
+                <div className="w-16 h-16 rounded-full bg-error/10 text-error flex items-center justify-center mb-2">
+                    <span className="material-symbols-outlined text-4xl">error</span>
+                </div>
+                <h3 className="font-display text-2xl font-bold text-on-surface">Something went wrong</h3>
+                <p className="font-body text-base text-on-surface-variant max-w-md">{error || "Itinerary not found."}</p>
                 <button
                     onClick={loadItinerary}
-                    className="font-body text-sm font-semibold text-primary underline underline-offset-4 hover:text-primary-container transition-colors"
+                    className="mt-2 px-6 py-2.5 rounded-full bg-primary text-on-primary font-body text-sm font-semibold hover:scale-105 transition-transform"
                 >
-                    Try again
+                    Try Again
                 </button>
             </main>
         );
     }
 
-    const dayNumbers = getDayNumbers(itinerary.activities);
-
-    // Build subtitle from destination or date range
+    const dayNumbers = getDayNumbers(itinerary.activities || []);
+    const totalActivities = itinerary.activities?.length || 0;
     const subtitle = itinerary.destinationName || "";
 
     return (
-        <main ref={pageRef} className="min-h-screen bg-background pt-[100px] pb-32 md:pb-[80px] overflow-x-hidden">
+        <main ref={pageRef} className="min-h-screen bg-background pt-[100px] pb-32 md:pb-[80px]">
             <div className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
 
                 {/* ─── Hero / Page Header ─── */}
-                <section
-                    data-animate
-                    className="py-12 md:py-20 flex flex-col md:flex-row justify-between items-end gap-8 relative z-10"
-                >
+                <section className="py-10 md:py-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-8 relative z-10">
                     <div className="max-w-2xl">
                         {subtitle && (
-                            <p className="font-body text-sm font-semibold text-secondary tracking-[0.15em] uppercase mb-4">
-                                {subtitle}
-                            </p>
+                            <div data-animate-hero className="flex items-center gap-2 mb-3">
+                                <span className="material-symbols-outlined text-primary text-base">location_on</span>
+                                <span className="font-body text-xs font-bold text-primary tracking-[0.2em] uppercase">
+                                    {subtitle}
+                                </span>
+                            </div>
                         )}
-                        <h1 className="font-display text-display-lg text-on-surface mb-6 leading-tight">
+
+                        <h1 data-animate-hero className="font-display text-display-md md:text-display-lg text-on-surface mb-4 leading-tight font-bold">
                             {itinerary.title}
                         </h1>
+
                         {itinerary.description && (
-                            <p className="font-body text-lg text-on-surface-variant/80 leading-relaxed">
+                            <p data-animate-hero className="font-body text-base md:text-lg text-on-surface-variant/80 leading-relaxed mb-6">
                                 {itinerary.description}
                             </p>
                         )}
+
+                        {/* Trip Quick Stats Bar */}
+                        <div data-animate-hero className="flex flex-wrap items-center gap-3 pt-1">
+                            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container border border-outline-variant/40 text-xs font-semibold text-on-surface">
+                                <span className="material-symbols-outlined text-[15px] text-primary">calendar_month</span>
+                                {dayNumbers.length} {dayNumbers.length === 1 ? "Day" : "Days"} Planned
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container border border-outline-variant/40 text-xs font-semibold text-on-surface">
+                                <span className="material-symbols-outlined text-[15px] text-primary">attractions</span>
+                                {totalActivities} {totalActivities === 1 ? "Experience" : "Experiences"}
+                            </span>
+                        </div>
                     </div>
-                    <div className="flex gap-4 shrink-0">
+
+                    <div data-animate-hero className="flex items-center gap-3 shrink-0">
                         <button
                             onClick={() => setShowSettings(true)}
-                            className="px-6 py-3 rounded-full border border-outline font-body text-sm font-semibold text-on-surface hover:bg-surface-container-low transition-colors duration-300 flex items-center gap-2"
+                            className="px-5 py-3 rounded-full border border-outline-variant bg-surface font-body text-sm font-semibold text-on-surface hover:bg-surface-container transition-all duration-200 flex items-center gap-2 shadow-2xs hover:scale-102 cursor-pointer"
                         >
-                            <span className="material-symbols-outlined text-sm">settings</span>
+                            <span className="material-symbols-outlined text-base">settings</span>
                             Settings
                         </button>
                         <button
                             onClick={() => navigate("/itineraries")}
-                            className="px-8 py-3 rounded-full bg-primary text-on-primary font-body text-sm font-semibold shadow-[0_15px_30px_rgba(162,63,26,0.25)] hover:scale-105 transition-transform duration-300 flex items-center gap-2"
+                            className="px-7 py-3 rounded-full bg-primary text-on-primary font-body text-sm font-semibold shadow-[0_12px_28px_rgba(162,63,26,0.25)] hover:scale-105 active:scale-98 transition-all duration-300 flex items-center gap-2 cursor-pointer"
                         >
-                            <span className="material-symbols-outlined text-sm">check</span>
-                            Finalize
+                            <span className="material-symbols-outlined text-base">check_circle</span>
+                            Done Planning
                         </button>
                     </div>
                 </section>
 
                 {/* ─── Builder Layout: 12-col Grid ─── */}
-                <div className="grid grid-cols-4 md:grid-cols-12 gap-gutter relative">
+                <div className="grid grid-cols-4 md:grid-cols-12 gap-gutter relative items-start">
                     {/* Left: Sticky Timeline */}
                     <DayTimeline
                         days={dayNumbers}
@@ -242,21 +265,23 @@ function ItineraryDetail() {
 
                     {/* Right: Activity Canvas */}
                     <div className="col-span-4 md:col-span-9 flex flex-col gap-section-gap">
-                        {/* Empty state */}
+                        {/* Empty state when no activities yet */}
                         {dayNumbers.length === 0 && (
                             <div
-                                data-animate
+                                data-animate-day
                                 onClick={handleAddDay}
-                                className="w-full py-16 border-2 border-dashed border-outline-variant rounded-2xl flex flex-col items-center justify-center bg-surface-container-low/30 hover:bg-surface-container-low transition-colors duration-300 cursor-pointer group"
+                                className="w-full py-20 border-2 border-dashed border-primary/40 rounded-3xl flex flex-col items-center justify-center bg-gradient-to-br from-primary-fixed/20 via-surface-container-low/40 to-surface hover:border-primary transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md"
                             >
-                                <div className="w-16 h-16 rounded-full bg-surface shadow-[0px_10px_20px_rgba(43,38,32,0.1)] flex items-center justify-center text-primary group-hover:-translate-y-2 group-hover:shadow-[0px_20px_40px_rgba(43,38,32,0.15)] transition-all duration-300 ease-out mb-4">
-                                    <span className="material-symbols-outlined text-3xl">library_add</span>
+                                <div className="w-20 h-20 rounded-full bg-surface shadow-[0px_10px_25px_rgba(43,38,32,0.1)] flex items-center justify-center text-primary group-hover:scale-115 group-hover:bg-primary group-hover:text-on-primary group-hover:shadow-[0px_20px_40px_rgba(162,63,26,0.3)] transition-all duration-300 ease-out mb-5 border border-primary/20">
+                                    <span className="material-symbols-outlined text-4xl group-hover:rotate-90 transition-transform duration-300">
+                                        add_location_alt
+                                    </span>
                                 </div>
-                                <h4 className="font-display text-xl font-semibold text-on-surface mb-1">
-                                    Start planning Day 1
+                                <h4 className="font-display text-2xl font-bold text-on-surface mb-2 group-hover:text-primary transition-colors">
+                                    Start Planning Day 1
                                 </h4>
-                                <p className="font-body text-base text-on-surface-variant/70 text-center max-w-sm">
-                                    Add your first activity to get this trip moving.
+                                <p className="font-body text-sm text-on-surface-variant/80 text-center max-w-sm leading-relaxed">
+                                    Curate your first highlight, arrival check-in, or sunset activity.
                                 </p>
                             </div>
                         )}
@@ -270,31 +295,44 @@ function ItineraryDetail() {
                             return (
                                 <div
                                     key={dayNumber}
-                                    data-animate
+                                    data-animate-day
                                     ref={(el) => (dayRefs.current[dayNumber] = el)}
                                     className="relative scroll-mt-[120px]"
                                 >
-                                    {/* Day Header */}
-                                    <div className="flex justify-between items-end mb-8 border-b border-surface-variant pb-4">
+                                    {/* Day Header Bar */}
+                                    <div className="flex justify-between items-end mb-6 pb-4 border-b border-surface-variant">
                                         <div>
-                                            <h2 className="font-display text-headline-lg text-on-surface">
-                                                Day {String(dayNumber).padStart(2, "0")}: {dayActivities[0]?.title || "Activities"}
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <span className="font-label-md text-xs font-bold uppercase tracking-widest text-primary px-2.5 py-0.5 rounded-full bg-primary-fixed/40">
+                                                    Day {String(dayNumber).padStart(2, "0")}
+                                                </span>
+                                                {spanStart && (
+                                                    <span className="font-body text-xs font-medium text-on-surface-variant/70">
+                                                        • {spanStart} {spanEnd ? `– ${spanEnd}` : ""}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <h2 className="font-display text-2xl md:text-3xl font-bold text-on-surface">
+                                                {dayActivities[0]?.title ? `${dayActivities[0].title} & Highlights` : `Day ${dayNumber} Itinerary`}
                                             </h2>
-                                            <p className="font-body text-base text-on-surface-variant mt-2">
-                                                {spanStart} – {spanEnd}
-                                            </p>
                                         </div>
-                                        <button className="text-on-surface-variant hover:text-primary transition-colors">
-                                            <span className="material-symbols-outlined">more_horiz</span>
+
+                                        <button
+                                            onClick={() => openCreateActivity(dayNumber)}
+                                            className="px-4 py-2 rounded-full bg-surface-container hover:bg-primary hover:text-on-primary text-on-surface font-body text-xs font-bold transition-all duration-200 flex items-center gap-1.5 shadow-2xs cursor-pointer"
+                                        >
+                                            <span className="material-symbols-outlined text-sm">add</span>
+                                            Add Activity
                                         </button>
                                     </div>
 
-                                    {/* Activity Grid — Bento / Scrapbook Layout */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-gutter">
+                                    {/* Activity Bento Grid */}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-gutter">
                                         {dayActivities.map((activity, index) => (
                                             <ActivityCard
                                                 key={activity.id}
                                                 activity={activity}
+                                                index={index}
                                                 featured={index === 0}
                                                 onEdit={openEditActivity}
                                                 onDelete={handleDeleteActivity}
@@ -302,20 +340,22 @@ function ItineraryDetail() {
                                         ))}
                                     </div>
 
-                                    {/* Add Activity — Curate an Experience */}
+                                    {/* Curate Next Experience Callout Button */}
                                     <button
                                         onClick={() => openCreateActivity(dayNumber)}
-                                        className="mt-8 md:mt-12 w-full py-8 border-2 border-dashed border-outline-variant rounded-2xl flex flex-col items-center justify-center bg-surface-container-low/30 hover:bg-surface-container-low transition-colors duration-300 group cursor-pointer"
+                                        className="mt-6 w-full py-6 border-2 border-dashed border-outline-variant/60 rounded-3xl flex items-center justify-center gap-4 bg-surface-container-low/30 hover:bg-surface-container-low/70 hover:border-primary/50 transition-all duration-300 group cursor-pointer"
                                     >
-                                        <div className="w-16 h-16 rounded-full bg-surface shadow-[0px_10px_20px_rgba(43,38,32,0.1)] flex items-center justify-center text-primary group-hover:-translate-y-2 group-hover:shadow-[0px_20px_40px_rgba(43,38,32,0.15)] transition-all duration-300 ease-out mb-4">
-                                            <span className="material-symbols-outlined text-3xl">library_add</span>
+                                        <div className="w-10 h-10 rounded-full bg-surface shadow-sm flex items-center justify-center text-primary group-hover:scale-115 group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
+                                            <span className="material-symbols-outlined text-xl">add</span>
                                         </div>
-                                        <h4 className="font-display text-xl font-semibold text-on-surface mb-1">
-                                            Curate an Experience
-                                        </h4>
-                                        <p className="font-body text-base text-on-surface-variant/70 text-center max-w-sm">
-                                            Create a bespoke activity block for Day {dayNumber}.
-                                        </p>
+                                        <div className="text-left">
+                                            <h5 className="font-display text-base font-bold text-on-surface group-hover:text-primary transition-colors">
+                                                Curate Another Experience for Day {dayNumber}
+                                            </h5>
+                                            <p className="font-body text-xs text-on-surface-variant/70">
+                                                Add meals, scenic stops, tours, or leisure blocks.
+                                            </p>
+                                        </div>
                                     </button>
                                 </div>
                             );
