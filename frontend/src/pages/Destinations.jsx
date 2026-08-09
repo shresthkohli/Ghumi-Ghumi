@@ -3,9 +3,9 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
 import { getFeaturedId, getDestinations } from "../data/destinations";
-import DestinationCard from "../components/DestinationCard";
-import FilterSidebar from "../components/FilterSidebar";
-import Pagination from "../components/Pagination";
+import DestinationCard from "../components/destination/DestinationCard";
+import FilterSidebar from "../components/destination/FilterSidebar";
+import Pagination from "../components/destination/Pagination";
 import destinationApi from "../api/destinationApi";
 
 try {

@@ -4,12 +4,12 @@ import { useGSAP } from "@gsap/react";
 
 import profileApi from "../api/profileApi";
 
-import ProfileHeader from "../components/ProfileHeader";
-import AchievementCard from "../components/AchievementCard";
-import PassportCard from "../components/PassportCard";
-import TravelProgress from "../components/TravelProgress";
-import IndiaMap from "../components/IndiaMap";
-import ItineraryCard from "../components/ItineraryCard";
+import ProfileHeader from "../components/profile/ProfileHeader";
+import AchievementCard from "../components/profile/AchievementCard";
+import PassportCard from "../components/profile/PassportCard";
+import TravelProgress from "../components/profile/TravelProgress";
+import IndiaMap from "../components/profile/IndiaMap";
+import ItineraryCard from "../components/itinerary/ItineraryCard";
 
 function Profile() {
     const [profile, setProfile] = useState(null);

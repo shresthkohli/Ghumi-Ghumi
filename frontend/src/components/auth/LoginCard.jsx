@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 
 import { login, googleLogin } from "../../api/authApi.js";
-import Toast from "../Toast.jsx";
+import Toast from "../common/Toast.jsx";
 import { useAuth } from "../../context/AuthContext.jsx";
 
 export default function LoginCard({ onSuccess }) {

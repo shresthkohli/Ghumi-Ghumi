@@ -1,8 +1,8 @@
 const API_URL = import.meta.env.VITE_API_URL ?? "";
 import { Link } from "react-router-dom";
 
-import favoritesApi from "../api/favoritesApi";
-import apiFetch from "../api/apiClient";
+import favoritesApi from "../../api/favoritesApi";
+import apiFetch from "../../api/apiClient";
 
 // Card that shows destination, pass featured if card needed to be a hero card
 

@@ -1,4 +1,4 @@
-import { categories, budgetOptions } from "../data/destinations";
+import { categories, budgetOptions } from "../../data/destinations";
 
 function FilterSidebar({
     activeCategories = [],

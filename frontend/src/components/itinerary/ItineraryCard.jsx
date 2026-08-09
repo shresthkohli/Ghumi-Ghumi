@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { Link } from "react-router-dom";
-import destinationApi from "../api/destinationApi";
+import destinationApi from "../../api/destinationApi";
 const API_URL = import.meta.env.VITE_API_URL ?? "";
 
 function ItineraryCard({ itinerary, onDelete }) {

@@ -1,14 +1,14 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MapPin, ArrowRight, Search, Loader2 } from "lucide-react";
-import FeaturedJourney from "../components/FeaturedJourneys";
-import ItinerariesSection from "../components/ItinerariesSection.jsx";
-import Footer from "../components/Footer.jsx";
+import FeaturedJourney from "../components/discover/FeaturedJourneys.jsx";
+import ItinerariesSection from "../components/discover/ItinerariesSection.jsx";
+import Footer from "../components/common/Footer.jsx";
 import destinationsApi from "../api/destinationApi.js";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import Globe from "../components/Globe.jsx";
+import Globe from "../components/discover/Globe.jsx";
 import useDestinationSearch from "../hooks/useDestinationSearch.js";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);

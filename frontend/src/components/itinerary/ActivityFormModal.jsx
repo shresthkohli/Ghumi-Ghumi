@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { toInputTime, calculateDuration, addMinutesToTime } from "../utils/formatTime";
-import getErrorMessage from "../utils/getErrorMessage";
+import { toInputTime, calculateDuration, addMinutesToTime } from "../../utils/formatTime";
+import getErrorMessage from "../../utils/getErrorMessage";
 import TimeSelector from "./TimeSelector";
 
 function ActivityFormModal({ initialData, dayNumber, onClose, onSave }) {

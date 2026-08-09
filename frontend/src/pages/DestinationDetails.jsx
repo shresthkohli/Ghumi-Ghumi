@@ -3,11 +3,11 @@ import { Link, useParams } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
-import AttractionCard from "../components/attractionCard";
+import AttractionCard from "../components/destination/AttractionCard";
 import destinationApi from "../api/destinationApi";
 import favoriteApi from "../api/favoritesApi";
 import visitedApi from "../api/visitedApi";
-import ItineraryCard from "../components/ItineraryCard";
+import ItineraryCard from "../components/itinerary/ItineraryCard";
 import reviewApi from "../api/reviewApi";
 import ReviewSection from "../components/reviews/ReviewSection";
 

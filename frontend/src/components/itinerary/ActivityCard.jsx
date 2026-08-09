@@ -1,6 +1,6 @@
 import { useRef } from "react";
-import { formatDisplayTime, getTimeOfDayIcon, calculateDuration } from "../utils/formatTime";
-import { getActivityGradient } from "../utils/gradientUtils";
+import { formatDisplayTime, getTimeOfDayIcon, calculateDuration } from "../../utils/formatTime";
+import { getActivityGradient } from "../../utils/gradientUtils";
 
 function ActivityCard({ activity, index = 0, featured = false, onEdit, onDelete }) {
     const cardRef = useRef(null);

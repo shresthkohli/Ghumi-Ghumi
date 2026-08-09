@@ -3,8 +3,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
-import ItineraryCard from "../components/ItineraryCard";
-import CreateItineraryModal from "../components/CreateItineraryModal";
+import ItineraryCard from "../components/itinerary/ItineraryCard";
+import CreateItineraryModal from "../components/itinerary/CreateItineraryModal";
 import itinerariesApi from "../api/itinerariesApi";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import destinationApi from "../api/destinationApi";
+import destinationApi from "../../api/destinationApi";
 
 function CreateItineraryModal({ onClose, onCreate }) {
     const [destinations, setDestinations] = useState([]);

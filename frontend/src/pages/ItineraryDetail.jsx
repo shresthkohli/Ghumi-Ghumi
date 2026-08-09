@@ -3,10 +3,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import itinerariesApi from "../api/itinerariesApi";
-import ActivityCard from "../components/ActivityCard";
-import ActivityFormModal from "../components/ActivityFormModal";
-import ItinerarySettingsModal from "../components/ItinerarySettingsModal";
-import DayTimeline from "../components/DayTimeline";
+import ActivityCard from "../components/itinerary/ActivityCard";
+import ActivityFormModal from "../components/itinerary/ActivityFormModal";
+import ItinerarySettingsModal from "../components/itinerary/ItinerarySettingsModal";
+import DayTimeline from "../components/itinerary/DayTimeline";
 import { formatDisplayTime } from "../utils/formatTime";
 
 function ItineraryDetail() {

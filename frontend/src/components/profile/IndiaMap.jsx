@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import IndiaSvg from "../assets/india-map-premium.svg?react";
+import IndiaSvg from "../../assets/india-map-premium.svg?react";
 
 const STATE_TO_CODE = {
     "Andaman and Nicobar Islands": "IN-AN",

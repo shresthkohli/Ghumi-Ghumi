@@ -15,7 +15,7 @@ import Blogs from './pages/Blogs.jsx';
 import Profile from './pages/Profile.jsx';
 
 // Components
-import Navbar from './components/Navbar.jsx'
+import Navbar from './components/common/Navbar.jsx'
 
 function App() {
     const [darkMode, setdarkMode] = useState(false);

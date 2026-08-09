@@ -1,8 +1,8 @@
 import JourneyCard from "./JourneyCard-discover.jsx";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState, useRef, useMemo } from "react";
-import destinationApi from "../api/destinationApi.js";
-import IndiaSvg from "../assets/india-map.svg?react";
+import destinationApi from "../../api/destinationApi.js";
+import IndiaSvg from "../../assets/india-map.svg?react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";

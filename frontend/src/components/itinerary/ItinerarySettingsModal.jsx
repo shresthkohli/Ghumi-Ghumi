@@ -1,5 +1,5 @@
 import { useState } from "react";
-import getErrorMessage from "../utils/getErrorMessage";
+import getErrorMessage from "../../utils/getErrorMessage";
 
 function ItinerarySettingsModal({ itinerary, onClose, onSave, onDelete }) {
     const [title, setTitle] = useState(itinerary.title);

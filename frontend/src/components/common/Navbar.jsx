@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
+import { useAuth } from "../../context/AuthContext.jsx";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import useDestinationSearch from "../hooks/useDestinationSearch.js";
+import useDestinationSearch from "../../hooks/useDestinationSearch.js";
 gsap.registerPlugin(ScrollTrigger);
 
 const API_URL = import.meta.env.VITE_API_URL ?? "";
