@@ -25,11 +25,12 @@ function Navbar() {
         handleSearch, pickSuggestion, dismissSuggestions, resetSearch,
     } = useDestinationSearch();
 
-    const tl = gsap.timeline({ defaults: { ease: "power1.inOut" } });
-    tl.fromTo(".logo", { y: -14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.06 })
-        .fromTo(".nav-links", { y: -10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.06 })
-        .to(".icon-btn", { opacity: 1, duration: 0.4, stagger: 0.06 })
-        .to(".search-cta", { opacity: 1, duration: 0.5 });
+    useGSAP(() => {
+        const tl = gsap.timeline({ defaults: { ease: "power1.inOut" } });
+        tl.fromTo(".logo", { y: -14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.06 })
+            .fromTo(".nav-links", { y: -10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.06 })
+            .to(".icon-btn", { opacity: 1, duration: 0.4, stagger: 0.06 });
+    }, []);
 
     useEffect(() => {
         if (searchOpen && searchInputRef.current) {
@@ -65,25 +66,18 @@ function Navbar() {
 
     // Wrap handleSearch to close overlay on success
     async function handleNavSearch(e) {
-        // We call handleSearch but also need to close overlay if it navigates
-        // Since handleSearch resets query on success, we can detect that
-        await handleSearch(e);
-    }
-
-    // Close overlay when searchQuery is reset (meaning a successful navigation happened)
-    useEffect(() => {
-        if (searchOpen && searchQuery === "" && !isSearching && !searchError) {
+        if (e && e.preventDefault) e.preventDefault();
+        const success = await handleSearch(e);
+        if (success) {
             setSearchOpen(false);
         }
-    }, [searchQuery, isSearching, searchError, searchOpen]);
+    }
 
-    function handleMobileLinkClick()
-    {
+    function handleMobileLinkClick() {
         setMenuOpen(false);
     }
 
-    function openMobileSearch()
-    {
+    function openMobileSearch() {
         setMenuOpen(false);
         setSearchOpen(true);
     }
@@ -105,8 +99,8 @@ function Navbar() {
                     <Link className="nav-links text-white/80 font-medium hover:text-white transition-colors" to="/destinations">
                         Destinations
                     </Link>
-                    <Link className="nav-links text-white/80 font-medium hover:text-white transition-colors" to="/guides">
-                        Guides
+                    <Link className="nav-links text-white/80 font-medium hover:text-white transition-colors" to="/blogs">
+                        Blogs
                     </Link>
                 </div>
 
@@ -142,7 +136,7 @@ function Navbar() {
                 </div>
 
                 <button
-                    onClick={() => setMenuOpen(!menuOpen)} 
+                    onClick={() => setMenuOpen(!menuOpen)}
                     className="md:hidden flex items-center justify-center w-10 h-10 text-white"
                     aria-label="Toggle menu"
                 >
@@ -152,103 +146,102 @@ function Navbar() {
                 </button>
             </nav>
 
-            {/* Mobile Menu */ }
-            <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-                menuOpen ?
-                "max-h-[500px] opacity-100"
-                : "max-h-0 opacity-0"
-            }`}>
-            <div className="border-t border-white/10 bg-[#050d1a]/95 backdrop-blur-xl px-5 sm:px-8 py-5">
-                <div className="flex flex-col">
-                    <Link to="/discover"
-                          onClick={handleMobileLinkClick}
-                          className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors"
-                    >
+            {/* Mobile Menu */}
+            <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${menuOpen ?
+                    "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}>
+                <div className="border-t border-white/10 bg-[#050d1a]/95 backdrop-blur-xl px-5 sm:px-8 py-5">
+                    <div className="flex flex-col">
+                        <Link to="/discover"
+                            onClick={handleMobileLinkClick}
+                            className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors"
+                        >
                             <span className="material-symbols-outlined text-[22px]">
                                 explore
                             </span>
                             <span className="font-body text-base font-medium">
                                 Discover
                             </span>
-                    </Link>
-                    <Link to="/itineraries"
-                          onClick={handleMobileLinkClick}
-                          className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors"
-                    >
+                        </Link>
+                        <Link to="/itineraries"
+                            onClick={handleMobileLinkClick}
+                            className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors"
+                        >
                             <span className="material-symbols-outlined text-[22px]">
                                 map
                             </span>
                             <span className="font-body text-base font-medium">
                                 Itineraries
                             </span>
-                    </Link>
-                    <Link to="/destinations"
-                          onClick={handleMobileLinkClick}
-                          className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors"
-                    >
+                        </Link>
+                        <Link to="/destinations"
+                            onClick={handleMobileLinkClick}
+                            className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors"
+                        >
                             <span className="material-symbols-outlined text-[22px]">
                                 location_on
                             </span>
                             <span className="font-body text-base font-medium">
                                 Destinations
                             </span>
-                    </Link>
-                    <Link to="/guides"
-                          onClick={handleMobileLinkClick}
-                          className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors"
-                    >
+                        </Link>
+                        <Link to="/blogs"
+                            onClick={handleMobileLinkClick}
+                            className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors"
+                        >
                             <span className="material-symbols-outlined text-[22px]">
                                 menu_book
                             </span>
                             <span className="font-body text-base font-medium">
-                                Guides
+                                Blogs
                             </span>
-                    </Link>
-                    <button
-                        onClick={openMobileSearch}
-                        className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors text-left"
-                    >
-                        <span className="material-symbols-outlined text-[22px]">
-                            search
-                        </span>
-                        <span className="font-body text-base font-medium">
-                            Search
-                        </span>
-                    </button>
-                {loading ? (
-                    <div className="flex items-center gap-4 py-4"> 
-                        <div className="w-9 h-9 rounded-full bg-white/20 animate-pulse" /> 
-                        <div className="h-4 w-20 rounded bg-white/20 animate-pulse" /> 
-                    </div> 
-                    ) : user ? ( 
-                    <Link 
-                    to="/profile" 
-                    onClick={handleMobileLinkClick} 
-                    className="flex items-center gap-4 py-4 text-white/85 hover:text-white transition-colors" > 
-                        <div className="w-9 h-9 rounded-full border border-white/30 overflow-hidden"> 
-                        <img 
-                            src={`https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent( user.name )}`} 
-                            alt={user.name} className="w-full h-full object-cover" /> 
-                        </div> 
-                        <span className="font-body text-base font-medium"> 
-                            Profile 
-                        </span> 
-                        </Link> 
-                    ) : ( 
-                        <Link 
-                            to="/login" 
-                            onClick={handleMobileLinkClick} 
-                            className="flex items-center gap-4 py-4 text-white/85 hover:text-white transition-colors" > 
-                        <span className="material-symbols-outlined text-[22px]"> 
-                            login 
-                        </span> 
-                        <span className="font-body text-base font-medium"> 
-                            Log in 
-                        </span> 
-                    </Link>
-                )}
+                        </Link>
+                        <button
+                            onClick={openMobileSearch}
+                            className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors text-left"
+                        >
+                            <span className="material-symbols-outlined text-[22px]">
+                                search
+                            </span>
+                            <span className="font-body text-base font-medium">
+                                Search
+                            </span>
+                        </button>
+                        {loading ? (
+                            <div className="flex items-center gap-4 py-4">
+                                <div className="w-9 h-9 rounded-full bg-white/20 animate-pulse" />
+                                <div className="h-4 w-20 rounded bg-white/20 animate-pulse" />
+                            </div>
+                        ) : user ? (
+                            <Link
+                                to="/profile"
+                                onClick={handleMobileLinkClick}
+                                className="flex items-center gap-4 py-4 text-white/85 hover:text-white transition-colors" >
+                                <div className="w-9 h-9 rounded-full border border-white/30 overflow-hidden">
+                                    <img
+                                        src={`https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(user.name)}`}
+                                        alt={user.name} className="w-full h-full object-cover" />
+                                </div>
+                                <span className="font-body text-base font-medium">
+                                    Profile
+                                </span>
+                            </Link>
+                        ) : (
+                            <Link
+                                to="/login"
+                                onClick={handleMobileLinkClick}
+                                className="flex items-center gap-4 py-4 text-white/85 hover:text-white transition-colors" >
+                                <span className="material-symbols-outlined text-[22px]">
+                                    login
+                                </span>
+                                <span className="font-body text-base font-medium">
+                                    Log in
+                                </span>
+                            </Link>
+                        )}
+                    </div>
                 </div>
-            </div>
             </div>
 
             {/* ── Expandable Search Overlay ── */}
@@ -260,22 +253,23 @@ function Navbar() {
             >
                 <div className="bg-[#050d1a]/95 backdrop-blur-xl border-b border-white/10 shadow-2xl">
                     <div className="max-w-container-max mx-auto px-margin-desktop py-4 relative">
-                        <form 
-                            onSubmit={handleNavSearch} 
+                        <form
+                            onSubmit={handleNavSearch}
                             className="flex items-center gap-4">
-                        <span className="material-symbols-outlined text-white/50 text-2xl">
-                            search
-                        </span>
+                            <span className="material-symbols-outlined text-white/50 text-2xl">
+                                search
+                            </span>
 
                             <input
                                 ref={searchInputRef}
                                 type="text"
                                 value={searchQuery}
-                                onChange={(e) => { 
-                                    setSearchQuery(e.target.value); 
-                                    setSearchError(""); }}
-                                onFocus={() => 
-                                    suggestions.length > 0 && 
+                                onChange={(e) => {
+                                    setSearchQuery(e.target.value);
+                                    setSearchError("");
+                                }}
+                                onFocus={() =>
+                                    suggestions.length > 0 &&
                                     setShowSuggestions(true)}
                                 onBlur={dismissSuggestions}
                                 placeholder="Search destinations..."

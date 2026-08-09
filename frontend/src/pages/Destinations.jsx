@@ -1,9 +1,18 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { SplitText } from "gsap/SplitText";
 import { getFeaturedId, getDestinations } from "../data/destinations";
 import DestinationCard from "../components/DestinationCard";
 import FilterSidebar from "../components/FilterSidebar";
 import Pagination from "../components/Pagination";
 import destinationApi from "../api/destinationApi";
+
+try {
+    gsap.registerPlugin(SplitText);
+} catch (e) {
+    // SplitText plugin registration fallback
+}
 
 const RESULTS_PER_PAGE = 6;
 
@@ -13,6 +22,15 @@ function Destinations() {
     const [activeCategories, setActiveCategories] = useState([]);
     const [activeBudgets, setActiveBudgets] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+
+    const pageRef = useRef(null);
+    const navRef = useRef(null);
+    const titleRef = useRef(null);
+    const descRef = useRef(null);
+    const sidebarRef = useRef(null);
+    const gridRef = useRef(null);
+    const resultsBarRef = useRef(null);
+    const emptyStateRef = useRef(null);
 
     useEffect(() => {
         async function fetchDestinations() {
@@ -33,6 +51,91 @@ function Destinations() {
 
         fetchDestinations();
     }, []);
+
+    // GSAP Hero & Page Entrance
+    useGSAP(
+        () => {
+            let split;
+            if (titleRef.current) {
+                try {
+                    split = new SplitText(titleRef.current, { type: "words, chars" });
+                } catch (e) {
+                    split = null;
+                }
+            }
+
+            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+            // 1. Breadcrumb nav
+            if (navRef.current) {
+                tl.fromTo(
+                    navRef.current,
+                    { opacity: 0, y: -15, filter: "blur(4px)" },
+                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6 }
+                );
+            }
+
+            // 2. Title entrance with SplitText
+            if (split && split.chars && split.chars.length > 0) {
+                tl.fromTo(
+                    split.chars,
+                    { opacity: 0, y: 35, rotateX: -60, filter: "blur(6px)" },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        rotateX: 0,
+                        filter: "blur(0px)",
+                        stagger: 0.02,
+                        duration: 0.8,
+                        ease: "back.out(1.4)",
+                    },
+                    "-=0.3"
+                );
+            } else if (titleRef.current) {
+                tl.fromTo(
+                    titleRef.current,
+                    { opacity: 0, y: 25, filter: "blur(6px)" },
+                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8 },
+                    "-=0.3"
+                );
+            }
+
+            // 3. Subtitle description reveal
+            if (descRef.current) {
+                tl.fromTo(
+                    descRef.current,
+                    { opacity: 0, y: 20, filter: "blur(4px)" },
+                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6 },
+                    "-=0.4"
+                );
+            }
+
+            // 4. Filter sidebar entrance
+            if (sidebarRef.current) {
+                tl.fromTo(
+                    sidebarRef.current,
+                    { opacity: 0, x: -30, filter: "blur(6px)" },
+                    { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.7 },
+                    "-=0.3"
+                );
+            }
+
+            // 5. Results info bar
+            if (resultsBarRef.current) {
+                tl.fromTo(
+                    resultsBarRef.current,
+                    { opacity: 0, y: 15 },
+                    { opacity: 1, y: 0, duration: 0.5 },
+                    "-=0.4"
+                );
+            }
+
+            return () => {
+                if (split && split.revert) split.revert();
+            };
+        },
+        { scope: pageRef }
+    );
 
     // Category toggle
     function handleCategoryToggle(categoryId) {
@@ -101,20 +204,60 @@ function Destinations() {
         ? visibleDestinations.filter((d) => d.name !== featuredDestination.name)
         : visibleDestinations;
 
+    // Stagger animation for destination cards whenever list/page/filters change
+    useEffect(() => {
+        if (!isLoading && gridRef.current && gridRef.current.children.length > 0) {
+            gsap.fromTo(
+                gridRef.current.children,
+                { opacity: 0, y: 35, scale: 0.96, rotateX: 6, filter: "blur(4px)" },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    rotateX: 0,
+                    filter: "blur(0px)",
+                    duration: 0.55,
+                    ease: "power3.out",
+                    stagger: 0.08,
+                }
+            );
+        }
+    }, [isLoading, currentPage, activeCategories, activeBudgets, filteredDestinations.length]);
+
+    // Animate empty state if no results
+    useEffect(() => {
+        if (!isLoading && filteredDestinations.length === 0 && emptyStateRef.current) {
+            gsap.fromTo(
+                emptyStateRef.current,
+                { opacity: 0, scale: 0.92, y: 25 },
+                { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.2)" }
+            );
+        }
+    }, [isLoading, filteredDestinations.length]);
+
     return (
-        <div className="bg-surface min-h-screen">
+        <div ref={pageRef} className="bg-surface min-h-screen">
             {/* Hero header */}
-            <header className="relative bg-[#0b2b26] pt-12 pb-24 px-margin-desktop">
-                <div className="max-w-container-max mx-auto">
-                    <nav className="flex items-center gap-2 text-primary-fixed opacity-70 mb-8 font-body text-label-md">
+            <header className="relative bg-[#0b2b26] pt-12 pb-24 px-margin-desktop overflow-hidden">
+                <div className="max-w-container-max mx-auto relative z-10">
+                    <nav
+                        ref={navRef}
+                        className="flex items-center gap-2 text-primary-fixed opacity-70 mb-8 font-body text-label-md"
+                    >
                         <span>Destinations</span>
                         <span className="material-symbols-outlined text-[12px]">chevron_right</span>
                         <span className="text-on-primary">Places to Visit in India</span>
                     </nav>
-                    <h1 className="font-display text-display-lg text-on-primary mb-4">
+                    <h1
+                        ref={titleRef}
+                        className="font-display text-display-lg text-on-primary mb-4"
+                    >
                         Best Places to Visit in India
                     </h1>
-                    <p className="text-primary-fixed max-w-2xl font-body text-body-lg leading-relaxed">
+                    <p
+                        ref={descRef}
+                        className="text-primary-fixed max-w-2xl font-body text-body-lg leading-relaxed"
+                    >
                         From the Pink City's palaces to the tiger trails of Jim Corbett,
                         discover the destinations worth building your next trip around.
                     </p>
@@ -123,16 +266,21 @@ function Destinations() {
 
             {/* Content */}
             <main className="max-w-container-max mx-auto px-margin-desktop -mt-12 mb-section-gap flex flex-col md:flex-row gap-gutter">
-                <FilterSidebar
-                    activeCategories={activeCategories}
-                    onCategoryToggle={handleCategoryToggle}
-                    activeBudgets={activeBudgets}
-                    onBudgetToggle={handleBudgetToggle}
-                    onClearAll={handleClearAll}
-                />
+                <div ref={sidebarRef} className="shrink-0 w-full md:w-80">
+                    <FilterSidebar
+                        activeCategories={activeCategories}
+                        onCategoryToggle={handleCategoryToggle}
+                        activeBudgets={activeBudgets}
+                        onBudgetToggle={handleBudgetToggle}
+                        onClearAll={handleClearAll}
+                    />
+                </div>
 
                 <section className="grow min-w-0">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div
+                        ref={resultsBarRef}
+                        className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6"
+                    >
                         <div className="flex items-center gap-3">
                             <span className="font-body text-body-md text-primary-container z-10">
                                 <span className="font-bold text-on-primary text-lg">
@@ -155,7 +303,7 @@ function Destinations() {
 
                     {/* Active Filter Chips */}
                     {totalActiveFilters > 0 && (
-                        <div className="flex flex-wrap items-center gap-2 mb-6 p-3 rounded-2xl bg-surface-container-high/60 border border-outline-variant/40">
+                        <div className="flex flex-wrap items-center gap-2 mb-6 p-3 rounded-2xl bg-surface-container-high/60 border border-outline-variant/40 animate-fade-in">
                             <span className="text-xs font-semibold text-on-surface-variant uppercase tracking-wider mr-1">
                                 Applied:
                             </span>
@@ -192,7 +340,10 @@ function Destinations() {
                     )}
 
                     {!isLoading && filteredDestinations.length === 0 && (
-                        <div className="py-16 px-8 rounded-4xl bg-surface-container-high/50 border border-outline-variant/30 text-center flex flex-col items-center">
+                        <div
+                            ref={emptyStateRef}
+                            className="py-16 px-8 rounded-4xl bg-surface-container-high/50 border border-outline-variant/30 text-center flex flex-col items-center"
+                        >
                             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
                                 <span className="material-symbols-outlined text-3xl">travel_explore</span>
                             </div>
@@ -212,7 +363,10 @@ function Destinations() {
                     )}
 
                     {!isLoading && filteredDestinations.length > 0 && (
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+                        <div
+                            ref={gridRef}
+                            className="grid grid-cols-1 lg:grid-cols-2 gap-gutter"
+                        >
                             {featuredDestination && (
                                 <DestinationCard destination={featuredDestination} featured />
                             )}

@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext.jsx";
 import { GoogleLogin } from "@react-oauth/google";
 
 
-function Signup({ darkMode, setdarkMode }) {
+function Signup() {
 
     const [name, setName] = useState("");
     const [email, setemail] = useState("");
@@ -78,68 +78,68 @@ function Signup({ darkMode, setdarkMode }) {
     return (<>
         <Toast message={error} onClose={() => setError("")} />
         <div className="min-h-screen flex items-center justify-center bg-surface-container-high px-4 py-8"
-          >
+        >
             <form
                 onSubmit={handleSubmit}
                 className=" w-full max-w-md rounded-3xl border border-primary/10 bg-white p-7 shadow-warm-lg transition-all duration-300 sm:p-9 ">
-                
+
                 <div className="mb-7 text-center">
-                <h1 className="font-display text-3xl font-bold text-on-surface">
-                    Signup
-                </h1>
-                <p className="mt-2 text-sm text-on-surface-variant"> 
-                    Create your account 
-                </p>
+                    <h1 className="font-display text-3xl font-bold text-on-surface">
+                        Signup
+                    </h1>
+                    <p className="mt-2 text-sm text-on-surface-variant">
+                        Create your account
+                    </p>
                 </div>
-                <div className="mb-4"> 
-                    <label className="mb-2 block text-sm font-semibold text-on-surface"> 
-                        Name 
+                <div className="mb-4">
+                    <label className="mb-2 block text-sm font-semibold text-on-surface">
+                        Name
                     </label>
-                    <input 
-                        type="text" 
-                        value={name} 
+                    <input
+                        type="text"
+                        value={name}
                         placeholder="Enter your Name"
                         onChange={(e) => setName(e.target.value)}
                         className=" w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-on-surface placeholder:text-on-surface-variant outline-none transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20 "
                     />
                 </div>
 
-                <div className="mb-4"> 
-                    <label className="mb-2 block text-sm font-semibold text-on-surface"> 
-                        Email 
+                <div className="mb-4">
+                    <label className="mb-2 block text-sm font-semibold text-on-surface">
+                        Email
                     </label>
-                <input 
-                    type="email" 
-                    value={email} 
-                    placeholder="Enter your email"
-                    className=" w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-on-surface placeholder:text-on-surface-variant outline-none transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20 "
-                    onChange={(e) => setemail(e.target.value)}>
-                </input>
+                    <input
+                        type="email"
+                        value={email}
+                        placeholder="Enter your email"
+                        className=" w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-on-surface placeholder:text-on-surface-variant outline-none transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20 "
+                        onChange={(e) => setemail(e.target.value)}>
+                    </input>
                 </div>
 
-                <div className="mb-4"> 
+                <div className="mb-4">
                     <label className="mb-2 block text-sm font-semibold text-on-surface">
-                         Password 
-                    </label> 
-                    <input 
-                    type="password" 
-                    value={password} 
-                    placeholder="Create a password" 
-                    onChange={(e) => setpassword(e.target.value)} 
-                    className=" w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-on-surface placeholder:text-on-surface-variant outline-none transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20 " /> 
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        value={password}
+                        placeholder="Create a password"
+                        onChange={(e) => setpassword(e.target.value)}
+                        className=" w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-on-surface placeholder:text-on-surface-variant outline-none transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20 " />
                 </div>
-                
-                <div className="mb-5"> 
-                    <label className="mb-2 block text-sm font-semibold text-on-surface"> 
-                        Confirm Password 
-                    </label> 
-                    <input 
-                    type="password" 
-                    value={confirmPassword} 
-                    placeholder="Confirm your password" 
-                    onChange={(e) => setconfirmPassword(e.target.value) } 
-                    className=" w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-on-surface placeholder:text-on-surface-variant outline-none transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20 " 
-                    /> 
+
+                <div className="mb-5">
+                    <label className="mb-2 block text-sm font-semibold text-on-surface">
+                        Confirm Password
+                    </label>
+                    <input
+                        type="password"
+                        value={confirmPassword}
+                        placeholder="Confirm your password"
+                        onChange={(e) => setconfirmPassword(e.target.value)}
+                        className=" w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-on-surface placeholder:text-on-surface-variant outline-none transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20 "
+                    />
                 </div>
                 <button
                     type="submit"
@@ -148,13 +148,13 @@ function Signup({ darkMode, setdarkMode }) {
                     {loading ? "Creating account..." : "Signup"}
                 </button>
 
-                <div className="my-6 flex items-center gap-3"> 
-                    <div className="h-px flex-1 bg-outline-variant" /> 
-                    <span className="text-xs font-medium text-on-surface-variant"> 
-                        OR 
-                    </span> 
-                    <div className="h-px flex-1 bg-outline-variant" /> 
-                    </div>
+                <div className="my-6 flex items-center gap-3">
+                    <div className="h-px flex-1 bg-outline-variant" />
+                    <span className="text-xs font-medium text-on-surface-variant">
+                        OR
+                    </span>
+                    <div className="h-px flex-1 bg-outline-variant" />
+                </div>
                 <GoogleLogin
                     onSuccess={handleGoogleSuccess}
                     onError={() => {
@@ -162,14 +162,14 @@ function Signup({ darkMode, setdarkMode }) {
                     }}
                 />
 
-                <p className="mt-6 text-center text-sm text-on-surface-variant"> 
-                    Already have an account? 
-                    <Link 
-                    to="/login" 
-                    className=" ml-1 font-semibold text-primary transition-all duration-200 hover:underline " > 
-                    Login 
-                    </Link> 
-                    </p>
+                <p className="mt-6 text-center text-sm text-on-surface-variant">
+                    Already have an account?
+                    <Link
+                        to="/login"
+                        className=" ml-1 font-semibold text-primary transition-all duration-200 hover:underline " >
+                        Login
+                    </Link>
+                </p>
             </form>
         </div>
     </>
