@@ -7,7 +7,7 @@ import AchievementCard from "../components/AchievementCard";
 import PassportCard from "../components/PassportCard";
 import TravelProgress from "../components/TravelProgress";
 import IndiaMap from "../components/IndiaMap";
-import JourneyCard from "../components/JourneyCard";
+import ItineraryCard from "../components/ItineraryCard";
 
 function Profile() {
 
@@ -81,16 +81,16 @@ function Profile() {
     }
 
     const {
-
         user,
         stats,
         badge,
         passport,
-        featuredJourneys,
-
+        featuredJourneys = [],
     } = profile;
 
-    console.log(profile.passport.stamps);
+    const visitedStates = passport?.stamps
+        ?.map((stamp) => stamp.state)
+        .filter(Boolean) ?? [];
 
     return (
 
@@ -98,7 +98,7 @@ function Profile() {
 
             <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop space-y-12">
 
-                {/* Header */}
+                {/* Profile Header */}
 
                 <ProfileHeader
                     user={user}
@@ -110,9 +110,11 @@ function Profile() {
                     badge={badge}
                 />
 
-                {/* Passport + Progress */}
+                {/* Passport + Travel Progress */}
 
                 <section className="grid gap-gutter lg:grid-cols-12">
+
+                    {/* Digital Passport */}
 
                     <div className="lg:col-span-5">
 
@@ -122,6 +124,8 @@ function Profile() {
 
                     </div>
 
+                    {/* Progress + Map */}
+
                     <div className="lg:col-span-7 space-y-gutter">
 
                         <TravelProgress
@@ -129,7 +133,7 @@ function Profile() {
                         />
 
                         <IndiaMap
-                            visitedStates={passport.stamps.map(stamp => stamp.state)}
+                            visitedStates={visitedStates}
                             visitedCount={stats.statesVisited}
                         />
 
@@ -137,7 +141,7 @@ function Profile() {
 
                 </section>
 
-                {/* Featured Journeys */}
+                {/* Featured Itineraries */}
 
                 <section>
 
@@ -147,7 +151,7 @@ function Profile() {
 
                             <h2 className="font-display text-headline-lg text-on-surface">
 
-                                Featured Journeys
+                                Featured Itineraries
 
                             </h2>
 
@@ -161,72 +165,56 @@ function Profile() {
 
                     </div>
 
-                    {
+                    {featuredJourneys.length === 0 ? (
 
-                        featuredJourneys.length === 0 ?
+                        <div
+                            className="
+                                rounded-[2.5rem]
+                                border-2
+                                border-dashed
+                                border-outline/20
+                                p-16
+                                text-center
+                            "
+                        >
 
-                            (
+                            <span className="material-symbols-outlined text-6xl text-primary">
 
-                                <div
-                                    className="
-                                        rounded-[2.5rem]
-                                        border-2
-                                        border-dashed
-                                        border-outline/20
-                                        p-16
-                                        text-center
-                                    "
-                                >
+                                travel_explore
 
-                                    <span className="material-symbols-outlined text-6xl text-primary">
+                            </span>
 
-                                        travel_explore
+                            <h3 className="mt-6 font-display text-headline-md text-on-surface">
 
-                                    </span>
+                                No featured itineraries yet
 
-                                    <h3 className="mt-6 font-display text-headline-md text-on-surface">
+                            </h3>
 
-                                        No featured journeys yet
+                            <p className="mt-3 font-body text-on-surface-variant">
 
-                                    </h3>
+                                Complete itineraries and they'll appear here.
 
-                                    <p className="mt-3 font-body text-on-surface-variant">
+                            </p>
 
-                                        Complete itineraries and they'll appear here.
+                        </div>
 
-                                    </p>
+                    ) : (
 
-                                </div>
+                        <div className="grid gap-gutter md:grid-cols-2 xl:grid-cols-3">
 
-                            )
+                            {featuredJourneys.map((itinerary) => (
 
-                            :
+                                <ItineraryCard
+                                    key={itinerary.id}
+                                    itinerary={itinerary}
+                                    onDelete={() => {}}
+                                />
 
-                            (
+                            ))}
 
-                                <div className="grid gap-gutter md:grid-cols-2 xl:grid-cols-3">
+                        </div>
 
-                                    {
-
-                                        featuredJourneys.map((journey) => (
-
-                                            <JourneyCard
-
-                                                key={journey.id}
-
-                                                {...journey}
-
-                                            />
-
-                                        ))
-
-                                    }
-
-                                </div>
-
-                            )
-
-                    }
+                    )}
 
                 </section>
 

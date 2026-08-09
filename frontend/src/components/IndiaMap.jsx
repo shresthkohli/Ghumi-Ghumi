@@ -47,9 +47,6 @@ function IndiaMap({
 }) {
 
     useEffect(() => {
-        console.log("useEffect fired");
-        console.log("Visited states:", visitedStates);
-
         /*
          * Remove previous visited classes
          */
@@ -66,10 +63,6 @@ function IndiaMap({
 
             const stateCode = STATE_TO_CODE[stateName];
 
-            console.log(
-                `${stateName} -> ${stateCode}`
-            );
-
             if (!stateCode) return;
 
             const state = document.getElementById(stateCode);
@@ -82,11 +75,6 @@ function IndiaMap({
             }
 
             state.classList.add("visited");
-
-            console.log(
-                `${stateCode} marked visited`,
-                state.classList
-            );
         });
 
     }, [visitedStates]);

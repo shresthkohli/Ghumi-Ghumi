@@ -1,8 +1,14 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../api/userApi";
 
 const API_URL = import.meta.env.VITE_API_URL ?? "";
 
 function ProfileHeader({ user }) {
+
+    const navigate = useNavigate();
+
+    const [loggingOut, setLoggingOut] = useState(false);
 
     if (!user) return null;
 
@@ -28,6 +34,45 @@ function ProfileHeader({ user }) {
         }
     );
 
+    async function handleLogout() {
+
+        if (loggingOut) return;
+
+        try {
+
+            setLoggingOut(true);
+
+            const response = await logout();
+
+            if (response?.success) {
+
+                navigate("/login", {
+                    replace: true,
+                });
+
+            } else {
+
+                console.error(
+                    "Logout failed:",
+                    response?.error
+                );
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Logout request failed:",
+                error
+            );
+
+        } finally {
+
+            setLoggingOut(false);
+
+        }
+    }
+
     return (
 
         <section className="rounded-[2.5rem] bg-surface-container border border-outline/20 p-8 shadow-lg">
@@ -46,7 +91,14 @@ function ProfileHeader({ user }) {
                                 <img
                                     src={`${API_URL}${avatarUrl}`}
                                     alt={name}
-                                    className="h-28 w-28 rounded-full object-cover border-4 border-primary-container"
+                                    className="
+                                        h-28
+                                        w-28
+                                        rounded-full
+                                        object-cover
+                                        border-4
+                                        border-primary-container
+                                    "
                                 />
 
                             )
@@ -116,12 +168,15 @@ function ProfileHeader({ user }) {
 
                 </div>
 
+
                 {/* Right */}
 
                 <div className="flex gap-3">
 
-                    <Link
-                        to="/settings"
+                    <button
+                        type="button"
+                        onClick={handleLogout}
+                        disabled={loggingOut}
                         className="
                             rounded-full
                             bg-primary
@@ -129,14 +184,19 @@ function ProfileHeader({ user }) {
                             py-3
                             text-on-primary
                             font-medium
-                            transition-colors
+                            transition-all
+                            duration-200
                             hover:bg-primary/90
+                            hover:-translate-y-0.5
+                            disabled:opacity-60
+                            disabled:cursor-not-allowed
+                            disabled:hover:translate-y-0
                         "
                     >
 
-                        Edit Profile
+                        {loggingOut ? "Logging out..." : "Logout"}
 
-                    </Link>
+                    </button>
 
                 </div>
 
@@ -145,7 +205,6 @@ function ProfileHeader({ user }) {
         </section>
 
     );
-
 }
 
 export default ProfileHeader;
