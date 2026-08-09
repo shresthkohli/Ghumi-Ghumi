@@ -17,7 +17,15 @@ export default function ReviewForm({
         if(existingReview){
             setRating(existingReview.rating);
             setReview(existingReview.review);
+        } else {
+            setRating(0);
+            setReview("");
         }
+
+        setErrors({
+            rating: "",
+            review: ""
+        });
     },[existingReview]);
 
     function handleSubmit(e) {
@@ -36,9 +44,8 @@ export default function ReviewForm({
             newErrors.review = "Please write your review";
         }
 
-        setErrors(newErrors);
-
         if(newErrors.rating || newErrors.review) {
+            setErrors(newErrors);
             return;
         }
         
@@ -131,7 +138,7 @@ export default function ReviewForm({
                         onChange={(e) =>{ 
                             setReview(e.target.value);
 
-                            setErrors(prev => ({
+                            setErrors((prev) => ({
                                         ...prev,
                                         review:""
                             }));
@@ -164,9 +171,9 @@ export default function ReviewForm({
                             className="glossy-button rounded-xl px-8 py-3 text-on-primary font-semibold disabled:opacity-50 hover:scale-105 gap-2 flex items-center transition-all"
                     >
                     <span className="material-symbols-outlined text-lg">
-                        publish
+                       {existingReview ? "edit_square" : "publish"}
                     </span>
-                        {loading ? "Publishing..." : existingReview ? "Update Review" : "Submit Review"}
+                        {loading ? existingReview ? "Updating.." : "Publishing.." : existingReview ? "Update review " : "Submit Review"}
                     </button>
                 </div>
             </form>
