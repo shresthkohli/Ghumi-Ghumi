@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useMemo, useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 import { useAuth } from "../../context/AuthContext";
-
 import ReviewSummary from "./ReviewSummary";
 import ReviewCard from "./ReviewCard";
 import ReviewForm from "./ReviewForm";
@@ -9,7 +10,7 @@ import LoginModal from "../auth/LoginModal";
 
 export default function ReviewSection({
     destination,
-    reviews,
+    reviews = [],
     onCreateReview,
     onUpdateReview,
     onDeleteReview,
@@ -19,35 +20,81 @@ export default function ReviewSection({
     const [editingReview, setEditingReview] = useState(null);
     const [showReviewForm, setShowReviewForm] = useState(false);
     const [showLoginModal, setShowLoginModal] = useState(false);
-    const [deletingReview, setDeletingReview] = useState(null);
+    const [deletingReviewId, setDeletingReviewId] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    // Filters and sorting
+    const [ratingFilter, setRatingFilter] = useState(null); // null means All
+    const [sortBy, setSortBy] = useState("newest"); // "newest", "highest", "lowest"
+
+    const reviewGridRef = useRef(null);
+    const formSectionRef = useRef(null);
 
     const averageRating =
         reviews.length === 0
             ? 0
-            : reviews.reduce(
-                  (sum, review) => sum + review.rating,
-                  0
-              ) / reviews.length;
+            : reviews.reduce((sum, review) => sum + (review.rating || 0), 0) / reviews.length;
+
+    // Filter and sort reviews
+    const filteredAndSortedReviews = useMemo(() => {
+        let list = [...reviews];
+
+        if (ratingFilter !== null) {
+            list = list.filter((r) => Math.round(r.rating) === ratingFilter);
+        }
+
+        list.sort((a, b) => {
+            if (sortBy === "highest") return (b.rating || 0) - (a.rating || 0);
+            if (sortBy === "lowest") return (a.rating || 0) - (b.rating || 0);
+            // Default "newest"
+            return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+        });
+
+        return list;
+    }, [reviews, ratingFilter, sortBy]);
+
+    // Animate review cards when filter/sort changes
+    useGSAP(
+        () => {
+            if (reviewGridRef.current) {
+                const cards = reviewGridRef.current.querySelectorAll("[data-review-card]");
+                if (cards.length > 0) {
+                    gsap.fromTo(
+                        cards,
+                        { opacity: 0, y: 20, scale: 0.98 },
+                        { opacity: 1, y: 0, scale: 1, duration: 0.45, stagger: 0.06, ease: "power2.out" }
+                    );
+                }
+            }
+        },
+        { scope: reviewGridRef, dependencies: [ratingFilter, sortBy, reviews.length] }
+    );
 
     async function handleSubmit(data) {
-        if (editingReview) {
-            await onUpdateReview(
-                editingReview.id,
-                data
-            );
-
-            setEditingReview(null);
-            setShowReviewForm(false);
-        } else {
-            await onCreateReview(data);
-
-            setShowReviewForm(false);
+        try {
+            setIsSubmitting(true);
+            if (editingReview) {
+                await onUpdateReview(editingReview.id, data);
+                setEditingReview(null);
+                setShowReviewForm(false);
+            } else {
+                await onCreateReview(data);
+                setShowReviewForm(false);
+            }
+        } catch (err) {
+            console.error("Error saving review:", err);
+        } finally {
+            setIsSubmitting(false);
         }
     }
 
     function handleEdit(review) {
         setEditingReview(review);
         setShowReviewForm(true);
+        // Scroll to form smoothly
+        setTimeout(() => {
+            formSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 50);
     }
 
     function handleCancel() {
@@ -55,286 +102,199 @@ export default function ReviewSection({
         setShowReviewForm(false);
     }
 
+    function handleOpenWriteReview() {
+        if (!user) {
+            setShowLoginModal(true);
+        } else {
+            setEditingReview(null);
+            setShowReviewForm(true);
+            setTimeout(() => {
+                formSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+            }, 50);
+        }
+    }
+
+    // Counts for star filter tabs
+    const counts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+    reviews.forEach((r) => {
+        const rating = Math.min(5, Math.max(1, Math.round(r.rating || 0)));
+        if (counts[rating] !== undefined) {
+            counts[rating] += 1;
+        }
+    });
+
     return (
-        <section className="relative mx-auto mt-24 w-full max-w-6xl sm:px-6 lg:px-8">
-
-            {/* REVIEW SUMMARY */}
-
+        <section className="relative mx-auto mt-24 w-full max-w-6xl">
+            {/* 1. REVIEW SUMMARY */}
             <ReviewSummary
                 averageRating={averageRating}
                 totalReviews={reviews.length}
+                reviews={reviews}
+                onWriteReview={!showReviewForm ? handleOpenWriteReview : null}
+                activeRatingFilter={ratingFilter}
+                onSelectRatingFilter={setRatingFilter}
             />
 
-            {/* ADD REVIEW BUTTON / FORM */}
+            {/* 2. ADD / EDIT REVIEW FORM */}
+            <div ref={formSectionRef} className="mx-auto mt-8 w-full max-w-3xl">
+                {showReviewForm && (
+                    <div className="animate-[fadeIn_0.3s_ease-out]">
+                        <ReviewForm
+                            existingReview={editingReview}
+                            onSubmit={handleSubmit}
+                            onCancel={handleCancel}
+                            loading={isSubmitting}
+                        />
+                    </div>
+                )}
+            </div>
 
-            {user ? (
-
-                <div className="mx-auto mt-10 w-full max-w-2xl">
-
-                    {!showReviewForm ? (
-
-                        /* ADD REVIEW BUTTON */
-
-                        <div className="flex justify-center">
-
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setEditingReview(null);
-                                    setShowReviewForm(true);
-                                }}
-                                className="
-                                    glossy-button
-                                    flex
-                                    items-center
-                                    gap-2
-                                    rounded-xl
-                                    px-7
-                                    py-3
-                                    font-semibold
-                                    text-on-primary
-                                    transition-all
-                                    hover:scale-105
-                                "
-                            >
-
-                                <span className="material-symbols-outlined">
-                                    edit
-                                </span>
-
-                                Add Review
-
-                            </button>
-
-                        </div>
-
-                    ) : (
-
-                        /* REVIEW FORM */
-
-                        <div
-                            className="
-                                overflow-hidden
-                                rounded-3xl
-                                border
-                                border-primary/10
-                                bg-background/70
-                                shadow-sm
-                                backdrop-blur-sm
-                            "
+            {/* 3. FILTER & SORT TOOLBAR */}
+            {reviews.length > 0 && (
+                <div className="mx-auto mt-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 max-w-5xl px-2">
+                    {/* Star Rating Filter Pills */}
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                        <button
+                            type="button"
+                            onClick={() => setRatingFilter(null)}
+                            className={`rounded-full px-3.5 py-1.5 font-body text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                                ratingFilter === null
+                                    ? "bg-primary text-on-primary shadow-xs"
+                                    : "bg-surface-container border border-outline-variant/40 text-on-surface hover:bg-surface-container-high"
+                            }`}
                         >
+                            All ({reviews.length})
+                        </button>
 
-                            <ReviewForm
-                                existingReview={editingReview}
-                                onSubmit={handleSubmit}
-                                onCancel={handleCancel}
-                            />
+                        {[5, 4, 3, 2, 1].map((stars) => {
+                            const count = counts[stars] || 0;
+                            if (count === 0 && ratingFilter !== stars) return null;
 
-                        </div>
-
-                    )}
-
-                </div>
-
-            ) : (
-
-                /* LOGIN CARD */
-
-                <div
-                    className="
-                        mx-auto
-                        mt-12
-                        flex
-                        w-full
-                        max-w-2xl
-                        flex-col
-                        items-center
-                        rounded-3xl
-                        border
-                        border-primary/10
-                        bg-surface-container
-                        p-7
-                        text-center
-                        shadow-sm
-                        transition-all
-                        duration-500
-                        hover:-translate-y-1
-                        hover:shadow-warm-lg
-                        sm:p-10
-                    "
-                >
-
-                    <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-primary/10 text-primary">
-
-                        <span className="material-symbols-outlined text-4xl text-primary">
-                            lock
-                        </span>
-
+                            return (
+                                <button
+                                    key={stars}
+                                    type="button"
+                                    onClick={() => setRatingFilter(ratingFilter === stars ? null : stars)}
+                                    className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 font-body text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                                        ratingFilter === stars
+                                            ? "bg-primary text-on-primary shadow-xs"
+                                            : "bg-surface-container border border-outline-variant/40 text-on-surface hover:bg-surface-container-high"
+                                    }`}
+                                >
+                                    <span>{stars}</span>
+                                    <span className="material-symbols-outlined text-[13px] text-amber-500" style={{ fontVariationSettings: "'FILL' 1" }}>
+                                        star
+                                    </span>
+                                    <span className="text-[11px] opacity-80">({count})</span>
+                                </button>
+                            );
+                        })}
                     </div>
 
-                    <h3 className="mt-4 font-display text-xl font-semibold text-on-surface">
-                        Join the conversation
-                    </h3>
-
-                    <button
-                        type="button"
-                        onClick={() =>
-                            setShowLoginModal(true)
-                        }
-                        className="
-                            glossy-button
-                            mt-6
-                            w-fit
-                            rounded-xl
-                            px-7
-                            py-3
-                            font-semibold
-                            text-on-primary
-                            transition-all
-                            hover:scale-105
-                        "
-                    >
-                        Sign in to review
-                    </button>
-
+                    {/* Sorting Dropdown */}
+                    <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
+                        <span className="material-symbols-outlined text-base text-on-surface-variant">
+                            sort
+                        </span>
+                        <label htmlFor="review-sort" className="font-body text-xs text-on-surface-variant font-medium">
+                            Sort by:
+                        </label>
+                        <select
+                            id="review-sort"
+                            value={sortBy}
+                            onChange={(e) => setSortBy(e.target.value)}
+                            className="rounded-full border border-outline-variant/50 bg-surface px-3 py-1.5 font-body text-xs font-semibold text-on-surface outline-none focus:border-primary cursor-pointer shadow-2xs"
+                        >
+                            <option value="newest">Newest First</option>
+                            <option value="highest">Highest Rating</option>
+                            <option value="lowest">Lowest Rating</option>
+                        </select>
+                    </div>
                 </div>
             )}
 
-            {/* REVIEWS */}
-
-            <div className="mt-16">
-
+            {/* 4. REVIEWS GRID */}
+            <div ref={reviewGridRef} className="mx-auto mt-8 w-full max-w-5xl">
                 {reviews.length === 0 ? (
-
-                    <div className="glass-widget rounded-3xl border border-primary/10 py-20 text-center">
-
-                        <span className="material-symbols-outlined text-6xl text-primary/40">
-                            reviews
-                        </span>
-
-                        <h3 className="mt-5 font-display text-headline-md text-on-surface">
+                    /* Zero Total Reviews State */
+                    <div className="glass-widget rounded-3xl border border-outline-variant/30 py-16 px-6 text-center shadow-xs">
+                        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-primary/10 text-primary mb-4">
+                            <span className="material-symbols-outlined text-4xl">reviews</span>
+                        </div>
+                        <h3 className="font-display text-2xl font-bold text-on-surface">
                             No reviews yet
                         </h3>
-
-                        <p className="mt-3 text-on-surface-variant">
-                            Be the first traveller to share your journey
+                        <p className="mt-2 font-body text-sm text-on-surface-variant max-w-md mx-auto leading-relaxed">
+                            Be the first traveller to share impressions and insights about {destination?.name || "this destination"}.
                         </p>
-
-                    </div>
-
-                ) : (
-
-                    <div className="mx-auto w-full max-w-5xl">
-
-                        <div
-                            className="
-                                overflow-x-auto
-                                overflow-y-visible
-                                pb-8
-                                [scrollbar-width:none]
-                                [&::-webkit-scrollbar]:hidden
-                            "
-                        >
-
-                            <div className="flex w-max gap-6 snap-x snap-mandatory px-2">
-
-                                {reviews.map((review) => (
-
-                                    <div
-                                        key={review.id}
-                                        className="
-                                            w-[calc(100vw-3rem)]
-                                            max-w-[560px]
-                                            shrink-0
-                                            snap-center
-                                            transition-transform
-                                            duration-500
-                                            hover:-translate-y-3
-                                        "
-                                    >
-
-                                        <ReviewCard
-                                            review={review}
-                                            onEdit={() =>
-                                                handleEdit(review)
-                                            }
-                                            onDelete={() =>
-                                                setDeletingReview(
-                                                    review
-                                                )
-                                            }
-                                        />
-
-                                    </div>
-
-                                ))}
-
-                            </div>
-
+                        <div className="mt-6">
+                            <button
+                                type="button"
+                                onClick={handleOpenWriteReview}
+                                className="glossy-button inline-flex items-center gap-2 rounded-full px-7 py-3 font-body text-sm font-semibold text-on-primary hover:scale-105 active:scale-98 transition-all cursor-pointer"
+                            >
+                                <span className="material-symbols-outlined text-base">edit</span>
+                                Write the First Review
+                            </button>
                         </div>
-
+                    </div>
+                ) : filteredAndSortedReviews.length === 0 ? (
+                    /* Zero Matching Filter State */
+                    <div className="rounded-3xl border border-dashed border-outline-variant/60 bg-surface-container/30 py-12 px-6 text-center">
+                        <span className="material-symbols-outlined text-4xl text-on-surface-variant/50 mb-2">
+                            filter_alt_off
+                        </span>
+                        <h4 className="font-display text-lg font-bold text-on-surface">
+                            No {ratingFilter}-star reviews found
+                        </h4>
+                        <p className="mt-1 font-body text-xs text-on-surface-variant">
+                            Try selecting a different star rating or view all reviews.
+                        </p>
+                        <button
+                            type="button"
+                            onClick={() => setRatingFilter(null)}
+                            className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-outline-variant/60 bg-surface px-4 py-1.5 font-body text-xs font-semibold text-primary hover:bg-surface-container transition-colors cursor-pointer"
+                        >
+                            Reset Filter
+                        </button>
+                    </div>
+                ) : (
+                    /* 2-Column Responsive Grid */
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {filteredAndSortedReviews.map((review) => (
+                            <div key={review.id} data-review-card>
+                                <ReviewCard
+                                    review={review}
+                                    onEdit={() => handleEdit(review)}
+                                    onDelete={() => setDeletingReviewId(review.id)}
+                                />
+                            </div>
+                        ))}
                     </div>
                 )}
-
-                {/* SWIPE INDICATOR */}
-
-                {reviews.length > 1 && (
-
-                    <div className="mt-2 flex items-center justify-center gap-2 text-xs text-on-surface-variant">
-
-                        <span className="material-symbols-outlined text-sm">
-                            swipe
-                        </span>
-
-                        <span>
-                            Swipe to explore reviews
-                        </span>
-
-                    </div>
-
-                )}
-
             </div>
 
-            {/* DELETE MODAL */}
-
-            {deletingReview && (
-
-                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/30 px-4 backdrop-blur-md">
-
-                    <div className="w-full max-w-md rounded-3xl border border-primary/10 bg-surface p-7 shadow-2xl animate-[fadeIn_0.2s_ease-out]">
-
-                        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-red-500/10">
-
-                            <span className="material-symbols-outlined text-2xl text-red-500">
-                                delete
-                            </span>
-
+            {/* 5. DELETE CONFIRMATION MODAL */}
+            {deletingReviewId && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 px-4 backdrop-blur-md animate-[fadeIn_0.2s_ease-out]">
+                    <div className="w-full max-w-md rounded-3xl border border-outline-variant/30 bg-surface p-7 shadow-2xl animate-[scaleUp_0.25s_ease-out]">
+                        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-error/10 text-error">
+                            <span className="material-symbols-outlined text-3xl">delete</span>
                         </div>
 
-                        <h3 className="mt-5 text-center font-display text-2xl font-semibold text-on-surface">
+                        <h3 className="mt-4 text-center font-display text-2xl font-bold text-on-surface">
                             Delete your review?
                         </h3>
 
-                        <div className="mt-7 flex gap-3">
+                        <p className="mt-2 text-center font-body text-sm text-on-surface-variant">
+                            This action cannot be undone. Your review will be permanently removed.
+                        </p>
 
+                        <div className="mt-6 flex gap-3">
                             <button
                                 type="button"
-                                onClick={() =>
-                                    setDeletingReview(null)
-                                }
-                                className="
-                                    flex-1
-                                    rounded-xl
-                                    border
-                                    border-on-surface/10
-                                    px-5
-                                    py-3
-                                    font-semibold
-                                    text-on-surface
-                                    transition-all
-                                    hover:bg-surface-container
-                                "
+                                onClick={() => setDeletingReviewId(null)}
+                                className="flex-1 rounded-full border border-outline-variant/50 bg-surface px-5 py-2.5 font-body text-sm font-semibold text-on-surface hover:bg-surface-container transition-colors cursor-pointer"
                             >
                                 Cancel
                             </button>
@@ -342,58 +302,27 @@ export default function ReviewSection({
                             <button
                                 type="button"
                                 onClick={async () => {
-
                                     try {
-
-                                        await onDeleteReview(
-                                            deletingReview.id
-                                        );
-
-                                        setDeletingReview(null);
-
+                                        await onDeleteReview(deletingReviewId);
+                                        setDeletingReviewId(null);
                                     } catch (error) {
-
-                                        console.error(
-                                            "Failed to delete review",
-                                            error
-                                        );
-
+                                        console.error("Failed to delete review", error);
                                     }
-
                                 }}
-                                className="
-                                    flex-1
-                                    rounded-xl
-                                    bg-red-500
-                                    px-5
-                                    py-3
-                                    font-semibold
-                                    text-white
-                                    transition-all
-                                    hover:-translate-y-0.5
-                                    hover:bg-red-600
-                                    hover:shadow-lg
-                                "
+                                className="flex-1 rounded-full bg-error px-5 py-2.5 font-body text-sm font-semibold text-white hover:bg-red-700 transition-all cursor-pointer shadow-sm hover:shadow-md"
                             >
-                                Delete Review
+                                Yes, Delete
                             </button>
-
                         </div>
-
                     </div>
-
                 </div>
             )}
 
-            {/* LOGIN MODAL */}
-
+            {/* 6. LOGIN MODAL */}
             <LoginModal
                 open={showLoginModal}
-                onClose={() =>
-                    setShowLoginModal(false)
-                }
+                onClose={() => setShowLoginModal(false)}
             />
-
         </section>
     );
 }
