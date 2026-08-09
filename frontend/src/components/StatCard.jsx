@@ -1,16 +1,12 @@
 function StatCard({
-
     value,
     label,
     icon,
     accent = false,
-
 }) {
-
     return (
-
         <div
-            className="
+            className={`
                 group
                 relative
                 overflow-hidden
@@ -21,32 +17,37 @@ function StatCard({
                 p-7
                 transition-all
                 duration-300
-                hover:-translate-y-1
-                hover:border-primary/40
-                hover:shadow-2xl
-            "
+                ease-out
+                hover:-translate-y-1.5
+                hover:border-primary/50
+                hover:shadow-[0_20px_40px_-10px_rgba(22,63,63,0.5)]
+                cursor-default
+            `}
         >
-
-            {/* Decorative circle */}
-
+            {/* Subtle ambient hover glow */}
             <div
                 className="
+                    pointer-events-none
                     absolute
-                    -right-10
-                    -top-10
+                    -right-8
+                    -top-8
                     h-28
                     w-28
                     rounded-full
                     bg-white/5
+                    blur-xl
+                    transition-all
+                    duration-500
+                    group-hover:scale-150
+                    group-hover:bg-primary/10
                 "
             />
 
             {/* Icon */}
-
             <div
                 className={`
                     relative
-                    mb-8
+                    mb-6
                     flex
                     h-14
                     w-14
@@ -55,10 +56,12 @@ function StatCard({
                     rounded-2xl
                     transition-all
                     duration-300
-
+                    ease-out
+                    group-hover:scale-110
+                    group-hover:-rotate-6
                     ${accent
-                        ? "bg-primary text-on-primary"
-                        : "bg-tertiary text-tertiary-fixed"
+                        ? "bg-primary text-on-primary shadow-[0_4px_20px_rgba(162,63,26,0.35)]"
+                        : "bg-tertiary text-tertiary-fixed shadow-[0_4px_20px_rgba(39,104,104,0.35)]"
                     }
                 `}
             >
@@ -68,45 +71,33 @@ function StatCard({
             </div>
 
             {/* Number */}
-
-            <h2 className="font-display text-5xl text-white leading-none">
-
+            <h2 className="font-display text-5xl text-white leading-none transition-all duration-300 group-hover:scale-105 origin-left">
                 {value}
-
             </h2>
 
             {/* Label */}
-
-            <p className="mt-3 font-body text-white/70">
-
+            <p className="mt-3 font-body text-sm font-medium text-white/70 group-hover:text-white/90 transition-colors">
                 {label}
-
             </p>
 
-            {/* Bottom bar */}
-
+            {/* Bottom animated accent bar */}
             <div
                 className={`
                     absolute
                     left-0
                     bottom-0
                     h-1
-
-                    ${accent
-                        ? "bg-primary w-20"
-                        : "bg-tertiary-fixed w-14"
-                    }
-
-                    group-hover:w-full
                     transition-all
                     duration-500
+                    ease-out
+                    ${accent
+                        ? "bg-gradient-to-r from-primary to-amber-400 w-16 group-hover:w-full"
+                        : "bg-gradient-to-r from-tertiary-fixed to-teal-300 w-12 group-hover:w-full"
+                    }
                 `}
             />
-
         </div>
-
     );
-
 }
 
 export default StatCard;

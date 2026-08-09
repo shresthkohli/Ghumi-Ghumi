@@ -8,11 +8,11 @@ function AchievementCard({ badge }) {
     } = badge;
 
     return (
-        <div className="group relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-tertiary to-tertiary-dark p-8 text-white shadow-warm-lg transition-all duration-500 hover:-translate-y-1">
-
-            {/* Animated shine */}
+        <section className="group relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-tertiary to-tertiary-dark p-8 text-white shadow-warm-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl">
+            {/* Animated shine line on hover */}
             <div
                 className="
+                    pointer-events-none
                     absolute inset-0
                     bg-gradient-to-r
                     from-transparent
@@ -27,49 +27,47 @@ function AchievementCard({ badge }) {
             />
 
             {/* Soft glow */}
-            <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-amber-300/20 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-amber-300/20 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-            <div className="relative flex items-center gap-6">
-
+            <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
                 {/* Badge Icon */}
                 <div
                     className="
-                        flex h-28 w-28 shrink-0 items-center justify-center
+                        flex h-24 w-24 sm:h-28 sm:w-28 shrink-0 items-center justify-center
                         rounded-full
                         bg-primary-container
-                        transition-all duration-700
+                        text-white
+                        transition-all duration-500
                         group-hover:scale-105
+                        group-hover:rotate-6
                         group-hover:bg-gradient-to-br
                         group-hover:from-amber-300
                         group-hover:to-amber-500
+                        group-hover:text-slate-950
                         group-hover:shadow-[0_0_30px_rgba(251,191,36,0.55)]
                     "
                 >
-                    <span className="material-symbols-outlined text-7xl">
+                    <span className="material-symbols-outlined text-6xl sm:text-7xl">
                         {icon}
                     </span>
                 </div>
 
                 {/* Text */}
                 <div className="relative flex-1">
-
-                    <p className="font-body text-label-md uppercase tracking-[0.3em] text-white/60">
+                    <p className="font-body text-xs font-semibold uppercase tracking-[0.3em] text-white/60">
                         Current Badge
                     </p>
 
-                    <h2 className="mt-2 font-display text-headline-md">
+                    <h2 className="mt-1.5 font-display text-3xl sm:text-4xl font-bold">
                         {name}
                     </h2>
 
-                    <p className="mt-3 font-body text-body-md leading-relaxed text-white/80">
+                    <p className="mt-2 font-body text-sm sm:text-base leading-relaxed text-white/80 max-w-2xl">
                         {description}
                     </p>
-
                 </div>
-
             </div>
-
-        </div>
+        </section>
     );
 }
 
