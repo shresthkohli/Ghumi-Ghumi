@@ -90,7 +90,7 @@ function Navbar() {
     return (
         <header className="bg-[#050d1a]/70 backdrop-blur-md sticky top-0 z-50 border-b border-white/10 shadow-lg">
             <nav className="logo flex justify-between items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop py-3.5 sm:py-4 w-full max-w-container-max mx-auto">
-                <Link to="/" className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight hover:opacity-90 transition-opacity shrink-0">
+                <Link id="navbar-logo" to="/" className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight hover:opacity-90 transition-opacity shrink-0">
                     Wanderly
                 </Link>
 

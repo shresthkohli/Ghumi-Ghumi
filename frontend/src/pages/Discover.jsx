@@ -10,6 +10,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import Globe from "../components/discover/Globe.jsx";
 import useDestinationSearch from "../hooks/useDestinationSearch.js";
+import PageLoader from "../components/PageLoader";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -24,7 +25,7 @@ function Discover() {
     const searchBarRef = useRef(null);
     const globeContainerRef = useRef(null);
     const globeObjectsRef = useRef(null);
-
+    const [showLoader, setShowLoader] = useState(true)
     const {
         searchQuery, setSearchQuery,
         searchError, setSearchError,
@@ -194,6 +195,16 @@ function Discover() {
     }, []);
 
     return (<>
+     <div className="relative min-h-screen">
+
+        {showLoader && (
+            <PageLoader
+                onComplete={() => {
+                    setShowLoader(false);
+                }}
+            />
+        )}
+
         <section ref={wrapRef}>
             <div ref={heroRef} className="relative inset-0 overflow-hidden min-h-[580px] h-[100svh] md:h-screen"
                 style={{ background: "radial-gradient(ellipse at center 40%, #0a182b 0%, #050e1c 55%, #020710 100%)", perspective: "1000px" }}
@@ -320,7 +331,8 @@ function Discover() {
         </section>
         <FeaturedJourney />
         <ItinerariesSection />
-        <Footer />
+        <Footer /> 
+        </div>
     </>);
 }
 export default Discover;
