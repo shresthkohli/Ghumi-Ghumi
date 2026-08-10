@@ -138,6 +138,14 @@ const categories = [
     { id: "beach", label: "Beach", icon: "beach_access" },
     { id: "mountains", label: "Mountains", icon: "forest" },
     { id: "adventure", label: "Adventure", icon: "hiking" },
+    { id: "hill_station", label: "Hill Stations", icon: "landscape" },
+    { id: "nature", label: "Nature", icon: "forest" },
+    { id: "historical", label: "Historical", icon: "account_balance" },
+    { id: "cultural", label: "Cultural", icon: "museum" },
+    { id: "spiritual", label: "Spiritual", icon: "temple_buddhist" },
+    { id: "pilgrimage", label: "Pilgrimage", icon: "church" },
+    { id: "romantic", label: "Romantic", icon: "favorite" },
+    { id: "urban", label: "Urban", icon: "location_city" },
 ];
 
 const budgetOptions = [

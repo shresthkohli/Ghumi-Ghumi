@@ -17,7 +17,7 @@ try {
     } catch (err) {}
 }
 
-const RESULTS_PER_PAGE = 5;
+const RESULTS_PER_PAGE = 4;
 
 function Destinations() {
     const [destinations, setDestinations] = useState([]);
@@ -56,6 +56,16 @@ function Destinations() {
 
         fetchDestinations();
     }, []);
+
+    // Page change handler with smooth scroll to top of catalog
+    function handlePageChange(newPage) {
+        setCurrentPage(newPage);
+        if (resultsBarRef.current) {
+            resultsBarRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else if (pageRef.current) {
+            window.scrollTo({ top: 320, behavior: "smooth" });
+        }
+    }
 
     // Category toggle
     function handleCategoryToggle(categoryId) {
@@ -469,11 +479,13 @@ function Destinations() {
                     )}
 
                     {totalPages > 1 && (
-                        <div ref={paginationRef}>
+                        <div ref={paginationRef} className="w-full">
                             <Pagination
                                 currentPage={currentPage}
                                 totalPages={totalPages}
-                                onPageChange={setCurrentPage}
+                                onPageChange={handlePageChange}
+                                totalItems={filteredDestinations.length}
+                                itemsPerPage={RESULTS_PER_PAGE}
                             />
                         </div>
                     )}
