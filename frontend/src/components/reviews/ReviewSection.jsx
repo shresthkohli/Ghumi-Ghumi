@@ -8,6 +8,7 @@ import ReviewSummary from "./ReviewSummary";
 import ReviewCard from "./ReviewCard";
 import ReviewForm from "./ReviewForm";
 import LoginModal from "../auth/LoginModal";
+import Toast from "../common/Toast";
 
 export default function ReviewSection({
     destination,
@@ -23,6 +24,18 @@ export default function ReviewSection({
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [deletingReviewId, setDeletingReviewId] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [toastError, setToastError] = useState("");
+
+    // Check if current user already has a review for this destination
+    const hasUserReviewed = useMemo(() => {
+        if (!user) return false;
+        return reviews.some(
+            (r) =>
+                r.isOwner ||
+                (user.id && (r.userId === user.id || r.userId === Number(user.id))) ||
+                (user._id && (r.userId === user._id || r.userId === String(user._id)))
+        );
+    }, [reviews, user]);
 
     // Filters and sorting
     const [ratingFilter, setRatingFilter] = useState(null); // null means All
@@ -79,11 +92,19 @@ export default function ReviewSection({
                 setEditingReview(null);
                 setShowReviewForm(false);
             } else {
+                if (hasUserReviewed) {
+                    setToastError("You have already reviewed this destination.");
+                    setShowReviewForm(false);
+                    return;
+                }
                 await onCreateReview(data);
                 setShowReviewForm(false);
             }
         } catch (err) {
             console.error("Error saving review:", err);
+            setToastError(
+                err?.message || "Failed to save review. You may have already reviewed this destination."
+            );
         } finally {
             setIsSubmitting(false);
         }
@@ -106,13 +127,19 @@ export default function ReviewSection({
     function handleOpenWriteReview() {
         if (!user) {
             setShowLoginModal(true);
-        } else {
-            setEditingReview(null);
-            setShowReviewForm(true);
-            setTimeout(() => {
-                formSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-            }, 50);
+            return;
         }
+
+        if (hasUserReviewed) {
+            setToastError("You have already reviewed this destination.");
+            return;
+        }
+
+        setEditingReview(null);
+        setShowReviewForm(true);
+        setTimeout(() => {
+            formSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 50);
     }
 
     // Counts for star filter tabs
@@ -308,6 +335,7 @@ export default function ReviewSection({
                                         setDeletingReviewId(null);
                                     } catch (error) {
                                         console.error("Failed to delete review", error);
+                                        setToastError(error?.message || "Failed to delete review.");
                                     }
                                 }}
                                 className="flex-1 rounded-full bg-error px-5 py-2.5 font-body text-sm font-semibold text-white hover:bg-red-700 transition-all cursor-pointer shadow-sm hover:shadow-md"
@@ -324,6 +352,12 @@ export default function ReviewSection({
             <LoginModal
                 open={showLoginModal}
                 onClose={() => setShowLoginModal(false)}
+            />
+
+            {/* 7. TOAST NOTIFICATION */}
+            <Toast
+                message={toastError}
+                onClose={() => setToastError("")}
             />
         </section>
     );
