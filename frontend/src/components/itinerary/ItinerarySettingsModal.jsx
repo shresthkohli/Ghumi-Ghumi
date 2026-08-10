@@ -115,23 +115,23 @@ function ItinerarySettingsModal({ itinerary, onClose, onSave, onDelete }) {
         <div
             ref={backdropRef}
             onClick={handleBackdropClick}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md px-margin-mobile"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md px-4 sm:px-6 py-4"
             style={{ perspective: "1000px" }}
         >
             <div
                 ref={modalRef}
-                className="bg-surface rounded-3xl p-6 md:p-8 w-full max-w-md shadow-[0px_30px_70px_rgba(43,38,32,0.25)] border border-outline-variant/40 relative overflow-hidden"
+                className="bg-surface rounded-3xl p-5 sm:p-6 md:p-8 w-full max-w-md max-h-[92vh] overflow-y-auto shadow-[0px_30px_70px_rgba(43,38,32,0.25)] border border-outline-variant/40 relative no-scrollbar"
             >
                 {/* Decorative background glows */}
                 <div className="absolute -top-20 -right-20 w-48 h-48 bg-primary-fixed/25 rounded-full blur-2xl pointer-events-none" />
                 <div className="absolute -bottom-20 -left-20 w-48 h-48 bg-secondary-container/25 rounded-full blur-2xl pointer-events-none" />
 
-                <div className="flex justify-between items-start mb-6 relative z-10">
+                <div className="flex justify-between items-start mb-4 sm:mb-6 relative z-10">
                     <div>
-                        <span className="font-label-md text-label-md text-primary tracking-widest uppercase font-semibold px-2.5 py-0.5 rounded-full bg-primary-fixed/40 inline-block mb-1">
+                        <span className="font-body text-xs text-primary tracking-widest uppercase font-semibold px-2.5 py-0.5 rounded-full bg-primary-fixed/40 inline-block mb-1">
                             Settings
                         </span>
-                        <h2 className="font-display text-2xl md:text-3xl font-bold text-on-surface">
+                        <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-on-surface">
                             Itinerary settings
                         </h2>
                     </div>

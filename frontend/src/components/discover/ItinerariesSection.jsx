@@ -190,15 +190,15 @@ function ItinerariesSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative px-6 py-28 md:px-margin-desktop overflow-hidden bg-[#fff8f4] text-[#1f1b15]"
+      className="relative px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop py-16 sm:py-20 md:py-28 overflow-hidden bg-[#fff8f4] text-[#1f1b15]"
       style={{ perspective: "1200px" }}
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-center relative z-10">
         {/* Left Column: Typography & Action */}
-        <div className="lg:col-span-6 space-y-6">
+        <div className="lg:col-span-6 space-y-4 sm:space-y-6">
           <h2
             ref={titleRef}
-            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-semibold text-[#1f1b15] leading-[1.1] tracking-tight"
+            className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-[#1f1b15] leading-[1.15] tracking-tight"
           >
             Your Journey,<br />
             Masterfully Crafted.
@@ -206,16 +206,16 @@ function ItinerariesSection() {
 
           <p
             ref={descRef}
-            className="font-body text-base md:text-lg text-[#57423b] max-w-lg leading-relaxed font-normal"
+            className="font-body text-sm sm:text-base md:text-lg text-[#57423b] max-w-lg leading-relaxed font-normal"
           >
             Build complex itineraries with smart route optimization and curated expert suggestions. Our intuitive builder lets you visualize your entire trip, from bespoke dining to private transfers.
           </p>
 
-          <div className="pt-4">
+          <div className="pt-2 sm:pt-4">
             <Link
               to="/itineraries"
               ref={btnRef}
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-[#a23f1a] hover:bg-[#e8734a] text-white font-body text-sm font-semibold tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_10px_25px_rgba(162,63,26,0.2)]"
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-[#a23f1a] hover:bg-[#e8734a] text-white font-body text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_10px_25px_rgba(162,63,26,0.2)] cursor-pointer"
             >
               Start Building
             </Link>
@@ -227,7 +227,7 @@ function ItinerariesSection() {
           {/* Winding serpentine dashed travel path with top-to-bottom reveal & continuous downward flow */}
           <svg
             ref={trailSvgRef}
-            className="absolute -left-6 sm:-left-10 -top-10 -bottom-10 h-[120%] w-24 pointer-events-none z-0 overflow-visible select-none"
+            className="hidden sm:block absolute -left-6 sm:-left-10 -top-10 -bottom-10 h-[120%] w-24 pointer-events-none z-0 overflow-visible select-none"
             viewBox="0 0 100 600"
             fill="none"
             preserveAspectRatio="none"
@@ -246,7 +246,7 @@ function ItinerariesSection() {
             ref={cardWindowRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="w-full max-w-xl rounded-3xl sm:rounded-[32px] bg-white border border-[#dec0b7]/60 p-6 sm:p-8 shadow-[0_20px_50px_rgba(43,38,32,0.08)] transition-all duration-300 hover:border-[#dec0b7] hover:shadow-[0_25px_60px_rgba(43,38,32,0.12)] relative z-10"
+            className="w-full max-w-xl rounded-3xl sm:rounded-[32px] bg-white border border-[#dec0b7]/60 p-5 sm:p-7 md:p-8 shadow-[0_20px_50px_rgba(43,38,32,0.08)] transition-all duration-300 hover:border-[#dec0b7] hover:shadow-[0_25px_60px_rgba(43,38,32,0.12)] relative z-10"
           >
             {/* Header section inside card */}
             <div className="flex items-start justify-between mb-6 pb-3 border-b border-[#dec0b7]/30">

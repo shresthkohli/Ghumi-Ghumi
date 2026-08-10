@@ -8,8 +8,8 @@ function Footer() {
   ];
   return (
     <footer 
-    className="bg-surface-container-high px-6 py-12 md:px-margin-desktop">
-      <div className="flex flex-col items-start justify-between gap-6 md:flex-row">
+    className="bg-surface-container-high px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop py-10 sm:py-12">
+      <div className="max-w-container-max mx-auto flex flex-col items-start justify-between gap-6 md:flex-row">
         <div>
           <span 
           className="font-display text-2xl font-bold text-primary">

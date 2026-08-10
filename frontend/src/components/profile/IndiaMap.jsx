@@ -89,12 +89,15 @@ function IndiaMap({
             className="
                 relative
                 overflow-hidden
-                rounded-[2.5rem]
+                rounded-3xl
+                sm:rounded-[2.5rem]
                 bg-[#12372A]
                 border
                 border-[#1F5A45]
                 shadow-[0_20px_60px_rgba(0,0,0,.45)]
-                p-8
+                p-5
+                sm:p-7
+                md:p-8
             "
         >
 
@@ -248,15 +251,15 @@ function IndiaMap({
                 HEADER
             ====================================================== */}
 
-            <div className="flex justify-between items-start mb-8">
+            <div className="flex justify-between items-start mb-6 sm:mb-8">
 
                 <div>
 
-                    <h2 className="font-display text-3xl text-white">
+                    <h2 className="font-display text-2xl sm:text-3xl text-white font-bold">
                         India Exploration
                     </h2>
 
-                    <p className="mt-2 font-body text-white/70">
+                    <p className="mt-1 sm:mt-2 font-body text-sm sm:text-base text-white/70">
                         {visitedCount} of {totalStates} states explored
                     </p>
 
@@ -265,8 +268,10 @@ function IndiaMap({
 
                 <div
                     className="
-                        w-14
-                        h-14
+                        w-10
+                        h-10
+                        sm:w-14
+                        sm:h-14
                         rounded-2xl
                         flex
                         items-center
@@ -278,7 +283,8 @@ function IndiaMap({
                         className="
                             material-symbols-outlined
                             text-[#F2C66D]
-                            text-3xl
+                            text-2xl
+                            sm:text-3xl
                         "
                     >
                         public
@@ -295,11 +301,13 @@ function IndiaMap({
 
             <div
                 className="
-                    h-3
+                    h-2.5
+                    sm:h-3
                     rounded-full
                     bg-black/30
                     overflow-hidden
-                    mb-8
+                    mb-6
+                    sm:mb-8
                 "
             >
 
@@ -333,15 +341,18 @@ function IndiaMap({
                     relative
                     w-full
                     flex-1
-                    rounded-[2rem]
+                    rounded-2xl
+                    sm:rounded-[2rem]
                     bg-[#12372A]
                     overflow-hidden
                     flex
                     items-center
                     justify-center
-                    p-2
+                    p-1
                     sm:p-4
-                    min-h-[440px]
+                    min-h-[280px]
+                    sm:min-h-[360px]
+                    md:min-h-[440px]
                 "
             >
 

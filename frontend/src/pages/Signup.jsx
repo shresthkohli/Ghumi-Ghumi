@@ -81,13 +81,13 @@ function Signup() {
         >
             <form
                 onSubmit={handleSubmit}
-                className=" w-full max-w-md rounded-3xl border border-primary/10 bg-white p-7 shadow-warm-lg transition-all duration-300 sm:p-9 ">
+                className=" w-full max-w-md rounded-3xl border border-primary/10 bg-white p-5 sm:p-7 md:p-9 shadow-warm-lg transition-all duration-300 ">
 
-                <div className="mb-7 text-center">
-                    <h1 className="font-display text-3xl font-bold text-on-surface">
+                <div className="mb-6 sm:mb-7 text-center">
+                    <h1 className="font-display text-2xl sm:text-3xl font-bold text-on-surface">
                         Signup
                     </h1>
-                    <p className="mt-2 text-sm text-on-surface-variant">
+                    <p className="mt-1.5 sm:mt-2 text-sm text-on-surface-variant">
                         Create your account
                     </p>
                 </div>

@@ -207,18 +207,18 @@ function FeaturedJourneys() {
   return (
     <section
       ref={sectionRef}
-      className="px-6 py-section-gap md:px-margin-desktop overflow-hidden relative bg-[#f7ece2]"
+      className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop py-12 sm:py-16 md:py-section-gap overflow-hidden relative bg-[#f7ece2]"
     >
       {/* ── Translucent India Map Watermark Background ── */}
-      <div className="absolute right-[-2%] top-1/2 -translate-y-1/2 w-[420px] md:w-[650px] lg:w-[800px] pointer-events-none opacity-[0.08] select-none text-[#a23f1a] blur-[0.3px] z-0">
+      <div className="absolute right-[-2%] top-1/2 -translate-y-1/2 w-[320px] sm:w-[420px] md:w-[650px] lg:w-[800px] pointer-events-none opacity-[0.08] select-none text-[#a23f1a] blur-[0.3px] z-0">
         <IndiaSvg className="w-full h-auto scale-[1.5] translate-y-48 fill-current" />
       </div>
 
-      <div className="mt-2 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4 relative z-10">
+      <div className="max-w-container-max mx-auto mt-2 mb-6 sm:mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4 relative z-10">
         <div>
           <h2
             ref={titleRef}
-            className="font-display text-3xl font-semibold text-[#1f1b15] md:text-7xl tracking-tight"
+            className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-[#1f1b15] tracking-tight leading-[1.15]"
           >
             Featured Journeys
           </h2>
@@ -226,7 +226,7 @@ function FeaturedJourneys() {
         <a
           ref={linkRef}
           href="/destinations"
-          className="group inline-flex items-center gap-2 font-body text-md font-semibold text-[#a23f1a] hover:text-[#e8734a] transition-colors duration-200 hover:underline underline-offset-4"
+          className="group inline-flex items-center gap-2 font-body text-sm sm:text-base font-semibold text-[#a23f1a] hover:text-[#e8734a] transition-colors duration-200 hover:underline underline-offset-4"
         >
           View All Destinations{" "}
           <ArrowRight
@@ -238,11 +238,11 @@ function FeaturedJourneys() {
 
       <div
         ref={cardsWrapperRef}
-        className="py-16 md:py-24 space-y-8 overflow-hidden w-full"
+        className="py-8 sm:py-12 md:py-20 space-y-6 sm:space-y-8 overflow-hidden w-full"
       >
-        <div className="row1 flex gap-12 w-max">
+        <div className="row1 flex gap-6 sm:gap-8 md:gap-12 w-max">
           {loopRow1.map((journey, idx) => (
-            <div key={`${journey.id}-1-${idx}`} className="w-[440px] md:w-[480px] flex-shrink-0">
+            <div key={`${journey.id}-1-${idx}`} className="w-[280px] sm:w-[360px] md:w-[440px] lg:w-[480px] flex-shrink-0">
               <JourneyCard
                 id={journey.id}
                 image={`${API_URL}${journey.imageUrl}`}
@@ -253,9 +253,9 @@ function FeaturedJourneys() {
             </div>
           ))}
         </div>
-        <div className="row2 flex gap-12 w-max">
+        <div className="row2 flex gap-6 sm:gap-8 md:gap-12 w-max">
           {loopRow2.map((journey, idx) => (
-            <div key={`${journey.id}-2-${idx}`} className="w-[440px] md:w-[480px] flex-shrink-0">
+            <div key={`${journey.id}-2-${idx}`} className="w-[280px] sm:w-[360px] md:w-[440px] lg:w-[480px] flex-shrink-0">
               <JourneyCard
                 id={journey.id}
                 image={`${API_URL}${journey.imageUrl}`}

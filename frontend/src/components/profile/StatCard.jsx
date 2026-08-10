@@ -10,11 +10,13 @@ function StatCard({
                 group
                 relative
                 overflow-hidden
-                rounded-[2rem]
+                rounded-3xl
+                sm:rounded-[2rem]
                 bg-tertiary-dark
                 border
                 border-tertiary/30
-                p-7
+                p-5
+                sm:p-7
                 transition-all
                 duration-300
                 ease-out
@@ -47,10 +49,13 @@ function StatCard({
             <div
                 className={`
                     relative
-                    mb-6
+                    mb-4
+                    sm:mb-6
                     flex
-                    h-14
-                    w-14
+                    h-11
+                    w-11
+                    sm:h-14
+                    sm:w-14
                     items-center
                     justify-center
                     rounded-2xl
@@ -65,13 +70,13 @@ function StatCard({
                     }
                 `}
             >
-                <span className="material-symbols-outlined text-3xl">
+                <span className="material-symbols-outlined text-2xl sm:text-3xl">
                     {icon}
                 </span>
             </div>
 
             {/* Number */}
-            <h2 className="font-display text-5xl text-white leading-none transition-all duration-300 group-hover:scale-105 origin-left">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-white font-bold leading-none transition-all duration-300 group-hover:scale-105 origin-left">
                 {value}
             </h2>
 

@@ -322,11 +322,11 @@ function Destinations() {
     return (
         <div ref={pageRef} className="bg-surface min-h-screen">
             {/* Hero header */}
-            <header ref={headerRef} className="relative bg-[#0b2b26] pt-12 pb-24 px-margin-desktop overflow-hidden">
+            <header ref={headerRef} className="relative bg-[#0b2b26] pt-8 sm:pt-12 pb-16 sm:pb-24 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop overflow-hidden">
                 <div className="max-w-container-max mx-auto relative z-10">
                     <nav
                         ref={navRef}
-                        className="flex items-center gap-2 text-primary-fixed opacity-70 mb-8 font-body text-label-md"
+                        className="flex items-center gap-2 text-primary-fixed opacity-70 mb-6 sm:mb-8 font-body text-xs sm:text-label-md"
                     >
                         <span>Destinations</span>
                         <span className="material-symbols-outlined text-[12px]">chevron_right</span>
@@ -334,13 +334,13 @@ function Destinations() {
                     </nav>
                     <h1
                         ref={titleRef}
-                        className="font-display text-display-lg text-on-primary mb-4"
+                        className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-display-lg text-on-primary mb-3 sm:mb-4 font-bold leading-tight"
                     >
                         Best Places to Visit in India
                     </h1>
                     <p
                         ref={descRef}
-                        className="text-primary-fixed max-w-2xl font-body text-body-lg leading-relaxed"
+                        className="text-primary-fixed max-w-2xl font-body text-sm sm:text-base md:text-body-lg leading-relaxed"
                     >
                         From the Pink City's palaces to the tiger trails of Jim Corbett,
                         discover the destinations worth building your next trip around.
@@ -349,7 +349,7 @@ function Destinations() {
             </header>
 
             {/* Content */}
-            <main className="max-w-container-max mx-auto px-margin-desktop -mt-12 mb-section-gap flex flex-col md:flex-row gap-gutter">
+            <main className="max-w-container-max mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop -mt-8 sm:-mt-12 mb-12 sm:mb-16 md:mb-section-gap flex flex-col md:flex-row gap-gutter">
                 <div ref={sidebarRef} className="shrink-0 w-full md:w-80">
                     <FilterSidebar
                         activeCategories={activeCategories}

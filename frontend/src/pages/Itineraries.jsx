@@ -219,17 +219,17 @@ function Itineraries() {
     }
 
     return (
-        <main ref={mainRef} className="min-h-screen pt-12 pb-24" style={{ perspective: "1000px" }}>
-        <div className="max-w-container-max mx-auto px-margin-desktop">
+        <main ref={mainRef} className="min-h-screen pt-8 sm:pt-12 pb-16 sm:pb-24" style={{ perspective: "1000px" }}>
+        <div className="max-w-container-max mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop">
             {/* Hero */}
-            <section className="mb-section-gap">
-            <span ref={badgeRef} className="font-label-lg text-label-lg text-primary tracking-[0.2em] block mb-4">
+            <section className="mb-8 sm:mb-12 md:mb-section-gap">
+            <span ref={badgeRef} className="font-body text-xs sm:text-label-lg font-semibold text-primary tracking-[0.2em] block mb-2 sm:mb-4">
                 PLAN YOUR NEXT CHAPTER
             </span>
-            <h1 ref={titleRef} className="font-display-lg text-display-lg text-on-surface mb-6">
+            <h1 ref={titleRef} className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-display-lg text-on-surface mb-3 sm:mb-6 font-bold leading-tight">
                 Your Itineraries
             </h1>
-            <p ref={descRef} className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+            <p ref={descRef} className="font-body text-sm sm:text-base md:text-body-lg text-on-surface-variant max-w-xl leading-relaxed">
                 Every trip starts with a single idea. Pick a destination and start
                 shaping your next journey.
             </p>

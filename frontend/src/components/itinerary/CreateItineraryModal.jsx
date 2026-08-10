@@ -148,18 +148,18 @@ function CreateItineraryModal({ onClose, onCreate }) {
         >
             <div
                 ref={modalRef}
-                className="bg-surface rounded-3xl p-6 md:p-8 w-full max-w-lg shadow-[0px_30px_70px_rgba(43,38,32,0.25)] border border-outline-variant/40 relative overflow-hidden my-auto"
+                className="bg-surface rounded-3xl p-5 sm:p-6 md:p-8 w-full max-w-lg shadow-[0px_30px_70px_rgba(43,38,32,0.25)] border border-outline-variant/40 relative overflow-y-auto max-h-[92vh] my-auto no-scrollbar"
             >
                 {/* Decorative background glows */}
                 <div className="absolute -top-20 -right-20 w-48 h-48 bg-primary-fixed/25 rounded-full blur-2xl pointer-events-none" />
                 <div className="absolute -bottom-20 -left-20 w-48 h-48 bg-secondary-container/25 rounded-full blur-2xl pointer-events-none" />
 
-                <div className="flex justify-between items-start mb-6 relative z-10 modal-stagger-item">
+                <div className="flex justify-between items-start mb-4 sm:mb-6 relative z-10 modal-stagger-item">
                     <div>
-                        <span className="font-label-md text-label-md text-primary tracking-widest uppercase font-semibold px-2.5 py-0.5 rounded-full bg-primary-fixed/40 inline-block mb-1">
+                        <span className="font-body text-xs text-primary tracking-widest uppercase font-semibold px-2.5 py-0.5 rounded-full bg-primary-fixed/40 inline-block mb-1">
                             New Journey
                         </span>
-                        <h3 className="font-display text-2xl md:text-3xl font-bold text-on-surface">
+                        <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-on-surface">
                             Create Itinerary
                         </h3>
                     </div>

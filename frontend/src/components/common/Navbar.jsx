@@ -89,12 +89,12 @@ function Navbar() {
 
     return (
         <header className="bg-[#050d1a]/70 backdrop-blur-md sticky top-0 z-50 border-b border-white/10 shadow-lg">
-            <nav className="logo flex justify-between items-center px-margin-desktop py-4 w-full max-w-container-max mx-auto">
-                <Link to="/" className="font-display text-4xl font-bold text-white tracking-tight hover:opacity-90 transition-opacity">
+            <nav className="logo flex justify-between items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop py-3.5 sm:py-4 w-full max-w-container-max mx-auto">
+                <Link to="/" className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight hover:opacity-90 transition-opacity shrink-0">
                     Wanderly
                 </Link>
 
-                <div className="hidden md:flex items-center gap-gutter font-body text-body-md">
+                <div className="hidden md:flex items-center gap-5 lg:gap-gutter font-body text-sm lg:text-body-md">
                     <Link className="nav-links text-white/80 font-medium hover:text-white transition-colors" to="/discover">
                         Discover
                     </Link>
@@ -109,20 +109,21 @@ function Navbar() {
                     </Link>
                 </div>
 
-                <div className="icon-btn flex items-center gap-6">
+                <div className="icon-btn flex items-center gap-3 sm:gap-6">
                     <button
                         onClick={() => setSearchOpen(true)}
-                        className="material-symbols-outlined text-white/80 hover:text-white transition-all duration-300"
+                        className="material-symbols-outlined text-white/80 hover:text-white transition-all duration-300 p-1 cursor-pointer"
+                        aria-label="Open search"
                     >
                         search
                     </button>
 
                     {loading ? (
-                        <div className="w-10 h-10 rounded-full bg-white/20 animate-pulse" />
+                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 animate-pulse" />
                     ) : user ? (
                         <Link
                             to="/profile"
-                            className="w-10 h-10 rounded-full border-2 border-white/40 overflow-hidden ring-2 ring-white/20"
+                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-white/40 overflow-hidden ring-2 ring-white/20"
                         >
                             <img
                                 src={`https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(user.name)}`}
@@ -133,22 +134,22 @@ function Navbar() {
                     ) : (
                         <Link
                             to="/login"
-                            className="px-5 py-2 rounded-full bg-primary text-on-primary font-body text-label-lg uppercase hover:bg-primary-container transition-colors shadow-md"
+                            className="px-4 sm:px-5 py-1.5 sm:py-2 rounded-full bg-primary text-on-primary font-body text-xs sm:text-label-lg uppercase hover:bg-primary-container transition-colors shadow-md font-semibold"
                         >
                             Log in
                         </Link>
                     )}
-                </div>
 
-                <button
-                    onClick={() => setMenuOpen(!menuOpen)}
-                    className="md:hidden flex items-center justify-center w-10 h-10 text-white"
-                    aria-label="Toggle menu"
-                >
-                    <span className="material-symbols-outlined text-3xl">
-                        {menuOpen ? "close" : "menu"}
-                    </span>
-                </button>
+                    <button
+                        onClick={() => setMenuOpen(!menuOpen)}
+                        className="md:hidden flex items-center justify-center w-9 h-9 text-white cursor-pointer ml-1"
+                        aria-label="Toggle menu"
+                    >
+                        <span className="material-symbols-outlined text-2xl sm:text-3xl">
+                            {menuOpen ? "close" : "menu"}
+                        </span>
+                    </button>
+                </div>
             </nav>
 
             {/* Mobile Menu */}
@@ -257,11 +258,11 @@ function Navbar() {
                     }`}
             >
                 <div className="bg-[#050d1a]/95 backdrop-blur-xl border-b border-white/10 shadow-2xl">
-                    <div className="max-w-container-max mx-auto px-margin-desktop py-4 relative">
+                    <div className="max-w-container-max mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop py-4 relative">
                         <form
                             onSubmit={handleNavSearch}
-                            className="flex items-center gap-4">
-                            <span className="material-symbols-outlined text-white/50 text-2xl">
+                            className="flex items-center gap-3 sm:gap-4">
+                            <span className="material-symbols-outlined text-white/50 text-xl sm:text-2xl shrink-0">
                                 search
                             </span>
 
@@ -278,7 +279,7 @@ function Navbar() {
                                     setShowSuggestions(true)}
                                 onBlur={dismissSuggestions}
                                 placeholder="Search destinations..."
-                                className="flex-1 bg-transparent font-body text-lg text-white placeholder-white/40 font-medium outline-none"
+                                className="flex-1 bg-transparent font-body text-base sm:text-lg text-white placeholder-white/40 font-medium outline-none min-w-0"
                             />
 
                             {isSearching && (

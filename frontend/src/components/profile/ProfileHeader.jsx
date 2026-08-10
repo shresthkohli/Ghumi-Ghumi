@@ -60,17 +60,21 @@ function ProfileHeader({ user }) {
     }
 
     return (
-        <section className="rounded-[2.5rem] bg-surface-container border border-outline/20 p-8 shadow-lg transition-all duration-300">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+        <section className="rounded-3xl sm:rounded-[2.5rem] bg-surface-container border border-outline/20 p-5 sm:p-7 md:p-8 shadow-lg transition-all duration-300">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-8">
                 {/* Left: Avatar + Details */}
-                <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
                     {avatarUrl ? (
                         <img
                             src={`${API_URL}${avatarUrl}`}
                             alt={name}
                             className="
-                                h-28
-                                w-28
+                                h-20
+                                w-20
+                                sm:h-24
+                                sm:w-24
+                                md:h-28
+                                md:w-28
                                 rounded-full
                                 object-cover
                                 border-4
@@ -84,8 +88,12 @@ function ProfileHeader({ user }) {
                     ) : (
                         <div
                             className="
-                                h-28
-                                w-28
+                                h-20
+                                w-20
+                                sm:h-24
+                                sm:w-24
+                                md:h-28
+                                md:w-28
                                 rounded-full
                                 bg-primary-container
                                 text-primary
@@ -93,7 +101,9 @@ function ProfileHeader({ user }) {
                                 items-center
                                 justify-center
                                 font-display
-                                text-4xl
+                                text-2xl
+                                sm:text-3xl
+                                md:text-4xl
                                 shadow-md
                                 transition-transform
                                 duration-300
@@ -105,24 +115,27 @@ function ProfileHeader({ user }) {
                     )}
 
                     <div>
-                        <h1 className="font-display text-4xl sm:text-5xl font-bold text-on-surface">
+                        <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-on-surface leading-tight">
                             {name}
                         </h1>
 
-                        <p className="mt-2 font-body text-base text-on-surface-variant">
+                        <p className="mt-1 sm:mt-2 font-body text-sm sm:text-base text-on-surface-variant">
                             {email}
                         </p>
 
-                        <div className="mt-4 flex flex-wrap gap-3">
+                        <div className="mt-3 sm:mt-4 flex flex-wrap gap-2.5 sm:gap-3">
                             <span
                                 className="
                                     rounded-full
                                     bg-primary-container/15
                                     border
                                     border-primary-container/30
-                                    px-4
-                                    py-1.5
-                                    text-sm
+                                    px-3.5
+                                    sm:px-4
+                                    py-1
+                                    sm:py-1.5
+                                    text-xs
+                                    sm:text-sm
                                     font-medium
                                     text-primary
                                 "

@@ -551,7 +551,7 @@ export default function DestinationDetailPage() {
     return (
         <main ref={pageRef} className="bg-surface overflow-x-hidden">
             {/* ─── Hero Section ─── */}
-            <section className="relative h-[88vh] min-h-[580px] overflow-hidden">
+            <section className="relative h-[75vh] sm:h-[85vh] min-h-[480px] sm:min-h-[580px] overflow-hidden">
                 <img
                     ref={heroImageRef}
                     src={imageUrl?.startsWith("http") ? imageUrl : `${API_URL}${imageUrl}`}
@@ -561,15 +561,15 @@ export default function DestinationDetailPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/25" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]" />
 
-                <div className="relative z-10 max-w-container-max mx-auto h-full px-margin-mobile md:px-margin-desktop flex flex-col justify-end pb-16 md:pb-20">
+                <div className="relative z-10 max-w-container-max mx-auto h-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop flex flex-col justify-end pb-12 sm:pb-16 md:pb-20">
                     {/* Badge Chips */}
-                    <div className="flex flex-wrap gap-2.5 mb-5">
+                    <div className="flex flex-wrap gap-2 sm:gap-2.5 mb-3 sm:mb-5">
                         {category && (
                             <span
                                 data-animate-hero-badge
-                                className="inline-flex items-center gap-1.5 rounded-full bg-primary/95 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-on-primary shadow-lg backdrop-blur-md"
+                                className="inline-flex items-center gap-1.5 rounded-full bg-primary/95 px-3 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-on-primary shadow-lg backdrop-blur-md"
                             >
-                                <span className="material-symbols-outlined text-[15px]">explore</span>
+                                <span className="material-symbols-outlined text-[14px] sm:text-[15px]">explore</span>
                                 {badge(category)}
                             </span>
                         )}
@@ -577,9 +577,9 @@ export default function DestinationDetailPage() {
                         {budgetCategory && (
                             <span
                                 data-animate-hero-badge
-                                className="inline-flex items-center gap-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/20 px-4 py-1.5 text-xs font-semibold text-white shadow-lg"
+                                className="inline-flex items-center gap-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/20 px-3 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-semibold text-white shadow-lg"
                             >
-                                <span className="material-symbols-outlined text-[15px]">payments</span>
+                                <span className="material-symbols-outlined text-[14px] sm:text-[15px]">payments</span>
                                 {badge(budgetCategory)}
                             </span>
                         )}
@@ -587,10 +587,10 @@ export default function DestinationDetailPage() {
                         {averageRating > 0 && (
                             <span
                                 data-animate-hero-badge
-                                className="inline-flex items-center gap-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/20 px-4 py-1.5 text-xs font-bold text-white shadow-lg"
+                                className="inline-flex items-center gap-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/20 px-3 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-bold text-white shadow-lg"
                             >
                                 <span
-                                    className="material-symbols-outlined text-amber-400 text-[16px]"
+                                    className="material-symbols-outlined text-amber-400 text-[15px] sm:text-[16px]"
                                     style={{ fontVariationSettings: "'FILL' 1" }}
                                 >
                                     star
@@ -604,7 +604,7 @@ export default function DestinationDetailPage() {
                     <h1
                         ref={heroTitleRef}
                         data-animate-hero-title
-                        className="font-display text-4xl sm:text-5xl md:text-display-lg text-white font-bold mb-3 tracking-tight drop-shadow-md max-w-4xl"
+                        className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-display-lg text-white font-bold mb-2 sm:mb-3 tracking-tight drop-shadow-md max-w-4xl leading-tight"
                     >
                         {name}
                     </h1>
@@ -613,9 +613,9 @@ export default function DestinationDetailPage() {
                     {locationText && (
                         <p
                             data-animate-hero-location
-                            className="text-white/85 font-body text-base md:text-body-lg mb-8 flex items-center gap-2 drop-shadow-sm"
+                            className="text-white/85 font-body text-sm sm:text-base md:text-body-lg mb-5 sm:mb-8 flex items-center gap-2 drop-shadow-sm"
                         >
-                            <span className="material-symbols-outlined text-primary-fixed text-lg">
+                            <span className="material-symbols-outlined text-primary-fixed text-base sm:text-lg">
                                 location_on
                             </span>
                             {locationText}
@@ -623,21 +623,21 @@ export default function DestinationDetailPage() {
                     )}
 
                     {/* Action Buttons: Favorites & Visited */}
-                    <div className="flex flex-wrap items-center gap-3.5">
+                    <div className="flex flex-wrap items-center gap-2.5 sm:gap-3.5">
                         <button
                             ref={favBtnRef}
                             data-animate-hero-btn
                             type="button"
                             onClick={handleToggleFavorite}
                             disabled={favLoading}
-                            className={`inline-flex items-center gap-2 rounded-full px-6 py-3 font-body text-sm font-semibold backdrop-blur-md border transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shadow-lg ${
+                            className={`inline-flex items-center gap-2 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 font-body text-xs sm:text-sm font-semibold backdrop-blur-md border transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shadow-lg ${
                                 favorite
                                     ? "bg-red-500 text-white border-red-500 shadow-red-500/30"
                                     : "bg-white/15 text-white border-white/25 hover:bg-white/25 hover:border-white/40"
                             }`}
                         >
                             <span
-                                className={`material-symbols-outlined text-lg transition-transform duration-300 ${favorite ? "scale-110" : ""}`}
+                                className={`material-symbols-outlined text-base sm:text-lg transition-transform duration-300 ${favorite ? "scale-110" : ""}`}
                                 style={{ fontVariationSettings: favorite ? "'FILL' 1" : "normal" }}
                             >
                                 favorite
@@ -651,14 +651,14 @@ export default function DestinationDetailPage() {
                             type="button"
                             onClick={handleToggleVisited}
                             disabled={visitedLoading}
-                            className={`inline-flex items-center gap-2 rounded-full px-6 py-3 font-body text-sm font-semibold backdrop-blur-md border transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shadow-lg ${
+                            className={`inline-flex items-center gap-2 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 font-body text-xs sm:text-sm font-semibold backdrop-blur-md border transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shadow-lg ${
                                 visited
                                     ? "bg-emerald-600 text-white border-emerald-600 shadow-emerald-600/30"
                                     : "bg-white/15 text-white border-white/25 hover:bg-white/25 hover:border-white/40"
                             }`}
                         >
                             <span
-                                className={`material-symbols-outlined text-lg transition-transform duration-300 ${visited ? "scale-110" : ""}`}
+                                className={`material-symbols-outlined text-base sm:text-lg transition-transform duration-300 ${visited ? "scale-110" : ""}`}
                                 style={{ fontVariationSettings: visited ? "'FILL' 1" : "normal" }}
                             >
                                 check_circle
@@ -670,20 +670,20 @@ export default function DestinationDetailPage() {
             </section>
 
             {/* ─── Body Details Section ─── */}
-            <section className="deep-emerald-bg py-20 md:py-28 relative">
+            <section className="deep-emerald-bg py-14 sm:py-20 md:py-28 relative">
                 {/* Ambient glow in dark emerald container */}
                 <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-tertiary/15 blur-[120px] pointer-events-none rounded-full" />
 
-                <div className="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop space-y-24">
+                <div className="relative z-10 max-w-container-max mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop space-y-14 sm:space-y-20 md:space-y-24">
                     {/* 1. About Description */}
                     <div ref={aboutSectionRef} className="max-w-4xl">
-                        <div className="about-badge inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-tertiary-fixed mb-4">
+                        <div className="about-badge inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-tertiary-fixed mb-3 sm:mb-4">
                             <span className="material-symbols-outlined text-sm">menu_book</span>
                             Overview
                         </div>
                         <h2
                             ref={aboutTitleRef}
-                            className="font-display text-3xl md:text-headline-lg text-tertiary-fixed mb-6 font-bold"
+                            className="font-display text-2xl sm:text-3xl md:text-headline-lg text-tertiary-fixed mb-4 sm:mb-6 font-bold"
                         >
                             About {name}
                         </h2>
@@ -711,7 +711,7 @@ export default function DestinationDetailPage() {
                                     </div>
                                     <h2
                                         ref={attractionsTitleRef}
-                                        className="font-display text-3xl md:text-headline-lg text-white font-bold tracking-tight"
+                                        className="font-display text-2xl sm:text-3xl md:text-headline-lg text-white font-bold tracking-tight"
                                     >
                                         Top Attractions
                                     </h2>
@@ -721,7 +721,7 @@ export default function DestinationDetailPage() {
                                 </span>
                             </div>
 
-                            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                            <div className="grid gap-4 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
                                 {attractions.map((attraction, index) => (
                                     <div key={attraction.id || index} data-animate-attraction-card className="h-full">
                                         <AttractionCard
@@ -746,7 +746,7 @@ export default function DestinationDetailPage() {
                                 </div>
                                 <h2
                                     ref={itinerariesTitleRef}
-                                    className="font-display text-3xl md:text-headline-lg text-tertiary-fixed font-bold"
+                                    className="font-display text-2xl sm:text-3xl md:text-headline-lg text-tertiary-fixed font-bold"
                                 >
                                     Featured Itineraries
                                 </h2>

@@ -195,7 +195,7 @@ function Discover() {
 
     return (<>
         <section ref={wrapRef}>
-            <div ref={heroRef} className="relative inset-0 overflow-hidden md:h-screen h-[520px]"
+            <div ref={heroRef} className="relative inset-0 overflow-hidden min-h-[580px] h-[100svh] md:h-screen"
                 style={{ background: "radial-gradient(ellipse at center 40%, #0a182b 0%, #050e1c 55%, #020710 100%)", perspective: "1000px" }}
             >
                 {/* ── Subtle celestial coordinate grid & star textures to break monotonicity ── */}
@@ -219,8 +219,8 @@ function Discover() {
                     <div
                         className="relative pointer-events-auto"
                         style={{
-                            width: "min(95vh, 95vw)",
-                            height: "min(95vh, 95vw)",
+                            width: "min(85vh, 90vw)",
+                            height: "min(85vh, 90vw)",
                         }}
                     >
                         <Globe onReady={handleGlobeReady} />
@@ -228,25 +228,25 @@ function Discover() {
                 </div>
 
                 {/* ── Text & search overlay ── */}
-                <div className="absolute inset-0 z-10 flex h-full flex-col items-center justify-center px-6 text-center pointer-events-none">
-                    <h1 ref={eyebrowRef} className="eyebrow text-white/80 mb-6 text-xl font-body font-bold tracking-widest">
+                <div className="absolute inset-0 z-10 flex h-full flex-col items-center justify-center px-4 sm:px-6 text-center pointer-events-none">
+                    <p ref={eyebrowRef} className="eyebrow text-white/80 mb-3 sm:mb-4 md:mb-6 text-xs sm:text-sm md:text-base lg:text-lg font-body font-bold tracking-[0.2em] sm:tracking-widest uppercase">
                         THE WORLD AWAITS
-                    </h1>
+                    </p>
 
-                    <h1 ref={headlineRef} className="headline text-5xl font-bold font-display leading-tight text-white md:text-6xl lg:text-7xl drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]">
-                        Curated Expeditions for <br></br>
+                    <h1 ref={headlineRef} className="headline text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display leading-[1.15] text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)] max-w-4xl">
+                        Curated Expeditions for <br className="hidden sm:inline"></br>
                         the Discerning Explorer
                     </h1>
 
                     {/* ── Search pill + Search CTA ── */}
                     <form
                         onSubmit={handleSearch}
-                        className="pointer-events-auto relative z-20 mt-8 w-full max-w-xl"
+                        className="pointer-events-auto relative z-20 mt-6 sm:mt-8 w-full max-w-xl px-1 sm:px-0"
                         ref={searchBarRef}
                     >
-                        <div className="flex items-center justify-between gap-3 rounded-full bg-white/15 p-2 sm:p-2.5 backdrop-blur-md border border-white/20 shadow-2xl">
-                            <div className="flex flex-1 items-center gap-3 px-4">
-                                <MapPin className="text-white/70 w-5 h-5 shrink-0" />
+                        <div className="flex items-center justify-between gap-2 sm:gap-3 rounded-full bg-white/15 p-1.5 sm:p-2.5 backdrop-blur-md border border-white/20 shadow-2xl">
+                            <div className="flex flex-1 items-center gap-2 sm:gap-3 px-2 sm:px-4 min-w-0">
+                                <MapPin className="text-white/70 w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                                 <input
                                     type="text"
                                     value={searchQuery}
@@ -254,21 +254,21 @@ function Discover() {
                                     onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
                                     onBlur={dismissSuggestions}
                                     placeholder="Where to next?"
-                                    className="w-full bg-transparent font-body text-base sm:text-lg text-white placeholder-white/50 font-medium outline-none"
+                                    className="w-full bg-transparent font-body text-sm sm:text-base md:text-lg text-white placeholder-white/50 font-medium outline-none"
                                 />
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={isSearching}
-                                className="glossy-button shrink-0 px-6 py-3 rounded-full text-white font-body text-sm font-semibold tracking-wide flex items-center gap-2 transition-all duration-300 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg disabled:opacity-60 disabled:hover:scale-100"
+                                className="glossy-button shrink-0 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-white font-body text-xs sm:text-sm font-semibold tracking-wide flex items-center gap-1.5 sm:gap-2 transition-all duration-300 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg disabled:opacity-60 disabled:hover:scale-100 cursor-pointer"
                             >
                                 {isSearching ? (
-                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                    <Loader2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" />
                                 ) : (
                                     <>
                                         <span>Explore</span>
-                                        <ArrowRight className="w-4 h-4" />
+                                        <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                     </>
                                 )}
                             </button>

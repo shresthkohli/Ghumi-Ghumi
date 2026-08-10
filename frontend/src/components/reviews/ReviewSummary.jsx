@@ -22,18 +22,18 @@ export default function ReviewSummary({
 
     return (
         <div className="mx-auto w-full max-w-5xl">
-            <div className="glass-widget relative rounded-3xl border border-outline-variant/30 p-6 sm:p-8 md:p-10 shadow-warm-lg backdrop-blur-md overflow-hidden transition-all duration-300">
+            <div className="glass-widget relative rounded-3xl border border-outline-variant/30 p-5 sm:p-8 md:p-10 shadow-warm-lg backdrop-blur-md overflow-hidden transition-all duration-300">
                 {/* Decorative background glow */}
                 <div className="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
                 <div className="absolute -right-20 -bottom-20 h-72 w-72 rounded-full bg-secondary/10 blur-3xl pointer-events-none" />
 
                 {/* Section Header Badge */}
-                <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 mb-8">
-                    <div className="inline-flex items-center gap-2 rounded-full bg-primary-fixed/60 border border-primary/20 px-4 py-1.5 shadow-2xs">
+                <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-primary-fixed/60 border border-primary/20 px-3.5 sm:px-4 py-1 sm:py-1.5 shadow-2xs">
                         <span className="material-symbols-outlined text-primary text-base" style={{ fontVariationSettings: "'FILL' 1" }}>
                             hotel_class
                         </span>
-                        <span className="font-label-md text-xs font-bold uppercase tracking-wider text-primary">
+                        <span className="font-body text-xs font-bold uppercase tracking-wider text-primary">
                             Traveller Reviews & Feedback
                         </span>
                     </div>
@@ -47,13 +47,13 @@ export default function ReviewSummary({
                 </div>
 
                 {/* Main 2-Column Editorial Grid */}
-                <div className="relative z-10 grid gap-8 lg:grid-cols-12 lg:items-center">
+                <div className="relative z-10 grid gap-6 sm:gap-8 lg:grid-cols-12 lg:items-center">
                     {/* Left Column: Big Rating & Star Breakdown */}
-                    <div className="lg:col-span-7 flex flex-col sm:flex-row items-start sm:items-center gap-8">
+                    <div className="lg:col-span-7 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-8">
                         {/* Rating Hero */}
                         <div className="flex flex-col items-start shrink-0 min-w-[140px]">
                             <div className="flex items-baseline gap-1.5">
-                                <span className="font-display text-5xl sm:text-6xl font-bold text-primary tracking-tight">
+                                <span className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-primary tracking-tight">
                                     {averageRating.toFixed(1)}
                                 </span>
                                 <span className="text-on-surface-variant font-body text-xl font-medium">

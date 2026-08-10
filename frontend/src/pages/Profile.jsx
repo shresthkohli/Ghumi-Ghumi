@@ -277,8 +277,8 @@ function Profile() {
         .filter(Boolean) ?? [];
 
     return (
-        <main ref={pageRef} className="min-h-screen bg-background py-section-gap">
-            <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop space-y-12">
+        <main ref={pageRef} className="min-h-screen bg-background py-8 sm:py-12 md:py-section-gap">
+            <div className="max-w-container-max mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop space-y-8 sm:space-y-12">
                 {/* 1. Profile Header */}
                 <div ref={headerRef}>
                     <ProfileHeader user={user} />

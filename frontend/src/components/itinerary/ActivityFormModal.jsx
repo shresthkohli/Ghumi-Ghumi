@@ -149,7 +149,7 @@ function ActivityFormModal({ initialData, dayNumber, onClose, onSave }) {
         <div
             ref={backdropRef}
             onClick={handleBackdropClick}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md px-margin-mobile py-6"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md px-4 sm:px-6 py-4"
             style={{ perspective: "1000px" }}
         >
             <div
@@ -161,7 +161,7 @@ function ActivityFormModal({ initialData, dayNumber, onClose, onSave }) {
                 <div className="absolute -bottom-20 -left-20 w-48 h-48 bg-secondary-container/25 rounded-full blur-2xl pointer-events-none" />
 
                 {/* Modal Header */}
-                <div className="flex justify-between items-start p-6 md:p-7 pb-4 border-b border-surface-variant/50 relative z-10 shrink-0">
+                <div className="flex justify-between items-start p-5 sm:p-7 pb-4 border-b border-surface-variant/50 relative z-10 shrink-0">
                     <div>
                         <div className="flex items-center gap-2 mb-1">
                             <span className="font-label-md text-label-md text-primary tracking-widest uppercase font-semibold px-2.5 py-0.5 rounded-full bg-primary-fixed/40">

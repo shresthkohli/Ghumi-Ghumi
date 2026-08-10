@@ -45,11 +45,14 @@ function PassportCard({ passport }) {
                     w-full
                     max-w-[520px]
                     overflow-hidden
-                    rounded-[2.5rem]
+                    rounded-3xl
+                    sm:rounded-[2.5rem]
                     bg-gradient-to-br
                     from-tertiary
                     to-tertiary-dark
-                    p-8
+                    p-5
+                    sm:p-7
+                    md:p-8
                     text-white
                     shadow-warm-lg
                     flex
@@ -82,40 +85,40 @@ function PassportCard({ passport }) {
 
                 {/* HEADER */}
                 <div className="relative z-10">
-                    <div className="flex justify-between items-start gap-6">
-                        <div className="flex-1">
-                            <p className="text-[11px] uppercase tracking-[0.35em] text-white/50 font-semibold">
+                    <div className="flex justify-between items-start gap-4 sm:gap-6">
+                        <div className="flex-1 min-w-0">
+                            <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-white/50 font-semibold">
                                 Digital Passport
                             </p>
 
-                            <h2 className="mt-3 font-display text-2xl sm:text-3xl leading-tight font-bold break-words">
+                            <h2 className="mt-2 sm:mt-3 font-display text-xl sm:text-2xl md:text-3xl leading-tight font-bold break-words">
                                 {displayName}
                             </h2>
                         </div>
 
-                        <span className="material-symbols-outlined text-[42px] text-white/60 shrink-0">
+                        <span className="material-symbols-outlined text-[32px] sm:text-[42px] text-white/60 shrink-0">
                             qr_code_2
                         </span>
                     </div>
 
-                    <div className="mt-6">
-                        <p className="text-[11px] uppercase tracking-[0.35em] text-white/50 font-semibold">
+                    <div className="mt-4 sm:mt-6">
+                        <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-white/50 font-semibold">
                             Passport No.
                         </p>
 
-                        <p className="mt-1.5 text-base font-semibold tracking-[0.18em] text-amber-300/90 font-mono">
+                        <p className="mt-1 sm:mt-1.5 text-sm sm:text-base font-semibold tracking-[0.15em] sm:tracking-[0.18em] text-amber-300/90 font-mono">
                             {passport.passportNumber}
                         </p>
                     </div>
                 </div>
 
                 {/* STAMPS */}
-                <div className="relative z-10 mt-8 flex-1">
-                    <h3 className="font-body uppercase tracking-[0.3em] text-xs text-white/50 mb-4 font-semibold">
+                <div className="relative z-10 mt-6 sm:mt-8 flex-1">
+                    <h3 className="font-body uppercase tracking-[0.3em] text-[11px] sm:text-xs text-white/50 mb-3 sm:mb-4 font-semibold">
                         Travel Stamps
                     </h3>
 
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-2.5 sm:gap-3.5 md:gap-4">
                         {Array.from({ length: 6 }).map((_, index) => {
                             const stamp = passport.stamps?.[index];
 
@@ -123,7 +126,7 @@ function PassportCard({ passport }) {
                                 return (
                                     <div
                                         key={index}
-                                        className="aspect-square rounded-full border border-dashed border-white/10"
+                                        className="aspect-square rounded-full border border-dashed border-white/10 flex items-center justify-center"
                                     />
                                 );
                             }
@@ -132,8 +135,12 @@ function PassportCard({ passport }) {
                                 <div
                                     key={stamp.id || index}
                                     className="
-                                        w-24
-                                        h-24
+                                        w-16
+                                        h-16
+                                        sm:w-20
+                                        sm:h-20
+                                        md:w-24
+                                        md:h-24
                                         mx-auto
                                         rounded-full
                                         bg-white/10
@@ -145,19 +152,20 @@ function PassportCard({ passport }) {
                                         justify-center
                                         transition-all
                                         duration-300
-                                        hover:scale-110
+                                        hover:scale-108
                                         hover:bg-white/20
                                         hover:ring-amber-300/40
                                         hover:shadow-[0_0_15px_rgba(251,191,36,0.3)]
                                         cursor-pointer
+                                        p-1
                                     "
                                     title={stamp.state || stamp.name}
                                 >
-                                    <span className="material-symbols-outlined text-2xl mb-1 text-amber-300">
+                                    <span className="material-symbols-outlined text-lg sm:text-2xl mb-0.5 sm:mb-1 text-amber-300">
                                         {stamp.icon || "pin_drop"}
                                     </span>
 
-                                    <span className="text-[9px] uppercase text-center font-semibold leading-tight px-2 text-white/90">
+                                    <span className="text-[8px] sm:text-[9px] uppercase text-center font-semibold leading-tight px-1 text-white/90 truncate max-w-full">
                                         {stamp.name}
                                     </span>
                                 </div>

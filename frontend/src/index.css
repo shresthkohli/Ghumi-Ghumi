@@ -31,35 +31,35 @@
   --font-display: "Playfair Display", serif;
   --font-body: "Inter", sans-serif;
 
-  --spacing-margin-desktop: 64px;
-  --spacing-margin-mobile: 20px;
+  --spacing-margin-desktop: clamp(1.25rem, 4vw, 4rem);
+  --spacing-margin-mobile: clamp(1rem, 3vw, 1.25rem);
   --spacing-container-max: 1280px;
-  --spacing-gutter: 24px;
-  --spacing-section-gap: 80px;
+  --spacing-gutter: clamp(1rem, 2.5vw, 1.5rem);
+  --spacing-section-gap: clamp(2.5rem, 6vw, 5rem);
 
-  --text-display-lg: 64px;
-  --text-display-lg--line-height: 72px;
+  --text-display-lg: clamp(2.25rem, 5vw + 1rem, 4rem);
+  --text-display-lg--line-height: clamp(2.6rem, 5vw + 1.2rem, 4.5rem);
   --text-display-lg--letter-spacing: -0.02em;
   --text-display-lg--font-weight: 700;
 
-  --text-display-md: 48px;
-  --text-display-md--line-height: 56px;
+  --text-display-md: clamp(1.75rem, 3.5vw + 0.75rem, 3rem);
+  --text-display-md--line-height: clamp(2.1rem, 3.5vw + 1rem, 3.5rem);
   --text-display-md--letter-spacing: -0.01em;
   --text-display-md--font-weight: 700;
 
-  --text-headline-md: 24px;
-  --text-headline-md--line-height: 32px;
-  --text-headline-md--font-weight: 600;
-
-  --text-headline-lg: 32px;
-  --text-headline-lg--line-height: 40px;
+  --text-headline-lg: clamp(1.5rem, 2vw + 0.75rem, 2rem);
+  --text-headline-lg--line-height: clamp(1.85rem, 2vw + 1rem, 2.5rem);
   --text-headline-lg--font-weight: 600;
 
-  --text-body-lg: 18px;
-  --text-body-lg--line-height: 28px;
+  --text-headline-md: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+  --text-headline-md--line-height: clamp(1.5rem, 1.5vw + 0.8rem, 2rem);
+  --text-headline-md--font-weight: 600;
 
-  --text-body-md: 16px;
-  --text-body-md--line-height: 24px;
+  --text-body-lg: clamp(1rem, 0.5vw + 0.85rem, 1.125rem);
+  --text-body-lg--line-height: clamp(1.5rem, 0.5vw + 1.35rem, 1.75rem);
+
+  --text-body-md: clamp(0.875rem, 0.35vw + 0.8rem, 1rem);
+  --text-body-md--line-height: clamp(1.35rem, 0.35vw + 1.25rem, 1.5rem);
 
   --text-label-lg: 14px;
   --text-label-lg--line-height: 20px;
@@ -69,12 +69,6 @@
   --text-label-md: 12px;
   --text-label-md--line-height: 16px;
   --text-label-md--font-weight: 500;
-
-  --spacing-margin-desktop: 64px;
-  --spacing-margin-mobile: 20px;
-  --spacing-container-max: 1280px;
-  --spacing-gutter: 24px;
-  --spacing-section-gap: 80px;
 
   --shadow-warm-lg: 8px 20px 40px -8px rgba(43, 38, 32, 0.4);
 }
