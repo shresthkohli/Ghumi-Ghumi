@@ -1,7 +1,6 @@
-// Generated according to PRD[cite: 1]
 const destinations = [
     {
-        "id": "11111111-1111-4111-a111-111111111111",
+        "id": "00000001-1111-4111-a111-111111111111",
         "name": "Rishikesh",
         "city": "Rishikesh",
         "state": "Uttarakhand",
@@ -22,12 +21,12 @@ const destinations = [
         "itineraries": [],
         "reviews": [
             {
-                "id": "21111111-1111-4111-a111-111111111111",
-                "userId": "31111111-1111-4111-a111-111111111111",
+                "id": "00000001-2222-4111-a111-111111111111",
+                "userId": "00000001-3333-4111-a111-111111111111",
                 "userName": "Aarav Sharma",
-                "destinationId": "11111111-1111-4111-a111-111111111111",
+                "destinationId": "00000001-1111-4111-a111-111111111111",
                 "rating": 5,
-                "review": "Incredible river rafting experience and peaceful evening aarti at the ghats. Perfect blend of adventure and peace.",
+                "review": "Incredible river rafting experience and peaceful evening aarti at the ghats.",
                 "createdAt": "2026-08-08T11:31:03.000Z",
                 "updatedAt": "2026-08-08T11:31:03.000Z",
                 "isOwner": false
@@ -35,19 +34,19 @@ const destinations = [
         ],
         "attractions": [
             {
-                "id": "41111111-1111-4111-a111-111111111111",
+                "id": "00000001-4441-4111-a111-111111111111",
                 "name": "Laxman Jhula",
                 "description": "Historic suspension bridge and landmark overlooking the Ganges.",
                 "icon": "account_balance"
             },
             {
-                "id": "41111112-1111-4111-a111-111111111111",
+                "id": "00000001-4442-4111-a111-111111111111",
                 "name": "Triveni Ghat",
                 "description": "Popular riverside ghat known for its evening Ganga Aarti.",
                 "icon": "water"
             },
             {
-                "id": "41111113-1111-4111-a111-111111111111",
+                "id": "00000001-4443-4111-a111-111111111111",
                 "name": "Beatles Ashram",
                 "description": "Abandoned ashram famous for hosting the Beatles in the 1960s.",
                 "icon": "forest"
@@ -55,249 +54,33 @@ const destinations = [
         ]
     },
     {
-        "id": "11111112-1111-4111-a111-111111111111",
-        "name": "Manali",
-        "city": "Manali",
-        "state": "Himachal Pradesh",
+        "id": "00000002-1111-4111-a111-111111111111",
+        "name": "Lucknow",
+        "city": "Lucknow",
+        "state": "Uttar Pradesh",
         "country": "India",
-        "description": "A high-altitude Himalayan resort town renowned for its backpacking center, honeymoon destinations, skiing in Solang Valley, and trekking adventures.",
-        "imageUrl": "/images/destinations/manali.avif",
-        "category": "hill_station",
-        "bestTimeToVisit": "October to June",
-        "weather": "Cold winters with heavy snowfall, followed by cool and pleasant summers.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.5,
-        "budgetCategory": "moderate",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "landscape",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "21111112-1111-4111-a111-111111111111",
-                "userId": "31111112-1111-4111-a111-111111111111",
-                "userName": "Priya Patel",
-                "destinationId": "11111112-1111-4111-a111-111111111111",
-                "rating": 4,
-                "review": "Beautiful snow-capped peaks and great cafes in Old Manali. Can get a bit crowded in peak season.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "41111114-1111-4111-a111-111111111111",
-                "name": "Rohtang Pass",
-                "description": "High mountain pass offering stunning snowy landscapes.",
-                "icon": "terrain"
-            },
-            {
-                "id": "41111115-1111-4111-a111-111111111111",
-                "name": "Solang Valley",
-                "description": "Hub for adventure sports like paragliding and skiing.",
-                "icon": "landscape"
-            },
-            {
-                "id": "41111116-1111-4111-a111-111111111111",
-                "name": "Hadimba Temple",
-                "description": "Ancient cave temple surrounded by a cedar forest.",
-                "icon": "temple_buddhist"
-            }
-        ]
-    },
-    {
-        "id": "11111113-1111-4111-a111-111111111111",
-        "name": "Shimla",
-        "city": "Shimla",
-        "state": "Himachal Pradesh",
-        "country": "India",
-        "description": "The former summer capital of British India, known for its colonial architecture, scenic toy train railway, and the bustling Mall Road.",
-        "imageUrl": "/images/destinations/shimla.avif",
-        "category": "hill_station",
-        "bestTimeToVisit": "March to June and October to February",
-        "weather": "Pleasant summers and cold winters with occasional snowfall.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.4,
-        "budgetCategory": "moderate",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "location_city",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "21111113-1111-4111-a111-111111111111",
-                "userId": "31111113-1111-4111-a111-111111111111",
-                "userName": "Rohan Gupta",
-                "destinationId": "11111113-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "Walking along the Ridge and seeing the heritage buildings was like stepping back in time.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "41111117-1111-4111-a111-111111111111",
-                "name": "The Ridge",
-                "description": "Large open space in the heart of Shimla offering panoramic mountain views.",
-                "icon": "terrain"
-            },
-            {
-                "id": "41111118-1111-4111-a111-111111111111",
-                "name": "Mall Road",
-                "description": "Main street in Shimla filled with shops, cafes, and heritage sites.",
-                "icon": "store"
-            },
-            {
-                "id": "41111119-1111-4111-a111-111111111111",
-                "name": "Jakhoo Temple",
-                "description": "Ancient temple dedicated to Lord Hanuman, featuring a massive statue.",
-                "icon": "account_balance"
-            }
-        ]
-    },
-    {
-        "id": "11111114-1111-4111-a111-111111111111",
-        "name": "Dharamshala",
-        "city": "Dharamshala",
-        "state": "Himachal Pradesh",
-        "country": "India",
-        "description": "A tranquil town in the Himalayas known as the home of the Dalai Lama, featuring rich Tibetan culture and breathtaking mountain views.",
-        "imageUrl": "/images/destinations/dharamshala.avif",
-        "category": "spiritual",
-        "bestTimeToVisit": "February to June",
-        "weather": "Warm and pleasant summers with cold winters and heavy monsoon rains.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.6,
-        "budgetCategory": "budget",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "temple_buddhist",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "21111114-1111-4111-a111-111111111111",
-                "userId": "31111114-1111-4111-a111-111111111111",
-                "userName": "Sarah Jenkins",
-                "destinationId": "11111114-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "A deeply moving and peaceful place. McLeod Ganj is full of wonderful cafes and monasteries.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "4111111a-1111-4111-a111-111111111111",
-                "name": "Tsuglagkhang Complex",
-                "description": "The official residence of the 14th Dalai Lama and a major spiritual center.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "4111111b-1111-4111-a111-111111111111",
-                "name": "Bhagsu Waterfall",
-                "description": "Scenic waterfall accessible via a short trek from McLeod Ganj.",
-                "icon": "water"
-            },
-            {
-                "id": "4111111c-1111-4111-a111-111111111111",
-                "name": "Triund Trek",
-                "description": "Popular hiking trail offering stunning views of the Dhauladhar range.",
-                "icon": "terrain"
-            }
-        ]
-    },
-    {
-        "id": "11111115-1111-4111-a111-111111111111",
-        "name": "Amritsar",
-        "city": "Amritsar",
-        "state": "Punjab",
-        "country": "India",
-        "description": "The spiritual and cultural center of the Sikh religion, home to the spectacular Golden Temple and rich historical monuments.",
-        "imageUrl": "/images/destinations/amritsar.avif",
-        "category": "pilgrimage",
+        "description": "The 'City of Nawabs', world-renowned for its grand Awadhi architecture, Chikankari embroidery, rich courtly culture, and legendary Awadhi cuisine.",
+        "imageUrl": "/images/destinations/lucknow.avif",
+        "category": "cultural",
         "bestTimeToVisit": "October to March",
-        "weather": "Scorching summers, pleasant autumns, and cold winters.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.8,
-        "budgetCategory": "budget",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "temple_buddhist",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "21111115-1111-4111-a111-111111111111",
-                "userId": "31111115-1111-4111-a111-111111111111",
-                "userName": "Vikram Singh",
-                "destinationId": "11111115-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "The serenity of the Golden Temple at night is unmatched. The langar food was a humbling experience.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "4111111d-1111-4111-a111-111111111111",
-                "name": "Golden Temple",
-                "description": "The holiest Gurdwara of Sikhism, stunningly covered in real gold.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "4111111e-1111-4111-a111-111111111111",
-                "name": "Jallianwala Bagh",
-                "description": "Historic garden and memorial of national importance.",
-                "icon": "park"
-            },
-            {
-                "id": "4111111f-1111-4111-a111-111111111111",
-                "name": "Wagah Border",
-                "description": "Famous for the daily retreating ceremony between Indian and Pakistani security forces.",
-                "icon": "tour"
-            }
-        ]
-    },
-    {
-        "id": "11111116-1111-4111-a111-111111111111",
-        "name": "Srinagar",
-        "city": "Srinagar",
-        "state": "Jammu and Kashmir",
-        "country": "India",
-        "description": "Known as 'Paradise on Earth', famous for its tranquil Dal Lake, beautiful houseboats, and stunning Mughal gardens.",
-        "imageUrl": "/images/destinations/srinagar.avif",
-        "category": "romantic",
-        "bestTimeToVisit": "April to October",
-        "weather": "Cold winters with heavy snow and pleasant, cool summers.",
+        "weather": "Hot summers, cool and pleasant winters.",
         "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
         "averageRating": 4.7,
         "budgetCategory": "moderate",
         "isFavorite": false,
         "isVisited": false,
-        "icon": "sailing",
+        "icon": "account_balance",
         "createdAt": "2026-08-08T11:31:03.000Z",
         "updatedAt": "2026-08-08T11:31:03.000Z",
         "itineraries": [],
         "reviews": [
             {
-                "id": "21111116-1111-4111-a111-111111111111",
-                "userId": "31111116-1111-4111-a111-111111111111",
-                "userName": "Meera Reddy",
-                "destinationId": "11111116-1111-4111-a111-111111111111",
+                "id": "00000002-2222-4111-a111-111111111111",
+                "userId": "00000002-3333-4111-a111-111111111111",
+                "userName": "Tushar Srivastava",
+                "destinationId": "00000002-1111-4111-a111-111111111111",
                 "rating": 5,
-                "review": "Staying on a houseboat on Dal Lake was incredibly romantic and peaceful.",
+                "review": "Bara Imambara's labyrinth (Bhulbhulaiya) and Tunday Kababs are legendary!",
                 "createdAt": "2026-08-08T11:31:03.000Z",
                 "updatedAt": "2026-08-08T11:31:03.000Z",
                 "isOwner": false
@@ -305,27 +88,27 @@ const destinations = [
         ],
         "attractions": [
             {
-                "id": "41111120-1111-4111-a111-111111111111",
-                "name": "Dal Lake",
-                "description": "Iconic lake offering shikara rides and floating markets.",
-                "icon": "water"
+                "id": "00000002-4441-4111-a111-111111111111",
+                "name": "Bara Imambara",
+                "description": "Grand architectural complex famous for its gravity-defying central hall and labyrinth.",
+                "icon": "account_balance"
             },
             {
-                "id": "41111121-1111-4111-a111-111111111111",
-                "name": "Shalimar Bagh",
-                "description": "A magnificent Mughal garden built by Emperor Jahangir.",
-                "icon": "park"
+                "id": "00000002-4442-4111-a111-111111111111",
+                "name": "Rumi Darwaza",
+                "description": "Imposing 60-foot gateway built in 1784 depicting classic Awadhi design.",
+                "icon": "location_city"
             },
             {
-                "id": "41111122-1111-4111-a111-111111111111",
-                "name": "Shankaracharya Temple",
-                "description": "Ancient temple situated on a hilltop with panoramic city views.",
+                "id": "00000002-4443-4111-a111-111111111111",
+                "name": "Chota Imambara",
+                "description": "Ornate congregation hall lit with chandeliers and gilded domes.",
                 "icon": "account_balance"
             }
         ]
     },
     {
-        "id": "11111117-1111-4111-a111-111111111111",
+        "id": "00000003-1111-4111-a111-111111111111",
         "name": "Udaipur",
         "city": "Udaipur",
         "state": "Rajasthan",
@@ -346,10 +129,10 @@ const destinations = [
         "itineraries": [],
         "reviews": [
             {
-                "id": "21111117-1111-4111-a111-111111111111",
-                "userId": "31111117-1111-4111-a111-111111111111",
+                "id": "00000003-2222-4111-a111-111111111111",
+                "userId": "00000003-3333-4111-a111-111111111111",
                 "userName": "Emily Chen",
-                "destinationId": "11111117-1111-4111-a111-111111111111",
+                "destinationId": "00000003-1111-4111-a111-111111111111",
                 "rating": 5,
                 "review": "The City Palace is breathtaking, and sunset over Lake Pichola is a memory I'll cherish forever.",
                 "createdAt": "2026-08-08T11:31:03.000Z",
@@ -359,19 +142,19 @@ const destinations = [
         ],
         "attractions": [
             {
-                "id": "41111123-1111-4111-a111-111111111111",
+                "id": "00000003-4441-4111-a111-111111111111",
                 "name": "City Palace",
                 "description": "A sprawling architectural marvel overlooking Lake Pichola.",
                 "icon": "account_balance"
             },
             {
-                "id": "41111124-1111-4111-a111-111111111111",
+                "id": "00000003-4442-4111-a111-111111111111",
                 "name": "Lake Pichola",
                 "description": "An artificial fresh water lake known for boat cruises and island palaces.",
                 "icon": "water"
             },
             {
-                "id": "41111125-1111-4111-a111-111111111111",
+                "id": "00000003-4443-4111-a111-111111111111",
                 "name": "Jag Mandir",
                 "description": "An exquisite palace built on an island in Lake Pichola.",
                 "icon": "account_balance"
@@ -379,7 +162,7 @@ const destinations = [
         ]
     },
     {
-        "id": "11111118-1111-4111-a111-111111111111",
+        "id": "00000004-1111-4111-a111-111111111111",
         "name": "Jaisalmer",
         "city": "Jaisalmer",
         "state": "Rajasthan",
@@ -400,12 +183,12 @@ const destinations = [
         "itineraries": [],
         "reviews": [
             {
-                "id": "21111118-1111-4111-a111-111111111111",
-                "userId": "31111118-1111-4111-a111-111111111111",
+                "id": "00000004-2222-4111-a111-111111111111",
+                "userId": "00000004-3333-4111-a111-111111111111",
                 "userName": "David Smith",
-                "destinationId": "11111118-1111-4111-a111-111111111111",
+                "destinationId": "00000004-1111-4111-a111-111111111111",
                 "rating": 4,
-                "review": "Sleeping under the stars in the Thar desert was amazing. The living fort is a unique sight.",
+                "review": "Sleeping under the stars in the Thar desert was amazing.",
                 "createdAt": "2026-08-08T11:31:03.000Z",
                 "updatedAt": "2026-08-08T11:31:03.000Z",
                 "isOwner": false
@@ -413,19 +196,19 @@ const destinations = [
         ],
         "attractions": [
             {
-                "id": "41111126-1111-4111-a111-111111111111",
+                "id": "00000004-4441-4111-a111-111111111111",
                 "name": "Jaisalmer Fort",
                 "description": "One of the few living forts in the world, built from golden sandstone.",
                 "icon": "account_balance"
             },
             {
-                "id": "41111127-1111-4111-a111-111111111111",
+                "id": "00000004-4442-4111-a111-111111111111",
                 "name": "Sam Sand Dunes",
                 "description": "Famous for camel safaris and spectacular desert sunsets.",
                 "icon": "terrain"
             },
             {
-                "id": "41111128-1111-4111-a111-111111111111",
+                "id": "00000004-4443-4111-a111-111111111111",
                 "name": "Patwon Ki Haveli",
                 "description": "A cluster of intricately carved historic mansions.",
                 "icon": "museum"
@@ -433,357 +216,33 @@ const destinations = [
         ]
     },
     {
-        "id": "11111119-1111-4111-a111-111111111111",
-        "name": "Khajuraho",
-        "city": "Khajuraho",
-        "state": "Madhya Pradesh",
+        "id": "00000005-1111-4111-a111-111111111111",
+        "name": "Jodhpur",
+        "city": "Jodhpur",
+        "state": "Rajasthan",
         "country": "India",
-        "description": "A UNESCO World Heritage site known worldwide for its stunning ancient temples adorned with intricate, expressive sculptures.",
-        "imageUrl": "/images/destinations/khajuraho.avif",
+        "description": "The 'Blue City' of Rajasthan, dominated by the towering Mehrangarh Fort, blue-painted Brahmin houses, and vibrant spice bazaars.",
+        "imageUrl": "/images/destinations/jodhpur.avif",
         "category": "historical",
-        "bestTimeToVisit": "October to February",
-        "weather": "Hot summers, moderate monsoons, and cool winters.",
+        "bestTimeToVisit": "October to March",
+        "weather": "Hot summers, cool winters.",
         "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.5,
-        "budgetCategory": "budget",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "account_balance",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "21111119-1111-4111-a111-111111111111",
-                "userId": "31111119-1111-4111-a111-111111111111",
-                "userName": "Anjali Verma",
-                "destinationId": "11111119-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "The architectural detail on these temples is mind-blowing. A true testament to ancient Indian artistry.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "41111129-1111-4111-a111-111111111111",
-                "name": "Kandariya Mahadeva Temple",
-                "description": "The largest and most ornate Hindu temple in the medieval group.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "4111112a-1111-4111-a111-111111111111",
-                "name": "Lakshmana Temple",
-                "description": "One of the oldest and most finely preserved temples in Khajuraho.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "4111112b-1111-4111-a111-111111111111",
-                "name": "Duladeo Temple",
-                "description": "Dedicated to Lord Shiva, known for its beautiful flying apsara sculptures.",
-                "icon": "account_balance"
-            }
-        ]
-    },
-    {
-        "id": "1111111a-1111-4111-a111-111111111111",
-        "name": "Pachmarhi",
-        "city": "Pachmarhi",
-        "state": "Madhya Pradesh",
-        "country": "India",
-        "description": "Known as the 'Queen of Satpura', a scenic hill station offering dense forests, beautiful waterfalls, and ancient cave paintings.",
-        "imageUrl": "/images/destinations/pachmarhi.avif",
-        "category": "hill_station",
-        "bestTimeToVisit": "October to June",
-        "weather": "Pleasant climate throughout the year, with heavy rainfall during monsoons.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.3,
-        "budgetCategory": "moderate",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "forest",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "2111111a-1111-4111-a111-111111111111",
-                "userId": "3111111a-1111-4111-a111-111111111111",
-                "userName": "Rajat Kumar",
-                "destinationId": "1111111a-1111-4111-a111-111111111111",
-                "rating": 4,
-                "review": "A great escape from the heat. The waterfalls are stunning and trekking paths are quite adventurous.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "4111112c-1111-4111-a111-111111111111",
-                "name": "Bee Fall",
-                "description": "A picturesque waterfall popular for swimming and picnics.",
-                "icon": "water"
-            },
-            {
-                "id": "4111112d-1111-4111-a111-111111111111",
-                "name": "Jata Shankar Caves",
-                "description": "Sacred cave shrine dedicated to Lord Shiva, located in a deep ravine.",
-                "icon": "terrain"
-            },
-            {
-                "id": "4111112e-1111-4111-a111-111111111111",
-                "name": "Dhoopgarh",
-                "description": "The highest point in the Satpura range, famous for spectacular sunsets.",
-                "icon": "landscape"
-            }
-        ]
-    },
-    {
-        "id": "1111111b-1111-4111-a111-111111111111",
-        "name": "Mumbai",
-        "city": "Mumbai",
-        "state": "Maharashtra",
-        "country": "India",
-        "description": "The bustling financial capital of India, known for Bollywood, colonial architecture, vibrant street food, and the iconic Marine Drive.",
-        "imageUrl": "/images/destinations/mumbai.avif",
-        "category": "urban",
-        "bestTimeToVisit": "October to February",
-        "weather": "Hot and humid most of the year, with intense monsoon rains from June to September.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.5,
-        "budgetCategory": "luxury",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "location_city",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "2111111b-1111-4111-a111-111111111111",
-                "userId": "3111111b-1111-4111-a111-111111111111",
-                "userName": "Neha Joshi",
-                "destinationId": "1111111b-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "The energy of this city is infectious! A walk along Marine Drive at sunset is magical.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "4111112f-1111-4111-a111-111111111111",
-                "name": "Gateway of India",
-                "description": "Iconic arch monument overlooking the Arabian Sea.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "41111130-1111-4111-a111-111111111111",
-                "name": "Marine Drive",
-                "description": "A picturesque promenade famous for its C-shape and sunset views.",
-                "icon": "water"
-            },
-            {
-                "id": "41111131-1111-4111-a111-111111111111",
-                "name": "Elephanta Caves",
-                "description": "UNESCO World Heritage site featuring ancient rock-cut cave temples.",
-                "icon": "terrain"
-            }
-        ]
-    },
-    {
-        "id": "1111111c-1111-4111-a111-111111111111",
-        "name": "Pune",
-        "city": "Pune",
-        "state": "Maharashtra",
-        "country": "India",
-        "description": "A vibrant city blending Maratha history with a thriving modern youth culture, known for educational institutions and Osho Ashram.",
-        "imageUrl": "/images/destinations/pune.avif",
-        "category": "urban",
-        "bestTimeToVisit": "July to February",
-        "weather": "Moderate climate, with pleasant winters and substantial monsoon rainfall.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.2,
-        "budgetCategory": "moderate",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "location_city",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "2111111c-1111-4111-a111-111111111111",
-                "userId": "3111111c-1111-4111-a111-111111111111",
-                "userName": "Amit Kulkarni",
-                "destinationId": "1111111c-1111-4111-a111-111111111111",
-                "rating": 4,
-                "review": "A great mix of historical forts nearby and a lively cafe scene in Koregaon Park.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "41111132-1111-4111-a111-111111111111",
-                "name": "Aga Khan Palace",
-                "description": "Historic palace tied to the Indian freedom movement.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "41111133-1111-4111-a111-111111111111",
-                "name": "Shaniwar Wada",
-                "description": "Historical fortification and former seat of the Peshwa Empire.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "41111134-1111-4111-a111-111111111111",
-                "name": "Osho International Meditation Resort",
-                "description": "A popular spiritual retreat offering meditation and wellness programs.",
-                "icon": "park"
-            }
-        ]
-    },
-    {
-        "id": "1111111d-1111-4111-a111-111111111111",
-        "name": "Mahabaleshwar",
-        "city": "Mahabaleshwar",
-        "state": "Maharashtra",
-        "country": "India",
-        "description": "A picturesque hill station in the Western Ghats renowned for its strawberry farms, majestic viewpoints, and lush green forests.",
-        "imageUrl": "/images/destinations/mahabaleshwar.avif",
-        "category": "hill_station",
-        "bestTimeToVisit": "October to June",
-        "weather": "Pleasant year-round, but experiences extremely heavy rainfall during the monsoon.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.4,
-        "budgetCategory": "moderate",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "landscape",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "2111111d-1111-4111-a111-111111111111",
-                "userId": "3111111d-1111-4111-a111-111111111111",
-                "userName": "Ria Deshmukh",
-                "destinationId": "1111111d-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "The viewpoints are gorgeous. Don't leave without trying the fresh strawberries and cream!",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "41111135-1111-4111-a111-111111111111",
-                "name": "Arthur's Seat",
-                "description": "Popular viewpoint offering dramatic views of the dense valleys.",
-                "icon": "terrain"
-            },
-            {
-                "id": "41111136-1111-4111-a111-111111111111",
-                "name": "Venna Lake",
-                "description": "A beautiful artificial lake popular for boating and horseback riding.",
-                "icon": "water"
-            },
-            {
-                "id": "41111137-1111-4111-a111-111111111111",
-                "name": "Pratapgad Fort",
-                "description": "A historic hill fort offering excellent views of the Konkan coast.",
-                "icon": "account_balance"
-            }
-        ]
-    },
-    {
-        "id": "1111111e-1111-4111-a111-111111111111",
-        "name": "Ahmedabad",
-        "city": "Ahmedabad",
-        "state": "Gujarat",
-        "country": "India",
-        "description": "India's first UNESCO World Heritage City, famous for its rich history, Sabarmati Ashram, and incredible street food.",
-        "imageUrl": "/images/destinations/ahmedabad.avif",
-        "category": "cultural",
-        "bestTimeToVisit": "November to February",
-        "weather": "Scorching summers, moderate monsoons, and pleasant, dry winters.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.3,
-        "budgetCategory": "moderate",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "account_balance",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "2111111e-1111-4111-a111-111111111111",
-                "userId": "3111111e-1111-4111-a111-111111111111",
-                "userName": "Parth Shah",
-                "destinationId": "1111111e-1111-4111-a111-111111111111",
-                "rating": 4,
-                "review": "The heritage walk in the old city is fantastic, and Sabarmati Ashram is so peaceful.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "41111138-1111-4111-a111-111111111111",
-                "name": "Sabarmati Ashram",
-                "description": "Mahatma Gandhi's former residence and a national monument.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "41111139-1111-4111-a111-111111111111",
-                "name": "Adalaj Stepwell",
-                "description": "A stunning, intricately carved five-story stepwell from the 15th century.",
-                "icon": "water"
-            },
-            {
-                "id": "4111113a-1111-4111-a111-111111111111",
-                "name": "Kankaria Lake",
-                "description": "A vast circular lake surrounded by entertainment options and parks.",
-                "icon": "water"
-            }
-        ]
-    },
-    {
-        "id": "1111111f-1111-4111-a111-111111111111",
-        "name": "Rann of Kutch",
-        "city": "Bhuj",
-        "state": "Gujarat",
-        "country": "India",
-        "description": "A vast seasonal salt marsh famous for its surreal white landscape and the vibrant cultural festival, Rann Utsav.",
-        "imageUrl": "/images/destinations/rann-of-kutch.avif",
-        "category": "cultural",
-        "bestTimeToVisit": "November to February",
-        "weather": "Hot summers, submerged during the monsoon, and pleasant winters suitable for tourism.",
-        "entryRequirements": "An entry permit is required, which can be obtained online or at the Bhirandiyara checkpoint.",
         "averageRating": 4.7,
         "budgetCategory": "moderate",
         "isFavorite": false,
         "isVisited": false,
-        "icon": "terrain",
+        "icon": "account_balance",
         "createdAt": "2026-08-08T11:31:03.000Z",
         "updatedAt": "2026-08-08T11:31:03.000Z",
         "itineraries": [],
         "reviews": [
             {
-                "id": "2111111f-1111-4111-a111-111111111111",
-                "userId": "3111111f-1111-4111-a111-111111111111",
-                "userName": "Sneha Roy",
-                "destinationId": "1111111f-1111-4111-a111-111111111111",
+                "id": "00000005-2222-4111-a111-111111111111",
+                "userId": "00000005-3333-4111-a111-111111111111",
+                "userName": "Manish Rathore",
+                "destinationId": "00000005-1111-4111-a111-111111111111",
                 "rating": 5,
-                "review": "Seeing the full moon over the endless white salt desert is an out-of-this-world experience.",
+                "review": "Looking down at the blue rooftops from Mehrangarh Fort ramparts is unforgettable.",
                 "createdAt": "2026-08-08T11:31:03.000Z",
                 "updatedAt": "2026-08-08T11:31:03.000Z",
                 "isOwner": false
@@ -791,36 +250,144 @@ const destinations = [
         ],
         "attractions": [
             {
-                "id": "4111113b-1111-4111-a111-111111111111",
-                "name": "Great Rann of Kutch",
-                "description": "One of the largest salt deserts in the world.",
-                "icon": "terrain"
+                "id": "00000005-4441-4111-a111-111111111111",
+                "name": "Mehrangarh Fort",
+                "description": "One of the largest and best-preserved hill forts in India perched 400 feet above city.",
+                "icon": "account_balance"
             },
             {
-                "id": "4111113c-1111-4111-a111-111111111111",
-                "name": "Kalo Dungar",
-                "description": "The highest point in Kutch, offering panoramic views of the Rann.",
-                "icon": "landscape"
-            },
-            {
-                "id": "4111113d-1111-4111-a111-111111111111",
-                "name": "Kutch Museum",
-                "description": "The oldest museum in Gujarat, displaying tribal artifacts and ancient script.",
+                "id": "00000005-4442-4111-a111-111111111111",
+                "name": "Jaswant Thada",
+                "description": "White marble cenotaph monument built in memory of Maharaja Jaswant Singh II.",
                 "icon": "museum"
+            },
+            {
+                "id": "00000005-4443-4111-a111-111111111111",
+                "name": "Umaid Bhawan Palace",
+                "description": "Grand royal residence turned luxury heritage hotel and museum.",
+                "icon": "location_city"
             }
         ]
     },
     {
-        "id": "11111120-1111-4111-a111-111111111111",
-        "name": "Ooty",
-        "city": "Ooty",
-        "state": "Tamil Nadu",
+        "id": "00000006-1111-4111-a111-111111111111",
+        "name": "Palolem & Dudhsagar",
+        "city": "Canacona",
+        "state": "Goa",
         "country": "India",
-        "description": "The 'Queen of Hill Stations' in the Nilgiris, loved for its tea gardens, pleasant climate, and the historic Nilgiri Mountain Railway.",
-        "imageUrl": "/images/destinations/ooty.avif",
+        "description": "South Goa's tranquil crescent beach surrounded by coconut palms, alongside the majestic four-tiered Dudhsagar Waterfalls inside Bhagwan Mahavir Sanctuary.",
+        "imageUrl": "/images/destinations/dudhsagar.avif",
+        "category": "beach",
+        "bestTimeToVisit": "October to March",
+        "weather": "Tropical beach climate with heavy monsoon rainfall.",
+        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
+        "averageRating": 4.8,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "beach_access",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000006-2222-4111-a111-111111111111",
+                "userId": "00000006-3333-4111-a111-111111111111",
+                "userName": "Nikhil Naik",
+                "destinationId": "00000006-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Jeep safari to Dudhsagar waterfall and swimming at quiet Palolem beach were perfection.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000006-4441-4111-a111-111111111111",
+                "name": "Dudhsagar Falls",
+                "description": "Spectacular 310-meter four-tiered white water drop surrounded by jungle.",
+                "icon": "water"
+            },
+            {
+                "id": "00000006-4442-4111-a111-111111111111",
+                "name": "Palolem Beach",
+                "description": "Peaceful crescent beach famous for kayaking and dolphin spotting.",
+                "icon": "beach_access"
+            },
+            {
+                "id": "00000006-4443-4111-a111-111111111111",
+                "name": "Cabo de Rama Fort",
+                "description": "Historic cliffside fort offering sweeping panoramas of Arabian sea.",
+                "icon": "terrain"
+            }
+        ]
+    },
+    {
+        "id": "00000007-1111-4111-a111-111111111111",
+        "name": "Aizawl",
+        "city": "Aizawl",
+        "state": "Mizoram",
+        "country": "India",
+        "description": "Set along steep ridges, offering rich Mizo culture, peaceful hills, and pristine natural beauty.",
+        "imageUrl": "/images/destinations/aizawl.avif",
+        "category": "hill_station",
+        "bestTimeToVisit": "October to March",
+        "weather": "Cool summers, pleasant winters.",
+        "entryRequirements": "Inner Line Permit (ILP) required.",
+        "averageRating": 4.4,
+        "budgetCategory": "budget",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "landscape",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000007-2222-4111-a111-111111111111",
+                "userId": "00000007-3333-4111-a111-111111111111",
+                "userName": "Lalthantluanga Sailo",
+                "destinationId": "00000007-1111-4111-a111-111111111111",
+                "rating": 4,
+                "review": "Peaceful hill city with stunning sunset vistas.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000007-4441-4111-a111-111111111111",
+                "name": "Reiek Tlang",
+                "description": "Scenic mountain peak offering panoramic valley views.",
+                "icon": "terrain"
+            },
+            {
+                "id": "00000007-4442-4111-a111-111111111111",
+                "name": "Solomon's Temple",
+                "description": "White marble church with grand architecture.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "00000007-4443-4111-a111-111111111111",
+                "name": "Durtlang Hills",
+                "description": "Hilltop vantage point over Aizawl.",
+                "icon": "landscape"
+            }
+        ]
+    },
+    {
+        "id": "00000008-1111-4111-a111-111111111111",
+        "name": "Manali",
+        "city": "Manali",
+        "state": "Himachal Pradesh",
+        "country": "India",
+        "description": "A high-altitude Himalayan resort town renowned for its backpacking center, honeymoon destinations, skiing in Solang Valley, and trekking adventures.",
+        "imageUrl": "/images/destinations/manali.avif",
         "category": "hill_station",
         "bestTimeToVisit": "October to June",
-        "weather": "Cool and pleasant year-round, with chilly winters and moderate monsoons.",
+        "weather": "Cold winters with heavy snowfall, followed by cool and pleasant summers.",
         "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
         "averageRating": 4.5,
         "budgetCategory": "moderate",
@@ -832,12 +399,12 @@ const destinations = [
         "itineraries": [],
         "reviews": [
             {
-                "id": "21111120-1111-4111-a111-111111111111",
-                "userId": "31111120-1111-4111-a111-111111111111",
-                "userName": "Karthik Iyer",
-                "destinationId": "11111120-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "The toy train ride from Coonoor to Ooty offers breathtaking views of the lush green valleys.",
+                "id": "00000008-2222-4111-a111-111111111111",
+                "userId": "00000008-3333-4111-a111-111111111111",
+                "userName": "Priya Patel",
+                "destinationId": "00000008-1111-4111-a111-111111111111",
+                "rating": 4,
+                "review": "Beautiful snow-capped peaks and great cafes in Old Manali.",
                 "createdAt": "2026-08-08T11:31:03.000Z",
                 "updatedAt": "2026-08-08T11:31:03.000Z",
                 "isOwner": false
@@ -845,161 +412,53 @@ const destinations = [
         ],
         "attractions": [
             {
-                "id": "4111113e-1111-4111-a111-111111111111",
-                "name": "Ooty Botanical Gardens",
-                "description": "Lush gardens featuring thousands of plant species and a fossilized tree trunk.",
-                "icon": "park"
+                "id": "00000008-4441-4111-a111-111111111111",
+                "name": "Rohtang Pass",
+                "description": "High mountain pass offering stunning snowy landscapes.",
+                "icon": "terrain"
             },
             {
-                "id": "4111113f-1111-4111-a111-111111111111",
-                "name": "Nilgiri Mountain Railway",
-                "description": "UNESCO World Heritage toy train passing through scenic landscapes.",
-                "icon": "tour"
+                "id": "00000008-4442-4111-a111-111111111111",
+                "name": "Solang Valley",
+                "description": "Hub for adventure sports like paragliding and skiing.",
+                "icon": "landscape"
             },
             {
-                "id": "41111140-1111-4111-a111-111111111111",
-                "name": "Ooty Lake",
-                "description": "A large artificial lake popular for paddle boating and scenic views.",
-                "icon": "water"
-            }
-        ]
-    },
-    {
-        "id": "11111121-1111-4111-a111-111111111111",
-        "name": "Coorg",
-        "city": "Madikeri",
-        "state": "Karnataka",
-        "country": "India",
-        "description": "Known as the 'Scotland of India', Coorg is a misty hill destination celebrated for its expansive coffee plantations and rich Kodava culture.",
-        "imageUrl": "/images/destinations/coorg.avif",
-        "category": "nature",
-        "bestTimeToVisit": "September to March",
-        "weather": "Pleasant and cool throughout the year, with heavy rainfall during the monsoon months.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.6,
-        "budgetCategory": "moderate",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "forest",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "21111121-1111-4111-a111-111111111111",
-                "userId": "31111121-1111-4111-a111-111111111111",
-                "userName": "Divya Nambiar",
-                "destinationId": "11111121-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "The aroma of coffee estates, fresh air, and amazing local food make it a perfect weekend getaway.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "41111141-1111-4111-a111-111111111111",
-                "name": "Abbey Falls",
-                "description": "A picturesque waterfall cascading through lush coffee plantations.",
-                "icon": "water"
-            },
-            {
-                "id": "41111142-1111-4111-a111-111111111111",
-                "name": "Raja's Seat",
-                "description": "A beautiful seasonal garden known for spectacular sunset views.",
-                "icon": "park"
-            },
-            {
-                "id": "41111143-1111-4111-a111-111111111111",
-                "name": "Namdroling Monastery",
-                "description": "Also known as the Golden Temple, a beautiful Tibetan Buddhist monastery.",
+                "id": "00000008-4443-4111-a111-111111111111",
+                "name": "Hadimba Temple",
+                "description": "Ancient cave temple surrounded by a cedar forest.",
                 "icon": "temple_buddhist"
             }
         ]
     },
     {
-        "id": "11111122-1111-4111-a111-111111111111",
-        "name": "Hampi",
-        "city": "Hospet",
-        "state": "Karnataka",
+        "id": "00000009-1111-4111-a111-111111111111",
+        "name": "Shimla",
+        "city": "Shimla",
+        "state": "Himachal Pradesh",
         "country": "India",
-        "description": "A mesmerizing UNESCO World Heritage site, offering surreal boulder-strewn landscapes and magnificent ruins of the Vijayanagara Empire.",
-        "imageUrl": "/images/destinations/hampi.avif",
-        "category": "historical",
-        "bestTimeToVisit": "October to February",
-        "weather": "Very hot summers, moderate rainfall, and pleasant dry winters.",
+        "description": "The former summer capital of British India, known for its colonial architecture, scenic toy train railway, and the bustling Mall Road.",
+        "imageUrl": "/images/destinations/shimla.avif",
+        "category": "hill_station",
+        "bestTimeToVisit": "March to June and October to February",
+        "weather": "Pleasant summers and cold winters with occasional snowfall.",
         "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.8,
-        "budgetCategory": "budget",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "account_balance",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "21111122-1111-4111-a111-111111111111",
-                "userId": "31111122-1111-4111-a111-111111111111",
-                "userName": "Thomas Wright",
-                "destinationId": "11111122-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "Renting a bicycle to explore the ancient ruins across the boulder landscape was simply unforgettable.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "41111144-1111-4111-a111-111111111111",
-                "name": "Virupaksha Temple",
-                "description": "An ancient operational temple complex dedicated to Lord Shiva.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "41111145-1111-4111-a111-111111111111",
-                "name": "Vittala Temple",
-                "description": "Famous for its iconic stone chariot and musical pillars.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "41111146-1111-4111-a111-111111111111",
-                "name": "Matanga Hill",
-                "description": "A prominent hill offering the best panoramic sunrise views over Hampi.",
-                "icon": "terrain"
-            }
-        ]
-    },
-    {
-        "id": "11111123-1111-4111-a111-111111111111",
-        "name": "Mysore",
-        "city": "Mysore",
-        "state": "Karnataka",
-        "country": "India",
-        "description": "The cultural capital of Karnataka, famous for its magnificent palace, Dasara festival, and traditional silk and sandalwood.",
-        "imageUrl": "/images/destinations/mysore.avif",
-        "category": "cultural",
-        "bestTimeToVisit": "October to February",
-        "weather": "Warm summers, moderate monsoons, and cool, pleasant winters.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.5,
+        "averageRating": 4.4,
         "budgetCategory": "moderate",
         "isFavorite": false,
         "isVisited": false,
-        "icon": "account_balance",
+        "icon": "location_city",
         "createdAt": "2026-08-08T11:31:03.000Z",
         "updatedAt": "2026-08-08T11:31:03.000Z",
         "itineraries": [],
         "reviews": [
             {
-                "id": "21111123-1111-4111-a111-111111111111",
-                "userId": "31111123-1111-4111-a111-111111111111",
-                "userName": "Sanjay Menon",
-                "destinationId": "11111123-1111-4111-a111-111111111111",
+                "id": "00000009-2222-4111-a111-111111111111",
+                "userId": "00000009-3333-4111-a111-111111111111",
+                "userName": "Rohan Gupta",
+                "destinationId": "00000009-1111-4111-a111-111111111111",
                 "rating": 5,
-                "review": "Seeing the Mysore Palace lit up at night is an absolute must. The city is clean and culturally rich.",
+                "review": "Walking along the Ridge and Mall Road was delightful.",
                 "createdAt": "2026-08-08T11:31:03.000Z",
                 "updatedAt": "2026-08-08T11:31:03.000Z",
                 "isOwner": false
@@ -1007,27 +466,81 @@ const destinations = [
         ],
         "attractions": [
             {
-                "id": "41111147-1111-4111-a111-111111111111",
-                "name": "Mysore Palace",
-                "description": "An incredibly ornate royal palace, spectacularly illuminated on weekends.",
-                "icon": "account_balance"
+                "id": "00000009-4441-4111-a111-111111111111",
+                "name": "The Ridge",
+                "description": "Large open space offering panoramic mountain views.",
+                "icon": "terrain"
             },
             {
-                "id": "41111148-1111-4111-a111-111111111111",
-                "name": "Chamundeshwari Temple",
-                "description": "A traditional Hindu temple perched atop the Chamundi Hills.",
-                "icon": "account_balance"
+                "id": "00000009-4442-4111-a111-111111111111",
+                "name": "Mall Road",
+                "description": "Main street filled with shops, cafes, and heritage sites.",
+                "icon": "store"
             },
             {
-                "id": "41111149-1111-4111-a111-111111111111",
-                "name": "Brindavan Gardens",
-                "description": "Famous terrace gardens featuring musical fountains.",
-                "icon": "park"
+                "id": "00000009-4443-4111-a111-111111111111",
+                "name": "Jakhoo Temple",
+                "description": "Ancient temple dedicated to Lord Hanuman on highest peak.",
+                "icon": "account_balance"
             }
         ]
     },
     {
-        "id": "11111124-1111-4111-a111-111111111111",
+        "id": "0000000a-1111-4111-a111-111111111111",
+        "name": "Alleppey",
+        "city": "Alappuzha",
+        "state": "Kerala",
+        "country": "India",
+        "description": "The 'Venice of the East', celebrated for its romantic houseboat cruises along tranquil palm-lined backwaters and lush paddy fields.",
+        "imageUrl": "/images/destinations/alleppey.avif",
+        "category": "romantic",
+        "bestTimeToVisit": "October to February",
+        "weather": "Warm and tropical, with heavy monsoon rainfall.",
+        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
+        "averageRating": 4.7,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "sailing",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "0000000a-2222-4111-a111-111111111111",
+                "userId": "0000000a-3333-4111-a111-111111111111",
+                "userName": "Ananya Pillai",
+                "destinationId": "0000000a-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Private houseboat cruise through quiet backwaters was pure bliss.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "0000000a-4441-4111-a111-111111111111",
+                "name": "Kerala Backwaters",
+                "description": "Vast network of interconnected canals, rivers, and lakes.",
+                "icon": "water"
+            },
+            {
+                "id": "0000000a-4442-4111-a111-111111111111",
+                "name": "Alappuzha Beach",
+                "description": "Popular beach featuring a historic 150-year-old pier.",
+                "icon": "beach_access"
+            },
+            {
+                "id": "0000000a-4443-4111-a111-111111111111",
+                "name": "Vembanad Lake",
+                "description": "Longest lake in India, host of the famous Nehru Trophy Boat Race.",
+                "icon": "sailing"
+            }
+        ]
+    },
+    {
+        "id": "0000000b-1111-4111-a111-111111111111",
         "name": "Wayanad",
         "city": "Kalpetta",
         "state": "Kerala",
@@ -1048,12 +561,12 @@ const destinations = [
         "itineraries": [],
         "reviews": [
             {
-                "id": "21111124-1111-4111-a111-111111111111",
-                "userId": "31111124-1111-4111-a111-111111111111",
+                "id": "0000000b-2222-4111-a111-111111111111",
+                "userId": "0000000b-3333-4111-a111-111111111111",
                 "userName": "Akshay Nair",
-                "destinationId": "11111124-1111-4111-a111-111111111111",
+                "destinationId": "0000000b-1111-4111-a111-111111111111",
                 "rating": 5,
-                "review": "A perfect nature escape. The trek to Chembra peak and the serene bamboo forests were highlights.",
+                "review": "Trek to Chembra heart-shaped lake was pure magic.",
                 "createdAt": "2026-08-08T11:31:03.000Z",
                 "updatedAt": "2026-08-08T11:31:03.000Z",
                 "isOwner": false
@@ -1061,19 +574,19 @@ const destinations = [
         ],
         "attractions": [
             {
-                "id": "4111114a-1111-4111-a111-111111111111",
+                "id": "0000000b-4441-4111-a111-111111111111",
                 "name": "Edakkal Caves",
                 "description": "Two natural caves containing ancient petroglyphs and rock carvings.",
                 "icon": "terrain"
             },
             {
-                "id": "4111114b-1111-4111-a111-111111111111",
+                "id": "0000000b-4442-4111-a111-111111111111",
                 "name": "Banasura Sagar Dam",
                 "description": "The largest earth dam in India offering speed boating and scenic views.",
                 "icon": "water"
             },
             {
-                "id": "4111114c-1111-4111-a111-111111111111",
+                "id": "0000000b-4443-4111-a111-111111111111",
                 "name": "Chembra Peak",
                 "description": "The highest peak in Wayanad, famous for its heart-shaped lake.",
                 "icon": "landscape"
@@ -1081,612 +594,18 @@ const destinations = [
         ]
     },
     {
-        "id": "11111125-1111-4111-a111-111111111111",
-        "name": "Pondicherry",
-        "city": "Pondicherry",
-        "state": "Puducherry",
+        "id": "0000000c-1111-4111-a111-111111111111",
+        "name": "Imphal",
+        "city": "Imphal",
+        "state": "Manipur",
         "country": "India",
-        "description": "A charming coastal town blending French colonial architecture, spiritual ashrams, and beautiful beaches into a unique cultural experience.",
-        "imageUrl": "/images/destinations/pondicherry.avif",
-        "category": "beach",
-        "bestTimeToVisit": "October to March",
-        "weather": "Hot and humid summers, with a pleasant and cooler climate during the winter months.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.5,
-        "budgetCategory": "moderate",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "beach_access",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "21111125-1111-4111-a111-111111111111",
-                "userId": "31111125-1111-4111-a111-111111111111",
-                "userName": "Chloe Martin",
-                "destinationId": "11111125-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "Cycling through the French Quarter and relaxing at Promenade beach made for a lovely holiday.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "4111114d-1111-4111-a111-111111111111",
-                "name": "Auroville",
-                "description": "An experimental spiritual township dedicated to human unity.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "4111114e-1111-4111-a111-111111111111",
-                "name": "Promenade Beach",
-                "description": "A popular rocky beachside promenade ideal for evening walks.",
-                "icon": "beach_access"
-            },
-            {
-                "id": "4111114f-1111-4111-a111-111111111111",
-                "name": "Sri Aurobindo Ashram",
-                "description": "A well-known spiritual community and destination for seekers.",
-                "icon": "temple_buddhist"
-            }
-        ]
-    },
-    {
-        "id": "11111126-1111-4111-a111-111111111111",
-        "name": "Kodaikanal",
-        "city": "Kodaikanal",
-        "state": "Tamil Nadu",
-        "country": "India",
-        "description": "A misty, forested hill station known for its star-shaped lake, cascading waterfalls, and beautiful pine forests.",
-        "imageUrl": "/images/destinations/kodaikanal.avif",
-        "category": "hill_station",
-        "bestTimeToVisit": "October to June",
-        "weather": "Cool and misty throughout the year. Monsoons can bring heavy rain.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.4,
-        "budgetCategory": "moderate",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "landscape",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "21111126-1111-4111-a111-111111111111",
-                "userId": "31111126-1111-4111-a111-111111111111",
-                "userName": "Gaurav Singh",
-                "destinationId": "11111126-1111-4111-a111-111111111111",
-                "rating": 4,
-                "review": "Boating on Kodai lake and walking through the pine forest feels incredibly refreshing.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "41111150-1111-4111-a111-111111111111",
-                "name": "Kodaikanal Lake",
-                "description": "A man-made, star-shaped lake offering boating and cycling.",
-                "icon": "water"
-            },
-            {
-                "id": "41111151-1111-4111-a111-111111111111",
-                "name": "Coaker's Walk",
-                "description": "A paved pedestrian path running along steep slopes, offering scenic valley views.",
-                "icon": "terrain"
-            },
-            {
-                "id": "41111152-1111-4111-a111-111111111111",
-                "name": "Pillar Rocks",
-                "description": "Three giant rock pillars providing great photo opportunities.",
-                "icon": "landscape"
-            }
-        ]
-    },
-    {
-        "id": "11111127-1111-4111-a111-111111111111",
-        "name": "Hyderabad",
-        "city": "Hyderabad",
-        "state": "Telangana",
-        "country": "India",
-        "description": "The 'City of Pearls', known for its iconic Charminar, historic Golconda Fort, and its world-famous Hyderabadi Biryani.",
-        "imageUrl": "/images/destinations/hyderabad.avif",
-        "category": "urban",
-        "bestTimeToVisit": "October to March",
-        "weather": "Hot and dry summers, moderate monsoons, and pleasant winters.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.5,
-        "budgetCategory": "moderate",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "location_city",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "21111127-1111-4111-a111-111111111111",
-                "userId": "31111127-1111-4111-a111-111111111111",
-                "userName": "Arjun Rao",
-                "destinationId": "11111127-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "Golconda Fort is magnificent. And eating authentic biryani in the old city is an absolute must.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "41111153-1111-4111-a111-111111111111",
-                "name": "Charminar",
-                "description": "A historic monument and mosque synonymous with the city of Hyderabad.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "41111154-1111-4111-a111-111111111111",
-                "name": "Golconda Fort",
-                "description": "A majestic fortress known for its incredible acoustics and history.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "41111155-1111-4111-a111-111111111111",
-                "name": "Ramoji Film City",
-                "description": "One of the largest film studio complexes in the world.",
-                "icon": "camera_alt"
-            }
-        ]
-    },
-    {
-        "id": "11111128-1111-4111-a111-111111111111",
-        "name": "Kolkata",
-        "city": "Kolkata",
-        "state": "West Bengal",
-        "country": "India",
-        "description": "The cultural and intellectual capital of India, famous for its colonial architecture, art galleries, and vibrant Durga Puja.",
-        "imageUrl": "/images/destinations/kolkata.avif",
-        "category": "cultural",
-        "bestTimeToVisit": "October to March",
-        "weather": "Hot and humid summers, heavy monsoons, and pleasant winters.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.4,
-        "budgetCategory": "moderate",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "location_city",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "21111128-1111-4111-a111-111111111111",
-                "userId": "31111128-1111-4111-a111-111111111111",
-                "userName": "Riya Das",
-                "destinationId": "11111128-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "The food scene is unparalleled, from street rolls to authentic sweets. Victoria Memorial is stunning.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "41111156-1111-4111-a111-111111111111",
-                "name": "Victoria Memorial",
-                "description": "A magnificent marble building honoring Queen Victoria, now a museum.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "41111157-1111-4111-a111-111111111111",
-                "name": "Howrah Bridge",
-                "description": "Iconic cantilever bridge spanning the Hooghly River.",
-                "icon": "tour"
-            },
-            {
-                "id": "41111158-1111-4111-a111-111111111111",
-                "name": "Dakshineswar Kali Temple",
-                "description": "A prominent Hindu temple located on the eastern bank of the Hooghly River.",
-                "icon": "temple_hindu"
-            }
-        ]
-    },
-    {
-        "id": "11111129-1111-4111-a111-111111111111",
-        "name": "Darjeeling",
-        "city": "Darjeeling",
-        "state": "West Bengal",
-        "country": "India",
-        "description": "Famed for its sprawling tea estates, the Darjeeling Himalayan Railway, and stunning views of the Kanchenjunga peak.",
-        "imageUrl": "/images/destinations/darjeeling.avif",
-        "category": "hill_station",
-        "bestTimeToVisit": "March to May and October to November",
-        "weather": "Cool and pleasant summers, cold winters, and heavy rainfall during the monsoon.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.7,
-        "budgetCategory": "moderate",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "landscape",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "21111129-1111-4111-a111-111111111111",
-                "userId": "31111129-1111-4111-a111-111111111111",
-                "userName": "Anand Sen",
-                "destinationId": "11111129-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "Waking up early to see the sunrise at Tiger Hill illuminating Kanchenjunga was phenomenal.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "41111159-1111-4111-a111-111111111111",
-                "name": "Tiger Hill",
-                "description": "Renowned for spectacular sunrise views over Mount Kanchenjunga.",
-                "icon": "landscape"
-            },
-            {
-                "id": "4111115a-1111-4111-a111-111111111111",
-                "name": "Darjeeling Himalayan Railway",
-                "description": "UNESCO World Heritage 'Toy Train' offering beautiful scenic rides.",
-                "icon": "tour"
-            },
-            {
-                "id": "4111115b-1111-4111-a111-111111111111",
-                "name": "Batasia Loop",
-                "description": "A spiral railway track where the toy train makes a 360-degree turn.",
-                "icon": "terrain"
-            }
-        ]
-    },
-    {
-        "id": "1111112a-1111-4111-a111-111111111111",
-        "name": "Bhubaneswar",
-        "city": "Bhubaneswar",
-        "state": "Odisha",
-        "country": "India",
-        "description": "The 'Temple City of India', known for its ancient sandstone temples and its significance as a major Hindu pilgrimage center.",
-        "imageUrl": "/images/destinations/bhubaneswar.avif",
-        "category": "historical",
-        "bestTimeToVisit": "October to March",
-        "weather": "Hot and humid summers, strong monsoons, and mild, pleasant winters.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.3,
-        "budgetCategory": "budget",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "temple_hindu",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "2111112a-1111-4111-a111-111111111111",
-                "userId": "3111112a-1111-4111-a111-111111111111",
-                "userName": "Ramesh Patra",
-                "destinationId": "1111112a-1111-4111-a111-111111111111",
-                "rating": 4,
-                "review": "The architecture of Lingaraj Temple is majestic. A great city for history and culture enthusiasts.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "4111115c-1111-4111-a111-111111111111",
-                "name": "Lingaraja Temple",
-                "description": "An ancient and highly revered Hindu temple dedicated to Lord Shiva.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "4111115d-1111-4111-a111-111111111111",
-                "name": "Udayagiri and Khandagiri Caves",
-                "description": "Ancient, partly natural and partly artificial caves of archaeological importance.",
-                "icon": "terrain"
-            },
-            {
-                "id": "4111115e-1111-4111-a111-111111111111",
-                "name": "Muktesvara Temple",
-                "description": "A 10th-century Hindu temple celebrated for its exquisite stone archway.",
-                "icon": "account_balance"
-            }
-        ]
-    },
-    {
-        "id": "1111112b-1111-4111-a111-111111111111",
-        "name": "Puri",
-        "city": "Puri",
-        "state": "Odisha",
-        "country": "India",
-        "description": "A prominent pilgrimage city known for the revered Jagannath Temple and its golden beaches lining the Bay of Bengal.",
-        "imageUrl": "/images/destinations/puri.avif",
-        "category": "pilgrimage",
-        "bestTimeToVisit": "October to March",
-        "weather": "Hot summers, heavy monsoon rains, and comfortable winters.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.5,
-        "budgetCategory": "budget",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "beach_access",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "2111112b-1111-4111-a111-111111111111",
-                "userId": "3111112b-1111-4111-a111-111111111111",
-                "userName": "Anita Mohanty",
-                "destinationId": "1111112b-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "The darshan at Jagannath temple was spiritually uplifting. The beach is a nice place to relax afterward.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "4111115f-1111-4111-a111-111111111111",
-                "name": "Jagannath Temple",
-                "description": "An important Hindu temple dedicated to Lord Jagannath, famous for its annual Rath Yatra.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "41111160-1111-4111-a111-111111111111",
-                "name": "Puri Beach",
-                "description": "A bustling golden sand beach on the shores of the Bay of Bengal.",
-                "icon": "beach_access"
-            },
-            {
-                "id": "41111161-1111-4111-a111-111111111111",
-                "name": "Chilika Lake",
-                "description": "A brackish water lagoon nearby, famous for migratory birds and dolphins.",
-                "icon": "water"
-            }
-        ]
-    },
-    {
-        "id": "1111112c-1111-4111-a111-111111111111",
-        "name": "Gangtok",
-        "city": "Gangtok",
-        "state": "Sikkim",
-        "country": "India",
-        "description": "The capital of Sikkim, offering stunning views of Mt. Kanchenjunga, serene Buddhist monasteries, and vibrant Tibetan culture.",
-        "imageUrl": "/images/destinations/gangtok.avif",
+        "description": "The capital of Manipur, famous for Loktak Lake with floating phumdis and Keibul Lamjao floating park.",
+        "imageUrl": "/images/destinations/imphal.avif",
         "category": "nature",
-        "bestTimeToVisit": "September to November and March to May",
-        "weather": "Pleasant summers, freezing winters, and heavy monsoons that can cause landslides.",
-        "entryRequirements": "Foreigners require an Inner Line Permit (ILP) to enter Sikkim. Domestic tourists require regular ID.",
-        "averageRating": 4.6,
-        "budgetCategory": "moderate",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "landscape",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "2111112c-1111-4111-a111-111111111111",
-                "userId": "3111112c-1111-4111-a111-111111111111",
-                "userName": "Tenzin Dorjee",
-                "destinationId": "1111112c-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "A clean, beautiful city. A trip to Tsomgo Lake and MG Marg makes the visit worthwhile.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "41111162-1111-4111-a111-111111111111",
-                "name": "MG Marg",
-                "description": "The lively, pedestrian-only main street lined with cafes and shops.",
-                "icon": "store"
-            },
-            {
-                "id": "41111163-1111-4111-a111-111111111111",
-                "name": "Rumtek Monastery",
-                "description": "One of the largest and most significant Buddhist monasteries in Sikkim.",
-                "icon": "temple_buddhist"
-            },
-            {
-                "id": "41111164-1111-4111-a111-111111111111",
-                "name": "Tsomgo Lake",
-                "description": "A highly revered glacial lake located at a high altitude.",
-                "icon": "water"
-            }
-        ]
-    },
-    {
-        "id": "1111112d-1111-4111-a111-111111111111",
-        "name": "Shillong",
-        "city": "Shillong",
-        "state": "Meghalaya",
-        "country": "India",
-        "description": "Known as the 'Scotland of the East', Shillong features rolling hills, impressive waterfalls, and a vibrant local music scene.",
-        "imageUrl": "/images/destinations/shillong.avif",
-        "category": "nature",
-        "bestTimeToVisit": "March to June and September to November",
-        "weather": "Pleasant and cool year-round, with substantial rainfall during the monsoon months.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
+        "bestTimeToVisit": "October to April",
+        "weather": "Pleasant climate.",
+        "entryRequirements": "Valid government-issued photo ID.",
         "averageRating": 4.5,
-        "budgetCategory": "moderate",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "landscape",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "2111112d-1111-4111-a111-111111111111",
-                "userId": "3111112d-1111-4111-a111-111111111111",
-                "userName": "Ravi Teja",
-                "destinationId": "1111112d-1111-4111-a111-111111111111",
-                "rating": 4,
-                "review": "The views from Shillong Peak are great, and the Umiam lake is perfect for a relaxed afternoon.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "41111165-1111-4111-a111-111111111111",
-                "name": "Umiam Lake",
-                "description": "A massive, scenic reservoir surrounded by hills, popular for water sports.",
-                "icon": "water"
-            },
-            {
-                "id": "41111166-1111-4111-a111-111111111111",
-                "name": "Elephant Falls",
-                "description": "A multi-tiered waterfall accessible via well-maintained stairs.",
-                "icon": "water"
-            },
-            {
-                "id": "41111167-1111-4111-a111-111111111111",
-                "name": "Shillong Peak",
-                "description": "The highest point in Shillong offering panoramic views of the city.",
-                "icon": "terrain"
-            }
-        ]
-    },
-    {
-        "id": "1111112e-1111-4111-a111-111111111111",
-        "name": "Kaziranga National Park",
-        "city": "Bokakhat",
-        "state": "Assam",
-        "country": "India",
-        "description": "A UNESCO World Heritage site and a biodiversity hotspot famous for holding the world's largest population of one-horned rhinoceroses.",
-        "imageUrl": "/images/destinations/kaziranga-national-park.avif",
-        "category": "wildlife",
-        "bestTimeToVisit": "November to April",
-        "weather": "Mild winters and hot summers. The park is flooded and closed during the monsoon season.",
-        "entryRequirements": "Valid ID required. Entry fees and safari permits are mandatory for park access.",
-        "averageRating": 4.8,
-        "budgetCategory": "moderate",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "pets",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "2111112e-1111-4111-a111-111111111111",
-                "userId": "3111112e-1111-4111-a111-111111111111",
-                "userName": "James Wilson",
-                "destinationId": "1111112e-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "An incredible safari experience. We saw rhinos, elephants, and a huge variety of birdlife.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "41111168-1111-4111-a111-111111111111",
-                "name": "Central Range (Kohora)",
-                "description": "The most accessible safari zone offering excellent rhino sightings.",
-                "icon": "terrain"
-            },
-            {
-                "id": "41111169-1111-4111-a111-111111111111",
-                "name": "Western Range (Bagori)",
-                "description": "Renowned for its high density of rhinos and lush landscapes.",
-                "icon": "landscape"
-            },
-            {
-                "id": "4111116a-1111-4111-a111-111111111111",
-                "name": "Kaziranga Orchid and Biodiversity Park",
-                "description": "A massive park displaying hundreds of orchid varieties and local culture.",
-                "icon": "park"
-            }
-        ]
-    },
-    {
-        "id": "1111112f-1111-4111-a111-111111111111",
-        "name": "Tawang",
-        "city": "Tawang",
-        "state": "Arunachal Pradesh",
-        "country": "India",
-        "description": "A high-altitude town celebrated for its pristine natural beauty and the majestic Tawang Monastery, deeply rooted in Tibetan Buddhism.",
-        "imageUrl": "/images/destinations/tawang.avif",
-        "category": "cultural",
-        "bestTimeToVisit": "March to May and September to October",
-        "weather": "Freezing winters with heavy snow, and pleasant summers.",
-        "entryRequirements": "Indian tourists require an Inner Line Permit (ILP); foreigners need a Protected Area Permit (PAP).",
-        "averageRating": 4.7,
-        "budgetCategory": "moderate",
-        "isFavorite": false,
-        "isVisited": false,
-        "icon": "terrain",
-        "createdAt": "2026-08-08T11:31:03.000Z",
-        "updatedAt": "2026-08-08T11:31:03.000Z",
-        "itineraries": [],
-        "reviews": [
-            {
-                "id": "2111112f-1111-4111-a111-111111111111",
-                "userId": "3111112f-1111-4111-a111-111111111111",
-                "userName": "Manoj Kumar",
-                "destinationId": "1111112f-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "The drive via Sela Pass is thrilling, and Tawang Monastery radiates such peace and history.",
-                "createdAt": "2026-08-08T11:31:03.000Z",
-                "updatedAt": "2026-08-08T11:31:03.000Z",
-                "isOwner": false
-            }
-        ],
-        "attractions": [
-            {
-                "id": "4111116b-1111-4111-a111-111111111111",
-                "name": "Tawang Monastery",
-                "description": "The largest monastery in India and a vital center of Mahayana Buddhism.",
-                "icon": "account_balance"
-            },
-            {
-                "id": "4111116c-1111-4111-a111-111111111111",
-                "name": "Sela Pass",
-                "description": "A breathtaking high-altitude mountain pass connecting Tawang to the rest of India.",
-                "icon": "terrain"
-            },
-            {
-                "id": "4111116d-1111-4111-a111-111111111111",
-                "name": "Madhuri Lake",
-                "description": "A stunning high-altitude lake formed by an earthquake.",
-                "icon": "water"
-            }
-        ]
-    },
-    {
-        "id": "11111130-1111-4111-a111-111111111111",
-        "name": "Cherrapunji",
-        "city": "Cherrapunji",
-        "state": "Meghalaya",
-        "country": "India",
-        "description": "Famous as one of the wettest places on earth, offering spectacular plunging waterfalls, living root bridges, and limestone caves.",
-        "imageUrl": "/images/destinations/cherrapunji.avif",
-        "category": "nature",
-        "bestTimeToVisit": "October to February",
-        "weather": "Exceptionally heavy rainfall during monsoons; cool and relatively dry during winters.",
-        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.6,
         "budgetCategory": "budget",
         "isFavorite": false,
         "isVisited": false,
@@ -1696,12 +615,12 @@ const destinations = [
         "itineraries": [],
         "reviews": [
             {
-                "id": "21111130-1111-4111-a111-111111111111",
-                "userId": "31111130-1111-4111-a111-111111111111",
-                "userName": "Sonia Bhatia",
-                "destinationId": "11111130-1111-4111-a111-111111111111",
+                "id": "0000000c-2222-4111-a111-111111111111",
+                "userId": "0000000c-3333-4111-a111-111111111111",
+                "userName": "Linthoingambi Meitei",
+                "destinationId": "0000000c-1111-4111-a111-111111111111",
                 "rating": 5,
-                "review": "Trekking down to the Double Decker Root Bridge is challenging but absolutely rewarding.",
+                "review": "Floating homestay on Loktak Lake is unbelievable.",
                 "createdAt": "2026-08-08T11:31:03.000Z",
                 "updatedAt": "2026-08-08T11:31:03.000Z",
                 "isOwner": false
@@ -1709,39 +628,93 @@ const destinations = [
         ],
         "attractions": [
             {
-                "id": "4111116e-1111-4111-a111-111111111111",
-                "name": "Nohkalikai Falls",
-                "description": "The tallest plunge waterfall in India, offering dramatic views.",
+                "id": "0000000c-4441-4111-a111-111111111111",
+                "name": "Loktak Lake",
+                "description": "Largest freshwater lake in Northeast with floating islands.",
                 "icon": "water"
             },
             {
-                "id": "4111116f-1111-4111-a111-111111111111",
-                "name": "Double Decker Living Root Bridge",
-                "description": "An incredible natural bridge fashioned from the roots of rubber trees.",
-                "icon": "park"
+                "id": "0000000c-4442-4111-a111-111111111111",
+                "name": "Keibul Lamjao Park",
+                "description": "World's only floating national park.",
+                "icon": "forest"
             },
             {
-                "id": "41111170-1111-4111-a111-111111111111",
-                "name": "Mawsmai Cave",
-                "description": "A well-lit limestone cave known for its stunning stalactite formations.",
-                "icon": "terrain"
+                "id": "0000000c-4443-4111-a111-111111111111",
+                "name": "Kangla Fort",
+                "description": "Ancient seat of Manipur rulers.",
+                "icon": "account_balance"
             }
         ]
     },
     {
-        "id": "11111131-1111-4111-a111-111111111111",
-        "name": "Delhi",
-        "city": "New Delhi",
-        "state": "Delhi",
+        "id": "0000000d-1111-4111-a111-111111111111",
+        "name": "Amritsar",
+        "city": "Amritsar",
+        "state": "Punjab",
         "country": "India",
-        "description": "The capital of India, where historical monuments from the Mughal era coexist with modern infrastructure and legendary street food.",
-        "imageUrl": "/images/destinations/delhi.avif",
+        "description": "The spiritual and cultural center of the Sikh religion, home to the spectacular Golden Temple and rich historical monuments.",
+        "imageUrl": "/images/destinations/amritsar.avif",
+        "category": "pilgrimage",
+        "bestTimeToVisit": "October to March",
+        "weather": "Scorching summers, pleasant autumns, and cold winters.",
+        "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
+        "averageRating": 4.8,
+        "budgetCategory": "budget",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "temple_buddhist",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "0000000d-2222-4111-a111-111111111111",
+                "userId": "0000000d-3333-4111-a111-111111111111",
+                "userName": "Vikram Singh",
+                "destinationId": "0000000d-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "The Golden Temple at night is humbling and peaceful.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "0000000d-4441-4111-a111-111111111111",
+                "name": "Golden Temple",
+                "description": "The holiest Gurdwara of Sikhism covered in gold leaf.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "0000000d-4442-4111-a111-111111111111",
+                "name": "Jallianwala Bagh",
+                "description": "Historic garden and memorial of national importance.",
+                "icon": "park"
+            },
+            {
+                "id": "0000000d-4443-4111-a111-111111111111",
+                "name": "Wagah Border",
+                "description": "Daily border ceremony between Indian and Pakistani forces.",
+                "icon": "tour"
+            }
+        ]
+    },
+    {
+        "id": "0000000e-1111-4111-a111-111111111111",
+        "name": "Kurukshetra",
+        "city": "Kurukshetra",
+        "state": "Haryana",
+        "country": "India",
+        "description": "A holy historical city revered as the battlefield of Mahabharata and the sacred land where Lord Krishna delivered the Bhagavad Gita.",
+        "imageUrl": "/images/destinations/kurukshetra.avif",
         "category": "historical",
         "bestTimeToVisit": "October to March",
-        "weather": "Intensely hot summers, heavy monsoons, and chilly winters.",
+        "weather": "Hot summers, cool winters.",
         "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
         "averageRating": 4.4,
-        "budgetCategory": "moderate",
+        "budgetCategory": "budget",
         "isFavorite": false,
         "isVisited": false,
         "icon": "account_balance",
@@ -1750,12 +723,12 @@ const destinations = [
         "itineraries": [],
         "reviews": [
             {
-                "id": "21111131-1111-4111-a111-111111111111",
-                "userId": "31111131-1111-4111-a111-111111111111",
-                "userName": "Rakesh Sharma",
-                "destinationId": "11111131-1111-4111-a111-111111111111",
+                "id": "0000000e-2222-4111-a111-111111111111",
+                "userId": "0000000e-3333-4111-a111-111111111111",
+                "userName": "Rajesh Saini",
+                "destinationId": "0000000e-1111-4111-a111-111111111111",
                 "rating": 4,
-                "review": "A city of contrasts. Qutub Minar and India Gate are spectacular, though the traffic can be chaotic.",
+                "review": "Brahma Sarovar is massive and peaceful.",
                 "createdAt": "2026-08-08T11:31:03.000Z",
                 "updatedAt": "2026-08-08T11:31:03.000Z",
                 "isOwner": false
@@ -1763,53 +736,53 @@ const destinations = [
         ],
         "attractions": [
             {
-                "id": "41111171-1111-4111-a111-111111111111",
-                "name": "Red Fort",
-                "description": "A historic red sandstone fort that served as the main residence of Mughal Emperors.",
-                "icon": "account_balance"
+                "id": "0000000e-4441-4111-a111-111111111111",
+                "name": "Brahma Sarovar",
+                "description": "Ancient water tank considered one of largest in Asia.",
+                "icon": "water"
             },
             {
-                "id": "41111172-1111-4111-a111-111111111111",
-                "name": "India Gate",
-                "description": "A monumental war memorial arch in the heart of New Delhi.",
-                "icon": "account_balance"
+                "id": "0000000e-4442-4111-a111-111111111111",
+                "name": "Jyotisar",
+                "description": "Sacred site under banyan tree where Bhagavad Gita was spoken.",
+                "icon": "park"
             },
             {
-                "id": "41111173-1111-4111-a111-111111111111",
-                "name": "Qutub Minar",
-                "description": "A towering UNESCO World Heritage minaret built in the 12th century.",
-                "icon": "account_balance"
+                "id": "0000000e-4443-4111-a111-111111111111",
+                "name": "Krishna Museum",
+                "description": "Museum depicting life and teachings of Lord Krishna.",
+                "icon": "museum"
             }
         ]
     },
     {
-        "id": "11111132-1111-4111-a111-111111111111",
-        "name": "Kanyakumari",
-        "city": "Kanyakumari",
-        "state": "Tamil Nadu",
+        "id": "0000000f-1111-4111-a111-111111111111",
+        "name": "Delhi",
+        "city": "Delhi",
+        "state": "Delhi",
         "country": "India",
-        "description": "The southernmost tip of the Indian subcontinent, famous for its unique sunrise and sunset views over the ocean convergence.",
-        "imageUrl": "/images/destinations/kanyakumari.avif",
-        "category": "nature",
+        "description": "The historical capital of India, blending centuries of Mughal history, colonial architecture, street markets, and modern infrastructure.",
+        "imageUrl": "/images/destinations/delhi.avif",
+        "category": "urban",
         "bestTimeToVisit": "October to March",
-        "weather": "Warm and humid throughout the year, with pleasant evenings.",
+        "weather": "Extremely hot summers and cold winters.",
         "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
-        "averageRating": 4.3,
-        "budgetCategory": "budget",
+        "averageRating": 4.4,
+        "budgetCategory": "moderate",
         "isFavorite": false,
         "isVisited": false,
-        "icon": "water",
+        "icon": "location_city",
         "createdAt": "2026-08-08T11:31:03.000Z",
         "updatedAt": "2026-08-08T11:31:03.000Z",
         "itineraries": [],
         "reviews": [
             {
-                "id": "21111132-1111-4111-a111-111111111111",
-                "userId": "31111132-1111-4111-a111-111111111111",
-                "userName": "Lakshmi Narayanan",
-                "destinationId": "11111132-1111-4111-a111-111111111111",
-                "rating": 5,
-                "review": "The Vivekananda Rock Memorial is deeply calming. Watching the sunrise here is a must-do.",
+                "id": "0000000f-2222-4111-a111-111111111111",
+                "userId": "0000000f-3333-4111-a111-111111111111",
+                "userName": "Kabir Khanna",
+                "destinationId": "0000000f-1111-4111-a111-111111111111",
+                "rating": 4,
+                "review": "Chandni Chowk food and Qutub Minar complex are essential experiences.",
                 "createdAt": "2026-08-08T11:31:03.000Z",
                 "updatedAt": "2026-08-08T11:31:03.000Z",
                 "isOwner": false
@@ -1817,36 +790,36 @@ const destinations = [
         ],
         "attractions": [
             {
-                "id": "41111174-1111-4111-a111-111111111111",
-                "name": "Vivekananda Rock Memorial",
-                "description": "A sacred monument located on a rock island off the coast.",
+                "id": "0000000f-4441-4111-a111-111111111111",
+                "name": "Red Fort",
+                "description": "17th-century Mughal red sandstone fortress.",
                 "icon": "account_balance"
             },
             {
-                "id": "41111175-1111-4111-a111-111111111111",
-                "name": "Thiruvalluvar Statue",
-                "description": "A massive stone sculpture of the Tamil poet and philosopher.",
+                "id": "0000000f-4442-4111-a111-111111111111",
+                "name": "Qutub Minar",
+                "description": "UNESCO World Heritage tallest brick minaret in world.",
                 "icon": "account_balance"
             },
             {
-                "id": "41111176-1111-4111-a111-111111111111",
-                "name": "Kanyakumari Beach",
-                "description": "Famous for viewing the confluence of three oceans.",
-                "icon": "beach_access"
+                "id": "0000000f-4443-4111-a111-111111111111",
+                "name": "Humayun's Tomb",
+                "description": "Sublime Mughal garden tomb that inspired Taj Mahal.",
+                "icon": "account_balance"
             }
         ]
     },
     {
-        "id": "11111133-1111-4111-a111-111111111111",
-        "name": "Alleppey",
-        "city": "Alappuzha",
-        "state": "Kerala",
+        "id": "00000010-1111-4111-a111-111111111111",
+        "name": "Srinagar",
+        "city": "Srinagar",
+        "state": "Jammu and Kashmir",
         "country": "India",
-        "description": "The 'Venice of the East', celebrated for its romantic houseboat cruises along the tranquil backwaters and lush green paddy fields.",
-        "imageUrl": "/images/destinations/alleppey.avif",
+        "description": "Known as 'Paradise on Earth', famous for its tranquil Dal Lake, beautiful houseboats, and stunning Mughal gardens.",
+        "imageUrl": "/images/destinations/srinagar.avif",
         "category": "romantic",
-        "bestTimeToVisit": "October to February",
-        "weather": "Warm and tropical, with heavy rainfall during the monsoon season.",
+        "bestTimeToVisit": "April to October",
+        "weather": "Cold winters with heavy snow and pleasant, cool summers.",
         "entryRequirements": "Valid government-issued photo ID is generally sufficient for domestic travelers.",
         "averageRating": 4.7,
         "budgetCategory": "moderate",
@@ -1858,12 +831,12 @@ const destinations = [
         "itineraries": [],
         "reviews": [
             {
-                "id": "21111133-1111-4111-a111-111111111111",
-                "userId": "31111133-1111-4111-a111-111111111111",
-                "userName": "Daniel Lee",
-                "destinationId": "11111133-1111-4111-a111-111111111111",
+                "id": "00000010-2222-4111-a111-111111111111",
+                "userId": "00000010-3333-4111-a111-111111111111",
+                "userName": "Meera Reddy",
+                "destinationId": "00000010-1111-4111-a111-111111111111",
                 "rating": 5,
-                "review": "Cruising the backwaters on a traditional houseboat was the most relaxing part of our India trip.",
+                "review": "Houseboat stay on Dal Lake was romantic and peaceful.",
                 "createdAt": "2026-08-08T11:31:03.000Z",
                 "updatedAt": "2026-08-08T11:31:03.000Z",
                 "isOwner": false
@@ -1871,22 +844,1426 @@ const destinations = [
         ],
         "attractions": [
             {
-                "id": "41111177-1111-4111-a111-111111111111",
-                "name": "Kerala Backwaters",
-                "description": "A vast network of interconnected canals, rivers, and lakes.",
+                "id": "00000010-4441-4111-a111-111111111111",
+                "name": "Dal Lake",
+                "description": "Iconic lake offering shikara rides and floating markets.",
                 "icon": "water"
             },
             {
-                "id": "41111178-1111-4111-a111-111111111111",
-                "name": "Alappuzha Beach",
-                "description": "A popular beach known for its historic pier and lighthouse.",
+                "id": "00000010-4442-4111-a111-111111111111",
+                "name": "Shalimar Bagh",
+                "description": "Magnificent Mughal garden built by Emperor Jahangir.",
+                "icon": "park"
+            },
+            {
+                "id": "00000010-4443-4111-a111-111111111111",
+                "name": "Shankaracharya Temple",
+                "description": "Hilltop temple with panoramic city views.",
+                "icon": "account_balance"
+            }
+        ]
+    },
+    {
+        "id": "00000011-1111-4111-a111-111111111111",
+        "name": "Rann of Kutch",
+        "city": "Bhuj",
+        "state": "Gujarat",
+        "country": "India",
+        "description": "A vast seasonal salt marsh famous for its surreal white landscape and the vibrant cultural festival, Rann Utsav.",
+        "imageUrl": "/images/destinations/rann-of-kutch.avif",
+        "category": "cultural",
+        "bestTimeToVisit": "November to February",
+        "weather": "Hot summers, submerged during monsoon, pleasant dry winters.",
+        "entryRequirements": "Entry permit required at Bhirandiyara checkpoint.",
+        "averageRating": 4.7,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "terrain",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000011-2222-4111-a111-111111111111",
+                "userId": "00000011-3333-4111-a111-111111111111",
+                "userName": "Sneha Roy",
+                "destinationId": "00000011-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Full moon night on the white salt desert is otherworldly.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000011-4441-4111-a111-111111111111",
+                "name": "Great Rann of Kutch",
+                "description": "One of largest salt deserts in the world.",
+                "icon": "terrain"
+            },
+            {
+                "id": "00000011-4442-4111-a111-111111111111",
+                "name": "Kalo Dungar",
+                "description": "Highest point in Kutch offering views of Rann.",
+                "icon": "landscape"
+            },
+            {
+                "id": "00000011-4443-4111-a111-111111111111",
+                "name": "Kutch Museum",
+                "description": "Oldest museum in Gujarat displaying tribal art.",
+                "icon": "museum"
+            }
+        ]
+    },
+    {
+        "id": "00000012-1111-4111-a111-111111111111",
+        "name": "Ahmedabad",
+        "city": "Ahmedabad",
+        "state": "Gujarat",
+        "country": "India",
+        "description": "India's first UNESCO World Heritage City, famous for history, Sabarmati Ashram, stepwells, and street food.",
+        "imageUrl": "/images/destinations/ahmedabad.avif",
+        "category": "cultural",
+        "bestTimeToVisit": "November to February",
+        "weather": "Hot summers, pleasant dry winters.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.3,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "account_balance",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000012-2222-4111-a111-111111111111",
+                "userId": "00000012-3333-4111-a111-111111111111",
+                "userName": "Parth Shah",
+                "destinationId": "00000012-1111-4111-a111-111111111111",
+                "rating": 4,
+                "review": "Sabarmati Ashram and Adalaj stepwell are wonderful.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000012-4441-4111-a111-111111111111",
+                "name": "Sabarmati Ashram",
+                "description": "Mahatma Gandhi's former residence.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "00000012-4442-4111-a111-111111111111",
+                "name": "Adalaj Stepwell",
+                "description": "Carved five-story 15th-century stepwell.",
+                "icon": "water"
+            },
+            {
+                "id": "00000012-4443-4111-a111-111111111111",
+                "name": "Kankaria Lake",
+                "description": "Circular lake with parks and entertainment.",
+                "icon": "water"
+            }
+        ]
+    },
+    {
+        "id": "00000013-1111-4111-a111-111111111111",
+        "name": "Mumbai",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "country": "India",
+        "description": "The financial capital of India, known for Bollywood, colonial heritage architecture, street food, and Marine Drive.",
+        "imageUrl": "/images/destinations/mumbai.avif",
+        "category": "urban",
+        "bestTimeToVisit": "October to February",
+        "weather": "Hot and humid most of year with monsoon rains.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.5,
+        "budgetCategory": "luxury",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "location_city",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000013-2222-4111-a111-111111111111",
+                "userId": "00000013-3333-4111-a111-111111111111",
+                "userName": "Neha Joshi",
+                "destinationId": "00000013-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Marine Drive sunset walk is magical.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000013-4441-4111-a111-111111111111",
+                "name": "Gateway of India",
+                "description": "Iconic arch monument overlooking Arabian Sea.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "00000013-4442-4111-a111-111111111111",
+                "name": "Marine Drive",
+                "description": "Picturesque C-shaped seaside promenade.",
+                "icon": "water"
+            },
+            {
+                "id": "00000013-4443-4111-a111-111111111111",
+                "name": "Elephanta Caves",
+                "description": "UNESCO World Heritage rock-cut cave temples.",
+                "icon": "terrain"
+            }
+        ]
+    },
+    {
+        "id": "00000014-1111-4111-a111-111111111111",
+        "name": "Pune",
+        "city": "Pune",
+        "state": "Maharashtra",
+        "country": "India",
+        "description": "A vibrant city blending Maratha history with a thriving modern youth culture, known for educational institutions and Osho Ashram.",
+        "imageUrl": "/images/destinations/pune.avif",
+        "category": "urban",
+        "bestTimeToVisit": "July to February",
+        "weather": "Moderate climate, with pleasant winters and substantial monsoon rainfall.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.2,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "location_city",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000014-2222-4111-a111-111111111111",
+                "userId": "00000014-3333-4111-a111-111111111111",
+                "userName": "Amit Kulkarni",
+                "destinationId": "00000014-1111-4111-a111-111111111111",
+                "rating": 4,
+                "review": "A great mix of historical forts nearby and lively cafe scene.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000014-4441-4111-a111-111111111111",
+                "name": "Aga Khan Palace",
+                "description": "Historic palace tied to Indian freedom movement.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "00000014-4442-4111-a111-111111111111",
+                "name": "Shaniwar Wada",
+                "description": "Historical fortification of Peshwa Empire.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "00000014-4443-4111-a111-111111111111",
+                "name": "Osho Meditation Resort",
+                "description": "Popular spiritual wellness retreat.",
+                "icon": "park"
+            }
+        ]
+    },
+    {
+        "id": "00000015-1111-4111-a111-111111111111",
+        "name": "Mahabaleshwar",
+        "city": "Mahabaleshwar",
+        "state": "Maharashtra",
+        "country": "India",
+        "description": "A picturesque hill station in the Western Ghats renowned for its strawberry farms, majestic viewpoints, and lush green forests.",
+        "imageUrl": "/images/destinations/mahabaleshwar.avif",
+        "category": "hill_station",
+        "bestTimeToVisit": "October to June",
+        "weather": "Pleasant year-round, heavy monsoon rainfall.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.4,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "landscape",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000015-2222-4111-a111-111111111111",
+                "userId": "00000015-3333-4111-a111-111111111111",
+                "userName": "Ria Deshmukh",
+                "destinationId": "00000015-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Gorgeous viewpoints and fresh strawberries!",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000015-4441-4111-a111-111111111111",
+                "name": "Arthur's Seat",
+                "description": "Popular viewpoint offering dramatic valley views.",
+                "icon": "terrain"
+            },
+            {
+                "id": "00000015-4442-4111-a111-111111111111",
+                "name": "Venna Lake",
+                "description": "Beautiful artificial lake popular for boating.",
+                "icon": "water"
+            },
+            {
+                "id": "00000015-4443-4111-a111-111111111111",
+                "name": "Pratapgad Fort",
+                "description": "Historic hill fort offering Konkan coastline views.",
+                "icon": "account_balance"
+            }
+        ]
+    },
+    {
+        "id": "00000016-1111-4111-a111-111111111111",
+        "name": "Bodh Gaya",
+        "city": "Gaya",
+        "state": "Bihar",
+        "country": "India",
+        "description": "The premier global Buddhist pilgrimage destination, where Lord Buddha attained enlightenment beneath the Bodhi Tree.",
+        "imageUrl": "/images/destinations/bodh-gaya.avif",
+        "category": "spiritual",
+        "bestTimeToVisit": "October to March",
+        "weather": "Warm summers, pleasant cool winters.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.7,
+        "budgetCategory": "budget",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "temple_buddhist",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000016-2222-4111-a111-111111111111",
+                "userId": "00000016-3333-4111-a111-111111111111",
+                "userName": "Lin Naing",
+                "destinationId": "00000016-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Profound sense of tranquility under the Bodhi Tree.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000016-4441-4111-a111-111111111111",
+                "name": "Mahabodhi Temple",
+                "description": "UNESCO World Heritage ancient temple of enlightenment.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "00000016-4442-4111-a111-111111111111",
+                "name": "Great Buddha Statue",
+                "description": "Imposing 80-foot seated Buddha statue.",
+                "icon": "park"
+            },
+            {
+                "id": "00000016-4443-4111-a111-111111111111",
+                "name": "Thai Monastery",
+                "description": "Ornate temple with traditional Thai architecture.",
+                "icon": "temple_buddhist"
+            }
+        ]
+    },
+    {
+        "id": "00000017-1111-4111-a111-111111111111",
+        "name": "Ranchi",
+        "city": "Ranchi",
+        "state": "Jharkhand",
+        "country": "India",
+        "description": "The 'City of Waterfalls', surrounded by scenic plateaus, tribal heritage, pine forests, and cascading falls.",
+        "imageUrl": "/images/destinations/ranchi.avif",
+        "category": "nature",
+        "bestTimeToVisit": "September to March",
+        "weather": "Moderate climate year-round.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.3,
+        "budgetCategory": "budget",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "water",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000017-2222-4111-a111-111111111111",
+                "userId": "00000017-3333-4111-a111-111111111111",
+                "userName": "Sumit Tirkey",
+                "destinationId": "00000017-1111-4111-a111-111111111111",
+                "rating": 4,
+                "review": "Hundru and Jonha falls are magnificent in post-monsoon.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000017-4441-4111-a111-111111111111",
+                "name": "Hundru Falls",
+                "description": "98-meter waterfall on Subarnarekha River.",
+                "icon": "water"
+            },
+            {
+                "id": "00000017-4442-4111-a111-111111111111",
+                "name": "Jonha Falls",
+                "description": "Forest cascade with mountain steps.",
+                "icon": "landscape"
+            },
+            {
+                "id": "00000017-4443-4111-a111-111111111111",
+                "name": "Netarhat",
+                "description": "Nearby serene hill station for sunrise views.",
+                "icon": "terrain"
+            }
+        ]
+    },
+    {
+        "id": "00000018-1111-4111-a111-111111111111",
+        "name": "Khajuraho",
+        "city": "Khajuraho",
+        "state": "Madhya Pradesh",
+        "country": "India",
+        "description": "A UNESCO World Heritage site known worldwide for its stunning ancient temples adorned with intricate sculptures.",
+        "imageUrl": "/images/destinations/khajuraho.avif",
+        "category": "historical",
+        "bestTimeToVisit": "October to February",
+        "weather": "Hot summers, cool winters.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.5,
+        "budgetCategory": "budget",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "account_balance",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000018-2222-4111-a111-111111111111",
+                "userId": "00000018-3333-4111-a111-111111111111",
+                "userName": "Anjali Verma",
+                "destinationId": "00000018-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Sculptures demonstrate unbelievable medieval Indian artistry.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000018-4441-4111-a111-111111111111",
+                "name": "Kandariya Mahadeva Temple",
+                "description": "Largest Hindu temple in medieval group.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "00000018-4442-4111-a111-111111111111",
+                "name": "Lakshmana Temple",
+                "description": "Finely preserved ancient temple.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "00000018-4443-4111-a111-111111111111",
+                "name": "Duladeo Temple",
+                "description": "Shiva temple with flying apsara carvings.",
+                "icon": "account_balance"
+            }
+        ]
+    },
+    {
+        "id": "00000019-1111-4111-a111-111111111111",
+        "name": "Pachmarhi",
+        "city": "Pachmarhi",
+        "state": "Madhya Pradesh",
+        "country": "India",
+        "description": "Known as 'Queen of Satpura', a scenic hill station offering dense forests, beautiful waterfalls, and ancient cave paintings.",
+        "imageUrl": "/images/destinations/pachmarhi.avif",
+        "category": "hill_station",
+        "bestTimeToVisit": "October to June",
+        "weather": "Pleasant climate year-round.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.3,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "forest",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000019-2222-4111-a111-111111111111",
+                "userId": "00000019-3333-4111-a111-111111111111",
+                "userName": "Rajat Kumar",
+                "destinationId": "00000019-1111-4111-a111-111111111111",
+                "rating": 4,
+                "review": "Bee falls and Dhoopgarh sunset were great.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000019-4441-4111-a111-111111111111",
+                "name": "Bee Fall",
+                "description": "Picturesque waterfall popular for swimming.",
+                "icon": "water"
+            },
+            {
+                "id": "00000019-4442-4111-a111-111111111111",
+                "name": "Jata Shankar Caves",
+                "description": "Sacred cave shrine dedicated to Lord Shiva.",
+                "icon": "terrain"
+            },
+            {
+                "id": "00000019-4443-4111-a111-111111111111",
+                "name": "Dhoopgarh",
+                "description": "Highest point in Satpura range with sunset views.",
+                "icon": "landscape"
+            }
+        ]
+    },
+    {
+        "id": "0000001a-1111-4111-a111-111111111111",
+        "name": "Chitrakote Falls",
+        "city": "Jagdalpur",
+        "state": "Chhattisgarh",
+        "country": "India",
+        "description": "Often called the 'Niagara Falls of India', a majestic horseshoe waterfall on the Indravati River inside dense forest.",
+        "imageUrl": "/images/destinations/chitrakote-falls.avif",
+        "category": "nature",
+        "bestTimeToVisit": "July to October",
+        "weather": "Warm and humid with heavy monsoon rainfall.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.6,
+        "budgetCategory": "budget",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "water",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "0000001a-2222-4111-a111-111111111111",
+                "userId": "0000001a-3333-4111-a111-111111111111",
+                "userName": "Bhavna Baghel",
+                "destinationId": "0000001a-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Widest waterfall in India... roaring spray in monsoon!",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "0000001a-4441-4111-a111-111111111111",
+                "name": "Chitrakote Waterfalls",
+                "description": "300-meter wide horseshoe waterfall.",
+                "icon": "water"
+            },
+            {
+                "id": "0000001a-4442-4111-a111-111111111111",
+                "name": "Kanger Valley Park",
+                "description": "Rainforest area with limestone caves.",
+                "icon": "forest"
+            },
+            {
+                "id": "0000001a-4443-4111-a111-111111111111",
+                "name": "Kotumsar Cave",
+                "description": "Subterranean cave with stalactites.",
+                "icon": "terrain"
+            }
+        ]
+    },
+    {
+        "id": "0000001b-1111-4111-a111-111111111111",
+        "name": "Kolkata",
+        "city": "Kolkata",
+        "state": "West Bengal",
+        "country": "India",
+        "description": "The 'City of Joy', celebrated for artistic heritage, colonial monuments, iconic bridges, tramways, and sweets.",
+        "imageUrl": "/images/destinations/kolkata.avif",
+        "category": "cultural",
+        "bestTimeToVisit": "October to March",
+        "weather": "Hot humid summers, pleasant winters.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.6,
+        "budgetCategory": "budget",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "account_balance",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "0000001b-2222-4111-a111-111111111111",
+                "userId": "0000001b-3333-4111-a111-111111111111",
+                "userName": "Subhash Banerjee",
+                "destinationId": "0000001b-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Durga Puja and Victoria Memorial are magical.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "0000001b-4441-4111-a111-111111111111",
+                "name": "Victoria Memorial",
+                "description": "Marble monument built for Queen Victoria.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "0000001b-4442-4111-a111-111111111111",
+                "name": "Howrah Bridge",
+                "description": "Iconic cantilever bridge over Hooghly River.",
+                "icon": "location_city"
+            },
+            {
+                "id": "0000001b-4443-4111-a111-111111111111",
+                "name": "Dakshineswar Kali Temple",
+                "description": "Historic temple complex on riverbank.",
+                "icon": "temple_buddhist"
+            }
+        ]
+    },
+    {
+        "id": "0000001c-1111-4111-a111-111111111111",
+        "name": "Darjeeling",
+        "city": "Darjeeling",
+        "state": "West Bengal",
+        "country": "India",
+        "description": "The 'Queen of Hills', famous for tea estates, views of Kangchenjunga peak, and the UNESCO Himalayan toy train.",
+        "imageUrl": "/images/destinations/darjeeling.avif",
+        "category": "hill_station",
+        "bestTimeToVisit": "March to May and October to November",
+        "weather": "Cool summers and cold misty winters.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.7,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "landscape",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "0000001c-2222-4111-a111-111111111111",
+                "userId": "0000001c-3333-4111-a111-111111111111",
+                "userName": "Joydeep Mukherji",
+                "destinationId": "0000001c-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Tiger Hill sunrise over Kangchenjunga is magnificent.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "0000001c-4441-4111-a111-111111111111",
+                "name": "Tiger Hill",
+                "description": "Sunrise view point over Mount Kangchenjunga.",
+                "icon": "terrain"
+            },
+            {
+                "id": "0000001c-4442-4111-a111-111111111111",
+                "name": "Himalayan Railway",
+                "description": "UNESCO World Heritage narrow-gauge toy train.",
+                "icon": "tour"
+            },
+            {
+                "id": "0000001c-4443-4111-a111-111111111111",
+                "name": "Happy Valley Tea Estate",
+                "description": "Historic tea garden producing world-class tea.",
+                "icon": "forest"
+            }
+        ]
+    },
+    {
+        "id": "0000001d-1111-4111-a111-111111111111",
+        "name": "Agartala",
+        "city": "Agartala",
+        "state": "Tripura",
+        "country": "India",
+        "description": "The capital of Tripura, known for royal palaces like Ujjayanta Palace, Neermahal water palace, and rock-carved relief sculptures of Unakoti.",
+        "imageUrl": "/images/destinations/agartala.avif",
+        "category": "cultural",
+        "bestTimeToVisit": "October to March",
+        "weather": "Warm summers, humid monsoons, pleasant winters.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.4,
+        "budgetCategory": "budget",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "account_balance",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "0000001d-2222-4111-a111-111111111111",
+                "userId": "0000001d-3333-4111-a111-111111111111",
+                "userName": "Debabrata Debbarma",
+                "destinationId": "0000001d-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Neermahal in the middle of Rudrasagar Lake is spectacular.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "0000001d-4441-4111-a111-111111111111",
+                "name": "Ujjayanta Palace",
+                "description": "Royal palace built in 1901, now housing Tripura State Museum.",
+                "icon": "museum"
+            },
+            {
+                "id": "0000001d-4442-4111-a111-111111111111",
+                "name": "Neermahal",
+                "description": "Royal water palace situated in middle of Rudrasagar Lake.",
+                "icon": "water"
+            },
+            {
+                "id": "0000001d-4443-4111-a111-111111111111",
+                "name": "Unakoti",
+                "description": "Ancient site featuring massive bas-relief rock carvings of Lord Shiva.",
+                "icon": "terrain"
+            }
+        ]
+    },
+    {
+        "id": "0000001e-1111-4111-a111-111111111111",
+        "name": "Puri",
+        "city": "Puri",
+        "state": "Odisha",
+        "country": "India",
+        "description": "A sacred coastal pilgrimage destination home to Jagannath Temple, Rath Yatra festival, and Golden Beach.",
+        "imageUrl": "/images/destinations/puri.avif",
+        "category": "pilgrimage",
+        "bestTimeToVisit": "October to February",
+        "weather": "Tropical coastal climate.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.6,
+        "budgetCategory": "budget",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "temple_buddhist",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "0000001e-2222-4111-a111-111111111111",
+                "userId": "0000001e-3333-4111-a111-111111111111",
+                "userName": "Debabrata Dash",
+                "destinationId": "0000001e-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Golden Beach and Jagannath temple are divine.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "0000001e-4441-4111-a111-111111111111",
+                "name": "Jagannath Temple",
+                "description": "Holiest 12th-century shrine of Lord Jagannath.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "0000001e-4442-4111-a111-111111111111",
+                "name": "Puri Golden Beach",
+                "description": "Blue Flag certified beach with golden sand.",
                 "icon": "beach_access"
             },
             {
-                "id": "41111179-1111-4111-a111-111111111111",
-                "name": "Vembanad Lake",
-                "description": "The longest lake in India, hosting the famous Nehru Trophy Boat Race.",
-                "icon": "sailing"
+                "id": "0000001e-4443-4111-a111-111111111111",
+                "name": "Chilika Lake",
+                "description": "Brackish lagoon home to Irrawaddy dolphins.",
+                "icon": "water"
+            }
+        ]
+    },
+    {
+        "id": "0000001f-1111-4111-a111-111111111111",
+        "name": "Visakhapatnam",
+        "city": "Visakhapatnam",
+        "state": "Andhra Pradesh",
+        "country": "India",
+        "description": "The 'Jewel of the East Coast', famous for beaches, coastal roads, submarine museum, and Araku Valley hills.",
+        "imageUrl": "/images/destinations/visakhapatnam.avif",
+        "category": "beach",
+        "bestTimeToVisit": "October to March",
+        "weather": "Tropical and warm coast, cool in Araku hills.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.6,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "beach_access",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "0000001f-2222-4111-a111-111111111111",
+                "userId": "0000001f-3333-4111-a111-111111111111",
+                "userName": "Srinivas Rao",
+                "destinationId": "0000001f-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Submarine museum on RK Beach is fascinating.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "0000001f-4441-4111-a111-111111111111",
+                "name": "INS Kurusura Submarine Museum",
+                "description": "Decommissioned submarine turned museum on beach.",
+                "icon": "museum"
+            },
+            {
+                "id": "0000001f-4442-4111-a111-111111111111",
+                "name": "Rishikonda Beach",
+                "description": "Blue Flag beach popular for water sports.",
+                "icon": "beach_access"
+            },
+            {
+                "id": "0000001f-4443-4111-a111-111111111111",
+                "name": "Araku Valley",
+                "description": "Coffee-plantation hill station in Eastern Ghats.",
+                "icon": "landscape"
+            }
+        ]
+    },
+    {
+        "id": "00000020-1111-4111-a111-111111111111",
+        "name": "Hyderabad",
+        "city": "Hyderabad",
+        "state": "Telangana",
+        "country": "India",
+        "description": "The 'City of Pearls', blending historic Nizam heritage, Charminar, Golconda fort, world-famous biryani, and tech hubs.",
+        "imageUrl": "/images/destinations/hyderabad.avif",
+        "category": "urban",
+        "bestTimeToVisit": "October to March",
+        "weather": "Hot summers, pleasant winters.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.5,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "location_city",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000020-2222-4111-a111-111111111111",
+                "userId": "00000020-3333-4111-a111-111111111111",
+                "userName": "Kavitha Chander",
+                "destinationId": "00000020-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Food and Golconda Fort light show are fantastic.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000020-4441-4111-a111-111111111111",
+                "name": "Charminar",
+                "description": "16th-century landmark mosque with 4 minarets.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "00000020-4442-4111-a111-111111111111",
+                "name": "Golconda Fort",
+                "description": "Massive medieval fort famous for acoustics.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "00000020-4443-4111-a111-111111111111",
+                "name": "Ramoji Film City",
+                "description": "World's largest film studio complex.",
+                "icon": "movie"
+            }
+        ]
+    },
+    {
+        "id": "00000021-1111-4111-a111-111111111111",
+        "name": "Hampi",
+        "city": "Hospet",
+        "state": "Karnataka",
+        "country": "India",
+        "description": "A UNESCO World Heritage site offering surreal boulder landscapes and ruins of the Vijayanagara Empire.",
+        "imageUrl": "/images/destinations/hampi.avif",
+        "category": "historical",
+        "bestTimeToVisit": "October to February",
+        "weather": "Hot summers, pleasant dry winters.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.8,
+        "budgetCategory": "budget",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "account_balance",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000021-2222-4111-a111-111111111111",
+                "userId": "00000021-3333-4111-a111-111111111111",
+                "userName": "Thomas Wright",
+                "destinationId": "00000021-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Bicycling through boulder ruins was unforgettable.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000021-4441-4111-a111-111111111111",
+                "name": "Virupaksha Temple",
+                "description": "Ancient active temple dedicated to Lord Shiva.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "00000021-4442-4111-a111-111111111111",
+                "name": "Vittala Temple",
+                "description": "Iconic stone chariot and musical pillars.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "00000021-4443-4111-a111-111111111111",
+                "name": "Matanga Hill",
+                "description": "Best panoramic sunrise viewpoint over Hampi.",
+                "icon": "terrain"
+            }
+        ]
+    },
+    {
+        "id": "00000022-1111-4111-a111-111111111111",
+        "name": "Ooty",
+        "city": "Ooty",
+        "state": "Tamil Nadu",
+        "country": "India",
+        "description": "The 'Queen of Hill Stations' in the Nilgiris, loved for tea gardens, climate, and toy train railway.",
+        "imageUrl": "/images/destinations/ooty.avif",
+        "category": "hill_station",
+        "bestTimeToVisit": "October to June",
+        "weather": "Cool climate year-round.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.5,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "landscape",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000022-2222-4111-a111-111111111111",
+                "userId": "00000022-3333-4111-a111-111111111111",
+                "userName": "Karthik Iyer",
+                "destinationId": "00000022-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Nilgiri toy train ride has breathtaking valley views.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000022-4441-4111-a111-111111111111",
+                "name": "Botanical Gardens",
+                "description": "Gardens with thousands of plant species.",
+                "icon": "park"
+            },
+            {
+                "id": "00000022-4442-4111-a111-111111111111",
+                "name": "Nilgiri Mountain Railway",
+                "description": "UNESCO World Heritage toy train.",
+                "icon": "tour"
+            },
+            {
+                "id": "00000022-4443-4111-a111-111111111111",
+                "name": "Ooty Lake",
+                "description": "Artificial lake popular for boating.",
+                "icon": "water"
+            }
+        ]
+    },
+    {
+        "id": "00000023-1111-4111-a111-111111111111",
+        "name": "Kodaikanal",
+        "city": "Kodaikanal",
+        "state": "Tamil Nadu",
+        "country": "India",
+        "description": "The 'Princess of Hill Stations', tucked away in the Palani Hills, featuring a central star-shaped lake, pine forests, and misty waterfalls.",
+        "imageUrl": "/images/destinations/kodaikanal.avif",
+        "category": "hill_station",
+        "bestTimeToVisit": "September to May",
+        "weather": "Pleasant temperatures year-round with mist.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.6,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "landscape",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000023-2222-4111-a111-111111111111",
+                "userId": "00000023-3333-4111-a111-111111111111",
+                "userName": "Siddharth Raj",
+                "destinationId": "00000023-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Cycling around Kodaikanal Lake was super relaxing.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000023-4441-4111-a111-111111111111",
+                "name": "Kodaikanal Lake",
+                "description": "Star-shaped lake at town center.",
+                "icon": "water"
+            },
+            {
+                "id": "00000023-4442-4111-a111-111111111111",
+                "name": "Coaker's Walk",
+                "description": "Paved path with valley panoramas.",
+                "icon": "landscape"
+            },
+            {
+                "id": "00000023-4443-4111-a111-111111111111",
+                "name": "Pillar Rocks",
+                "description": "Three giant vertical rock pillars.",
+                "icon": "terrain"
+            }
+        ]
+    },
+    {
+        "id": "00000024-1111-4111-a111-111111111111",
+        "name": "Kanyakumari",
+        "city": "Kanyakumari",
+        "state": "Tamil Nadu",
+        "country": "India",
+        "description": "The southernmost tip of mainland India, where Arabian Sea, Bay of Bengal, and Indian Ocean meet.",
+        "imageUrl": "/images/destinations/kanyakumari.avif",
+        "category": "beach",
+        "bestTimeToVisit": "October to March",
+        "weather": "Tropical ocean climate.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.5,
+        "budgetCategory": "budget",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "beach_access",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000024-2222-4111-a111-111111111111",
+                "userId": "00000024-3333-4111-a111-111111111111",
+                "userName": "Bhavya Sundaram",
+                "destinationId": "00000024-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Viewing sunset over three oceans is unforgettable.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000024-4441-4111-a111-111111111111",
+                "name": "Vivekananda Rock Memorial",
+                "description": "Island memorial where Swami Vivekananda meditated.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "00000024-4442-4111-a111-111111111111",
+                "name": "Thiruvalluvar Statue",
+                "description": "133-foot stone statue of Tamil poet.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "00000024-4443-4111-a111-111111111111",
+                "name": "Kanyakumari Beach",
+                "description": "Confluence point of three seas.",
+                "icon": "beach_access"
+            }
+        ]
+    },
+    {
+        "id": "00000025-1111-4111-a111-111111111111",
+        "name": "Pondicherry",
+        "city": "Pondicherry",
+        "state": "Puducherry",
+        "country": "India",
+        "description": "A coastal town blending French colonial architecture, spiritual ashrams, and beaches.",
+        "imageUrl": "/images/destinations/pondicherry.avif",
+        "category": "beach",
+        "bestTimeToVisit": "October to March",
+        "weather": "Tropical climate with pleasant winters.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.5,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "beach_access",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000025-2222-4111-a111-111111111111",
+                "userId": "00000025-3333-4111-a111-111111111111",
+                "userName": "Sophie Laurent",
+                "destinationId": "00000025-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "French quarter heritage buildings are so charming.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000025-4441-4111-a111-111111111111",
+                "name": "Promenade Beach",
+                "description": "Oceanfront rock-paved walkway.",
+                "icon": "beach_access"
+            },
+            {
+                "id": "00000025-4442-4111-a111-111111111111",
+                "name": "Sri Aurobindo Ashram",
+                "description": "Spiritual community center.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "00000025-4443-4111-a111-111111111111",
+                "name": "Auroville",
+                "description": "Experimental township dedicated to human unity.",
+                "icon": "park"
+            }
+        ]
+    },
+    {
+        "id": "00000026-1111-4111-a111-111111111111",
+        "name": "Gangtok",
+        "city": "Gangtok",
+        "state": "Sikkim",
+        "country": "India",
+        "description": "The capital of Sikkim, nestled in Himalayas, known for monasteries, clean streets, and Kangchenjunga views.",
+        "imageUrl": "/images/destinations/gangtok.avif",
+        "category": "hill_station",
+        "bestTimeToVisit": "September to June",
+        "weather": "Cool summers, cold winters.",
+        "entryRequirements": "Permit required for Tsomgo Lake / Nathula.",
+        "averageRating": 4.7,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "landscape",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000026-2222-4111-a111-111111111111",
+                "userId": "00000026-3333-4111-a111-111111111111",
+                "userName": "Mingma Lepcha",
+                "destinationId": "00000026-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Tsomgo glacial lake and cable car were amazing.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000026-4441-4111-a111-111111111111",
+                "name": "Tsomgo Lake",
+                "description": "Glacial high-altitude lake.",
+                "icon": "water"
+            },
+            {
+                "id": "00000026-4442-4111-a111-111111111111",
+                "name": "Rumtek Monastery",
+                "description": "Largest monastery in Sikkim.",
+                "icon": "temple_buddhist"
+            },
+            {
+                "id": "00000026-4443-4111-a111-111111111111",
+                "name": "Nathula Pass",
+                "description": "Mountain pass on Silk Route border.",
+                "icon": "terrain"
+            }
+        ]
+    },
+    {
+        "id": "00000027-1111-4111-a111-111111111111",
+        "name": "Shillong",
+        "city": "Shillong",
+        "state": "Meghalaya",
+        "country": "India",
+        "description": "Known as 'Scotland of the East', famous for rolling hills, pine forests, music culture, and lakes.",
+        "imageUrl": "/images/destinations/shillong.avif",
+        "category": "hill_station",
+        "bestTimeToVisit": "September to May",
+        "weather": "Mild climate, rainy monsoons.",
+        "entryRequirements": "Valid government-issued photo ID.",
+        "averageRating": 4.6,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "landscape",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000027-2222-4111-a111-111111111111",
+                "userId": "00000027-3333-4111-a111-111111111111",
+                "userName": "Wanbiang Khongjee",
+                "destinationId": "00000027-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Umiam lake and pine hill breezes are refreshing.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000027-4441-4111-a111-111111111111",
+                "name": "Umiam Lake",
+                "description": "Vast reservoir surrounded by hills.",
+                "icon": "water"
+            },
+            {
+                "id": "00000027-4442-4111-a111-111111111111",
+                "name": "Elephant Falls",
+                "description": "Three-tiered mountain waterfall.",
+                "icon": "water"
+            },
+            {
+                "id": "00000027-4443-4111-a111-111111111111",
+                "name": "Shillong Peak",
+                "description": "Highest viewpoint over Shillong city.",
+                "icon": "terrain"
+            }
+        ]
+    },
+    {
+        "id": "00000028-1111-4111-a111-111111111111",
+        "name": "Kaziranga National Park",
+        "city": "Kanchanjuri",
+        "state": "Assam",
+        "country": "India",
+        "description": "A UNESCO World Heritage sanctuary home to two-thirds of world's one-horned rhinoceroses.",
+        "imageUrl": "/images/destinations/kaziranga.avif",
+        "category": "nature",
+        "bestTimeToVisit": "November to April",
+        "weather": "Subtropical climate, flooded in monsoon.",
+        "entryRequirements": "Safari entry permit required.",
+        "averageRating": 4.7,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "forest",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000028-2222-4111-a111-111111111111",
+                "userId": "00000028-3333-4111-a111-111111111111",
+                "userName": "Bikash Borah",
+                "destinationId": "00000028-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Rhino safari at dawn was breathtaking.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000028-4441-4111-a111-111111111111",
+                "name": "Rhinoceros Safari",
+                "description": "Jeep and elephant safaris in tall grass.",
+                "icon": "forest"
+            },
+            {
+                "id": "00000028-4442-4111-a111-111111111111",
+                "name": "Orchid Park",
+                "description": "Showcases over 500 wild orchid species.",
+                "icon": "park"
+            },
+            {
+                "id": "00000028-4443-4111-a111-111111111111",
+                "name": "Brahmaputra Riverfront",
+                "description": "Scenic river view stretches.",
+                "icon": "water"
+            }
+        ]
+    },
+    {
+        "id": "00000029-1111-4111-a111-111111111111",
+        "name": "Tawang",
+        "city": "Tawang",
+        "state": "Arunachal Pradesh",
+        "country": "India",
+        "description": "Perched high in Eastern Himalayas, famous for 400-year-old Tawang Monastery and alpine lakes.",
+        "imageUrl": "/images/destinations/tawang.avif",
+        "category": "spiritual",
+        "bestTimeToVisit": "March to May and September to November",
+        "weather": "Cold climate, heavy winter snow.",
+        "entryRequirements": "Inner Line Permit (ILP) required.",
+        "averageRating": 4.8,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "temple_buddhist",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "00000029-2222-4111-a111-111111111111",
+                "userId": "00000029-3333-4111-a111-111111111111",
+                "userName": "Dorjee Khandu",
+                "destinationId": "00000029-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Tawang Monastery and Sela Pass were peaceful and sacred.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "00000029-4441-4111-a111-111111111111",
+                "name": "Tawang Monastery",
+                "description": "Largest Buddhist monastery in India.",
+                "icon": "account_balance"
+            },
+            {
+                "id": "00000029-4442-4111-a111-111111111111",
+                "name": "Sela Pass",
+                "description": "Mountain pass at 13,700 feet with frozen lakes.",
+                "icon": "terrain"
+            },
+            {
+                "id": "00000029-4443-4111-a111-111111111111",
+                "name": "Madhuri Lake",
+                "description": "High-altitude lake surrounded by pine mountains.",
+                "icon": "water"
+            }
+        ]
+    },
+    {
+        "id": "0000002a-1111-4111-a111-111111111111",
+        "name": "Kohima",
+        "city": "Kohima",
+        "state": "Nagaland",
+        "country": "India",
+        "description": "The capital of Nagaland, famous for Hornbill Festival, Naga tribal culture, and Dzukou Valley.",
+        "imageUrl": "/images/destinations/kohima.avif",
+        "category": "cultural",
+        "bestTimeToVisit": "October to May",
+        "weather": "Pleasant summers, cool winters.",
+        "entryRequirements": "Inner Line Permit (ILP) required.",
+        "averageRating": 4.6,
+        "budgetCategory": "moderate",
+        "isFavorite": false,
+        "isVisited": false,
+        "icon": "terrain",
+        "createdAt": "2026-08-08T11:31:03.000Z",
+        "updatedAt": "2026-08-08T11:31:03.000Z",
+        "itineraries": [],
+        "reviews": [
+            {
+                "id": "0000002a-2222-4111-a111-111111111111",
+                "userId": "0000002a-3333-4111-a111-111111111111",
+                "userName": "Kelevo Angami",
+                "destinationId": "0000002a-1111-4111-a111-111111111111",
+                "rating": 5,
+                "review": "Hornbill Festival showcases amazing Naga tribal traditions.",
+                "createdAt": "2026-08-08T11:31:03.000Z",
+                "updatedAt": "2026-08-08T11:31:03.000Z",
+                "isOwner": false
+            }
+        ],
+        "attractions": [
+            {
+                "id": "0000002a-4441-4111-a111-111111111111",
+                "name": "Dzukou Valley",
+                "description": "Emerald valley trek famous for lily flowers.",
+                "icon": "landscape"
+            },
+            {
+                "id": "0000002a-4442-4111-a111-111111111111",
+                "name": "Kisama Heritage Village",
+                "description": "Venue for Hornbill Festival.",
+                "icon": "museum"
+            },
+            {
+                "id": "0000002a-4443-4111-a111-111111111111",
+                "name": "Kohima War Cemetery",
+                "description": "Meticulously maintained WWII memorial.",
+                "icon": "park"
             }
         ]
     }
