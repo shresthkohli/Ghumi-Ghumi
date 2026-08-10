@@ -436,8 +436,9 @@ export default function DestinationDetailPage() {
         if (newReview) {
             setDestination((prev) => ({
                 ...prev,
-                reviews: [newReview, ...(prev?.reviews || [])],
+                reviews: [{ ...newReview, isOwner: true }, ...(prev?.reviews || [])],
             }));
+            return newReview;
         }
     }
 

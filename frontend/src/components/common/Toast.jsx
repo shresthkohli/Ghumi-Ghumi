@@ -16,10 +16,10 @@ function Toast({ message, onClose }) {
     return (
         <div
             role="alert"
-            className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-error text-on-error px-6 py-3 rounded-full shadow-lg font-body text-sm font-medium flex items-center gap-2"
+            className="fixed top-6 left-1/2 -translate-x-1/2 z-[99999] bg-error text-on-error px-6 py-3 rounded-full shadow-lg font-body text-sm font-medium flex items-center gap-2"
         >
-            <span>error</span>
-            {message}
+            <span className="material-symbols-outlined text-base">error</span>
+            <span>{message}</span>
         </div>
     )
 }
