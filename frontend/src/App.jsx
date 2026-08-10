@@ -13,6 +13,11 @@ import DestinationDetailPage from './pages/DestinationDetails.jsx';
 import Guides from "./pages/Guides.jsx";
 import Blogs from './pages/Blogs.jsx';
 import Profile from './pages/Profile.jsx';
+import AboutUs from './pages/AboutUs.jsx';
+import Sustainability from './pages/Sustainability.jsx';
+import PrivacyPolicy from './pages/PrivacyPolicy.jsx';
+import TermsOfService from './pages/TermsOfService.jsx';
+import Contact from './pages/Contact.jsx';
 
 // Components
 import Navbar from './components/common/Navbar.jsx'
@@ -36,6 +41,11 @@ function App() {
                         <Route path="/destinations/:id" element={<DestinationDetailPage />} />
                         <Route path="/blogs" element={<Blogs />} />
                         <Route path="/profile" element={<Profile />} />
+                        <Route path="/about" element={<AboutUs />} />
+                        <Route path="/sustainability" element={<Sustainability />} />
+                        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                        <Route path="/terms-of-service" element={<TermsOfService />} />
+                        <Route path="/contact" element={<Contact />} />
                     </Routes>
                     <Footer />
                 </BrowserRouter>

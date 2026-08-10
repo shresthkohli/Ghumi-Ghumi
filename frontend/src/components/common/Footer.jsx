@@ -1,50 +1,46 @@
+import { Link } from "react-router-dom";
+
 function Footer() {
   const links = [
-    "About Us",
-    "Sustainability",
-    "Privacy Policy",
-    "Terms of Service",
-    "Contact",
+    { label: "About Us", path: "/about" },
+    { label: "Sustainability", path: "/sustainability" },
+    { label: "Privacy Policy", path: "/privacy-policy" },
+    { label: "Terms of Service", path: "/terms-of-service" },
+    { label: "Contact", path: "/contact" },
   ];
+
   return (
-    <footer 
-    className="bg-surface-container-high px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop py-10 sm:py-12">
-      <div className="max-w-container-max mx-auto flex flex-col items-start justify-between gap-6 md:flex-row">
+    <footer className="bg-surface-container-high px-6 py-12 md:px-margin-desktop">
+      <div className="flex flex-col items-start justify-between gap-6 md:flex-row max-w-7xl mx-auto">
         <div>
-          <span 
-          className="font-display text-2xl font-bold text-primary">
+          <Link to="/" className="font-display text-2xl font-bold text-primary">
             Wanderly
-          </span>
-          <p 
-          className="mt-2 max-w-xs font-body text-sm text-on-surface-variant">
-            The Discerning Explorer's Companion. Crafting unforgettable
+          </Link>
+          <p className="mt-2 max-w-xs font-body text-sm text-on-surface-variant">
+            The Discerning Explorer&apos;s Companion. Crafting unforgettable
             narratives worldwide.
           </p>
         </div>
 
         <div className="flex flex-wrap gap-gutter">
           {links.map((link) => (
-            <a
-              key={link}
-              href="#"
-              className="relative font-body text-sm text-on-surface-variant"
+            <Link
+              key={link.label}
+              to={link.path}
+              className="group relative font-body text-sm text-on-surface-variant transition-colors hover:text-primary"
             >
-              {link}
-               <span
-                className="footer-link-underline absolute left-0 -bottom-1 h-px w-full bg-primary"
-              />
-            </a>
+              {link.label}
+              <span className="footer-link-underline absolute left-0 -bottom-1 h-px w-full bg-primary origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+            </Link>
           ))}
         </div>
       </div>
-           <div
-        className="mt-8 h-px w-full bg-on-surface-variant/20"
-      />
-      <p 
-      className="mt-10 text-center font-body text-xs text-on-surface-variant">
-        © 2026 Wanderly. All rights reserved.
+      <div className="mt-8 h-px w-full bg-on-surface-variant/20 max-w-7xl mx-auto" />
+      <p className="mt-8 text-center font-body text-xs text-on-surface-variant">
+        © {new Date().getFullYear()} Wanderly. All rights reserved.
       </p>
     </footer>
   );
 }
+
 export default Footer;
