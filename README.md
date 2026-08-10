@@ -1,6 +1,6 @@
-# Ghumi-Ghumi
+# Wanderly
 
-Ghumi-Ghumi is a full-stack travel planning web application built around Indian destinations. It lets users discover places, build trip itineraries, track visited destinations, leave reviews, and manage a personal travel profile. The design language draws from high-end travel journalism — warm earth tones, editorial typography, and a layout that feels closer to a curated magazine than a typical web app.
+Wanderly is a full-stack travel planning web application built around Indian destinations. It lets users discover places, build trip itineraries, track visited destinations, leave reviews, and manage a personal travel profile. The design language draws from high-end travel journalism — warm earth tones, editorial typography, and a layout that feels closer to a curated magazine than a typical web app.
 
 ---
 
