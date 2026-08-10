@@ -1,12 +1,14 @@
 import { useEffect, useRef, useCallback } from "react";
 import * as THREE from "three";
+import { gsap } from "gsap";
 
 /**
  * Interactive 3D Globe with NASA Blue Marble texture.
  *
  * Features:
  *  - NASA Blue Marble earth texture with bump mapping
- *  - Auto-rotates continuously
+ *  - Cinematic appear entrance animation with GSAP
+ *  - Smooth orbital spin deceleration into ambient auto-rotation
  *  - Mouse-follow tilt interaction
  *  - Exposes Three.js objects via `onReady` for GSAP scroll animations
  */
@@ -49,6 +51,7 @@ export default function Globe({ onReady, className = "" }) {
 
       const earthGeometry = new THREE.SphereGeometry(RADIUS, 96, 96);
       const earthMaterial = new THREE.MeshPhongMaterial({
+        color: 0x1a3353,
         shininess: 25,
         transparent: false,
       });
@@ -57,6 +60,7 @@ export default function Globe({ onReady, className = "" }) {
       textureLoader.load("/earth-blue-marble.jpg", (texture) => {
         texture.colorSpace = THREE.SRGBColorSpace;
         earthMaterial.map = texture;
+        earthMaterial.color.setHex(0xffffff);
         earthMaterial.needsUpdate = true;
       });
 
@@ -70,7 +74,16 @@ export default function Globe({ onReady, className = "" }) {
       const earth = new THREE.Mesh(earthGeometry, earthMaterial);
       globeGroup.add(earth);
 
-
+      // ── atmosphere glow ──
+      const atmosphereGeo = new THREE.SphereGeometry(RADIUS * 1.02, 64, 64);
+      const atmosphereMat = new THREE.MeshBasicMaterial({
+        color: 0x64b5f6,
+        transparent: true,
+        opacity: 0.12,
+        side: THREE.BackSide,
+      });
+      const atmosphere = new THREE.Mesh(atmosphereGeo, atmosphereMat);
+      globeGroup.add(atmosphere);
 
       // ── lighting ──
       const ambient = new THREE.AmbientLight(0xbbbbbb, 1.2);
@@ -81,6 +94,26 @@ export default function Globe({ onReady, className = "" }) {
       const backLight = new THREE.DirectionalLight(0x4488ff, 0.3);
       backLight.position.set(-5, -2, -5);
       scene.add(backLight);
+
+      // ── 3D Entrance Appear Animation ──
+      globeGroup.scale.set(0.35, 0.35, 0.35);
+      const scaleTween = gsap.to(globeGroup.scale, {
+        x: 1,
+        y: 1,
+        z: 1,
+        duration: 1.8,
+        ease: "power3.out",
+      });
+
+      let introSpinSpeed = 0.014;
+      const spinTween = gsap.to({ val: introSpinSpeed }, {
+        val: 0,
+        duration: 2.4,
+        ease: "power2.out",
+        onUpdate: function () {
+          introSpinSpeed = this.targets()[0].val;
+        },
+      });
 
       // ── mouse-follow tilt state ──
       const baseTiltX = 0.25; // default slight tilt
@@ -116,8 +149,8 @@ export default function Globe({ onReady, className = "" }) {
       const animate = () => {
         frameId = requestAnimationFrame(animate);
 
-        // Continuous Y auto-rotation
-        globeGroup.rotation.y += autoRotateSpeed;
+        // Continuous Y auto-rotation + decelerating intro spin
+        globeGroup.rotation.y += autoRotateSpeed + introSpinSpeed;
 
         // Smoothly lerp current tilt toward target
         currentTiltX += (targetTiltX - currentTiltX) * lerpFactor;
@@ -125,7 +158,6 @@ export default function Globe({ onReady, className = "" }) {
 
         globeGroup.rotation.x = currentTiltX;
         // Apply the horizontal tilt as a slight additional Y rotation offset
-        // stored separately so it doesn't fight auto-rotate
         globeGroup.position.x = currentTiltY * 0.15;
         globeGroup.position.y = -(currentTiltX - baseTiltX) * 0.15;
 
@@ -150,6 +182,8 @@ export default function Globe({ onReady, className = "" }) {
 
       // ── cleanup ──
       cleanupRef.current = () => {
+        scaleTween.kill();
+        spinTween.kill();
         cancelAnimationFrame(frameId);
         window.removeEventListener("mousemove", onMouseMove);
         container.removeEventListener("mouseleave", onMouseLeave);

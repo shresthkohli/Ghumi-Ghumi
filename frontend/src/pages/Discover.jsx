@@ -44,12 +44,38 @@ function Discover() {
         const ctx = gsap.context(() => {
             const introTl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
+            // 0. Globe appear animation
+            if (globeContainerRef.current) {
+                introTl.fromTo(
+                    globeContainerRef.current,
+                    {
+                        opacity: 0,
+                        scale: 0.7,
+                        y: 35,
+                        filter: "blur(12px)",
+                    },
+                    {
+                        opacity: 1,
+                        scale: 1,
+                        y: 0,
+                        filter: "blur(0px)",
+                        duration: 1.8,
+                        ease: "power3.out",
+                    },
+                    0
+                );
+            }
+
             // 1. Fade in eyebrow
-            introTl.from(eyebrowRef.current, {
-                opacity: 0,
-                y: -20,
-                duration: 0.6,
-            });
+            introTl.from(
+                eyebrowRef.current,
+                {
+                    opacity: 0,
+                    y: -20,
+                    duration: 0.6,
+                },
+                0.25
+            );
 
             // 2. SplitText character entrance
             if (headlineRef.current) {
@@ -65,7 +91,7 @@ function Discover() {
                         duration: 1.1,
                         ease: "back.out(1.4)",
                     },
-                    "-=0.1"
+                    0.45
                 );
             }
 
@@ -79,7 +105,7 @@ function Discover() {
                     duration: 0.6,
                     ease: "back.out(1.4)",
                 },
-                "-=0.6"
+                0.95
             );
 
             // 4. Cinematic Scroll-Driven Exit Timeline

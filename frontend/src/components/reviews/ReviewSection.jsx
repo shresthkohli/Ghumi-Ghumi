@@ -1,4 +1,5 @@
 import { useState, useMemo, useRef } from "react";
+import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -275,9 +276,9 @@ export default function ReviewSection({
             </div>
 
             {/* 5. DELETE CONFIRMATION MODAL */}
-            {deletingReviewId && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 px-4 backdrop-blur-md animate-[fadeIn_0.2s_ease-out]">
-                    <div className="w-full max-w-md rounded-3xl border border-outline-variant/30 bg-surface p-7 shadow-2xl animate-[scaleUp_0.25s_ease-out]">
+            {deletingReviewId && createPortal(
+                <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/60 p-4 backdrop-blur-md animate-[fadeIn_0.2s_ease-out] overflow-y-auto">
+                    <div className="w-full max-w-md rounded-3xl border border-outline-variant/30 bg-surface p-7 shadow-2xl animate-[scaleUp_0.25s_ease-out] my-auto">
                         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-error/10 text-error">
                             <span className="material-symbols-outlined text-3xl">delete</span>
                         </div>
@@ -315,7 +316,8 @@ export default function ReviewSection({
                             </button>
                         </div>
                     </div>
-                </div>
+                </div>,
+                document.body
             )}
 
             {/* 6. LOGIN MODAL */}

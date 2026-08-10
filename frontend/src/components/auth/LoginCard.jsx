@@ -7,7 +7,6 @@ import Toast from "../common/Toast.jsx";
 import { useAuth } from "../../context/AuthContext.jsx";
 
 export default function LoginCard({ onSuccess }) {
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -30,7 +29,7 @@ export default function LoginCard({ onSuccess }) {
                 onSuccess(response.data);
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
             setError(
                 error.message ||
                 "Something went wrong. Please try again."
@@ -56,14 +55,13 @@ export default function LoginCard({ onSuccess }) {
                 onSuccess(response.data);
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
             setError(
                 error.message ||
                 "Something went wrong. Please try again."
             );
         } finally {
             setLoading(false);
-
         }
     }
 
@@ -75,70 +73,88 @@ export default function LoginCard({ onSuccess }) {
             />
             <form
                 onSubmit={handleSubmit}
-                className="p-10 rounded-2xl bg-white text-black"
+                className="w-full max-w-md rounded-3xl border border-primary/10 bg-white p-7 shadow-warm-lg transition-all duration-300 sm:p-9"
             >
-                <h1
-                    className="text-4xl text-center font-bold mb-6 text-on-surface-variant">
-                     Login
-                </h1>
-                <input
-                    type="email"
-                    value={email}
-                    placeholder="Enter your email"
-                    required
-                    onChange={(e) =>
-                        setEmail(e.target.value)
-                    }
-                    className="mb-6 w-full border-2 border-on-surface rounded px-4 py-3 text-black placeholder:text-gray-600 outline-none focus:border-primary"
-                />
-                <input
-                    type="password"
-                    value={password}
-                    placeholder="Enter your password"
-                    required
-                    onChange={(e) =>
-                        setPassword(e.target.value)
-                    }
-                    className="mb-4 w-full border-2 border-on-surface rounded px-4 py-3 text-black placeholder:text-gray-600 outline-none focus:border-primary"
-                />
-                <div className="flex justify-end">
-                    <button
-                        type="button"
-                        className="font-semibold text-sm text-on-surface-variant hover:font-bold hover:underline"
-                    >
-                        Forgot Password?
-                    </button>
+                <div className="mb-7 text-center">
+                    <h1 className="font-display text-3xl font-bold text-on-surface">
+                        Login
+                    </h1>
+                    <p className="mt-2 text-sm text-on-surface-variant">
+                        Login to your account
+                    </p>
                 </div>
+
+                <div className="mb-4">
+                    <label className="mb-2 block text-sm font-semibold text-on-surface">
+                        Email
+                    </label>
+                    <input
+                        type="email"
+                        value={email}
+                        placeholder="Enter your email"
+                        required
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-on-surface placeholder:text-on-surface-variant outline-none transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    />
+                </div>
+
+                <div className="mb-5">
+                    <div className="mb-2 flex items-center justify-between">
+                        <label className="block text-sm font-semibold text-on-surface">
+                            Password
+                        </label>
+                        <button
+                            type="button"
+                            className="text-xs font-semibold text-primary transition-all duration-200 hover:underline"
+                        >
+                            Forgot Password?
+                        </button>
+                    </div>
+                    <input
+                        type="password"
+                        value={password}
+                        placeholder="Enter your password"
+                        required
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-on-surface placeholder:text-on-surface-variant outline-none transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    />
+                </div>
+
                 <button
                     type="submit"
                     disabled={loading}
-                    className="w-full text-white px-8 my-5 py-3 text-xl font-bold rounded bg-gradient-to-r from-primary-container to-primary hover:from-primary hover:to-primary-container
-                        hover:scale-105 transition duration-300 disabled:opacity-50 disabled:hover:scale-100"
+                    className="w-full rounded-xl bg-gradient-to-r from-primary-container to-primary px-6 py-3 text-base font-bold text-white shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                    {loading
-                        ? "Logging in..." : "Login"
-                    }
+                    {loading ? "Logging in..." : "Login"}
                 </button>
+
+                <div className="my-6 flex items-center gap-3">
+                    <div className="h-px flex-1 bg-outline-variant" />
+                    <span className="text-xs font-medium text-on-surface-variant">
+                        OR
+                    </span>
+                    <div className="h-px flex-1 bg-outline-variant" />
+                </div>
+
                 <div className="flex justify-center">
                     <GoogleLogin
                         onSuccess={handleGoogleSuccess}
                         onError={() => {
-                            setError(
-                                "Google Login Failed. Please try again."
-                            );
+                            console.log("Google Login Failed");
+                            setError("Google Login Failed. Please try again.");
                         }}
                     />
                 </div>
 
-                <h3 className="font-semibold text-center pt-5">
+                <p className="mt-6 text-center text-sm text-on-surface-variant">
                     Don't have an account?
                     <Link
                         to="/signup"
-                        className="font-semibold text-md ml-1 text-on-surface-variant hover:font-bold hover:underline"
+                        className="ml-1 font-semibold text-primary transition-all duration-200 hover:underline"
                     >
-                        Sign up
+                        Signup
                     </Link>
-                </h3>
+                </p>
             </form>
         </>
     );

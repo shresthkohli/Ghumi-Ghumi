@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../api/userApi";
+import { logout as apiLogout } from "../../api/userApi";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 const API_URL = import.meta.env.VITE_API_URL ?? "";
 
 function ProfileHeader({ user }) {
     const navigate = useNavigate();
+    const { logout: authLogout } = useAuth();
     const [loggingOut, setLoggingOut] = useState(false);
 
     if (!user) return null;
@@ -37,19 +39,21 @@ function ProfileHeader({ user }) {
 
         try {
             setLoggingOut(true);
-            const response = await logout();
+            const response = await apiLogout();
+            authLogout();
 
             if (response?.success) {
-                navigate("/login", {
+                navigate("/", {
                     replace: true,
                 });
             } else {
                 console.error("Logout failed:", response?.error);
-                navigate("/login", { replace: true });
+                navigate("/", { replace: true });
             }
         } catch (error) {
             console.error("Logout request failed:", error);
-            navigate("/login", { replace: true });
+            authLogout();
+            navigate("/", { replace: true });
         } finally {
             setLoggingOut(false);
         }

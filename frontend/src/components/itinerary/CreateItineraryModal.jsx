@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import destinationApi from "../../api/destinationApi";
@@ -138,16 +139,16 @@ function CreateItineraryModal({ onClose, onCreate }) {
 
     const selectedDestination = destinations.find((dest) => dest.id === destinationId);
 
-    return (
+    return createPortal(
         <div
             ref={backdropRef}
             onClick={handleBackdropClick}
-            className="fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center z-[100] px-margin-mobile"
+            className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-[99999] p-4 sm:p-6 overflow-y-auto"
             style={{ perspective: "1000px" }}
         >
             <div
                 ref={modalRef}
-                className="bg-surface rounded-3xl p-6 md:p-8 w-full max-w-lg shadow-[0px_30px_70px_rgba(43,38,32,0.25)] border border-outline-variant/40 relative overflow-hidden"
+                className="bg-surface rounded-3xl p-6 md:p-8 w-full max-w-lg shadow-[0px_30px_70px_rgba(43,38,32,0.25)] border border-outline-variant/40 relative overflow-hidden my-auto"
             >
                 {/* Decorative background glows */}
                 <div className="absolute -top-20 -right-20 w-48 h-48 bg-primary-fixed/25 rounded-full blur-2xl pointer-events-none" />
@@ -294,7 +295,8 @@ function CreateItineraryModal({ onClose, onCreate }) {
                     </div>
                 </form>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }
 

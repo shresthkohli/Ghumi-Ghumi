@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import LoginCard from "./LoginCard";
@@ -81,19 +82,19 @@ export default function LoginModal({
         return null;
     }
 
-    return (
+    return createPortal(
         <div
-            className="fixed inset-0 z-[9999] flex items-center justify-center p-5"
+            className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
             style={{ perspective: "1000px" }}
         >
             <div
                 ref={backdropRef}
                 onClick={handleAnimatedClose}
-                className="absolute inset-0 bg-black/50 backdrop-blur-md"
+                className="fixed inset-0 bg-black/60 backdrop-blur-md"
             />
             <div
                 ref={modalRef}
-                className="relative z-10 w-full max-w-md"
+                className="relative z-10 w-full max-w-md my-auto"
             >
                 <button
                     onClick={handleAnimatedClose}
@@ -106,10 +107,11 @@ export default function LoginModal({
                 </button>
                 <div className="overflow-hidden rounded-3xl shadow-2xl">
                     <LoginCard
-                        onSucces={handleAnimatedClose}
+                        onSuccess={handleAnimatedClose}
                     />
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }
