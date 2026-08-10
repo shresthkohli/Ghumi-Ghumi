@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { getFeaturedId, getDestinations } from "../data/destinations";
+import { getDestinations } from "../data/destinations";
 import DestinationCard from "../components/destination/DestinationCard";
 import FilterSidebar from "../components/destination/FilterSidebar";
 import Pagination from "../components/destination/Pagination";
@@ -17,7 +17,7 @@ try {
     } catch (err) {}
 }
 
-const RESULTS_PER_PAGE = 4;
+const RESULTS_PER_PAGE = 6;
 
 function Destinations() {
     const [destinations, setDestinations] = useState([]);
@@ -122,17 +122,6 @@ function Destinations() {
         startIndex,
         startIndex + RESULTS_PER_PAGE
     );
-
-    const featuredId = "Jaipur";
-
-    const featuredDestination =
-        currentPage === 1 && totalActiveFilters === 0
-            ? visibleDestinations.find((d) => d.name === featuredId)
-            : undefined;
-
-    const regularDestinations = featuredDestination
-        ? visibleDestinations.filter((d) => d.name !== featuredDestination.name)
-        : visibleDestinations;
 
     // 1. GSAP Hero & Page Entrance Animations (Runs once on initial load / scroll)
     useGSAP(
@@ -359,7 +348,7 @@ function Destinations() {
             </header>
 
             {/* Content */}
-            <main className="max-w-container-max mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop -mt-8 sm:-mt-12 mb-12 sm:mb-16 md:mb-section-gap flex flex-col md:flex-row gap-gutter">
+            <main className="max-w-container-max mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop -mt-8 sm:-mt-12 pb-12 sm:pb-16 md:pb-section-gap flex flex-col md:flex-row gap-gutter">
                 <div ref={sidebarRef} className="shrink-0 w-full md:w-80">
                     <FilterSidebar
                         activeCategories={activeCategories}
@@ -465,11 +454,7 @@ function Destinations() {
                             ref={gridRef}
                             className="grid grid-cols-1 lg:grid-cols-2 gap-gutter"
                         >
-                            {featuredDestination && (
-                                <DestinationCard destination={featuredDestination} featured />
-                            )}
-
-                            {regularDestinations.map((destination) => (
+                            {visibleDestinations.map((destination) => (
                                 <DestinationCard
                                     key={destination.id}
                                     destination={destination}

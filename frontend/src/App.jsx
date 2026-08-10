@@ -16,6 +16,7 @@ import Profile from './pages/Profile.jsx';
 
 // Components
 import Navbar from './components/common/Navbar.jsx'
+import Footer from './components/common/Footer.jsx';
 
 function App() {
     const [darkMode, setdarkMode] = useState(false);
@@ -36,6 +37,7 @@ function App() {
                         <Route path="/blogs" element={<Blogs />} />
                         <Route path="/profile" element={<Profile />} />
                     </Routes>
+                    <Footer />
                 </BrowserRouter>
             </AuthProvider>
         </>

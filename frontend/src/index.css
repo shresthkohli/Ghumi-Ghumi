@@ -187,6 +187,12 @@
 }
 
 
+/* Global Body & Canvas Theme */
+body {
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+}
+
 /* Global Scrollbar Removal (Chrome, Safari, Edge, Firefox, Opera) */
 html,
 body,

@@ -57,7 +57,7 @@ function CreateItineraryModal({ onClose, onCreate }) {
                 gsap.fromTo(
                     items,
                     { opacity: 0, y: 12 },
-                    { opacity: 1, y: 0, duration: 0.35, stagger: 0.05, ease: "power2.out", delay: 0.1 }
+                    { opacity: 1, y: 0, duration: 0.35, stagger: 0.05, ease: "power2.out", delay: 0.1, clearProps: "transform" }
                 );
             }
         }
@@ -173,7 +173,7 @@ function CreateItineraryModal({ onClose, onCreate }) {
                 </div>
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4 relative z-10">
-                    <div ref={dropdownRef} className="relative modal-stagger-item">
+                    <div ref={dropdownRef} className="relative z-30 modal-stagger-item">
                         <label className="font-label-md text-label-md text-on-surface-variant block mb-1.5 font-medium">
                             Destination
                         </label>
@@ -205,7 +205,7 @@ function CreateItineraryModal({ onClose, onCreate }) {
 
                         {/* Dropdown menu */}
                         {isDropdownOpen && (
-                            <div className="absolute z-20 mt-2 w-full max-h-60 overflow-y-auto rounded-2xl border border-outline-variant/60 bg-surface shadow-[0_20px_40px_rgba(43,38,32,0.18)] p-2 animate-in fade-in zoom-in-95 duration-150">
+                            <div className="absolute z-50 mt-2 w-full max-h-60 overflow-y-auto rounded-2xl border border-outline-variant/60 bg-surface-container-high shadow-[0_20px_40px_rgba(43,38,32,0.25)] p-2 animate-in fade-in zoom-in-95 duration-150">
                                 {destinations.length === 0 && (
                                     <p className="px-4 py-3 font-body text-sm text-outline text-center">
                                         No destinations available
