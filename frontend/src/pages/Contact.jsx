@@ -8,28 +8,28 @@ function Contact() {
       role: "Creator",
       email: "u25ai099@aid.svnit.ac.in",
       linkedin: "https://www.linkedin.com/in/gitanshu-c-a8a37728b/",
-      avatar: "https://unavatar.io/linkedin/gitanshu-c-a8a37728b",
+      avatar: "https://unavatar.io/linkedin/gitanshu-c-a8a37728b?fallback=false&t=1",
     },
     {
       name: "Shresth Kohli",
       role: "Creator",
       email: "u25cs004@coed.svnit.ac.in",
       linkedin: "https://www.linkedin.com/in/shresth-kohli/",
-      avatar: "https://github.com/shresthkohli.png",
+      avatar: "https://unavatar.io/linkedin/shresth-kohli?fallback=false",
     },
     {
       name: "Geet Lahoty",
       role: "Creator",
       email: "u25ai069@aid.svnit.ac.in",
       linkedin: "https://www.linkedin.com/in/geet-lahoty-8413223a6/",
-      avatar: "https://unavatar.io/linkedin/geet-lahoty-8413223a6",
+      avatar: "https://unavatar.io/linkedin/geet-lahoty-8413223a6?fallback=false",
     },
     {
       name: "Kanishtha Maheshwari",
       role: "Creator",
       email: "i25ai013@aid.svnit.ac.in",
       linkedin: "https://www.linkedin.com/in/kanishtha-maheshwari/",
-      avatar: "https://unavatar.io/linkedin/kanishtha-maheshwari",
+      avatar: "https://unavatar.io/linkedin/kanishtha-maheshwari?fallback=false",
     },
   ];
 
