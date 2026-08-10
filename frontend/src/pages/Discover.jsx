@@ -25,8 +25,7 @@ function Discover() {
     const searchBarRef = useRef(null);
     const globeContainerRef = useRef(null);
     const globeObjectsRef = useRef(null);
-    const [showLoader, setShowLoader] = useState(true);
-
+    const [showLoader, setShowLoader] = useState(true)
     const {
         searchQuery, setSearchQuery,
         searchError, setSearchError,
@@ -205,6 +204,7 @@ function Discover() {
                 }}
             />
         )}
+
         <section ref={wrapRef}>
             <div ref={heroRef} className="relative inset-0 overflow-hidden min-h-[580px] h-[100svh] md:h-screen"
                 style={{ background: "radial-gradient(ellipse at center 40%, #0a182b 0%, #050e1c 55%, #020710 100%)", perspective: "1000px" }}
@@ -331,7 +331,7 @@ function Discover() {
         </section>
         <FeaturedJourney />
         <ItinerariesSection />
-        <Footer />
+        <Footer /> 
         </div>
     </>);
 }

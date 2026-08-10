@@ -1,78 +1,82 @@
 import { useEffect, useRef } from "react";
 import Lottie from "lottie-react";
 import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
 
 import travelLoading from "../assets/travel-loading.json";
+
+gsap.registerPlugin(SplitText);
 
 function PageLoader({ onComplete }) {
     const loaderRef = useRef(null);
     const globeRef = useRef(null);
     const logoRef = useRef(null);
 
-    /*
-     * Initial appearance of globe + WANDERLY
-     */
     useEffect(() => {
         const globe = globeRef.current;
         const logo = logoRef.current;
 
         if (!globe || !logo) return;
 
-        gsap.set(globe, {
-            opacity: 0,
-            scale: 0.9,
+        // Split WANDERLY into individual letters
+        const split = new SplitText(logo, {
+            type: "chars",
         });
 
-        gsap.set(logo, {
+        // Initial states
+        gsap.set(globe, {
             opacity: 0,
-            scale: 0.9,
+            scale: 0.88,
+        });
+
+        gsap.set(split.chars, {
+            opacity: 0,
+            y: 12,
+            filter: "blur(6px)",
         });
 
         const tl = gsap.timeline();
 
-        // Globe appears
+        /*
+         * Globe slowly appears
+         */
         tl.to(globe, {
             opacity: 1,
             scale: 1,
-            duration: 1,
+            duration: 0.8,
             ease: "power3.out",
         });
 
-        // WANDERLY appears in the middle
+        /*
+         * Letters appear one by one
+         */
         tl.to(
-            logo,
+            split.chars,
             {
                 opacity: 1,
-                scale: 1,
-                duration: 0.7,
+                y: 0,
+                filter: "blur(0px)",
+                duration: 0.65,
+                stagger: 0.16,
                 ease: "power3.out",
             },
-            "-=0.5"
+            "-=0.7"
         );
 
         return () => {
             tl.kill();
+            split.revert();
         };
     }, []);
 
-    /*
-     * Called automatically when the Lottie animation finishes
-     */
     const handleLottieComplete = () => {
         const loader = loaderRef.current;
         const globe = globeRef.current;
         const logo = logoRef.current;
 
-        /*
-         * Find the REAL WANDERLY in the navbar
-         */
-        const navbarLogo = document.querySelector(
-            "#navbar-logo"
-        );
+        const navbarLogo =
+            document.querySelector("#navbar-logo");
 
-        /*
-         * Safety fallback
-         */
         if (!navbarLogo) {
             gsap.to(loader, {
                 opacity: 0,
@@ -86,86 +90,82 @@ function PageLoader({ onComplete }) {
         }
 
         /*
-         * Position of loader WANDERLY
+         * Get the positions of the two logos
          */
-        const logoRect = logo.getBoundingClientRect();
+        const logoRect =
+            logo.getBoundingClientRect();
 
-        /*
-         * Position of navbar WANDERLY
-         */
-        const navbarRect = navbarLogo.getBoundingClientRect();
+        const navbarRect =
+            navbarLogo.getBoundingClientRect();
 
-        /*
-         * Center points
-         */
         const logoCenterX =
-            logoRect.left + logoRect.width / 2;
+            logoRect.left +
+            logoRect.width / 2;
 
         const logoCenterY =
-            logoRect.top + logoRect.height / 2;
+            logoRect.top +
+            logoRect.height / 2;
 
         const navbarCenterX =
-            navbarRect.left + navbarRect.width / 2;
+            navbarRect.left +
+            navbarRect.width / 2;
 
         const navbarCenterY =
-            navbarRect.top + navbarRect.height / 2;
+            navbarRect.top +
+            navbarRect.height / 2;
+
+        const moveX =
+            navbarCenterX - logoCenterX;
+
+        const moveY =
+            navbarCenterY - logoCenterY;
 
         /*
-         * Calculate exact movement
+         * Move WANDERLY to navbar
+         * while globe fades.
          */
-        const moveX = navbarCenterX - logoCenterX;
-        const moveY = navbarCenterY - logoCenterY;
-
         const tl = gsap.timeline({
             onComplete: () => {
-                /*
-                 * Loader is finished.
-                 */
+                gsap.set(navbarLogo, {
+                    opacity: 1,
+                });
+
                 onComplete?.();
             },
         });
 
         /*
-         * WANDERLY moves to navbar
+         * WANDERLY travels to navbar
          */
         tl.to(logo, {
             x: moveX,
             y: moveY,
             scale: 0.65,
-            duration: 1.15,
+            duration: 1.0,
             ease: "power4.inOut",
         });
 
         /*
-         * Globe fades away at the same time
+         * Globe fades at the same time
          */
         tl.to(
             globe,
             {
                 opacity: 0,
                 scale: 1.05,
-                duration: 0.9,
+                duration: 0.95,
                 ease: "power2.inOut",
             },
             "<"
         );
 
         /*
-         * Remove loader
+         * Fade loader away
          */
         tl.to(loader, {
             opacity: 0,
             duration: 0.35,
             ease: "power2.out",
-
-            onComplete: () => {
-                /*
-                 * Show the actual navbar logo.
-                 */
-                gsap.set(navbarLogo, {
-                    opacity: 1,
-                });
-            },
         });
     };
 
@@ -184,7 +184,7 @@ function PageLoader({ onComplete }) {
             "
         >
 
-            {/* Very subtle glow behind globe */}
+            {/* Very subtle premium glow */}
             <div
                 className="
                     pointer-events-none
@@ -220,11 +220,11 @@ function PageLoader({ onComplete }) {
                 "
             >
 
-                {/* Lottie globe */}
+                {/* YOUR LOTTIE */}
                 <Lottie
                     animationData={travelLoading}
                     loop={false}
-                    autoplay={true}
+                    autoplay
                     onComplete={handleLottieComplete}
                     className="
                         absolute
@@ -260,6 +260,7 @@ function PageLoader({ onComplete }) {
                 >
                     WANDERLY
                 </div>
+
             </div>
         </div>
     );
