@@ -25,7 +25,13 @@ function Discover() {
     const searchBarRef = useRef(null);
     const globeContainerRef = useRef(null);
     const globeObjectsRef = useRef(null);
-    const [showLoader, setShowLoader] = useState(true)
+    const [showLoader, setShowLoader] = useState(() => {
+        try {
+            return !sessionStorage.getItem("hasSeenPageLoader");
+        } catch {
+            return false;
+        }
+    });
     const {
         searchQuery, setSearchQuery,
         searchError, setSearchError,
@@ -201,6 +207,11 @@ function Discover() {
             <PageLoader
                 onComplete={() => {
                     setShowLoader(false);
+                    try {
+                        sessionStorage.setItem("hasSeenPageLoader", "true");
+                    } catch (e) {
+                        console.error(e);
+                    }
                 }}
             />
         )}
@@ -331,7 +342,6 @@ function Discover() {
         </section>
         <FeaturedJourney />
         <ItinerariesSection />
-        <Footer /> 
         </div>
     </>);
 }

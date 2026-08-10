@@ -75,8 +75,6 @@ function TermsOfService() {
         </div>
 
       </section>
-
-      <Footer />
     </div>
   );
 }

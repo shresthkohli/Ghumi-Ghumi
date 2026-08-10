@@ -131,8 +131,6 @@ function Sustainability() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }

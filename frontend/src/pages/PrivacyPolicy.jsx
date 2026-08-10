@@ -79,8 +79,6 @@ function PrivacyPolicy() {
         </div>
 
       </section>
-
-      <Footer />
     </div>
   );
 }
