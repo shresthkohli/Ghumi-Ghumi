@@ -14,6 +14,7 @@ import reviewRoutes from "./routes/reviewRoutes.js"
 import favoriteRoutes from "./routes/favoriteRoutes.js"
 import visitedRoutes from "./routes/visitedRoutes.js"
 import profileRoutes from "./routes/profileRoutes.js"
+import blogRoutes from "./routes/blogRoutes.js"
 import errorHandler from "./middlewares/errorHandler.js";
 
 dotenv.config();
@@ -45,6 +46,7 @@ app.use("/api/reviews", reviewRoutes);
 app.use("/api/favorites", favoriteRoutes);
 app.use("/api/visited", visitedRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/blogs", blogRoutes);
 
 //Basic GET request
 app.get("/", (req, res) => {
