@@ -197,8 +197,10 @@ body {
 html,
 body,
 * {
-  scrollbar-width: none !important; /* Firefox */
-  -ms-overflow-style: none !important; /* IE & Legacy Edge */
+  scrollbar-width: none !important;
+  /* Firefox */
+  -ms-overflow-style: none !important;
+  /* IE & Legacy Edge */
 }
 
 html::-webkit-scrollbar,
