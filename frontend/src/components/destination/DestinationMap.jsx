@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import "leaflet/dist/leaflet.css";
 
 
-function createMarker(icon, size = "normal") {
+function createMarker(icon, size = "normal", isDestination = false) {
 
     const markerSize =
         size === "large" ? 44 : 34;
@@ -20,49 +20,74 @@ function createMarker(icon, size = "normal") {
     const fontSize =
         size === "large" ? 24 : 18;
 
+    const containerSize = markerSize + 16;
+
     return L.divIcon({
 
-        className: "",
+        className: "custom-leaflet-marker",
 
         html: `
-            <div
-                style="
-                    width: ${markerSize}px;
-                    height: ${markerSize}px;
-                    border-radius: 50%;
-                    background: #12372A;
-                    border: 2px solid #D4AF37;
-                    box-shadow:
-                        0 0 12px rgba(212,175,55,0.7),
-                        0 4px 12px rgba(0,0,0,0.35);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                "
-            >
-                <span
-                    class="material-symbols-outlined"
+            <div style="
+                position: relative;
+                width: ${containerSize}px;
+                height: ${containerSize}px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            ">
+                ${isDestination ? `
+                    <div style="
+                        position: absolute;
+                        width: ${containerSize}px;
+                        height: ${containerSize}px;
+                        border-radius: 50%;
+                        background: rgba(212,175,55,0.4);
+                        animation: map-pulse-beacon 2.5s ease-out infinite;
+                        pointer-events: none;
+                    "></div>
+                ` : ''}
+                <div
                     style="
-                        font-size: ${fontSize}px;
-                        color: #D4AF37;
-                        line-height: 1;
+                        position: relative;
+                        z-index: 2;
+                        width: ${markerSize}px;
+                        height: ${markerSize}px;
+                        border-radius: 50%;
+                        background: #12372A;
+                        border: 2px solid #D4AF37;
+                        box-shadow:
+                            0 0 12px rgba(212,175,55,0.7),
+                            0 4px 12px rgba(0,0,0,0.35);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        animation: map-marker-float 3s ease-in-out infinite;
                     "
                 >
-                    ${icon}
-                </span>
+                    <span
+                        class="material-symbols-outlined"
+                        style="
+                            font-size: ${fontSize}px;
+                            color: #D4AF37;
+                            line-height: 1;
+                        "
+                    >
+                        ${icon}
+                    </span>
+                </div>
             </div>
         `,
 
-        iconSize: [markerSize, markerSize],
+        iconSize: [containerSize, containerSize],
 
         iconAnchor: [
-            markerSize / 2,
-            markerSize / 2
+            containerSize / 2,
+            containerSize / 2
         ],
 
         popupAnchor: [
             0,
-            -(markerSize / 2)
+            -(containerSize / 2)
         ]
 
     });
@@ -153,7 +178,8 @@ export default function DestinationMap({
     const destinationMarker =
         createMarker(
             destination.icon || "location_on",
-            "large"
+            "large",
+            true
         );
 
     const attractionMarkers =

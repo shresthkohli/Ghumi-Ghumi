@@ -168,6 +168,7 @@
   from {
     stroke-dashoffset: 0;
   }
+
   to {
     stroke-dashoffset: -1000;
   }
