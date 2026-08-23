@@ -1,8 +1,15 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { Leaf, Recycle, HeartHandshake, ShieldCheck, ArrowRight, TreePine } from "lucide-react";
-import Footer from "../components/common/Footer.jsx";
+import { Leaf, HeartHandshake, ShieldCheck, ArrowRight, TreePine } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function Sustainability() {
+  const containerRef = useRef(null);
+
   const initiatives = [
     {
       icon: Leaf,
@@ -33,12 +40,94 @@ function Sustainability() {
     "Stay on marked trails to protect sensitive alpine and forest habitats.",
   ];
 
+  useGSAP(
+    () => {
+      // 1. Hero Entrance
+      gsap.fromTo(
+        ".hero-content > *",
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: "power2.out" }
+      );
+
+      // 2. Initiatives Section
+      gsap.fromTo(
+        ".init-header > *",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".init-section",
+            start: "top 82%",
+            once: true,
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".init-card",
+        { opacity: 0, y: 25 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".init-grid",
+            start: "top 85%",
+            once: true,
+          },
+        }
+      );
+
+      // 3. Guidelines Section
+      gsap.fromTo(
+        ".guide-card",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.55,
+          stagger: 0.08,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".guide-section",
+            start: "top 85%",
+            once: true,
+          },
+        }
+      );
+
+      // 4. CTA Section
+      gsap.fromTo(
+        ".cta-box",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".cta-box",
+            start: "top 88%",
+            once: true,
+          },
+        }
+      );
+    },
+    { scope: containerRef }
+  );
+
   return (
-    <div className="min-h-screen bg-background text-on-surface pt-[90px]">
+    <div ref={containerRef} className="min-h-screen bg-background text-on-surface">
       {/* Hero */}
       <section className="relative overflow-hidden bg-surface-container-high px-6 py-20 md:px-margin-desktop md:py-28">
         <div className="absolute top-10 right-1/4 h-72 w-72 rounded-full bg-secondary/20 blur-3xl pointer-events-none" />
-        <div className="relative mx-auto max-w-4xl text-center">
+        <div className="hero-content relative mx-auto max-w-4xl text-center">
           <span className="eyebrow font-body text-xs font-bold uppercase tracking-widest text-secondary">
             Conscious Expeditions
           </span>
@@ -52,8 +141,8 @@ function Sustainability() {
       </section>
 
       {/* Initiatives */}
-      <section className="px-6 py-20 md:px-margin-desktop max-w-7xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-16">
+      <section className="init-section px-6 py-20 md:px-margin-desktop max-w-7xl mx-auto">
+        <div className="init-header text-center max-w-2xl mx-auto mb-16">
           <h2 className="font-display text-3xl md:text-4xl font-bold text-on-surface">
             Our Sustainability Commitments
           </h2>
@@ -62,13 +151,13 @@ function Sustainability() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="init-grid grid grid-cols-1 md:grid-cols-2 gap-8">
           {initiatives.map((item) => {
             const Icon = item.icon;
             return (
               <div
                 key={item.title}
-                className="glass-widget rounded-2xl p-8 border border-outline-variant/20 flex gap-6 items-start"
+                className="init-card glass-widget rounded-2xl p-8 border border-outline-variant/20 flex gap-6 items-start transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg"
               >
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-secondary-container/40 text-secondary">
                   <Icon className="h-6 w-6" />
@@ -88,16 +177,16 @@ function Sustainability() {
       </section>
 
       {/* Explorer Guidelines */}
-      <section className="px-6 py-16 bg-surface-container">
+      <section className="guide-section px-6 py-16 bg-surface-container">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-display text-3xl font-bold text-on-surface text-center mb-10">
-            The Explorer's Green Pledge
+            The Explorer&apos;s Green Pledge
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {guidelines.map((text, idx) => (
               <div
                 key={idx}
-                className="flex items-start gap-4 rounded-xl bg-surface p-6 border border-outline-variant/20 shadow-sm"
+                className="guide-card flex items-start gap-4 rounded-xl bg-surface p-6 border border-outline-variant/20 shadow-sm"
               >
                 <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-secondary text-white font-bold text-xs">
                   {idx + 1}
@@ -113,7 +202,7 @@ function Sustainability() {
 
       {/* CTA */}
       <section className="px-6 py-16 md:px-margin-desktop text-center">
-        <div className="max-w-3xl mx-auto">
+        <div className="cta-box max-w-3xl mx-auto">
           <h3 className="font-display text-2xl font-bold text-on-surface">
             Join Us in Mindful Exploration
           </h3>
@@ -123,7 +212,7 @@ function Sustainability() {
           <div className="mt-6">
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-secondary px-8 py-3 font-body text-sm font-semibold text-white transition-all hover:bg-secondary/90 shadow-md"
+              className="inline-flex items-center gap-2 rounded-full bg-secondary px-8 py-3 font-body text-sm font-semibold text-white transition-all hover:bg-secondary/90 shadow-md hover:scale-105"
             >
               <span>Get In Touch</span>
               <ArrowRight className="h-4 w-4" />

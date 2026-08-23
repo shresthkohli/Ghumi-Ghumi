@@ -14,10 +14,10 @@ try {
 } catch (e) {
     try {
         gsap.registerPlugin(ScrollTrigger);
-    } catch (err) {}
+    } catch (err) { }
 }
 
-const RESULTS_PER_PAGE = 6;
+const RESULTS_PER_PAGE = 8;
 
 function Destinations() {
     const [destinations, setDestinations] = useState([]);

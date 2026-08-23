@@ -1,7 +1,14 @@
-import Footer from "../components/common/Footer.jsx";
+import { useRef } from "react";
 import { ShieldCheck, Lock, Eye, FileText } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function PrivacyPolicy() {
+  const containerRef = useRef(null);
+
   const sections = [
     {
       icon: Eye,
@@ -29,11 +36,58 @@ function PrivacyPolicy() {
     },
   ];
 
+  useGSAP(
+    () => {
+      // 1. Header Entrance
+      gsap.fromTo(
+        ".header-content > *",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power2.out" }
+      );
+
+      // 2. Intro Card
+      gsap.fromTo(
+        ".intro-card",
+        { opacity: 0, y: 25 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".intro-card",
+            start: "top 88%",
+            once: true,
+          },
+        }
+      );
+
+      // 3. Policy Sections Stagger
+      gsap.fromTo(
+        ".policy-item",
+        { opacity: 0, y: 25 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".policy-list",
+            start: "top 85%",
+            once: true,
+          },
+        }
+      );
+    },
+    { scope: containerRef }
+  );
+
   return (
-    <div className="min-h-screen bg-background text-on-surface pt-[90px]">
+    <div ref={containerRef} className="min-h-screen bg-background text-on-surface">
       {/* Header */}
       <section className="bg-surface-container-high px-6 py-16 md:px-margin-desktop text-center border-b border-outline-variant/20">
-        <div className="mx-auto max-w-3xl">
+        <div className="header-content mx-auto max-w-3xl">
           <span className="eyebrow font-body text-xs font-bold uppercase tracking-widest text-primary">
             Legal & Transparency
           </span>
@@ -48,19 +102,19 @@ function PrivacyPolicy() {
 
       {/* Content */}
       <section className="px-6 py-16 max-w-4xl mx-auto space-y-10">
-        <div className="glass-widget rounded-2xl p-8 border border-outline-variant/20 leading-relaxed text-on-surface-variant font-body text-base">
+        <div className="intro-card glass-widget rounded-2xl p-8 border border-outline-variant/20 leading-relaxed text-on-surface-variant font-body text-base">
           <p>
             At <strong>Wanderly</strong> (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;), we are committed to safeguarding your privacy and protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your details when you visit our website or engage our expedition services.
           </p>
         </div>
 
-        <div className="space-y-8">
+        <div className="policy-list space-y-8">
           {sections.map((sec) => {
             const Icon = sec.icon;
             return (
               <div
                 key={sec.title}
-                className="rounded-2xl bg-surface-container/60 p-8 border border-outline-variant/20 shadow-sm"
+                className="policy-item rounded-2xl bg-surface-container/60 p-8 border border-outline-variant/20 shadow-sm transition-all duration-300 hover:shadow-md"
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-container/20 text-primary">
@@ -77,7 +131,6 @@ function PrivacyPolicy() {
             );
           })}
         </div>
-
       </section>
     </div>
   );

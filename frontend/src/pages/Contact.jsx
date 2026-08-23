@@ -1,7 +1,14 @@
+import { useRef } from "react";
 import { Mail, Sparkles } from "lucide-react";
-import Footer from "../components/common/Footer.jsx";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function Contact() {
+  const containerRef = useRef(null);
+
   const teamMembers = [
     {
       name: "Gitanshu Chavda",
@@ -33,11 +40,41 @@ function Contact() {
     },
   ];
 
+  useGSAP(
+    () => {
+      // 1. Hero Header Entrance
+      gsap.fromTo(
+        ".header-content > *",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power2.out" }
+      );
+
+      // 2. Team Cards Stagger
+      gsap.fromTo(
+        ".team-card",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".team-grid",
+            start: "top 85%",
+            once: true,
+          },
+        }
+      );
+    },
+    { scope: containerRef }
+  );
+
   return (
-    <div className="min-h-screen bg-background text-on-surface pt-[90px]">
-      {/* Hero Header - Simple & Clean */}
+    <div ref={containerRef} className="min-h-screen bg-background text-on-surface">
+      {/* Hero Header */}
       <section className="relative overflow-hidden bg-surface-container-high px-6 py-16 md:px-margin-desktop md:py-20 border-b border-outline-variant/20">
-        <div className="relative mx-auto max-w-4xl text-center">
+        <div className="header-content relative mx-auto max-w-4xl text-center">
           <span className="eyebrow inline-flex items-center gap-2 font-body text-xs font-bold uppercase tracking-widest text-primary">
             <Sparkles className="h-4 w-4" />
             Creators of Wanderly
@@ -48,13 +85,13 @@ function Contact() {
         </div>
       </section>
 
-      {/* Plain & Simple Team Showcase Grid */}
-      <section className="px-6 py-16 max-w-6xl mx-auto md:px-margin-desktop">
+      {/* Team Showcase Grid */}
+      <section className="team-grid px-6 py-16 max-w-6xl mx-auto md:px-margin-desktop">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {teamMembers.map((member) => (
             <div
               key={member.name}
-              className="glass-widget rounded-3xl p-6 border border-outline-variant/30 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg group"
+              className="team-card glass-widget rounded-3xl p-6 border border-outline-variant/30 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg group"
             >
               {/* Profile Photo */}
               <div className="relative mb-5 w-28 h-28 rounded-full p-1 bg-gradient-to-tr from-primary to-primary-container shadow-md overflow-hidden shrink-0">

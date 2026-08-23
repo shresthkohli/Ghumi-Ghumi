@@ -1,6 +1,14 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function Footer() {
+  const footerRef = useRef(null);
+
   const links = [
     { label: "About Us", path: "/about" },
     { label: "Sustainability", path: "/sustainability" },
@@ -9,9 +17,34 @@ function Footer() {
     { label: "Contact", path: "/contact" },
   ];
 
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        ".footer-content > *",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: footerRef.current,
+            start: "top 95%",
+            once: true,
+          },
+        }
+      );
+    },
+    { scope: footerRef }
+  );
+
   return (
-    <footer className="bg-surface-container-high px-6 py-12 md:px-margin-desktop">
-      <div className="flex flex-col items-start justify-between gap-6 md:flex-row max-w-7xl mx-auto">
+    <footer
+      ref={footerRef}
+      className="bg-surface-container-high px-6 py-12 md:px-margin-desktop"
+    >
+      <div className="footer-content flex flex-col items-start justify-between gap-6 md:flex-row max-w-7xl mx-auto">
         <div>
           <Link to="/" className="font-display text-2xl font-bold text-primary">
             Wanderly

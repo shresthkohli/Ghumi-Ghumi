@@ -20,7 +20,33 @@ function Navbar() {
 
     const [searchOpen, setSearchOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
+    const [navVisible, setNavVisible] = useState(true);
+    const lastScrollY = useRef(0);
     const searchInputRef = useRef(null);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            // Always show near the top
+            if (currentScrollY < 60) {
+                setNavVisible(true);
+            } else if (currentScrollY > lastScrollY.current + 8) {
+                // Scrolling down -> hide navbar
+                if (!menuOpen && !searchOpen) {
+                    setNavVisible(false);
+                }
+            } else if (currentScrollY < lastScrollY.current - 8) {
+                // Scrolling up -> show navbar
+                setNavVisible(true);
+            }
+
+            lastScrollY.current = currentScrollY;
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [menuOpen, searchOpen]);
 
     const {
         searchQuery, setSearchQuery,
@@ -88,42 +114,46 @@ function Navbar() {
     }
 
     return (
-        <header className="bg-[#050d1a]/70 backdrop-blur-md sticky top-0 z-50 border-b border-white/10 shadow-lg">
+        <header className={`bg-surface-container-high/85 backdrop-blur-md sticky top-0 z-50 border-b border-outline-variant/20 shadow-sm transition-transform duration-300 ease-in-out ${navVisible || menuOpen || searchOpen ? "translate-y-0" : "-translate-y-full"}`}>
             <nav className="logo flex justify-between items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop py-3.5 sm:py-4 w-full max-w-container-max mx-auto">
-                <Link id="navbar-logo" to="/" className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight hover:opacity-90 transition-opacity shrink-0">
+                <Link id="navbar-logo" to="/" className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-primary tracking-tight hover:opacity-90 transition-opacity shrink-0">
                     Wanderly
                 </Link>
 
-                <div className="hidden md:flex items-center gap-5 lg:gap-gutter font-body text-sm lg:text-body-md">
-                    <Link className="nav-links text-white/80 font-medium hover:text-white transition-colors" to="/discover">
+                <div className="hidden md:flex items-center gap-6 lg:gap-8 font-body text-sm lg:text-body-md">
+                    <Link className="nav-links group relative font-body text-sm font-medium text-on-surface-variant hover:text-primary transition-colors py-1" to="/discover">
                         Discover
+                        <span className="absolute left-0 -bottom-0.5 h-0.5 w-full bg-primary origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
                     </Link>
-                    <Link className="nav-links text-white/80 font-medium hover:text-white transition-colors" to="/itineraries">
+                    <Link className="nav-links group relative font-body text-sm font-medium text-on-surface-variant hover:text-primary transition-colors py-1" to="/itineraries">
                         Itineraries
+                        <span className="absolute left-0 -bottom-0.5 h-0.5 w-full bg-primary origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
                     </Link>
-                    <Link className="nav-links text-white/80 font-medium hover:text-white transition-colors" to="/destinations">
+                    <Link className="nav-links group relative font-body text-sm font-medium text-on-surface-variant hover:text-primary transition-colors py-1" to="/destinations">
                         Destinations
+                        <span className="absolute left-0 -bottom-0.5 h-0.5 w-full bg-primary origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
                     </Link>
-                    <Link className="nav-links text-white/80 font-medium hover:text-white transition-colors" to="/blogs">
+                    <Link className="nav-links group relative font-body text-sm font-medium text-on-surface-variant hover:text-primary transition-colors py-1" to="/blogs">
                         Blogs
+                        <span className="absolute left-0 -bottom-0.5 h-0.5 w-full bg-primary origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
                     </Link>
                 </div>
 
                 <div className="icon-btn flex items-center gap-3 sm:gap-6">
                     <button
                         onClick={() => setSearchOpen(true)}
-                        className="material-symbols-outlined text-white/80 hover:text-white transition-all duration-300 p-1 cursor-pointer"
+                        className="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all duration-300 p-1 cursor-pointer"
                         aria-label="Open search"
                     >
                         search
                     </button>
 
                     {loading ? (
-                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 animate-pulse" />
+                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-outline-variant/30 animate-pulse" />
                     ) : user ? (
                         <Link
                             to="/profile"
-                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-white/40 overflow-hidden ring-2 ring-white/20"
+                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-primary/40 overflow-hidden ring-2 ring-primary/20"
                         >
                             <img
                                 src={`https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(user.name)}`}
@@ -142,7 +172,7 @@ function Navbar() {
 
                     <button
                         onClick={() => setMenuOpen(!menuOpen)}
-                        className="md:hidden flex items-center justify-center w-9 h-9 text-white cursor-pointer ml-1"
+                        className="md:hidden flex items-center justify-center w-9 h-9 text-on-surface-variant hover:text-primary cursor-pointer ml-1"
                         aria-label="Toggle menu"
                     >
                         <span className="material-symbols-outlined text-2xl sm:text-3xl">
@@ -157,13 +187,13 @@ function Navbar() {
                     "max-h-[500px] opacity-100"
                     : "max-h-0 opacity-0"
                 }`}>
-                <div className="border-t border-white/10 bg-[#050d1a]/95 backdrop-blur-xl px-5 sm:px-8 py-5">
+                <div className="border-t border-outline-variant/20 bg-surface-container-high/95 backdrop-blur-xl px-5 sm:px-8 py-5">
                     <div className="flex flex-col">
                         <Link to="/discover"
                             onClick={handleMobileLinkClick}
-                            className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors"
+                            className="flex items-center gap-4 py-4 text-on-surface-variant hover:text-primary border-b border-outline-variant/20 transition-colors"
                         >
-                            <span className="material-symbols-outlined text-[22px]">
+                            <span className="material-symbols-outlined text-[22px] text-primary">
                                 explore
                             </span>
                             <span className="font-body text-base font-medium">
@@ -172,9 +202,9 @@ function Navbar() {
                         </Link>
                         <Link to="/itineraries"
                             onClick={handleMobileLinkClick}
-                            className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors"
+                            className="flex items-center gap-4 py-4 text-on-surface-variant hover:text-primary border-b border-outline-variant/20 transition-colors"
                         >
-                            <span className="material-symbols-outlined text-[22px]">
+                            <span className="material-symbols-outlined text-[22px] text-primary">
                                 map
                             </span>
                             <span className="font-body text-base font-medium">
@@ -183,9 +213,9 @@ function Navbar() {
                         </Link>
                         <Link to="/destinations"
                             onClick={handleMobileLinkClick}
-                            className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors"
+                            className="flex items-center gap-4 py-4 text-on-surface-variant hover:text-primary border-b border-outline-variant/20 transition-colors"
                         >
-                            <span className="material-symbols-outlined text-[22px]">
+                            <span className="material-symbols-outlined text-[22px] text-primary">
                                 location_on
                             </span>
                             <span className="font-body text-base font-medium">
@@ -194,9 +224,9 @@ function Navbar() {
                         </Link>
                         <Link to="/blogs"
                             onClick={handleMobileLinkClick}
-                            className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors"
+                            className="flex items-center gap-4 py-4 text-on-surface-variant hover:text-primary border-b border-outline-variant/20 transition-colors"
                         >
-                            <span className="material-symbols-outlined text-[22px]">
+                            <span className="material-symbols-outlined text-[22px] text-primary">
                                 menu_book
                             </span>
                             <span className="font-body text-base font-medium">
@@ -205,9 +235,9 @@ function Navbar() {
                         </Link>
                         <button
                             onClick={openMobileSearch}
-                            className="flex items-center gap-4 py-4 text-white/85 hover:text-white border-b border-white/10 transition-colors text-left"
+                            className="flex items-center gap-4 py-4 text-on-surface-variant hover:text-primary border-b border-outline-variant/20 transition-colors text-left"
                         >
-                            <span className="material-symbols-outlined text-[22px]">
+                            <span className="material-symbols-outlined text-[22px] text-primary">
                                 search
                             </span>
                             <span className="font-body text-base font-medium">
@@ -216,15 +246,15 @@ function Navbar() {
                         </button>
                         {loading ? (
                             <div className="flex items-center gap-4 py-4">
-                                <div className="w-9 h-9 rounded-full bg-white/20 animate-pulse" />
-                                <div className="h-4 w-20 rounded bg-white/20 animate-pulse" />
+                                <div className="w-9 h-9 rounded-full bg-outline-variant/30 animate-pulse" />
+                                <div className="h-4 w-20 rounded bg-outline-variant/30 animate-pulse" />
                             </div>
                         ) : user ? (
                             <Link
                                 to="/profile"
                                 onClick={handleMobileLinkClick}
-                                className="flex items-center gap-4 py-4 text-white/85 hover:text-white transition-colors" >
-                                <div className="w-9 h-9 rounded-full border border-white/30 overflow-hidden">
+                                className="flex items-center gap-4 py-4 text-on-surface-variant hover:text-primary transition-colors" >
+                                <div className="w-9 h-9 rounded-full border border-primary/30 overflow-hidden">
                                     <img
                                         src={`https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(user.name)}`}
                                         alt={user.name} className="w-full h-full object-cover" />
@@ -237,8 +267,8 @@ function Navbar() {
                             <Link
                                 to="/login"
                                 onClick={handleMobileLinkClick}
-                                className="flex items-center gap-4 py-4 text-white/85 hover:text-white transition-colors" >
-                                <span className="material-symbols-outlined text-[22px]">
+                                className="flex items-center gap-4 py-4 text-on-surface-variant hover:text-primary transition-colors" >
+                                <span className="material-symbols-outlined text-[22px] text-primary">
                                     login
                                 </span>
                                 <span className="font-body text-base font-medium">
@@ -257,12 +287,12 @@ function Navbar() {
                     : "opacity-0 -translate-y-full pointer-events-none"
                     }`}
             >
-                <div className="bg-[#050d1a]/95 backdrop-blur-xl border-b border-white/10 shadow-2xl">
+                <div className="bg-surface-container-high/95 backdrop-blur-xl border-b border-outline-variant/20 shadow-2xl">
                     <div className="max-w-container-max mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop py-4 relative">
                         <form
                             onSubmit={handleNavSearch}
                             className="flex items-center gap-3 sm:gap-4">
-                            <span className="material-symbols-outlined text-white/50 text-xl sm:text-2xl shrink-0">
+                            <span className="material-symbols-outlined text-on-surface-variant/70 text-xl sm:text-2xl shrink-0">
                                 search
                             </span>
 
@@ -279,17 +309,17 @@ function Navbar() {
                                     setShowSuggestions(true)}
                                 onBlur={dismissSuggestions}
                                 placeholder="Search destinations..."
-                                className="flex-1 bg-transparent font-body text-base sm:text-lg text-white placeholder-white/40 font-medium outline-none min-w-0"
+                                className="flex-1 bg-transparent font-body text-base sm:text-lg text-on-surface placeholder-on-surface-variant/50 font-medium outline-none min-w-0"
                             />
 
                             {isSearching && (
-                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                <div className="w-5 h-5 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
                             )}
 
                             <button
                                 type="submit"
                                 disabled={isSearching || !searchQuery.trim()}
-                                className=" hidden sm:block px-5 py-2 rounded-full bg-primary text-on-primary font-body text-sm font-semibold tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-40 disabled:hover:scale-100"
+                                className="hidden sm:block px-5 py-2 rounded-full bg-primary text-on-primary font-body text-sm font-semibold tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-40 disabled:hover:scale-100"
                             >
                                 Search
                             </button>
@@ -297,7 +327,7 @@ function Navbar() {
                             <button
                                 type="button"
                                 onClick={closeSearch}
-                                className="material-symbols-outlined text-white/60 hover:text-white transition-colors text-2xl"
+                                className="material-symbols-outlined text-on-surface-variant/70 hover:text-primary transition-colors text-2xl cursor-pointer"
                             >
                                 close
                             </button>
@@ -305,30 +335,30 @@ function Navbar() {
 
                         {/* Suggestions dropdown */}
                         {showSuggestions && suggestions.length > 0 && (
-                            <div className="absolute left-4 right-4 mt-2 rounded-2xl bg-[#0a1a2e]/95 backdrop-blur-xl border border-white/15 shadow-2xl overflow-hidden animate-[fadeSlideDown_0.2s_ease-out] z-50">
+                            <div className="absolute left-4 right-4 mt-2 rounded-2xl bg-surface-container-highest/95 backdrop-blur-xl border border-outline-variant/30 shadow-2xl overflow-hidden animate-[fadeSlideDown_0.2s_ease-out] z-50">
                                 {suggestions.map((dest) => (
                                     <button
                                         key={dest.id}
                                         type="button"
                                         onMouseDown={() => handlePickSuggestion(dest)}
-                                        className="w-full flex items-center gap-4 px-5 py-3 text-left hover:bg-white/10 transition-colors duration-150 group"
+                                        className="w-full flex items-center gap-4 px-5 py-3 text-left hover:bg-surface-container transition-colors duration-150 group"
                                     >
                                         {dest.imageUrl && (
                                             <img
                                                 src={`${API_URL}${dest.imageUrl}`}
                                                 alt={dest.name}
-                                                className="w-10 h-10 rounded-lg object-cover shrink-0 ring-1 ring-white/10"
+                                                className="w-10 h-10 rounded-lg object-cover shrink-0 ring-1 ring-outline-variant/20"
                                             />
                                         )}
                                         <div className="flex-1 min-w-0">
-                                            <p className="font-body text-sm font-semibold text-white truncate group-hover:text-primary-fixed transition-colors">
+                                            <p className="font-body text-sm font-semibold text-on-surface truncate group-hover:text-primary transition-colors">
                                                 {dest.name}
                                             </p>
-                                            <p className="font-body text-xs text-white/50 truncate">
+                                            <p className="font-body text-xs text-on-surface-variant/70 truncate">
                                                 {[dest.city, dest.state, dest.country].filter(Boolean).join(", ")}
                                             </p>
                                         </div>
-                                        <span className="material-symbols-outlined text-white/30 group-hover:text-white/70 transition-colors text-[18px]">arrow_forward</span>
+                                        <span className="material-symbols-outlined text-on-surface-variant/40 group-hover:text-primary transition-colors text-[18px]">arrow_forward</span>
                                     </button>
                                 ))}
                             </div>
@@ -338,7 +368,7 @@ function Navbar() {
                         <div
                             className={`overflow-hidden transition-all duration-300 ${searchError ? "max-h-16 opacity-100 mt-3" : "max-h-0 opacity-0 mt-0"}`}
                         >
-                            <span className="inline-flex items-center gap-2 rounded-full bg-red-500/15 border border-red-400/25 backdrop-blur-md px-4 py-2 text-red-300 font-body text-sm">
+                            <span className="inline-flex items-center gap-2 rounded-full bg-red-500/15 border border-red-400/25 backdrop-blur-md px-4 py-2 text-red-600 font-body text-sm">
                                 <span className="material-symbols-outlined text-[16px]">error</span>
                                 {searchError}
                             </span>
