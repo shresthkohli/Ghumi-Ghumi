@@ -9,6 +9,7 @@ import AttractionCard from "../components/destination/AttractionCard";
 import destinationApi from "../api/destinationApi";
 import favoriteApi from "../api/favoritesApi";
 import visitedApi from "../api/visitedApi";
+import DestinationMap from "../components/destination/DestinationMap";
 import ItineraryCard from "../components/itinerary/ItineraryCard";
 import reviewApi from "../api/reviewApi";
 import ReviewSection from "../components/reviews/ReviewSection";
@@ -372,7 +373,7 @@ export default function DestinationDetailPage() {
                 splits.forEach((s) => {
                     try {
                         s.revert();
-                    } catch (e) {}
+                    } catch (e) { }
                 });
             };
         },
@@ -631,11 +632,10 @@ export default function DestinationDetailPage() {
                             type="button"
                             onClick={handleToggleFavorite}
                             disabled={favLoading}
-                            className={`inline-flex items-center gap-2 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 font-body text-xs sm:text-sm font-semibold backdrop-blur-md border transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shadow-lg ${
-                                favorite
+                            className={`inline-flex items-center gap-2 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 font-body text-xs sm:text-sm font-semibold backdrop-blur-md border transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shadow-lg ${favorite
                                     ? "bg-red-500 text-white border-red-500 shadow-red-500/30"
                                     : "bg-white/15 text-white border-white/25 hover:bg-white/25 hover:border-white/40"
-                            }`}
+                                }`}
                         >
                             <span
                                 className={`material-symbols-outlined text-base sm:text-lg transition-transform duration-300 ${favorite ? "scale-110" : ""}`}
@@ -652,11 +652,10 @@ export default function DestinationDetailPage() {
                             type="button"
                             onClick={handleToggleVisited}
                             disabled={visitedLoading}
-                            className={`inline-flex items-center gap-2 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 font-body text-xs sm:text-sm font-semibold backdrop-blur-md border transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shadow-lg ${
-                                visited
+                            className={`inline-flex items-center gap-2 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 font-body text-xs sm:text-sm font-semibold backdrop-blur-md border transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shadow-lg ${visited
                                     ? "bg-emerald-600 text-white border-emerald-600 shadow-emerald-600/30"
                                     : "bg-white/15 text-white border-white/25 hover:bg-white/25 hover:border-white/40"
-                            }`}
+                                }`}
                         >
                             <span
                                 className={`material-symbols-outlined text-base sm:text-lg transition-transform duration-300 ${visited ? "scale-110" : ""}`}
@@ -737,6 +736,27 @@ export default function DestinationDetailPage() {
                         </section>
                     )}
 
+                    <div className="mb-24">
+
+                        <div className="mb-8">
+
+                            <h2 className="font-display text-headline-lg text-tertiary-fixed">
+                                Explore {name}
+                            </h2>
+
+                            <p className="mt-3 text-white/70">
+                                Discover {name} and the attractions worth exploring nearby.
+                            </p>
+
+                        </div>
+
+                        <DestinationMap
+                            destination={destination}
+                            attractions={destination.attractions ?? []}
+                        />
+
+                    </div>
+
                     {/* 4. Itineraries */}
                     <section ref={itinerariesSectionRef}>
                         <div className="flex items-end justify-between mb-8 pb-4 border-b border-white/10">
@@ -775,7 +795,7 @@ export default function DestinationDetailPage() {
                                     <div key={itinerary.id} data-animate-itinerary-card>
                                         <ItineraryCard
                                             itinerary={itinerary}
-                                            onDelete={() => {}}
+                                            onDelete={() => { }}
                                         />
                                     </div>
                                 ))}

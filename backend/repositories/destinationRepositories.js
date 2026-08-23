@@ -22,6 +22,8 @@ function mapDestination(row) {
         isFavorite: row.is_favorite ?? false,
         isVisited: row.is_visited ?? false,
         icon: row.icon,
+        latitude: row.latitude,
+        longitude: row.longitude,
         createdAt: row.created_at,
         updatedAt: row.updated_at
     };

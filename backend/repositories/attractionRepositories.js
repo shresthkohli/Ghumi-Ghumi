@@ -11,7 +11,9 @@ function mapAttraction(row) {
         id: row.id,
         name: row.name,
         description: row.description,
-        icon: row.icon
+        icon: row.icon,
+        latitude: row.latitude,
+        longitude: row.longitude
     };
 
 }
