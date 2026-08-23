@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import destinationApi from "../../api/destinationApi";
+import favoritesApi from "../../api/favoritesApi";
 
 function CreateItineraryModal({ onClose, onCreate }) {
     const [destinations, setDestinations] = useState([]);
@@ -21,8 +22,27 @@ function CreateItineraryModal({ onClose, onCreate }) {
     useEffect(() => {
         async function loadDestinations() {
             try {
-                const data = await destinationApi.getAllDestinations();
-                setDestinations(data);
+                const [allDest, favDest] = await Promise.allSettled([
+                    destinationApi.getAllDestinations(),
+                    favoritesApi.getAllFavDestinations()
+                ]);
+
+                const allList = allDest.status === "fulfilled" && Array.isArray(allDest.value) ? allDest.value : [];
+                const favList = favDest.status === "fulfilled" && Array.isArray(favDest.value) ? favDest.value : [];
+                const favIdSet = new Set(favList.map((f) => f.id));
+
+                const combined = allList.map((dest) => ({
+                    ...dest,
+                    isFavorite: favIdSet.has(dest.id) || Boolean(dest.isFavorite)
+                }));
+
+                combined.sort((a, b) => {
+                    if (a.isFavorite && !b.isFavorite) return -1;
+                    if (!a.isFavorite && b.isFavorite) return 1;
+                    return (a.name || "").localeCompare(b.name || "");
+                });
+
+                setDestinations(combined);
             } catch (err) {
                 console.error("Failed to fetch destinations:", err);
             }
@@ -184,11 +204,20 @@ function CreateItineraryModal({ onClose, onCreate }) {
                             onClick={() => setIsDropdownOpen((open) => !open)}
                             className="w-full flex items-center justify-between rounded-xl border border-outline-variant/60 bg-surface-container-low px-4 py-3 text-left font-body text-sm text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all hover:bg-surface-container cursor-pointer"
                         >
-                            <span className={selectedDestination ? "text-on-surface font-medium flex items-center gap-2" : "text-outline"}>
+                            <span className={selectedDestination ? "text-on-surface font-medium flex items-center gap-2 min-w-0" : "text-outline"}>
                                 {selectedDestination ? (
                                     <>
-                                        <span className="material-symbols-outlined text-primary text-base">location_on</span>
-                                        {selectedDestination.name}
+                                        <span className="material-symbols-outlined text-primary text-base shrink-0">location_on</span>
+                                        <span className="truncate">{selectedDestination.name}</span>
+                                        {selectedDestination.isFavorite && (
+                                            <span
+                                                className="material-symbols-outlined text-red-500 text-sm shrink-0"
+                                                style={{ fontVariationSettings: "'FILL' 1" }}
+                                                title="Favorited destination"
+                                            >
+                                                favorite
+                                            </span>
+                                        )}
                                     </>
                                 ) : (
                                     "Select a destination"
@@ -226,14 +255,25 @@ function CreateItineraryModal({ onClose, onCreate }) {
                                                 : "text-on-surface hover:bg-surface-container"
                                         }`}
                                     >
-                                        <span className="flex items-center gap-2">
-                                            <span className={`material-symbols-outlined text-base ${dest.id === destinationId ? "text-on-primary" : "text-primary"}`}>
+                                        <span className="flex items-center gap-2 min-w-0">
+                                            <span className={`material-symbols-outlined text-base shrink-0 ${dest.id === destinationId ? "text-on-primary" : "text-primary"}`}>
                                                 pin_drop
                                             </span>
-                                            {dest.name}
+                                            <span className="truncate">{dest.name}</span>
+                                            {dest.isFavorite && (
+                                                <span
+                                                    className={`material-symbols-outlined text-sm shrink-0 ${
+                                                        dest.id === destinationId ? "text-red-200" : "text-red-500"
+                                                    }`}
+                                                    style={{ fontVariationSettings: "'FILL' 1" }}
+                                                    title="Favorited destination"
+                                                >
+                                                    favorite
+                                                </span>
+                                            )}
                                         </span>
                                         {dest.id === destinationId && (
-                                            <span className="material-symbols-outlined text-sm text-on-primary">
+                                            <span className="material-symbols-outlined text-sm text-on-primary shrink-0 ml-2">
                                                 check
                                             </span>
                                         )}

@@ -1,12 +1,22 @@
 const API_URL = import.meta.env.VITE_API_URL ?? "";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-
+import gsap from "gsap";
 import favoritesApi from "../../api/favoritesApi";
-import apiFetch from "../../api/apiClient";
+import { useAuth } from "../../context/AuthContext";
 
 // Card that shows destination, pass featured if card needed to be a hero card
+function DestinationCard({ destination, featured = false, onRequireLogin, onToggleFavorite }) {
+    const { user } = useAuth();
+    const [isFavorite, setIsFavorite] = useState(
+        Boolean(destination?.isFavorite ?? destination?.isFavotite)
+    );
+    const [isProcessing, setIsProcessing] = useState(false);
+    const heartRef = useRef(null);
 
-function DestinationCard({ destination, featured = false }) {
+    useEffect(() => {
+        setIsFavorite(Boolean(destination?.isFavorite ?? destination?.isFavotite));
+    }, [destination?.isFavorite, destination?.isFavotite]);
 
     const {
         id,
@@ -19,30 +29,48 @@ function DestinationCard({ destination, featured = false }) {
         bestTimeToVisit,
         avgRating,
         budgetCategory,
-        isFavotite,
     } = destination;
 
     async function handleLike(e) {
+        e.preventDefault();
+        e.stopPropagation();
 
-        const id = destination.id;
+        if (!user) {
+            if (onRequireLogin) {
+                onRequireLogin();
+            }
+            return;
+        }
 
-        // async function addFavorite(credentials) {
+        if (isProcessing) return;
 
-        //     return apiFetch(
-        //         `/api/favorites/${id}`,
-        //         {
-        //             method: "POST"
-        //         }
-        //     );
-        // }
-        
-        // addFavorite();
+        const nextState = !isFavorite;
+        setIsFavorite(nextState);
+        setIsProcessing(true);
 
-        await favoritesApi.addFavorite({
-                destinationId: id
-        });
+        if (heartRef.current) {
+            gsap.fromTo(
+                heartRef.current,
+                { scale: 0.7 },
+                { scale: 1, duration: 0.4, ease: "back.out(2)" }
+            );
+        }
 
-        console.log(await favoritesApi.getAllFavDestinations());
+        try {
+            if (nextState) {
+                await favoritesApi.addFavorite({ id: destination.id });
+            } else {
+                await favoritesApi.deleteFavorite({ id: destination.id });
+            }
+            if (onToggleFavorite) {
+                onToggleFavorite(destination.id, nextState);
+            }
+        } catch (err) {
+            console.error("Failed to update favorite:", err);
+            setIsFavorite(!nextState);
+        } finally {
+            setIsProcessing(false);
+        }
     }
 
     return (
@@ -54,9 +82,26 @@ function DestinationCard({ destination, featured = false }) {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
 
-                <div className="absolute top-4 right-4 h-9 w-9 sm:h-10 sm:w-10 bg-white/15 backdrop-blur-md rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-primary transition-colors shadow-md">
-                    <span className="material-symbols-outlined text-sm sm:text-base">favorite</span>
-                </div>
+                <button
+                    ref={heartRef}
+                    type="button"
+                    onClick={handleLike}
+                    disabled={isProcessing}
+                    title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+                    aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+                    className={`absolute top-4 right-4 h-9 w-9 sm:h-10 sm:w-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-md cursor-pointer z-10 ${
+                        isFavorite
+                            ? "bg-red-500 text-white shadow-red-500/30 scale-105 hover:bg-red-600 hover:scale-110"
+                            : "bg-white/15 backdrop-blur-md text-white border border-white/20 hover:bg-white/30 hover:scale-105"
+                    }`}
+                >
+                    <span
+                        className="material-symbols-outlined text-base sm:text-lg transition-transform duration-200"
+                        style={{ fontVariationSettings: isFavorite ? "'FILL' 1" : "'FILL' 0" }}
+                    >
+                        favorite
+                    </span>
+                </button>
 
                 <div className="absolute bottom-0 p-5 sm:p-7 md:p-8 w-full">
                     <span className="text-primary-fixed font-body text-xs sm:text-label-md uppercase tracking-widest mb-1 sm:mb-2 block font-semibold">

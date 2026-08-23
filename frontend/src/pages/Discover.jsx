@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { MapPin, ArrowRight, Search, Loader2 } from "lucide-react";
 import FeaturedJourney from "../components/discover/FeaturedJourneys.jsx";
 import ItinerariesSection from "../components/discover/ItinerariesSection.jsx";
+import BlogsSection from "../components/discover/BlogsSection.jsx";
+import ReviewsSection from "../components/discover/ReviewsSection.jsx";
 import Footer from "../components/common/Footer.jsx";
 import destinationsApi from "../api/destinationApi.js";
 import { gsap } from "gsap";
@@ -342,6 +344,8 @@ function Discover() {
             </section>
             <FeaturedJourney />
             <ItinerariesSection />
+            <BlogsSection />
+            <ReviewsSection />
         </div>
     </>);
 }

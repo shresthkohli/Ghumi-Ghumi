@@ -8,6 +8,7 @@ import DestinationCard from "../components/destination/DestinationCard";
 import FilterSidebar from "../components/destination/FilterSidebar";
 import Pagination from "../components/destination/Pagination";
 import destinationApi from "../api/destinationApi";
+import LoginModal from "../components/auth/LoginModal";
 
 try {
     gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -25,6 +26,7 @@ function Destinations() {
     const [activeCategories, setActiveCategories] = useState([]);
     const [activeBudgets, setActiveBudgets] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [showLoginModal, setShowLoginModal] = useState(false);
 
     const pageRef = useRef(null);
     const headerRef = useRef(null);
@@ -458,6 +460,7 @@ function Destinations() {
                                 <DestinationCard
                                     key={destination.id}
                                     destination={destination}
+                                    onRequireLogin={() => setShowLoginModal(true)}
                                 />
                             ))}
                         </div>
@@ -476,6 +479,11 @@ function Destinations() {
                     )}
                 </section>
             </main>
+
+            <LoginModal
+                open={showLoginModal}
+                onClose={() => setShowLoginModal(false)}
+            />
         </div>
     );
 }

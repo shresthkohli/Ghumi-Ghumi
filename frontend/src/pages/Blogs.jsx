@@ -25,6 +25,8 @@ gsap.registerPlugin(ScrollTrigger);
  *  … then repeats
  */
 const BENTO_PATTERN = ["tall", "normal", "normal", "wide", "normal", "tall"];
+const INITIAL_BLOG_LIMIT = 8;
+const BLOGS_PER_PAGE = 6;
 
 function getBentoSize(index) {
     return BENTO_PATTERN[index % BENTO_PATTERN.length];
@@ -51,6 +53,7 @@ function Blogs() {
     const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [visibleCount, setVisibleCount] = useState(INITIAL_BLOG_LIMIT);
 
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [editingBlog, setEditingBlog] = useState(null);
@@ -61,6 +64,7 @@ function Blogs() {
     const containerRef = useRef(null);
     const gridRef = useRef(null);
     const ctaRef = useRef(null);
+    const prevVisibleCount = useRef(INITIAL_BLOG_LIMIT);
 
     // ── Fetch blogs on mount ──
     useEffect(() => {
@@ -80,6 +84,36 @@ function Blogs() {
             setLoading(false);
         }
     }
+
+    // ── Animate newly revealed cards when clicking "Show More" ──
+    useEffect(() => {
+        if (loading || !gridRef.current) return;
+        if (visibleCount > prevVisibleCount.current) {
+            const allCards = gridRef.current.querySelectorAll("[data-animate-card]");
+            const newCards = Array.from(allCards).slice(prevVisibleCount.current, visibleCount);
+
+            if (newCards.length > 0) {
+                gsap.fromTo(
+                    newCards,
+                    { opacity: 0, y: 40, scale: 0.94 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        duration: 0.6,
+                        stagger: 0.1,
+                        ease: "power3.out",
+                        onComplete: () => {
+                            ScrollTrigger.refresh();
+                        },
+                    }
+                );
+            } else {
+                ScrollTrigger.refresh();
+            }
+            prevVisibleCount.current = visibleCount;
+        }
+    }, [visibleCount, loading]);
 
     // ── All GSAP animations in a single context so cleanup is automatic ──
     useGSAP(() => {
@@ -147,7 +181,7 @@ function Blogs() {
                 },
             });
         }
-    }, { dependencies: [loading, blogs], scope: containerRef });
+    }, { dependencies: [loading], scope: containerRef });
 
     // ── Create / Edit submit handler ──
     async function handleBlogSubmit({ title, content }) {
@@ -200,6 +234,12 @@ function Blogs() {
         setEditingBlog(blog);
         setShowCreateModal(true);
     }
+
+    function handleShowMore() {
+        setVisibleCount((prev) => prev + BLOGS_PER_PAGE);
+    }
+
+    const visibleBlogs = blogs.slice(0, visibleCount);
 
     return (
         <main
@@ -337,28 +377,70 @@ function Blogs() {
 
                 {/* ── Bento Blog Grid ── */}
                 {!loading && !error && blogs.length > 0 && (
-                    <div
-                        ref={gridRef}
-                        className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 auto-rows-[minmax(180px,auto)]"
-                    >
-                        {blogs.map((blog, index) => {
-                            const size = getBentoSize(index);
-                            const bentoClasses = getBentoClasses(size);
-                            return (
-                                <div key={blog.id} className={bentoClasses}>
-                                    <BlogCard
-                                        blog={blog}
-                                        index={index}
-                                        size={size}
-                                        isOwner={user?.id === blog.userId}
-                                        onEdit={handleEditClick}
-                                        onDelete={handleDelete}
-                                        onClick={(blog) => setViewingBlog(blog)}
-                                    />
+                    <>
+                        <div
+                            ref={gridRef}
+                            className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 auto-rows-[minmax(180px,auto)]"
+                        >
+                            {visibleBlogs.map((blog, index) => {
+                                const size = getBentoSize(index);
+                                const bentoClasses = getBentoClasses(size);
+                                return (
+                                    <div key={blog.id} className={bentoClasses}>
+                                        <BlogCard
+                                            blog={blog}
+                                            index={index}
+                                            size={size}
+                                            isOwner={user?.id === blog.userId}
+                                            onEdit={handleEditClick}
+                                            onDelete={handleDelete}
+                                            onClick={(blog) => setViewingBlog(blog)}
+                                        />
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        {/* ── Show More / Story Counter ── */}
+                        {blogs.length > INITIAL_BLOG_LIMIT && (
+                            <div className="mt-10 sm:mt-14 flex flex-col items-center justify-center gap-3">
+                                {/* Counter & Progress bar */}
+                                <div className="flex items-center gap-3 text-xs font-medium text-on-surface-variant/75">
+                                    <span>
+                                        Showing <span className="font-bold text-on-surface">{Math.min(visibleCount, blogs.length)}</span> of <span className="font-bold text-on-surface">{blogs.length}</span> stories
+                                    </span>
+                                    <div className="w-20 sm:w-28 h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
+                                        <div
+                                            className="h-full bg-primary rounded-full transition-all duration-500 ease-out"
+                                            style={{
+                                                width: `${Math.min(100, (Math.min(visibleCount, blogs.length) / blogs.length) * 100)}%`,
+                                            }}
+                                        />
+                                    </div>
                                 </div>
-                            );
-                        })}
-                    </div>
+
+                                {/* Button or All caught up message */}
+                                {visibleCount < blogs.length ? (
+                                    <button
+                                        onClick={handleShowMore}
+                                        className="group inline-flex items-center gap-2 px-7 py-3 rounded-full bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/40 hover:border-primary/40 text-on-surface font-body text-xs sm:text-sm font-semibold shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer active:scale-95"
+                                    >
+                                        <span>Show More Stories</span>
+                                        <span className="material-symbols-outlined text-lg text-primary transition-transform duration-200 group-hover:translate-y-0.5">
+                                            expand_more
+                                        </span>
+                                    </button>
+                                ) : (
+                                    <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-surface-container border border-outline-variant/30 text-xs font-medium text-on-surface-variant/70">
+                                        <span className="material-symbols-outlined text-sm text-secondary">
+                                            check_circle
+                                        </span>
+                                        <span>You've viewed all stories</span>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </>
                 )}
 
                 {/* ════════════════════════════════════════════════
