@@ -50,7 +50,7 @@ app.use("/api/blogs", blogRoutes);
 
 //Basic GET request
 app.get("/", (req, res) => {
-    res.sendFile("Home.html", { root: "public" });
+    res.sendFile("home.html", { root: "public" });
 });
 
 //Global error handeling
