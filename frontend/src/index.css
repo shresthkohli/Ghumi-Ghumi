@@ -103,44 +103,32 @@
   background: radial-gradient(circle at top right, #003434 0%, #002020 100%);
 }
 
-
 .gold-accent {
   color: #d4af37;
   text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
 }
 
 .india-map svg {
-
   width: 100%;
   height: auto;
-
 }
 
 .india-map path {
-
   fill: var(--color-surface-container-high);
-
   stroke: var(--color-outline);
-
   stroke-width: 1.2;
-
   transition:
     fill .3s,
     transform .3s;
-
   cursor: pointer;
-
 }
 
 .india-map path:hover {
-
   fill: var(--color-primary-container);
-
 }
 
 .india-map .visited {
   fill: #D5AE57;
-
   filter:
     drop-shadow(0 0 5px #D5AE57) drop-shadow(0 0 10px #D5AE57);
 }
@@ -180,12 +168,10 @@
   from {
     stroke-dashoffset: 0;
   }
-
   to {
     stroke-dashoffset: -1000;
   }
 }
-
 
 /* Global Body & Canvas Theme */
 body {
@@ -210,4 +196,62 @@ body::-webkit-scrollbar,
   width: 0 !important;
   height: 0 !important;
   background: transparent !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Print & PDF Export Styling (Wanderly Concierge Dossier)
+   ───────────────────────────────────────────────────────────── */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #1f1b15 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide navigation, interactive controls, and modal overlays */
+  header,
+  footer,
+  aside,
+  button,
+  .curate-btn,
+  .day-header button,
+  [role="status"],
+  [role="alert"] {
+    display: none !important;
+  }
+
+  main {
+    padding-top: 10px !important;
+    padding-bottom: 20px !important;
+    background: #ffffff !important;
+  }
+
+  /* Expand activity grid to full printable width */
+  .grid-cols-4,
+  .md\:grid-cols-12,
+  .md\:col-span-9 {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  /* Page break rules for clean rendering on paper / PDF */
+  [data-animate-day],
+  article {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    margin-bottom: 1.5rem !important;
+    box-shadow: none !important;
+  }
+
+  .day-header {
+    margin-top: 1.5rem !important;
+    padding-bottom: 0.5rem !important;
+    border-bottom: 1.5px solid #dec0b7 !important;
+  }
+
+  .print-page-break {
+    break-after: page !important;
+    page-break-after: always !important;
+  }
 }

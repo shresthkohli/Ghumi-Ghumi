@@ -23,6 +23,8 @@ function ItineraryDetail() {
     const [activeDay, setActiveDay] = useState(null);
     const [showSettings, setShowSettings] = useState(false);
     const [activityModal, setActivityModal] = useState(null);
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastType, setToastType] = useState("success");
 
     const pageRef = useRef(null);
     const dayRefs = useRef({});
@@ -30,6 +32,12 @@ function ItineraryDetail() {
     useEffect(() => {
         loadItinerary();
     }, [id]);
+
+    useEffect(() => {
+        if (!toastMessage) return;
+        const timer = setTimeout(() => setToastMessage(""), 3500);
+        return () => clearTimeout(timer);
+    }, [toastMessage]);
 
     useGSAP(
         () => {
@@ -199,6 +207,57 @@ function ItineraryDetail() {
         dayRefs.current[dayNumber]?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
+    function calculateTotalExplorationHours(activities = []) {
+        let totalMinutes = 0;
+        activities.forEach((act) => {
+            if (act.startTime && act.endTime) {
+                const [sh, sm] = act.startTime.split(":").map(Number);
+                const [eh, em] = act.endTime.split(":").map(Number);
+                if (!isNaN(sh) && !isNaN(sm) && !isNaN(eh) && !isNaN(em)) {
+                    const diff = (eh * 60 + em) - (sh * 60 + sm);
+                    if (diff > 0) totalMinutes += diff;
+                }
+            }
+        });
+        const hours = Math.floor(totalMinutes / 60);
+        const mins = totalMinutes % 60;
+        if (hours === 0 && mins === 0) return null;
+        if (mins === 0) return `${hours} hrs`;
+        if (hours === 0) return `${mins} mins`;
+        return `${hours}h ${mins}m`;
+    }
+
+    async function handleShareTrip() {
+        const shareUrl = window.location.href;
+        const shareData = {
+            title: itinerary?.title || "Wanderly Travel Itinerary",
+            text: `Explore this handcrafted travel itinerary for ${itinerary?.destinationName || "this journey"} on Wanderly!`,
+            url: shareUrl,
+        };
+
+        if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+            try {
+                await navigator.share(shareData);
+                return;
+            } catch (err) {
+                if (err.name === "AbortError") return;
+            }
+        }
+
+        try {
+            await navigator.clipboard.writeText(shareUrl);
+            setToastType("success");
+            setToastMessage("Itinerary link copied to clipboard");
+        } catch {
+            setToastType("info");
+            setToastMessage(shareUrl);
+        }
+    }
+
+    function handleExportPrint() {
+        window.print();
+    }
+
     async function handleSaveSettings(updates) {
         const updated = await itinerariesApi.updateItinerary(id, updates);
         setItinerary((prev) => ({ ...prev, ...updated }));
@@ -307,14 +366,27 @@ function ItineraryDetail() {
 
     const dayNumbers = getDayNumbers(itinerary.activities || []);
     const totalActivities = itinerary.activities?.length || 0;
+    const totalExplorationTime = calculateTotalExplorationHours(itinerary.activities || []);
+    const avgActs = dayNumbers.length > 0 ? totalActivities / dayNumbers.length : 0;
+    const paceLabel = totalActivities === 0 ? null : avgActs >= 3 ? "Active Pace" : "Relaxed Pace";
+    const paceIcon = avgActs >= 3 ? "bolt" : "spa";
     const subtitle = itinerary.destinationName || "";
+
+    const allSortedActivities = itinerary?.activities
+        ? [...itinerary.activities].sort(
+            (a, b) =>
+                (a.dayNumber - b.dayNumber) ||
+                ((a.position ?? 0) - (b.position ?? 0)) ||
+                (a.startTime || "").localeCompare(b.startTime || "")
+        )
+        : [];
 
     return (
         <main ref={pageRef} className="min-h-screen bg-background pt-[100px] pb-32 md:pb-[80px]">
             <div className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
 
-                {/* ─── Hero / Page Header ─── */}
-                <section className="py-10 md:py-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-8 relative z-10">
+                {/* ─── Hero / Page Header (Interactive web view) ─── */}
+                <section className="py-10 md:py-14 flex flex-col md:flex-row justify-between items-start md:items-end gap-8 relative z-10 print:hidden">
                     <div className="max-w-2xl">
                         {subtitle && (
                             <div data-animate-hero className="flex items-center gap-2 mb-3">
@@ -335,8 +407,8 @@ function ItineraryDetail() {
                             </p>
                         )}
 
-                        {/* Trip Quick Stats Bar */}
-                        <div data-animate-hero className="flex flex-wrap items-center gap-3 pt-1">
+                        {/* Trip Quick Stats Bar (No emojis, clean Material Symbols icons) */}
+                        <div data-animate-hero className="flex flex-wrap items-center gap-2.5 pt-1">
                             <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container border border-outline-variant/40 text-xs font-semibold text-on-surface">
                                 <span className="material-symbols-outlined text-[15px] text-primary">calendar_month</span>
                                 {dayNumbers.length} {dayNumbers.length === 1 ? "Day" : "Days"} Planned
@@ -345,20 +417,48 @@ function ItineraryDetail() {
                                 <span className="material-symbols-outlined text-[15px] text-primary">attractions</span>
                                 {totalActivities} {totalActivities === 1 ? "Experience" : "Experiences"}
                             </span>
+                            {totalExplorationTime && (
+                                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container border border-outline-variant/40 text-xs font-semibold text-on-surface">
+                                    <span className="material-symbols-outlined text-[15px] text-primary">schedule</span>
+                                    {totalExplorationTime} Exploration
+                                </span>
+                            )}
+                            {paceLabel && (
+                                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container border border-outline-variant/40 text-xs font-semibold text-on-surface">
+                                    <span className="material-symbols-outlined text-[15px] text-secondary">{paceIcon}</span>
+                                    {paceLabel}
+                                </span>
+                            )}
                         </div>
                     </div>
 
-                    <div data-animate-hero className="flex items-center gap-3 shrink-0">
+                    <div data-animate-hero className="flex items-center gap-2.5 shrink-0 flex-wrap">
+                        <button
+                            onClick={handleShareTrip}
+                            className="px-4 py-2.5 sm:px-5 sm:py-3 rounded-full border border-outline-variant bg-surface font-body text-sm font-semibold text-on-surface hover:bg-surface-container hover:border-primary/40 transition-all duration-200 flex items-center gap-2 shadow-2xs hover:scale-102 cursor-pointer"
+                            title="Share itinerary link"
+                        >
+                            <span className="material-symbols-outlined text-base text-primary">share</span>
+                            Share
+                        </button>
+                        <button
+                            onClick={handleExportPrint}
+                            className="px-4 py-2.5 sm:px-5 sm:py-3 rounded-full border border-outline-variant bg-surface font-body text-sm font-semibold text-on-surface hover:bg-surface-container hover:border-primary/40 transition-all duration-200 flex items-center gap-2 shadow-2xs hover:scale-102 cursor-pointer"
+                            title="Print or Save as PDF"
+                        >
+                            <span className="material-symbols-outlined text-base text-primary">print</span>
+                            Export / Print
+                        </button>
                         <button
                             onClick={() => setShowSettings(true)}
-                            className="px-5 py-3 rounded-full border border-outline-variant bg-surface font-body text-sm font-semibold text-on-surface hover:bg-surface-container transition-all duration-200 flex items-center gap-2 shadow-2xs hover:scale-102 cursor-pointer"
+                            className="px-4 py-2.5 sm:px-5 sm:py-3 rounded-full border border-outline-variant bg-surface font-body text-sm font-semibold text-on-surface hover:bg-surface-container transition-all duration-200 flex items-center gap-2 shadow-2xs hover:scale-102 cursor-pointer"
                         >
                             <span className="material-symbols-outlined text-base">settings</span>
                             Settings
                         </button>
                         <button
                             onClick={() => navigate("/itineraries")}
-                            className="px-7 py-3 rounded-full bg-primary text-on-primary font-body text-sm font-semibold shadow-[0_12px_28px_rgba(162,63,26,0.25)] hover:scale-105 active:scale-98 transition-all duration-300 flex items-center gap-2 cursor-pointer"
+                            className="px-5 py-2.5 sm:px-7 sm:py-3 rounded-full bg-primary text-on-primary font-body text-sm font-semibold shadow-[0_12px_28px_rgba(162,63,26,0.25)] hover:scale-105 active:scale-98 transition-all duration-300 flex items-center gap-2 cursor-pointer"
                         >
                             <span className="material-symbols-outlined text-base">check_circle</span>
                             Done Planning
@@ -366,7 +466,119 @@ function ItineraryDetail() {
                     </div>
                 </section>
 
-                {/* ─── Builder Layout: 12-col Grid ─── */}
+                {/* ─── Page 1 in Print: Executive Master Overview & Key Experiences Dossier ─── */}
+                <section className="mb-12 print:mb-0 print:pb-0 print-page-break">
+                    {/* Print-Only Luxury Concierge Dossier Header */}
+                    <div className="hidden print:block mb-6 pb-5 border-b-2 border-primary/30">
+                        <div className="flex justify-between items-start">
+                            <div>
+                                <div className="flex items-center gap-2">
+                                    <h1 className="font-display text-3xl font-bold text-primary tracking-tight">Wanderly</h1>
+                                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary font-bold tracking-widest uppercase">
+                                        Executive Travel Dossier
+                                    </span>
+                                </div>
+                                <p className="font-body text-xs text-on-surface-variant uppercase tracking-widest mt-1 font-semibold">
+                                    Master Overview & Curated Highlights
+                                </p>
+                            </div>
+                            <div className="text-right">
+                                {subtitle && <p className="font-body text-sm font-bold text-primary uppercase">{subtitle}</p>}
+                                <p className="font-body text-[11px] text-on-surface-variant mt-0.5">
+                                    Printed: {new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Executive Dossier Card */}
+                    <div className="rounded-3xl bg-surface-container/60 border border-outline-variant/40 p-6 md:p-8 backdrop-blur-md shadow-sm print:bg-white print:border-2 print:border-outline-variant/60 print:p-6 print:rounded-2xl">
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-6 pb-6 border-b border-outline-variant/30">
+                            <div>
+                                <span className="font-body text-xs font-bold text-primary uppercase tracking-[0.2em]">
+                                    Executive Trip Overview
+                                </span>
+                                <h2 className="font-display text-2xl md:text-3xl font-bold text-on-surface mt-1">
+                                    {itinerary.title}
+                                </h2>
+                                {itinerary.description && (
+                                    <p className="font-body text-sm md:text-base text-on-surface-variant/90 mt-2 max-w-3xl leading-relaxed">
+                                        {itinerary.description}
+                                    </p>
+                                )}
+                            </div>
+
+                            {/* Summary Metrics Matrix */}
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 shrink-0 w-full md:w-auto">
+                                <div className="px-4 py-3 rounded-2xl bg-surface border border-outline-variant/30 text-center print:bg-gray-50">
+                                    <span className="font-body text-[10px] font-bold text-on-surface-variant block uppercase tracking-wider">Duration</span>
+                                    <span className="font-display text-base font-bold text-primary">{dayNumbers.length} {dayNumbers.length === 1 ? "Day" : "Days"}</span>
+                                </div>
+                                <div className="px-4 py-3 rounded-2xl bg-surface border border-outline-variant/30 text-center print:bg-gray-50">
+                                    <span className="font-body text-[10px] font-bold text-on-surface-variant block uppercase tracking-wider">Experiences</span>
+                                    <span className="font-display text-base font-bold text-primary">{totalActivities} Items</span>
+                                </div>
+                                <div className="px-4 py-3 rounded-2xl bg-surface border border-outline-variant/30 text-center print:bg-gray-50">
+                                    <span className="font-body text-[10px] font-bold text-on-surface-variant block uppercase tracking-wider">Active Time</span>
+                                    <span className="font-display text-base font-bold text-primary">{totalExplorationTime || "—"}</span>
+                                </div>
+                                <div className="px-4 py-3 rounded-2xl bg-surface border border-outline-variant/30 text-center print:bg-gray-50">
+                                    <span className="font-body text-[10px] font-bold text-on-surface-variant block uppercase tracking-wider">Pace</span>
+                                    <span className="font-display text-base font-bold text-secondary">{paceLabel || "Relaxed"}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Master Key Experiences Index */}
+                        <div>
+                            <div className="flex items-center justify-between mb-4">
+                                <div className="flex items-center gap-2">
+                                    <span className="material-symbols-outlined text-primary text-xl">auto_stories</span>
+                                    <h3 className="font-display text-lg md:text-xl font-bold text-on-surface">
+                                        Key Experiences & Highlights at a Glance
+                                    </h3>
+                                </div>
+                                <span className="font-body text-xs text-on-surface-variant font-medium hidden sm:inline-block">
+                                    Complete Overview across all {dayNumbers.length} Days
+                                </span>
+                            </div>
+
+                            {allSortedActivities.length === 0 ? (
+                                <p className="font-body text-sm text-on-surface-variant/70 italic py-4 text-center">
+                                    No activities curated yet. Add experiences below to populate your itinerary index.
+                                </p>
+                            ) : (
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 print:grid-cols-2 print:gap-3">
+                                    {allSortedActivities.map((act) => (
+                                        <div
+                                            key={act.id}
+                                            className="flex items-start gap-3 p-3.5 rounded-2xl bg-surface border border-outline-variant/30 hover:border-primary/40 transition-colors print:bg-white print:border-gray-300"
+                                        >
+                                            <div className="flex flex-col items-center justify-center px-2.5 py-1 rounded-xl bg-primary-fixed/40 text-primary font-bold text-[11px] shrink-0 print:bg-gray-100 print:text-black">
+                                                <span className="uppercase text-[9px] tracking-wider opacity-70">Day</span>
+                                                <span className="text-sm font-extrabold">{String(act.dayNumber).padStart(2, "0")}</span>
+                                            </div>
+                                            <div className="min-w-0 flex-1">
+                                                <h4 className="font-display text-sm font-bold text-on-surface truncate">{act.title}</h4>
+                                                {act.description && (
+                                                    <p className="font-body text-[11px] text-on-surface-variant/80 line-clamp-1 mb-1">
+                                                        {act.description}
+                                                    </p>
+                                                )}
+                                                <div className="flex items-center gap-1 text-[10px] font-medium text-primary">
+                                                    <span className="material-symbols-outlined text-[13px]">schedule</span>
+                                                    <span>{formatDisplayTime(act.startTime)} {act.endTime ? `– ${formatDisplayTime(act.endTime)}` : ""}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </section>
+
+                {/* ─── Builder Layout: 12-col Grid (Day by Day Detail on Subsequent Pages) ─── */}
                 <div className="grid grid-cols-4 md:grid-cols-12 gap-gutter relative items-start">
                     {/* Left: Sticky Timeline */}
                     <DayTimeline
@@ -495,6 +707,19 @@ function ItineraryDetail() {
                     onClose={() => setActivityModal(null)}
                     onSave={handleSaveActivity}
                 />
+            )}
+
+            {/* Toast Feedback Notification */}
+            {toastMessage && (
+                <div
+                    role="status"
+                    className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[99999] bg-on-surface text-surface px-6 py-3 rounded-full shadow-warm-lg font-body text-sm font-semibold flex items-center gap-2.5 transition-all duration-300 border border-outline-variant/30 backdrop-blur-md"
+                >
+                    <span className="material-symbols-outlined text-primary-container text-lg">
+                        {toastType === "success" ? "check_circle" : "info"}
+                    </span>
+                    <span>{toastMessage}</span>
+                </div>
             )}
         </main>
     );
