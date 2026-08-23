@@ -1,6 +1,6 @@
 import blogServices from "../services/blogServices.js";
 import asyncHandler from "../utils/asyncHandler.js";
-import ApiResponse from "../utils/apiResponse.js"; // Note: Adjusted to match your lowercase 'apiResponse.js' filename
+import ApiResponse from "../utils/apiResponse.js"; 
 
 async function getAllBlogsController(req, res) {
     const blogs =
