@@ -35,6 +35,10 @@ function PageLoader({ onComplete }) {
             filter: "blur(6px)",
         });
 
+        gsap.set(logo, {
+            opacity: 1,
+        });
+
         const tl = gsap.timeline();
 
         /*
@@ -56,7 +60,7 @@ function PageLoader({ onComplete }) {
                 opacity: 1,
                 y: 0,
                 filter: "blur(0px)",
-                duration: 0.65,
+                duration: 1,
                 stagger: 0.16,
                 ease: "power3.out",
             },
@@ -140,7 +144,7 @@ function PageLoader({ onComplete }) {
         tl.to(logo, {
             x: moveX,
             y: moveY,
-            scale: 0.65,
+            scale: 1.1,
             duration: 1.0,
             ease: "power4.inOut",
         });
@@ -204,6 +208,7 @@ function PageLoader({ onComplete }) {
             {/* Globe */}
             <div
                 ref={globeRef}
+                style={{ opacity: 0 }}
                 className="
                     relative
                     flex
@@ -237,6 +242,7 @@ function PageLoader({ onComplete }) {
                 {/* WANDERLY */}
                 <div
                     ref={logoRef}
+                    style={{ opacity: 0 }}
                     className="
                         pointer-events-none
                         absolute
@@ -249,13 +255,13 @@ function PageLoader({ onComplete }) {
                         whitespace-nowrap
 
                         font-display
-                        text-2xl
+                        text-base
                         font-medium
-                        tracking-[0.22em]
+                        tracking-[0.16em]
                         text-white
 
-                        sm:text-3xl
-                        md:text-4xl
+                        sm:text-lg
+                        md:text-xl
                     "
                 >
                     WANDERLY

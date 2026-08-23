@@ -201,147 +201,147 @@ function Discover() {
     }, []);
 
     return (<>
-     <div className="relative min-h-screen">
+        <div className="relative min-h-screen">
 
-        {showLoader && (
-            <PageLoader
-                onComplete={() => {
-                    setShowLoader(false);
-                    try {
-                        sessionStorage.setItem("hasSeenPageLoader", "true");
-                    } catch (e) {
-                        console.error(e);
-                    }
-                }}
-            />
-        )}
+            {showLoader && (
+                <PageLoader
+                    onComplete={() => {
+                        setShowLoader(false);
+                        try {
+                            sessionStorage.setItem("hasSeenPageLoader", "true");
+                        } catch (e) {
+                            console.error(e);
+                        }
+                    }}
+                />
+            )}
 
-        <section ref={wrapRef}>
-            <div ref={heroRef} className="relative inset-0 overflow-hidden min-h-[580px] h-[100svh] md:h-screen"
-                style={{ background: "radial-gradient(ellipse at center 40%, #0a182b 0%, #050e1c 55%, #020710 100%)", perspective: "1000px" }}
-            >
-                {/* ── Subtle celestial coordinate grid & star textures to break monotonicity ── */}
-                <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.07)_1px,transparent_1px)] [background-size:36px_36px] pointer-events-none opacity-40" />
-
-                {/* ── Concentric orbital rings ── */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-15">
-                    <div className="w-[min(115vh,115vw)] h-[min(115vh,115vw)] rounded-full border border-dashed border-white/30 animate-[spin_180s_linear_infinite]" />
-                    <div className="absolute w-[min(85vh,85vw)] h-[min(85vh,85vw)] rounded-full border border-white/10" />
-                </div>
-
-                {/* ── Soft celestial light accents ── */}
-                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#163f3f]/15 rounded-full blur-[100px] pointer-events-none" />
-                <div className="absolute bottom-1/4 right-1/4 w-[450px] h-[450px] bg-[#1a385c]/20 rounded-full blur-[120px] pointer-events-none" />
-
-                {/* ── 3D Globe – almost full-page ── */}
-                <div
-                    ref={globeContainerRef}
-                    className="absolute inset-0 z-[5] flex items-center justify-center pointer-events-none"
+            <section ref={wrapRef}>
+                <div ref={heroRef} className="relative inset-0 overflow-hidden min-h-[580px] h-[100svh] md:h-screen"
+                    style={{ background: "radial-gradient(ellipse at center 40%, #0a182b 0%, #050e1c 55%, #020710 100%)", perspective: "1000px" }}
                 >
+                    {/* ── Subtle celestial coordinate grid & star textures to break monotonicity ── */}
+                    <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.07)_1px,transparent_1px)] [background-size:36px_36px] pointer-events-none opacity-40" />
+
+                    {/* ── Concentric orbital rings ── */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-15">
+                        <div className="w-[min(115vh,115vw)] h-[min(115vh,115vw)] rounded-full border border-dashed border-white/30 animate-[spin_180s_linear_infinite]" />
+                        <div className="absolute w-[min(85vh,85vw)] h-[min(85vh,85vw)] rounded-full border border-white/10" />
+                    </div>
+
+                    {/* ── Soft celestial light accents ── */}
+                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#163f3f]/15 rounded-full blur-[100px] pointer-events-none" />
+                    <div className="absolute bottom-1/4 right-1/4 w-[450px] h-[450px] bg-[#1a385c]/20 rounded-full blur-[120px] pointer-events-none" />
+
+                    {/* ── 3D Globe – almost full-page ── */}
                     <div
-                        className="relative pointer-events-auto"
-                        style={{
-                            width: "min(85vh, 90vw)",
-                            height: "min(85vh, 90vw)",
-                        }}
+                        ref={globeContainerRef}
+                        className="absolute inset-0 z-[5] flex items-center justify-center pointer-events-none"
                     >
-                        <Globe onReady={handleGlobeReady} />
+                        <div
+                            className="relative pointer-events-auto"
+                            style={{
+                                width: "min(85vh, 90vw)",
+                                height: "min(85vh, 90vw)",
+                            }}
+                        >
+                            <Globe onReady={handleGlobeReady} />
+                        </div>
+                    </div>
+
+                    {/* ── Text & search overlay ── */}
+                    <div className="absolute inset-0 z-10 flex h-full flex-col items-center justify-center px-4 sm:px-6 text-center pointer-events-none">
+                        <p ref={eyebrowRef} className="eyebrow text-white/80 mb-3 sm:mb-4 md:mb-6 text-xs sm:text-sm md:text-base lg:text-lg font-body font-bold tracking-[0.2em] sm:tracking-widest uppercase">
+                            THE WORLD AWAITS
+                        </p>
+
+                        <h1 ref={headlineRef} className="headline text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display leading-[1.15] text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)] max-w-4xl">
+                            Curated Expeditions for <br className="hidden sm:inline"></br>
+                            the Discerning Explorer
+                        </h1>
+
+                        {/* ── Search pill + Search CTA ── */}
+                        <form
+                            onSubmit={handleSearch}
+                            className="pointer-events-auto relative z-20 mt-6 sm:mt-8 w-full max-w-xl px-1 sm:px-0"
+                            ref={searchBarRef}
+                        >
+                            <div className="flex items-center justify-between gap-2 sm:gap-3 rounded-full bg-white/15 p-1.5 sm:p-2.5 backdrop-blur-md border border-white/20 shadow-2xl">
+                                <div className="flex flex-1 items-center gap-2 sm:gap-3 px-2 sm:px-4 min-w-0">
+                                    <MapPin className="text-white/70 w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+                                    <input
+                                        type="text"
+                                        value={searchQuery}
+                                        onChange={(e) => { setSearchQuery(e.target.value); setSearchError(""); }}
+                                        onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+                                        onBlur={dismissSuggestions}
+                                        placeholder="Where to next?"
+                                        className="w-full bg-transparent font-body text-sm sm:text-base md:text-lg text-white placeholder-white/50 font-medium outline-none"
+                                    />
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    disabled={isSearching}
+                                    className="glossy-button shrink-0 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-white font-body text-xs sm:text-sm font-semibold tracking-wide flex items-center gap-1.5 sm:gap-2 transition-all duration-300 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg disabled:opacity-60 disabled:hover:scale-100 cursor-pointer"
+                                >
+                                    {isSearching ? (
+                                        <Loader2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" />
+                                    ) : (
+                                        <>
+                                            <span>Explore</span>
+                                            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+
+                            {/* Suggestions dropdown */}
+                            {showSuggestions && suggestions.length > 0 && (
+                                <div className="absolute left-0 right-0 mt-2 rounded-2xl bg-[#0a1a2e]/90 backdrop-blur-xl border border-white/15 shadow-2xl overflow-hidden animate-[fadeSlideDown_0.2s_ease-out]">
+                                    {suggestions.map((dest) => (
+                                        <button
+                                            key={dest.id}
+                                            type="button"
+                                            onMouseDown={() => pickSuggestion(dest)}
+                                            className="w-full flex items-center gap-4 px-5 py-3 text-left hover:bg-white/10 transition-colors duration-150 group"
+                                        >
+                                            {dest.imageUrl && (
+                                                <img
+                                                    src={`${API_URL}${dest.imageUrl}`}
+                                                    alt={dest.name}
+                                                    className="w-10 h-10 rounded-lg object-cover shrink-0 ring-1 ring-white/10"
+                                                />
+                                            )}
+                                            <div className="flex-1 min-w-0">
+                                                <p className="font-body text-sm font-semibold text-white truncate group-hover:text-primary-fixed transition-colors">
+                                                    {dest.name}
+                                                </p>
+                                                <p className="font-body text-xs text-white/50 truncate">
+                                                    {[dest.city, dest.state, dest.country].filter(Boolean).join(", ")}
+                                                </p>
+                                            </div>
+                                            <ArrowRight className="w-4 h-4 text-white/30 group-hover:text-white/70 transition-colors shrink-0" />
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+
+                            {/* Inline error */}
+                            <div
+                                className={`mt-3 text-center transition-all duration-300 ${searchError ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"}`}
+                            >
+                                <span className="inline-flex items-center gap-2 rounded-full bg-red-500/20 border border-red-400/30 backdrop-blur-md px-4 py-2 text-red-300 font-body text-sm">
+                                    <span className="material-symbols-outlined text-[16px]">error</span>
+                                    {searchError}
+                                </span>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
-                {/* ── Text & search overlay ── */}
-                <div className="absolute inset-0 z-10 flex h-full flex-col items-center justify-center px-4 sm:px-6 text-center pointer-events-none">
-                    <p ref={eyebrowRef} className="eyebrow text-white/80 mb-3 sm:mb-4 md:mb-6 text-xs sm:text-sm md:text-base lg:text-lg font-body font-bold tracking-[0.2em] sm:tracking-widest uppercase">
-                        THE WORLD AWAITS
-                    </p>
-
-                    <h1 ref={headlineRef} className="headline text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display leading-[1.15] text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)] max-w-4xl">
-                        Curated Expeditions for <br className="hidden sm:inline"></br>
-                        the Discerning Explorer
-                    </h1>
-
-                    {/* ── Search pill + Search CTA ── */}
-                    <form
-                        onSubmit={handleSearch}
-                        className="pointer-events-auto relative z-20 mt-6 sm:mt-8 w-full max-w-xl px-1 sm:px-0"
-                        ref={searchBarRef}
-                    >
-                        <div className="flex items-center justify-between gap-2 sm:gap-3 rounded-full bg-white/15 p-1.5 sm:p-2.5 backdrop-blur-md border border-white/20 shadow-2xl">
-                            <div className="flex flex-1 items-center gap-2 sm:gap-3 px-2 sm:px-4 min-w-0">
-                                <MapPin className="text-white/70 w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
-                                <input
-                                    type="text"
-                                    value={searchQuery}
-                                    onChange={(e) => { setSearchQuery(e.target.value); setSearchError(""); }}
-                                    onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
-                                    onBlur={dismissSuggestions}
-                                    placeholder="Where to next?"
-                                    className="w-full bg-transparent font-body text-sm sm:text-base md:text-lg text-white placeholder-white/50 font-medium outline-none"
-                                />
-                            </div>
-
-                            <button
-                                type="submit"
-                                disabled={isSearching}
-                                className="glossy-button shrink-0 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-white font-body text-xs sm:text-sm font-semibold tracking-wide flex items-center gap-1.5 sm:gap-2 transition-all duration-300 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg disabled:opacity-60 disabled:hover:scale-100 cursor-pointer"
-                            >
-                                {isSearching ? (
-                                    <Loader2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" />
-                                ) : (
-                                    <>
-                                        <span>Explore</span>
-                                        <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                                    </>
-                                )}
-                            </button>
-                        </div>
-
-                        {/* Suggestions dropdown */}
-                        {showSuggestions && suggestions.length > 0 && (
-                            <div className="absolute left-0 right-0 mt-2 rounded-2xl bg-[#0a1a2e]/90 backdrop-blur-xl border border-white/15 shadow-2xl overflow-hidden animate-[fadeSlideDown_0.2s_ease-out]">
-                                {suggestions.map((dest) => (
-                                    <button
-                                        key={dest.id}
-                                        type="button"
-                                        onMouseDown={() => pickSuggestion(dest)}
-                                        className="w-full flex items-center gap-4 px-5 py-3 text-left hover:bg-white/10 transition-colors duration-150 group"
-                                    >
-                                        {dest.imageUrl && (
-                                            <img
-                                                src={`${API_URL}${dest.imageUrl}`}
-                                                alt={dest.name}
-                                                className="w-10 h-10 rounded-lg object-cover shrink-0 ring-1 ring-white/10"
-                                            />
-                                        )}
-                                        <div className="flex-1 min-w-0">
-                                            <p className="font-body text-sm font-semibold text-white truncate group-hover:text-primary-fixed transition-colors">
-                                                {dest.name}
-                                            </p>
-                                            <p className="font-body text-xs text-white/50 truncate">
-                                                {[dest.city, dest.state, dest.country].filter(Boolean).join(", ")}
-                                            </p>
-                                        </div>
-                                        <ArrowRight className="w-4 h-4 text-white/30 group-hover:text-white/70 transition-colors shrink-0" />
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-
-                        {/* Inline error */}
-                        <div
-                            className={`mt-3 text-center transition-all duration-300 ${searchError ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"}`}
-                        >
-                            <span className="inline-flex items-center gap-2 rounded-full bg-red-500/20 border border-red-400/30 backdrop-blur-md px-4 py-2 text-red-300 font-body text-sm">
-                                <span className="material-symbols-outlined text-[16px]">error</span>
-                                {searchError}
-                            </span>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-        <FeaturedJourney />
-        <ItinerariesSection />
+            </section>
+            <FeaturedJourney />
+            <ItinerariesSection />
         </div>
     </>);
 }
