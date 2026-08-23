@@ -278,7 +278,7 @@ function Discover() {
                                         onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
                                         onBlur={dismissSuggestions}
                                         placeholder="Where to next?"
-                                        className="w-full bg-transparent font-body text-sm sm:text-base md:text-lg text-white placeholder-white/50 font-medium outline-none"
+                                        className="w-full bg-transparent font-body text-sm sm:text-base md:text-lg text-white placeholder-white/50 font-medium outline-none focus:outline-none focus:ring-0 border-none"
                                     />
                                 </div>
 

@@ -121,21 +121,49 @@ function Navbar() {
                 </Link>
 
                 <div className="hidden md:flex items-center gap-6 lg:gap-8 font-body text-sm lg:text-body-md">
-                    <Link className="nav-links group relative font-body text-sm font-medium text-on-surface-variant hover:text-primary transition-colors py-1" to="/discover">
+                    <Link
+                        className={`nav-links group relative font-body text-sm font-medium transition-colors py-1 ${
+                            pathname === "/" || pathname.startsWith("/discover") ? "text-primary font-semibold" : "text-on-surface-variant hover:text-primary"
+                        }`}
+                        to="/discover"
+                    >
                         Discover
-                        <span className="absolute left-0 -bottom-0.5 h-0.5 w-full bg-primary origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+                        <span className={`absolute left-0 -bottom-0.5 h-0.5 w-full bg-primary origin-left transition-transform duration-300 ${
+                            pathname === "/" || pathname.startsWith("/discover") ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                        }`} />
                     </Link>
-                    <Link className="nav-links group relative font-body text-sm font-medium text-on-surface-variant hover:text-primary transition-colors py-1" to="/itineraries">
+                    <Link
+                        className={`nav-links group relative font-body text-sm font-medium transition-colors py-1 ${
+                            pathname.startsWith("/itineraries") ? "text-primary font-semibold" : "text-on-surface-variant hover:text-primary"
+                        }`}
+                        to="/itineraries"
+                    >
                         Itineraries
-                        <span className="absolute left-0 -bottom-0.5 h-0.5 w-full bg-primary origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+                        <span className={`absolute left-0 -bottom-0.5 h-0.5 w-full bg-primary origin-left transition-transform duration-300 ${
+                            pathname.startsWith("/itineraries") ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                        }`} />
                     </Link>
-                    <Link className="nav-links group relative font-body text-sm font-medium text-on-surface-variant hover:text-primary transition-colors py-1" to="/destinations">
+                    <Link
+                        className={`nav-links group relative font-body text-sm font-medium transition-colors py-1 ${
+                            pathname.startsWith("/destinations") ? "text-primary font-semibold" : "text-on-surface-variant hover:text-primary"
+                        }`}
+                        to="/destinations"
+                    >
                         Destinations
-                        <span className="absolute left-0 -bottom-0.5 h-0.5 w-full bg-primary origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+                        <span className={`absolute left-0 -bottom-0.5 h-0.5 w-full bg-primary origin-left transition-transform duration-300 ${
+                            pathname.startsWith("/destinations") ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                        }`} />
                     </Link>
-                    <Link className="nav-links group relative font-body text-sm font-medium text-on-surface-variant hover:text-primary transition-colors py-1" to="/blogs">
+                    <Link
+                        className={`nav-links group relative font-body text-sm font-medium transition-colors py-1 ${
+                            pathname.startsWith("/blogs") ? "text-primary font-semibold" : "text-on-surface-variant hover:text-primary"
+                        }`}
+                        to="/blogs"
+                    >
                         Blogs
-                        <span className="absolute left-0 -bottom-0.5 h-0.5 w-full bg-primary origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+                        <span className={`absolute left-0 -bottom-0.5 h-0.5 w-full bg-primary origin-left transition-transform duration-300 ${
+                            pathname.startsWith("/blogs") ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                        }`} />
                     </Link>
                 </div>
 
@@ -191,7 +219,9 @@ function Navbar() {
                     <div className="flex flex-col">
                         <Link to="/discover"
                             onClick={handleMobileLinkClick}
-                            className="flex items-center gap-4 py-4 text-on-surface-variant hover:text-primary border-b border-outline-variant/20 transition-colors"
+                            className={`flex items-center gap-4 py-4 border-b border-outline-variant/20 transition-colors ${
+                                pathname === "/" || pathname.startsWith("/discover") ? "text-primary font-semibold" : "text-on-surface-variant hover:text-primary"
+                            }`}
                         >
                             <span className="material-symbols-outlined text-[22px] text-primary">
                                 explore
@@ -202,7 +232,9 @@ function Navbar() {
                         </Link>
                         <Link to="/itineraries"
                             onClick={handleMobileLinkClick}
-                            className="flex items-center gap-4 py-4 text-on-surface-variant hover:text-primary border-b border-outline-variant/20 transition-colors"
+                            className={`flex items-center gap-4 py-4 border-b border-outline-variant/20 transition-colors ${
+                                pathname.startsWith("/itineraries") ? "text-primary font-semibold" : "text-on-surface-variant hover:text-primary"
+                            }`}
                         >
                             <span className="material-symbols-outlined text-[22px] text-primary">
                                 map
@@ -213,7 +245,9 @@ function Navbar() {
                         </Link>
                         <Link to="/destinations"
                             onClick={handleMobileLinkClick}
-                            className="flex items-center gap-4 py-4 text-on-surface-variant hover:text-primary border-b border-outline-variant/20 transition-colors"
+                            className={`flex items-center gap-4 py-4 border-b border-outline-variant/20 transition-colors ${
+                                pathname.startsWith("/destinations") ? "text-primary font-semibold" : "text-on-surface-variant hover:text-primary"
+                            }`}
                         >
                             <span className="material-symbols-outlined text-[22px] text-primary">
                                 location_on
@@ -224,7 +258,9 @@ function Navbar() {
                         </Link>
                         <Link to="/blogs"
                             onClick={handleMobileLinkClick}
-                            className="flex items-center gap-4 py-4 text-on-surface-variant hover:text-primary border-b border-outline-variant/20 transition-colors"
+                            className={`flex items-center gap-4 py-4 border-b border-outline-variant/20 transition-colors ${
+                                pathname.startsWith("/blogs") ? "text-primary font-semibold" : "text-on-surface-variant hover:text-primary"
+                            }`}
                         >
                             <span className="material-symbols-outlined text-[22px] text-primary">
                                 menu_book
@@ -309,7 +345,7 @@ function Navbar() {
                                     setShowSuggestions(true)}
                                 onBlur={dismissSuggestions}
                                 placeholder="Search destinations..."
-                                className="flex-1 bg-transparent font-body text-base sm:text-lg text-on-surface placeholder-on-surface-variant/50 font-medium outline-none min-w-0"
+                                className="flex-1 bg-transparent font-body text-base sm:text-lg text-on-surface placeholder-on-surface-variant/50 font-medium outline-none focus:outline-none focus:ring-0 min-w-0 border-none"
                             />
 
                             {isSearching && (

@@ -174,10 +174,28 @@
 }
 
 /* Global Body & Canvas Theme */
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   background-color: var(--color-surface);
   color: var(--color-on-surface);
 }
+
+/* Luxury Editorial Selection Highlight */
+::selection {
+  background-color: #ffdbd0;
+  color: #a23f1a;
+}
+
+::-moz-selection {
+  background-color: #ffdbd0;
+  color: #a23f1a;
+}
+
+
 
 /* Global Scrollbar Removal (Chrome, Safari, Edge, Firefox, Opera) */
 html,

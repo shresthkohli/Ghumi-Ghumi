@@ -89,11 +89,10 @@ function DestinationCard({ destination, featured = false, onRequireLogin, onTogg
                     disabled={isProcessing}
                     title={isFavorite ? "Remove from favorites" : "Add to favorites"}
                     aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
-                    className={`absolute top-4 right-4 h-9 w-9 sm:h-10 sm:w-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-md cursor-pointer z-10 ${
-                        isFavorite
+                    className={`absolute top-4 right-4 h-9 w-9 sm:h-10 sm:w-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-md cursor-pointer z-10 ${isFavorite
                             ? "bg-red-500 text-white shadow-red-500/30 scale-105 hover:bg-red-600 hover:scale-110"
                             : "bg-white/15 backdrop-blur-md text-white border border-white/20 hover:bg-white/30 hover:scale-105"
-                    }`}
+                        }`}
                 >
                     <span
                         className="material-symbols-outlined text-base sm:text-lg transition-transform duration-200"

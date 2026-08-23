@@ -18,10 +18,12 @@ import Sustainability from './pages/Sustainability.jsx';
 import PrivacyPolicy from './pages/PrivacyPolicy.jsx';
 import TermsOfService from './pages/TermsOfService.jsx';
 import Contact from './pages/Contact.jsx';
+import NotFound from './pages/NotFound.jsx';
 
 // Components
 import Navbar from './components/common/Navbar.jsx'
 import Footer from './components/common/Footer.jsx';
+import BackToTop from './components/common/BackToTop.jsx';
 
 function App() {
     const [darkMode, setdarkMode] = useState(false);
@@ -46,8 +48,10 @@ function App() {
                         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                         <Route path="/terms-of-service" element={<TermsOfService />} />
                         <Route path="/contact" element={<Contact />} />
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                     <Footer />
+                    <BackToTop />
                 </BrowserRouter>
             </AuthProvider>
         </>
