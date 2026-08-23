@@ -24,14 +24,18 @@ function ItinerariesSection() {
         split = new SplitText(titleRef.current, { type: "words, chars" });
       }
 
+      let floatTween;
+
       // Entrance timeline triggered on scroll when section enters view
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 65%",
-          toggleActions: "play none none none",
-          once: true,
+          start: "top 70%",
+          toggleActions: "play none none reverse",
           invalidateOnRefresh: true,
+          onLeaveBack: () => {
+            if (floatTween) floatTween.kill();
+          },
         },
       });
 
@@ -119,8 +123,9 @@ function ItinerariesSection() {
             duration: 1.0,
             ease: "power3.out",
             onComplete: () => {
+              if (floatTween) floatTween.kill();
               // Smooth idle float physics
-              gsap.to(cardWindowRef.current, {
+              floatTween = gsap.to(cardWindowRef.current, {
                 y: -8,
                 rotateY: 1.5,
                 rotateX: -1.5,
@@ -156,6 +161,7 @@ function ItinerariesSection() {
       return () => {
         if (split) split.revert();
         if (flowTween) flowTween.kill();
+        if (floatTween) floatTween.kill();
         tl.kill();
       };
     },
