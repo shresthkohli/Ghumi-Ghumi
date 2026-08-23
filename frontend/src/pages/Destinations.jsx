@@ -27,6 +27,7 @@ function Destinations() {
     const [activeBudgets, setActiveBudgets] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [showLoginModal, setShowLoginModal] = useState(false);
+    const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
     const pageRef = useRef(null);
     const headerRef = useRef(null);
@@ -193,8 +194,8 @@ function Destinations() {
                 );
             }
 
-            // Filter sidebar entrance (scroll-triggered once)
-            if (sidebarRef.current) {
+            // Filter sidebar entrance (scroll-triggered once on desktop only)
+            if (sidebarRef.current && window.innerWidth >= 768) {
                 gsap.fromTo(
                     sidebarRef.current,
                     { opacity: 0, x: -35, filter: "blur(4px)" },
@@ -323,7 +324,7 @@ function Destinations() {
     return (
         <div ref={pageRef} className="bg-surface min-h-screen">
             {/* Hero header */}
-            <header ref={headerRef} className="relative bg-[#0b2b26] pt-8 sm:pt-12 pb-16 sm:pb-24 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop overflow-hidden">
+            <header ref={headerRef} className="relative bg-[#0b2b26] pt-8 sm:pt-12 pb-12 sm:pb-16 md:pb-24 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop overflow-hidden">
                 <div className="max-w-container-max mx-auto relative z-10">
                     <nav
                         ref={navRef}
@@ -350,27 +351,30 @@ function Destinations() {
             </header>
 
             {/* Content */}
-            <main className="max-w-container-max mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop -mt-8 sm:-mt-12 pb-12 sm:pb-16 md:pb-section-gap flex flex-col md:flex-row gap-gutter">
-                <div ref={sidebarRef} className="shrink-0 w-full md:w-80">
+            <main className="max-w-container-max mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-margin-desktop mt-4 sm:mt-6 md:-mt-12 pb-12 sm:pb-16 md:pb-section-gap flex flex-col md:flex-row gap-gutter">
+                <div ref={sidebarRef} className="shrink-0 md:w-80">
                     <FilterSidebar
                         activeCategories={activeCategories}
                         onCategoryToggle={handleCategoryToggle}
                         activeBudgets={activeBudgets}
                         onBudgetToggle={handleBudgetToggle}
                         onClearAll={handleClearAll}
+                        isOpen={isMobileFilterOpen}
+                        onClose={() => setIsMobileFilterOpen(false)}
+                        totalResults={filteredDestinations.length}
                     />
                 </div>
 
                 <section className="grow min-w-0">
                     <div
                         ref={resultsBarRef}
-                        className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6"
+                        className="flex items-center justify-between gap-3 mb-6"
                     >
-                        <div className="flex items-center gap-3">
-                            <span className="font-body text-body-md text-primary-container z-10">
-                                <span className="font-bold text-on-primary text-lg">
-                                    {filteredDestinations.length}
-                                </span>{" "}
+                        <div className="flex items-baseline gap-2">
+                            <span className="font-display font-bold text-on-surface text-xl sm:text-2xl">
+                                {filteredDestinations.length}
+                            </span>
+                            <span className="font-body text-on-surface-variant font-medium text-sm sm:text-base">
                                 {filteredDestinations.length === 1 ? "destination" : "destinations"} found
                             </span>
                         </div>
@@ -379,10 +383,10 @@ function Destinations() {
                             <button
                                 type="button"
                                 onClick={handleClearAll}
-                                className="text-xs text-primary font-semibold hover:underline flex items-center gap-1 self-start sm:self-auto cursor-pointer"
+                                className="text-xs text-primary font-semibold hover:underline flex items-center gap-1 cursor-pointer"
                             >
                                 <span className="material-symbols-outlined text-sm">filter_alt_off</span>
-                                Clear all filters ({totalActiveFilters})
+                                Clear all ({totalActiveFilters})
                             </button>
                         )}
                     </div>
@@ -479,6 +483,24 @@ function Destinations() {
                     )}
                 </section>
             </main>
+
+            {/* Floating Mobile Filter Pill Button (Bottom Left) */}
+            <div className="fixed bottom-6 left-6 z-30 md:hidden">
+                <button
+                    type="button"
+                    onClick={() => setIsMobileFilterOpen(true)}
+                    className="flex items-center gap-2.5 px-4.5 py-2.5 rounded-full bg-[#ede1d7] border border-[#dec0b7] text-on-surface shadow-lg hover:bg-[#e4d6cb] active:scale-95 transition-all duration-200 cursor-pointer"
+                    aria-label="Open filters"
+                >
+                    <span className="material-symbols-outlined text-primary text-xl font-medium">tune</span>
+                    <span className="font-semibold text-sm text-[#1f1b15]">Filters</span>
+                    {totalActiveFilters > 0 && (
+                        <span className="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-primary text-white">
+                            {totalActiveFilters}
+                        </span>
+                    )}
+                </button>
+            </div>
 
             <LoginModal
                 open={showLoginModal}

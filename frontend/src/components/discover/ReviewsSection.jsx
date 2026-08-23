@@ -232,7 +232,15 @@ export default function ReviewsSection() {
                 stagger: 0.1,
               });
             },
-            once: true,
+            onLeave: (batch) => {
+              gsap.to(batch, { opacity: 0, y: -30, scale: 0.96, duration: 0.4, ease: "power2.in" });
+            },
+            onEnterBack: (batch) => {
+              gsap.to(batch, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out", stagger: 0.1 });
+            },
+            onLeaveBack: (batch) => {
+              gsap.to(batch, { opacity: 0, y: 50, scale: 0.94, duration: 0.4, ease: "power2.in" });
+            },
           });
         }
       }

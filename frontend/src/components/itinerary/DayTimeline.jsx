@@ -16,7 +16,7 @@ function DayTimeline({ days = [], activeDay, onDayClick, onAddDay, startDate }) 
     return (
         <>
             {/* Mobile Horizontal Sticky Day Navigation */}
-            <div className="md:hidden col-span-4 sticky top-[64px] z-30 -mx-4 px-4 py-2.5 bg-background/95 backdrop-blur-md border-b border-outline-variant/30 flex items-center gap-2 overflow-x-auto no-scrollbar shadow-xs">
+            <div className="md:hidden col-span-4 sticky top-0 z-30 -mx-4 sm:-mx-6 px-4 sm:px-6 py-3 bg-surface/98 backdrop-blur-md border-b border-outline-variant/40 flex items-center gap-2 overflow-x-auto no-scrollbar shadow-xs">
                 {days.map((dayNumber) => {
                     const isActive = dayNumber === activeDay;
                     const meta = getDayMeta(dayNumber);
@@ -26,7 +26,7 @@ function DayTimeline({ days = [], activeDay, onDayClick, onAddDay, startDate }) 
                             key={dayNumber}
                             type="button"
                             onClick={() => onDayClick(dayNumber)}
-                            className={`shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold font-body transition-all duration-200 cursor-pointer ${
+                            className={`shrink-0 flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold font-body transition-all duration-200 cursor-pointer ${
                                 isActive
                                     ? "bg-primary text-on-primary shadow-sm scale-102"
                                     : "bg-surface-container text-on-surface hover:bg-surface-container-high border border-outline-variant/40"
@@ -45,7 +45,7 @@ function DayTimeline({ days = [], activeDay, onDayClick, onAddDay, startDate }) 
                 <button
                     type="button"
                     onClick={onAddDay}
-                    className="shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/30 text-xs font-semibold font-body hover:bg-primary hover:text-on-primary transition-all duration-200 cursor-pointer"
+                    className="shrink-0 flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/30 text-xs font-semibold font-body hover:bg-primary hover:text-on-primary transition-all duration-200 cursor-pointer"
                 >
                     <span className="material-symbols-outlined text-sm">add</span>
                     <span>Day</span>

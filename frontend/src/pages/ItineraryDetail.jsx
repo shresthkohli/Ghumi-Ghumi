@@ -411,7 +411,7 @@ function ItineraryDetail() {
                                     key={dayNumber}
                                     data-animate-day
                                     ref={(el) => (dayRefs.current[dayNumber] = el)}
-                                    className="relative scroll-mt-[120px]"
+                                    className="relative scroll-mt-[70px] md:scroll-mt-[120px]"
                                 >
                                     {/* Day Header Bar */}
                                     <div className="day-header flex justify-between items-end mb-6 pb-4 border-b border-surface-variant">
