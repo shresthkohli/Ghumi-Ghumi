@@ -31,7 +31,7 @@ async function signupService(userData) {
 
     console.log(user);
 
-    return user;
+    return createLoginResponse(user);
 }
 
 async function loginService(credentials) {
